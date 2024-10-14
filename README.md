@@ -1,7 +1,7 @@
-# Qidi Plus4 Extras
+# Qidi Community Plus4 Wiki
 
-This is a summary collection of my various config tweaks, print profiles, discussion of,
-and links to various printable models I've developed for improving the user experience
+This is a summary collection of various config tweaks, print profiles, the discussion of, and
+links to various printable models that have been developed for improving the user experience
 of the Qidi Plus4 3D printer.
 
 
