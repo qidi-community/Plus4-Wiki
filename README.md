@@ -12,25 +12,25 @@ of the Qidi Plus4 3D printer.
 
 ## Issues and Possible Fixes
 
-### [PLA/PETG Heat-creep clogging](https://github.com/stew675/qidi-plus4-extras/tree/main/content/nozzle-clogging-tips)
+### [PLA/PETG Heat-creep clogging](./content/nozzle-clogging-tips)
 
-### [Chamber Heater Issue](https://github.com/stew675/qidi-plus4-extras/tree/main/content/chamber-heater-issue)
+### [Chamber Heater Issue](./content/chamber-heater-issue)
 
 
 ## Printer Configuration Tweaks
 
-### [Enhanced Stepper Motor Configuration](https://github.com/stew675/qidi-plus4-extras/tree/main/content/stepper-motor-tweaks)
+### [Enhanced Stepper Motor Configuration](./content/stepper-motor-tweaks)
 
-### [Tweak to Square Corner Velocity](https://github.com/stew675/qidi-plus4-extras/tree/main/content/square-corner-velocity)
+### [Tweak to Square Corner Velocity](./content/square-corner-velocity)
 
-### [Adaptive Main Board Cooling configuration](https://github.com/stew675/qidi-plus4-extras/tree/main/content/adaptive-main-board-cooling)
+### [Adaptive Main Board Cooling configuration](./content/adaptive-main-board-cooling)
 
-### [Making Z-Offset Permanent](https://github.com/stew675/qidi-plus4-extras/tree/main/content/making-z-offset-permanent)
+### [Making Z-Offset Permanent](./content/making-z-offset-permanent)
 
 
 ## Orca Slicer Configuration
 
-### [Orca Slicer Settings](https://github.com/stew675/qidi-plus4-extras/tree/main/content/orca-slicer-settings)
+### [Orca Slicer Settings](./content/orca-slicer-settings)
 
 
 ## Printable Models
@@ -46,7 +46,7 @@ of the Qidi Plus4 3D printer.
 
 ## Additional Software
 
-### [Klippain Shake & Tune v4.1.0 - Qidi Plus 4 Compatible Version](https://github.com/stew675/klippain-shaketune-for-qidi-plus4)
+### [Klippain Shake & Tune v4.1.0 - Qidi Plus 4 Compatible Version](https://github.com/qidi-community/ShakeTune-For-Plus4)
 
 
 ## Aftermarket Parts
@@ -58,7 +58,7 @@ of the Qidi Plus4 3D printer.
 
 ## Maintenance Tips
 
-### [Adjusting Belt Tension](https://github.com/stew675/qidi-plus4-extras/tree/main/content/adjusting-belt-tension)
+### [Adjusting Belt Tension](./content/adjusting-belt-tension)
 
 
 ## Hardware Fixes
