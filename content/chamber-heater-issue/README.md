@@ -18,23 +18,22 @@ The following is a software workaround that attempts to mitigate the issue pendi
 While the following does not fix the fundamental hardware flaw in the printer's design, it does attempt to mitigate its impact.
 The following configuration will shut down the chamber heater whenever the print bed is in the last 20mm of travel (ie. at a Z height of 260mm or more).
 
-The idea here is to diable the heater and complete the last 20mm of Z travel printing by "coasting" on the latent heat within the chamber and the heat still being supplied by the print bed.  While this is not a true fix, it will at least mitigate the firmware shutdown issue and MAY still allow the print to complete successfully.
+The idea here is to disable the heater and complete the last 20mm of Z travel printing by "coasting" on the latent heat within the chamber and the heat still being supplied by the print bed.  While this is not a true fix, it will at least mitigate the firmware shutdown issue and MAY still allow the print to complete successfully.
 
 Within the `gcode-macro.cfg` file we can add in the following macro:
 
 ```
 
-[gcode_macro CHECK_CHAMBER_HEATER_Z]
+[gcode_macro SET_PRINT_STATS_INFO]
+rename_existing: SET_PRINT_STATS_INFO_BASE
 gcode:
+    {% set curlayer =  params.CURRENT_LAYER|default(1)|int %}
     {% if (printer.toolhead.position.z) > 260 %}
         M141 S0
     {% endif %}
+    SET_PRINT_STATS_INFO_BASE CURRENT_LAYER={curlayer}
 
 ```
 
-Now within the printer definition within the Slicer software, we can call this macro from the Layer-Change Gcode, like so:
-
-<insert image here>
-
-This will call the macro upon every layer change, and when the Z height exceeds 260mm, the chamber heater will be disabled.
-This should prevent the chance for a thermal shutdown event being triggered by the chamber heater.
+This will call the macro upon every layer change (as this command is called on every layer change in all stock printing profiles), and when the Z height exceeds 260mm, the chamber heater will be disabled.
+This should prevent the chance for a thermal shutdown event being triggered by the chamber heateral, and leave the chamber to coast on existing heat. 
