@@ -1,6 +1,6 @@
 # How to adjust belt tension on the Qidi Plus 4
 
-Note: Also see the [increasing belt tension](https://github.com/stew675/qidi-plus4-extras/tree/main/content/adjusting-belt-tension#how-to-increasebalance-the-belt-tension-on-the-plus-4)
+Note: Also see the [increasing belt tension](#how-to-increasebalance-the-belt-tension-on-the-plus-4)
 procedure if you're interested in doing that instead.
 
 ## Belt Adjustment Procedure
@@ -15,15 +15,15 @@ Loosen the 8 belt tension clamping bolts on the rear of the Plus 4.  See the pho
 
 About 3 full turns anti-clockwise on each bolt is sufficient to release their clamping pressure.
   
-![Left side](https://github.com/stew675/qidi-plus4-extras/blob/main/content/adjusting-belt-tension/Tensioner-Locking-Bolts-A.jpg)
+![Left side](./Tensioner-Locking-Bolts-A.jpg)
 
-![Right side](https://github.com/stew675/qidi-plus4-extras/blob/main/content/adjusting-belt-tension/Tensioner-Locking-Bolts-B.jpg)
+![Right side](./Tensioner-Locking-Bolts-B.jpg)
 
 ## 3 - Move the print head around
 
 Following the pattern shown in the photo below:
 
-![Head Movement Pattern](https://github.com/stew675/qidi-plus4-extras/blob/main/content/adjusting-belt-tension/Plus4-Topdown.png)
+![Head Movement Pattern](./Plus4-Topdown.png)
 
 ### 4 - Retighten the belt clamping bolts 
 
