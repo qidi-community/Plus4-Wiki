@@ -43,6 +43,10 @@ of the Qidi Plus4 3D printer.
 
 ### [Mainboard Rear cover that allows use of an 80mm fan](https://www.thingiverse.com/thing:6787302)
 
+### [Lid Hangers](https://www.printables.com/model/1025183-qidi-plus-4-lid-hanger)
+
+### [Filter Exhaust Blocker](https://www.printables.com/model/1037302-qidi-plus-4-filter-exhaust-blocker)
+
 
 ## Additional Software
 
@@ -55,10 +59,18 @@ of the Qidi Plus4 3D printer.
 
 ### [Replacement hotend heatsink fan - GDSTime GDA30105F (EU Store)](https://www.hotend.eu/p/gdstime-axial-fan-sleeve-3010-24v)
 
+### [Replacement hotend heatsink fan - GDSTime GDA30105F (CN Store)](https://www.aliexpress.com/item/1005001769596081.html)
+
+### [Replacement 80 mm mainboard fan - Sunon MF80252V2 (US Store)](https://www.mouser.com/ProductDetail/Sunon/MF80252V2-1000U-A99?qs=EU6FO9ffTweuBOiBDgCHHA%3D%3D)
+
+### [Replacement 80 mm mainboard fan - Sunon MF80252V2 (EU Store)](https://eu.mouser.com/ProductDetail/Sunon/MF80252V2-1000U-A99?qs=EU6FO9ffTweuBOiBDgCHHA%3D%3D)
+
 
 ## Maintenance Tips
 
 ### [Adjusting Belt Tension](./content/adjusting-belt-tension)
+
+### [Lubing Idler Bearings](https://drive.google.com/file/d/1_KHpMQJNxle0u21L5dIt-LYLbkvVnGiD/view)
 
 
 ## Hardware Fixes
