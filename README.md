@@ -47,6 +47,7 @@ of the Qidi Plus4 3D printer.
 
 ### [Filter Exhaust Blocker](https://www.printables.com/model/1037302-qidi-plus-4-filter-exhaust-blocker)
 
+### [Rear Chamber Seal](https://www.printables.com/model/1040774-qidi-plus-4-rear-chamber-cover)
 
 ## Additional Software
 
