@@ -17,7 +17,7 @@ For smaller models this will also ensure a more even layer time, which will mini
 
 While the Tab Settings from the below sections demonstrate the changes made in image form, the profile can be imported into OrcaSlicer directly.
 
-First download the [profile JSON file](https://github.com/stew675/qidi-plus4-extras/blob/main/content/orca-slicer-settings/Print_Profiles/High-Quality-0.2/0.20mm%20-%20High%20Quality%20-%20QDN040.json)
+First download the [profile JSON file](https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/orca-slicer-settings/Print_Profiles/High-Quality-0.2/0.20mm%20-%20High%20Quality%20-%20QDN040.json)
 
 Then in OrcaSlicer do: `File -> Import -> Inport Configs...` and then choose the JSON file you just downloaded.  That should import the full profile in one step.
 
