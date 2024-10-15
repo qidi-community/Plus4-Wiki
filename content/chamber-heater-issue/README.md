@@ -28,7 +28,7 @@ Within the `gcode-macro.cfg` file we can add in the following macro:
 rename_existing: SET_PRINT_STATS_INFO_BASE
 gcode:
     {% set curlayer =  params.CURRENT_LAYER|default(1)|int %}
-    {% if (printer.toolhead.position.z) > 260 %}
+    {% if (printer.toolhead.position.z) > 268 %}
         M141 S0
     {% endif %}
     SET_PRINT_STATS_INFO_BASE CURRENT_LAYER={curlayer}
