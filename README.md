@@ -49,6 +49,12 @@ of the Qidi Plus4 3D printer.
 
 ### [Rear Chamber Seal](https://www.printables.com/model/1040774-qidi-plus-4-rear-chamber-cover)
 
+### [HEPA/Activated Carbon filtration system](https://www.printables.com/model/1022271-qidi-plus-4-filtration-system)
+
+### [4 inch Duct extraction adapter](https://www.printables.com/model/1036212-qidi-plus-4-4-inch-duct)
+
+### [Hole blocking plate](https://www.printables.com/model/1039152-qidi-4-plus-ports-cover)
+
 ## Additional Software
 
 ### [Klippain Shake & Tune v4.1.0 - Qidi Plus 4 Compatible Version](https://github.com/qidi-community/ShakeTune-For-Plus4)
