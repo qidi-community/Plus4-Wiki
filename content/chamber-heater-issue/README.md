@@ -37,3 +37,12 @@ gcode:
 
 This will call the macro upon every layer change (as this command is called on every layer change in all stock printing profiles), and when the Z height exceeds 268mm, the chamber heater will be disabled.
 This should prevent the chance for a thermal shutdown event being triggered by the chamber heateral, and leave the chamber to coast on existing heat. 
+
+In addtion, for added safety the chamber heater fan can be set to run even if the printer shutsdown due to the chamber heater overheating. This can be done by modifying the following in `printer.cfg`:
+
+```
+[chamber_fan chamber_fan]
+shutdown_speed: 1 
+```
+
+
