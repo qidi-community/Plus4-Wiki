@@ -15,9 +15,11 @@ The KAMP purge line, being thicker and shorter, makes it easy to flick off the b
 
 Doing the following will enable the `LINE_PURGE` macro in Klipper, which we will use later.
 
-First we must uncomment the `[include ./KAMP/Line_Purge.cfg]` line in the `KAMP_Setting.cfg` file, which lives in the same directory as `printer.cfg`
+First we must edit the `KAMP_Setting.cfg` file, which lives in the same directory as `printer.cfg`
 
 ![Where to find KAMP_Settings file](./Kamp_Settings_cfg.png)
+
+Now we must uncomment the `[include ./KAMP/Line_Purge.cfg]` line 
 
 If you plan on printing with TPU, I also recommend changing the `variable_flow_rate` field in that file to have a value of `4`.
 The default of `12` here is way too high for TPU, and possibly some other filament types, and can cause oozing and extruder issues.
