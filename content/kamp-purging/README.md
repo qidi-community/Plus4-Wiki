@@ -26,7 +26,7 @@ The default of `12` here is way too high for TPU, and possibly some other filame
 
 Once that line is uncommented, and `variable_flow_rate` is adjusted, click save and restart.
 
-![Uncommenting KAMP's Line Purge Config](./Uncomment_Line_Purge.png)
+![Uncommenting KAMP's Line Purge Config](./Uncomment-Line-Purge.png)
 
 ## Editing the Printer's Start G-Code in the slicer
 
