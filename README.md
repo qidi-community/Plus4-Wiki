@@ -27,6 +27,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Making Z-Offset Permanent](./content/making-z-offset-permanent)
 
+### [Enabling KAMP Purge Line](./content/kamp-purging)
+
 
 ## Orca Slicer Configuration
 
