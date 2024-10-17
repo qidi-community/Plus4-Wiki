@@ -17,12 +17,14 @@ Doing the following will enable the `LINE_PURGE` macro in Klipper, which we will
 
 First we must uncomment the `[include ./KAMP/Line_Purge.cfg]` line in the `KAMP_Setting.cfg` file, which lives in the same directory as `printer.cfg`
 
+![Where to find KAMP_Settings file](./Kamp_Settings_cfg.png)
+
 If you plan on printing with TPU, I also recommend changing the `variable_flow_rate` field in that file to have a value of `4`.
 The default of `12` here is way too high for TPU, and possibly some other filament types, and can cause oozing and extruder issues.
 
 Once that line is uncommented, and `variable_flow_rate` is adjusted, click save and restart.
 
-<Insert Image>
+![Uncommenting KAMP's Line Purge Config](./Uncomment_Line_Purge.png)
 
 ## Editing the Printer's Start G-Code in the slicer
 
@@ -43,6 +45,6 @@ G1 X{max((min(print_bed_max[0] - 12, first_layer_print_min[0] + 80) - 85), 0) + 
 
 We want to remove those lines and put `LINE_PURGE` in their place, like so.
 
-<Insert Image>
+![Modifying Slicer Printer Start G-Code](./Adding_Line_Purge_Gcode.png)
 
 ...and that's basically it.  Now you have an easy to remove purge line that takes up less of the build area.
