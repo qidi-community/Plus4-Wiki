@@ -17,7 +17,7 @@ Doing the following will enable the `LINE_PURGE` macro in Klipper, which we will
 
 First we must edit the `KAMP_Setting.cfg` file, which lives in the same directory as `printer.cfg`
 
-![Where to find KAMP_Settings file](./Kamp_Settings_cfg.png)
+![Where to find KAMP_Settings file](./Finding_Kamp_Settings_Cfg_File.png)
 
 Now we must uncomment the `[include ./KAMP/Line_Purge.cfg]` line 
 
