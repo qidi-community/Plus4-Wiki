@@ -57,6 +57,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Hole blocking plate](https://www.printables.com/model/1039152-qidi-4-plus-ports-cover)
 
+### [Push In Place Door Sealing Strip](https://www.thingiverse.com/thing:6801577)
+
 ## Additional Software
 
 ### [Klippain Shake & Tune v4.1.0 - Qidi Plus 4 Compatible Version](https://github.com/qidi-community/ShakeTune-For-Plus4)
