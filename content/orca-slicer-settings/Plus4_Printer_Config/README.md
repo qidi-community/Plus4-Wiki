@@ -2,11 +2,11 @@
 
 ## Basic Information Settings
 
-![alt text](https://github.com/stew675/qidi-plus4-extras/blob/main/content/orca-slicer-settings/Plus4_Printer_Config/Basic_Information.png "Basic Information")
+![alt text](https://github.com/qidi-community/Plus4-Wiki/blob/main/content/orca-slicer-settings/Plus4_Printer_Config/Basic_Information.png "Basic Information")
 
 ## Extruder 1 Settings
 
-![alt text](https://github.com/stew675/qidi-plus4-extras/blob/main/content/orca-slicer-settings/Plus4_Printer_Config/Extruder.png "Extruder 1 Settings")
+![alt text](https://github.com/qidi-community/Plus4-Wiki/blob/main/content/orca-slicer-settings/Plus4_Printer_Config/Extruder.png "Extruder 1 Settings")
 
 ## Suggested Machine G-code Configurations
 
