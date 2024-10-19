@@ -26,4 +26,4 @@ speed: 50.
 screw_thread: CW-M4
 
 Home your printer then run Z_TILT_ADJUST
-Once finished type SCREWS_TILT_CALIBRATE into your console and follow the directions on adjusting each screw either clock-wise or counter clockwise. The direction is based from looking at the screws from above. 
+Once finished type SCREWS_TILT_CALCULATE into your console and follow the directions on adjusting each screw either clock-wise or counter clockwise. The direction is based from looking at the screws from above. 
