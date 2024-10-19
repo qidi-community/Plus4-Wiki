@@ -59,6 +59,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Push In Place Door Sealing Strip](https://www.thingiverse.com/thing:6801577)
 
+### [WIP - A better chamber thermal sensor mounting position](https://www.thingiverse.com/thing:6802256)
+
 ## Additional Software
 
 ### [Klippain Shake & Tune v4.1.0 - Qidi Plus 4 Compatible Version](https://github.com/qidi-community/ShakeTune-For-Plus4)
