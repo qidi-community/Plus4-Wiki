@@ -1,50 +1,31 @@
-# Enabling Screws_TILT_ADJUST
+# Enabling SCREWS_TILT_CALCULATE
 
-The Screws_Tilt_Adjust macro allows you to use the accuracy of your printer's inductive probe to adjust each corner of the bed during the tramming process. 
+The `SCREWS_TILT_CALCULATE` macro allows you to use the accuracy of your printer's inductive probe to adjust each corner of the bed during the tramming process. 
 Similar to the built in calibration, which places the nozzle directly above each corner's bed leveling screw, this macro will place the inductive probe over each screw instead.
 
 Using your inductive probe's precision will allow a more accurate bed tramming to the gantry and subsequently a flatter printing surface.
 This also allows klipper to tell you exactly how much each screw will need to be turned, and in which direction to achieve this. 
 
-# Printer.cfg Changes
-On stock, the [screws_tilt_adjust] section is commented out and does not have the necessary screw locations.
-Unfortunately, sdding in the locations from [BED_SCREWS] directly will not work as this places the nozzle over the desired area and not the inductive probe which could result in a potential nozzle crash
+## Installation
 
-Using the x and y stock nozzle offset for the inductive probe:
-x_offset: 25
-y_offset: 1.3
-
-and the screw locations from [Bed_Screws] we can get the required coordinates
-
-## Printer.cfg Changes
-In printer.cfg, replace
-
-#[screws_tilt_adjust] <br>
-#screw_thread: CM-M4
-
-with:
-```
-[screws_tilt_adjust]
-screw1:0,19.7
-screw1_name: Front left
-screw2: 260,19.7
-screw2_name: Front right
-screw3: 260,279.7
-screw3_name: Last right
-screw4: 0,279.7
-horizontal_move_z: 10.
-speed: 50.
-screw_thread: CW-M4
-```
+The [config-xplus4](https://github.com/qidi-community/config-xplus4/tree/main) repo contains the most up to date version of the `screws-tilt-calculate.cfg`. Please follow the install process outlined there to get this macro up and running. 
 
 ## How to use the Macro
 
 Home your printer then run 
 
-Z_TILT_ADJUST
+`SCREWS_TILT_CALCULATE`
 
-Once finished type
+The printer will probe each corner of the bed and then display a popup like this: 
 
-SCREWS_TILT_CALCULATE
+![image](https://github.com/user-attachments/assets/27722936-8ce3-4062-b7e4-33463361283e)
 
- into your console and follow the directions on adjusting each screw either clock-wise or counter clockwise. The direction is based from looking at the screws from above. 
+The most important values are on the left side and in green or red. The numbers are the amount of difference between that bed screw and the `base` bed screw. Note the icon infront of each number is either an arrow point clockwise or counter-clockwise. This is the direction you must turn the bed screw to adjust it. 
+
+The numbers are in the hour:minute format. For example 00:15 means you would need to turn the screw one quarter turn. 
+
+Adjust all the values in red and press `Retry` until all the values are in green.
+
+Finally run `Z_TILT_ADJUST`
+
+Done! You can check your work by doing a full bed mesh calibrate. 
