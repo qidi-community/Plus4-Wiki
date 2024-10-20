@@ -29,6 +29,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Enabling KAMP Purge Line](./content/kamp-purging)
 
+### [Enabling Screws_Tilt_Adjust](./content/Screws-Tilt-Adjust/)
+
 
 ## Orca Slicer Configuration
 
