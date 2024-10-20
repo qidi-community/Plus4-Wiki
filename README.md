@@ -61,6 +61,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Push In Place Door Sealing Strip](https://www.thingiverse.com/thing:6801577)
 
+### [Belt Tensioners](https://www.printables.com/model/1044712-qidi-plus4-belt-tensioners/files)
+
 ### [WIP - A better chamber thermal sensor mounting position](https://www.thingiverse.com/thing:6802256)
 
 ## Additional Software
