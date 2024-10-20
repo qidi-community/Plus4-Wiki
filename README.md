@@ -55,6 +55,10 @@ of the Qidi Plus4 3D printer.
 
 ### [HEPA/Activated Carbon filtration system](https://www.printables.com/model/1022271-qidi-plus-4-filtration-system)
 
+### [Exhaust adapter attachment (with CAD)](https://www.printables.com/model/1040218-qidi-plus-4-exhaust-adapter)
+
+### [Lid prop](https://www.printables.com/model/1039528-qidi-plus4-lid-prop)
+
 ### [4 inch Duct extraction adapter](https://www.printables.com/model/1036212-qidi-plus-4-4-inch-duct)
 
 ### [Hole blocking plate](https://www.printables.com/model/1039152-qidi-4-plus-ports-cover)
