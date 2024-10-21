@@ -24,8 +24,8 @@ The most important values are on the left side and in green or red. The numbers 
 
 The numbers are in the hour:minute format. For example 00:15 means you would need to turn the screw one quarter turn. 
 
-Adjust all the values in red and press `Retry` until all the values are in green.
+Adjust all the values in red and press `Retry` until all the values are in green. 
 
-Finally run `Z_TILT_ADJUST`
+Lock down the nuts under the bed screw knobs
 
 Done! You can check your work by doing a full bed mesh calibrate. 
