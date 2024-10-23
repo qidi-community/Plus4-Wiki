@@ -26,7 +26,7 @@ I won't keep you in suspense.  That sneaky thing is hiding here!
 
 In the back right corner of the print chamber, below and to the right of the right stepper motor, and under the frame bar.
 
-![Chamber Sensor Location](./sensor_location.jpg "Sneaky little sucker, isn't he?!")
+![Chamber Sensor Location](./sensor_location.jpg "Sneaky little sucker!")
 
 ## So, what are we talking about here?  How much is it lying?
 
@@ -50,7 +50,7 @@ is in the vicinity of where the printing action happens.
 
 So, I put a thermal probe to measure the chamber air temps where it really matters, and that's right here!
 
-![Watch it!](./Thermal-Probe.jpg "Hey! Watch where youre sticking that thing!")
+![Watch it!](./Thermal-Probe.jpg "Hey! Watch where you stick that thing!")
 
 
 (LOTS OF STUFF TO COME)
