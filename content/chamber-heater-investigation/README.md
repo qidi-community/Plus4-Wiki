@@ -201,6 +201,18 @@ Let's overlay our new virtual sensor temperature onto the previous graphs:
 
 ![270-280mm](./3-1-Mean-270-280.png "270mm-280mm Z-height")
 
+Aha!  Much better!!
+
+## But it looks to be underestimating a bit now!  What is that good?
+
+It's still a bit under the true temperatures, but when it comes to estimating the true chamber temperature it's better to underestimate by a degree or two, than to over-estimate.
+This gives the chamber heater time to turn on and warm things up again when needed before things get too cold.
+Remember, it's heating a fairly large volume.
+
+Keep in mind the vast difference to the stock thermal sensor, where it was WAY underestimating, and so always running the heater unit way more than necessary.
+
+Save power, temperatures more stable, less wild swings.  It's all good news now!
+
 ___
 
 ![Under Construction](./under-construction.jpg "Mind the gaps!")
