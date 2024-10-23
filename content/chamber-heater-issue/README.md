@@ -91,7 +91,7 @@ the print bed reaches it own target in almost all reasonable scenarios.
 
 This should actually be standard from Qidi, but it's not:
 
-Within the `G29` macro, which is normally located in the `gcode_macro.cfg` file, find that macro, and change the `S141 S0` portion
+Within the `G29` macro, which is normally located in the `gcode_macro.cfg` file, find that macro, and change the `M141 S0` portion
 at the start of the macro to the following:
 
 ```
