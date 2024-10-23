@@ -38,6 +38,10 @@ First find the `[controller_fan board_fan]` section and comment it out like so:
 #fan_speed: 1.0
 #stepper:stepper_x,stepper_y
 ```
+There have been reports of later firmware versions having additional lines to the above `[controller_fan board_fan]` example.
+These should also be commented out if they appear in your configuration.  ie. the entire `[controller_fan board_fan]` section
+should be commented out.
+
 
 Now add the following configuration below the commented out section:
 
