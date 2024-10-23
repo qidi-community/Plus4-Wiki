@@ -39,7 +39,9 @@ gcode:
 
 This will call the macro upon every layer change (as this command is called on every layer change in all stock printing profiles).
 When the Z height exceeds 268mm, the chamber heater target will be set to 10C.
+
 **The target of 10C is important here, instead of using a 0C target.**
+
 Using a 10C target will keep the chamber heater's fan spinning, which will still help to circulate some air under the print bed,
 and this will in turn help to keep the chamber warm as the print bed warms the air-flow under it.
 
