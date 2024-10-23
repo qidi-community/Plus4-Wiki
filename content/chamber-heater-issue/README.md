@@ -101,10 +101,15 @@ gcode:
     {% set temp = printer["heater_generic chamber"].target %}
     {% if temp > 0 %}
         M141 S10
+        G4 P15000
     {% endif %}
     BED_MESH_CLEAR
 ```
 
 Note the change of `S0` to `S10`.
 
-This prevents the `G29` macro from disabling the chamber heater fan while it is still in the process of heating up.
+This will disable the heater coils and ensures that the chamber fan will stay on for a little longer to allow for the heater unit
+to cool down a little more before `get_zoffset` turns the chamber fan off with `TOGGLE_CHAMBER_FAN` after `G28` is called.
+
+Ideally, Qidi should not be disabling the chamber fan on a potentially hot heater unit, so this is the best we can do in the
+meantime until they fix this bit of ugliness.
