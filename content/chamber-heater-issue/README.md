@@ -87,3 +87,24 @@ max_power: 0.5
 Note that while the chamber will take a little longer to reach a target temperature, it should still reach the target temperature before
 the print bed reaches it own target in almost all reasonable scenarios.
 
+**Additional note!!!**
+
+This should actually be standard from Qidi, but it's not:
+
+Within the `G29` macro, which is normally located in the `gcode_macro.cfg` file, find that macro, and change the `S141 S0` portion
+at the start of the macro to the following:
+
+```
+[gcode_macro G29]
+variable_k:1
+gcode:
+    {% set temp = printer["heater_generic chamber"].target %}
+    {% if temp > 0 %}
+        M141 S10
+    {% endif %}
+    BED_MESH_CLEAR
+```
+
+Note the change of `S0` to `S10`.
+
+This prevents the `G29` macro from disabling the chamber heater fan while it is still in the process of heating up.
