@@ -100,9 +100,9 @@ Yep, you saw it right.  When it comes to reporting the chamber temperatures accu
 
 Don't worry, I got you!
 
-So, within the print-head on the Qidi Plus4, there is a STM32F103XE clone CPU being used as the MCU.
+So, within the print-head on the Qidi Plus4, there is a STM32F103XE clone being used for the MCU.
 
-This bad boy has a peak power consumption of just 0.2W at full load (usually MUCH less) and what's more it has a thermal probe built in that the Qidi firmware has access to!  Qidi's FluiddUI config plots this as the GD32 temperature.
+This bad boy has a peak power consumption of just 0.2W at full load (usually MUCH less) and what's more it has a thermal probe built in that the Qidi firmware has access to! This means that it adds some of its own heat to the air temp surrounding it, but in reality, it's a pretty small difference. What's better is that Qidi's FluiddUI config plots this as the GD32 temperature, so we can see what it's doing!
 
 So, let's overlay the GD32 temperature atop the above 2 graphs.
 
@@ -110,7 +110,100 @@ So, let's overlay the GD32 temperature atop the above 2 graphs.
 
 ![270-280mm](./GD32-270-280.png "270mm-280mm Z-height")
 
-Pretty close to the chamber temperature reality huh?  A little bit high, but what if I told you we've got a useful trick up out sleeves.
+Pretty close to the chamber temperature reality huh?  A little bit high due to its own heat, and also being affected by the stepper motor's heat in the print head.
+
+What if I told you we've got a useful trick up our sleeves?
+
+
+## Let's practise some Klipper wizardry!
+
+**WARNING:** Hold onto your hats.  The following section is going to dive into Klipper configs and can be tough to get through for the uninitiated, but I promise it'll be worth it!
+
+Klipper has a handy mechanism called [combined temperature sensors](https://www.klipper3d.org/Config_Reference.html?h=combination#combined-temperature-sensor).
+
+These esoteric commands allow us to construct a virtual sensor which combines multiple sensors together into a single value, and then pretends to be a real sensor that we can do stuff with!
+
+Within the stock Qidi `printer.cfg` file, we find this definition for the chamber heater:
+
+```
+[heater_generic chamber]
+heater_pin:U_1:PC8
+max_power:0.4
+sensor_type:NTC 100K MGB18-104F39050L32
+sensor_pin:U_1:PA1
+control = pid
+pid_Kp=63.418 
+pid_Ki=1.342 
+pid_Kd=749.125
+min_temp:-100
+max_temp:70
+```
+
+Now, that sensor mentioned there is precisely the problem we've been talking about this whole time.  In order to do something about it, we need to
+pull it out to a separate section, like so:
+
+```
+[temperature_sensor chamber_probe]
+sensor_type:NTC 100K MGB18-104F39050L32
+sensor_pin:U_1:PA1
+```
+
+...and now we can reference the problematic sensor independently of the `[heater_generic chamber]` definition.
+
+Elsewhere in `printer.cfg` we can find this stock defintion for the `GD32` sensor:
+
+```
+[temperature_sensor GD32]
+sensor_type: temperature_mcu
+sensor_mcu: mcu
+```
+
+This is where the `GD32` line and temperatures in the FluiddUI comes from.
+
+With the above in place, we can now do some wizardry.  We see that `chamber_probe` always reads WAY low, but `GD32` (almost) always reads a little high.  Astute readers will know where I'm going with this.
+
+This allows us to construct a virtual sensor that combines the `GD32` value and the `chamber_probe` value, and give an increased preference to the `GD32` temperature, and take the average (also called mean).
+
+We do this like so:
+
+```
+sensor_type: temperature_combined
+sensor_list: temperature_sensor GD32, temperature_sensor chamber_probe, temperature_sensor GD32, temperature_sensor GD32
+combination_method: mean
+maximum_deviation: 70
+```
+
+This counts the `GD32` sensor 3 times, and the `chamber_probe` sensor once, sums them together, and divides the total by 4, to give a 3:1 weighted average in favor of the `GD32` sensor.
+
+Putting this all together gives us the following NEW configuration for the `[heater_generic chamber]` section:
+
+```
+[heater_generic chamber]
+heater_pin:U_1:PC8
+max_power:0.5
+control = pid
+pid_Kp=63.418 
+pid_Ki=1.342 
+pid_Kd=749.125
+min_temp:-100
+max_temp:80
+sensor_type: temperature_combined
+sensor_list: temperature_sensor GD32, temperature_sensor chamber_probe, temperature_sensor GD32, temperature_sensor GD32
+combination_method: mean
+maximum_deviation: 70
+```
+
+What's more is that the FluiddUI, AND the screen on the printer, will all report this new virtual sensor temperature as the Chamber Temperature, AND it will be used to control what the chamber heater does!
+
+Let's overlay our new virtual sensor temperature onto the previous graphs:
+
+![0-270mm](./3-1-Mean-0-270.png "0mm-270mm Z-height")
+
+![270-280mm](./3-1-Mean-270-280.png "270mm-280mm Z-height")
+
+___
+
+![Under Construction](./under-construction.jpg "Mind the gaps!")
 
 (LOTS OF STUFF TO COME)
 
