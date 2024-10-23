@@ -73,7 +73,17 @@ First, let's establish our testing scenario.  The following tests were conducted
 * The room temperature was 21-24°C (70-75°F)
 * A window is open in the room with a fan exhausting air to the outside, so fresh air is also coming into the room
 * A typical household ceiling fan is operational, spinning at full speed, to circulate the air in the room
-* The macro as [described in detail here](../chamber-heater-issue/README.md) was employed to disable the heating elements of the chamber heater above 270mm of Z height
+* The macro as [described in detail here](../chamber-heater-issue/README.md) was employed full
+* _**Custom G-Code was added to set the chamber heater target to 10C after the first layer**_
+
+**Wait!  What was that last point again?**  Yes, you read it right.  I disabled the chamber heater immediately after the prints
+started because, and remember, we want to see what the real difference is between what the chamber probe reports versus
+the actual chamber air temperature.  You may think I'm crazy to do that, but if you look at the upcoming graphs, it will all
+make sense.
+
+*It's important to note that when a 10C target is set, that the chamber heater's fan will still run and circulate air
+through the chamber, but it won't actively heat the air.  Setting a target of 0C also disables the fan as well, and
+this results in less mixing of the air to equalise the chamber temperature.*
 
 Two different printing scenarios were run.
 
@@ -203,11 +213,11 @@ Let's overlay our new virtual sensor temperature onto the previous graphs:
 
 Aha!  Much better!!
 
-## But it looks to be underestimating a bit now!  What is that good?
+## But it looks to be underestimating a bit now!  Why is that good?
 
 It's still a bit under the true temperatures, but when it comes to estimating the true chamber temperature it's better to underestimate by a degree or two, than to over-estimate.
 This gives the chamber heater time to turn on and warm things up again when needed before things get too cold.
-Remember, it's heating a fairly large volume.
+Remember, it's heating a fairly large volume, so a little head start is a good thing.
 
 Keep in mind the vast difference to the stock thermal sensor, where it was WAY underestimating, and so always running the heater unit way more than necessary.
 
