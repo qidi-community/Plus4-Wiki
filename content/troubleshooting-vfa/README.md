@@ -9,9 +9,7 @@ An excellent resource is [Ellis' guide](https://ellis3dp.com/Print-Tuning-Guide/
 
 ## VFAs or Resonance?
 
-It's easy to confuse VFAs with resonance. Sometimes they happen at the same time which confuses the matter even more. 
-
-VFAs will always be perfectly vertical. You can run a simple test by printing this test. 
+It's easy to confuse VFAs with [resonance](https://www.klipper3d.org/Resonance_Compensation.html). Sometimes they happen at the same time which confuses the matter even more. VFAs will always be perfectly vertical. You can run a simple test by printing [this test.](VFA_TEST.3mf)
 
 Which one of these has VFAs?
 
@@ -27,7 +25,7 @@ If you confirm you do indeed have VFAs, there are several steps that can be take
 
 ### Check belts and pulleys 
 
-Run your finger across all your belts and feel if there is any debris attached to them.
+Run your finger across all your belts and feel if there is any debris attached to them. Use a cloth to gently wipe off the belts.
 
 Check your idler pulleys are clean and spinning when the belts move. You want all of your pulleys to spin freely without resistance. 
 
@@ -47,6 +45,5 @@ Your idlers may spin just fine because they could be sticking a tiny bit or they
 ### Check your X Carriage Screws
 
 If you had the problem with a wobbly X Carriage due to the bearing being loose, check the screws are not too tight. If you do not have the loose bearing issue, do not use the screws. 
-
 
 
