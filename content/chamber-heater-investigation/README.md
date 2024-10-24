@@ -106,6 +106,25 @@ Yep, you saw it right.  When it comes to reporting the chamber temperatures accu
 ![Ruprecht](./stevemartin-cork.gif "Ruprecht!")
 
 
+## An explanation for the 230-270mm Z-height behavior
+
+Some of you may be wondering why the temperatures started to rise a bit between 230-270mm on the first graph.
+
+Let's consider that in this test the chamber heater fan is always running, and as the print bed descends, the gap
+between the print bed and the floor of the chamber is closing up.
+This forces the air from the chamber heater to be in contact with the underside of the print bed more directly.
+
+Watching the print bed's heater PWM levels during the test run, I was able to observe that the print bed heater
+started to power up a little more strongly than at 0-230mm of Z-height.
+This appeared to be the print bed heater compensating for the extra work it was having to do due to the now faster
+moving chamber heater air flowing under it.
+This is turn caused more heat to be added to the chamber, and thus we see the chamber temps tick up a few degrees here.
+
+Past 270mm of Z-height the print bed starts to increasingly block off the chamber heater fan's airflow, and so
+less and less air can get under the print bed, and we therefore see the chamber temperatures start to slowly
+drop away by a couple of degrees again until we reach a 280mm Z height.
+
+
 ## Well then! How do we fix this mess?
 
 Don't worry, I got you!
