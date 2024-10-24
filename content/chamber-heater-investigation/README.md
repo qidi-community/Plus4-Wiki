@@ -73,7 +73,7 @@ First, let's establish our testing scenario.  The following tests were conducted
 * The room temperature was 21-24°C (70-75°F)
 * A window is open in the room with a fan exhausting air to the outside, so fresh air is also coming into the room
 * A typical household ceiling fan is operational, spinning at full speed, to circulate the air in the room
-* The macro as [described in detail here](../chamber-heater-issue/README.md) was employed full
+* The macro as [described in detail here](../chamber-heater-issue/README.md) was configured
 * _**Custom G-Code was added to set the chamber heater target to 10C after the first layer**_
 
 **Wait!  What was that last point again?**  Yes, you read it right.  I disabled the chamber heater immediately after the prints
@@ -122,16 +122,21 @@ So, let's overlay the GD32 temperature atop the above 2 graphs.
 
 Pretty close to the chamber temperature reality huh?  A little bit high due to its own heat, and also being affected by the stepper motor's heat in the print head.
 
-What if I told you we've got a useful trick up our sleeves?
+Estimating a little high isn't great, as it means that the chamber temperatures can drop below the target before the heater unit kicks in to warm the chamber up again.
+If anything, it would be better to be a little low, rather than a little high.
+
+So what can we do to fix this?  Well, it just so happens that we've got a useful Klipper trick up our sleeves, and we can make use of that janky stock thermal probe to do it!
 
 
 ## Let's practise some Klipper wizardry!
+
+Here's where we put that grossly underestimating stock probe to some good use to achieve something good!
 
 **WARNING:** Hold onto your hats.  The following section is going to dive into Klipper configs and can be tough to get through for the uninitiated, but I promise it'll be worth it!
 
 Klipper has a handy mechanism called [combined temperature sensors](https://www.klipper3d.org/Config_Reference.html?h=combination#combined-temperature-sensor).
 
-These esoteric commands allow us to construct a virtual sensor which combines multiple sensors together into a single value, and then pretends to be a real sensor that we can do stuff with!
+This esoteric command allow us to construct a virtual sensor which combines multiple sensors together into a single value, and then pretends to be a real sensor that we can do stuff with!
 
 Within the stock Qidi `printer.cfg` file, we find this definition for the chamber heater:
 
@@ -190,7 +195,7 @@ Putting this all together gives us the following NEW configuration for the `[hea
 ```
 [heater_generic chamber]
 heater_pin:U_1:PC8
-max_power:0.5
+max_power:0.4
 control = pid
 pid_Kp=63.418 
 pid_Ki=1.342 
@@ -222,6 +227,11 @@ Remember, it's heating a fairly large volume, so a little head start is a good t
 Keep in mind the vast difference to the stock thermal sensor, where it was WAY underestimating, and so always running the heater unit way more than necessary.
 
 Save power, temperatures more stable, less wild swings.  It's all good news now!
+
+
+## What do full print run chamber temps look like now with all this?
+
+**Please bear with me.  Additional data being gathered using Firmware 1.4.3 at this moment as this has caused me to rerun tests** 
 
 ___
 
