@@ -59,9 +59,10 @@ This can be done by modifying the following in `printer.cfg`:
 shutdown_speed: 1 
 ```
 
-### Setting the chamber_heater power to 0.5 (instead of 0.7)
+### Setting the chamber_heater power to 0.4 (instead of 0.7)
 
-Qidi's stock PWM power setting for the chamber heater is too aggressive and has been known to cause the Chamber Thermal Protection Sensor to trip.
+Qidi's stock PWM power setting for the chamber heater for Firmware versions 1.4.2 and earlier is too aggressive and has been known to cause
+the Chamber Thermal Protection Sensor to trip.
 This has been seen to result in a firmware shutdown even in normal operation when a print is first starting to warm the chamber up.
 
 Making the following config change will prevent this from happening.
@@ -69,7 +70,7 @@ Making the following config change will prevent this from happening.
 Additionally, setting a lower `max_power` value here will also help protect the SSR unit from potentially failing in 110VAC countries as reports
 of this for the first batch of Plus4 printers have started to surface somewhat frequently within the first month of customer use.
 
-Find the `[heater_generic chamber]` section within the `printer.cfg` file, and then find the line starting with `max_power`, and set its value to `0.5`.
+Find the `[heater_generic chamber]` section within the `printer.cfg` file, and then find the line starting with `max_power`, and set its value to `0.4`.
 
 For example:
 ```
@@ -81,7 +82,7 @@ Should be replaced with:
 
 ```
 [heater_generic chamber]
-max_power: 0.5
+max_power: 0.4
 ```
 
 Note that while the chamber will take a little longer to reach a target temperature, it should still reach the target temperature before
