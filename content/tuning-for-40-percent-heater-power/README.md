@@ -120,7 +120,7 @@ gcode:
 
 ### Discussion on why it works
 
-- Some needless commands were removed
+- Some needless commands were commented out, but left in place if ever needed at a future time.
 - The print bed is raised up and the auxiliary fan and print head fans are used to transfer as much heat from the print bed to the chamber air as possible
 - This is basically using the print bed's heater to its fullest effect to boost the chamber heater in warming the chamber air
 - The `M191` chamber wait target is lowered to 5C less than the true target meaning the chamber wait ends a bit sooner
