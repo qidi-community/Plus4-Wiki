@@ -86,7 +86,7 @@ gcode:
     G0 X5 Y5 F6000                      # Move print head to front-left in case of any oozing
     M104 S140                           # Set nozzle to 140 so any remaining filament stuck to nozzle is softened
     M190 S{bedtemp}                     # Wait for print bed to reach target temperature
-    G29                                 # Perform Z-tilt, Z-offset, and bed meshing measurements
+    G29                                 # Perform Z-offset, and bed meshing measurements
     M104 S0                             # Ensure hotend is fully off to minimise any oozing
 
     {% if chambertemp == 0 %}           # No chamber temp set. This means we're likely printing PLA/PETG.
