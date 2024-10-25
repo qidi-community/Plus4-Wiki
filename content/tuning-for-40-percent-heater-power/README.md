@@ -129,7 +129,7 @@ gcode:
 
 ### Additional Notes
 
-It is **absolutely essential** that the `Activiate Temperature Control` option is disabled in the filament settings in your slicer.
+It is **absolutely essential** that the `Activate Temperature Control` option is disabled in the filament settings in your slicer.
 If this feature is active, then the slicer will instruct the printer to attempt to warm the chamber without the assistance of the print bed heater,
 and there are reports that this can take up to 1 hour for the chamber to reach 60C.
 
