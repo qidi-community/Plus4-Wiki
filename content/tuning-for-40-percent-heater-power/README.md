@@ -79,6 +79,7 @@ gcode:
         G0 Z5 F600                      # Bring print bed to Z=5mm.  This helps with chamber heating
         G0 X152 Y152 F6000              # Bring print head to middle of print bed
         M191 S{chambertemp-5}           # Wait for chamber to reach 5C less than the target temperature
+        M141 S{chambertemp}             # Reset chamber target to full target
         M106 P2 S0                      # Turn off AUX Fan
         M106 P0 S0                      # Turn off part cooling fan
     {% endif %}
