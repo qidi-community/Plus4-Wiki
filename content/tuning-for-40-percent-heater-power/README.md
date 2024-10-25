@@ -59,6 +59,7 @@ gcode:
     # set_zoffset                       # Sample the Z offset (but why even do this now?)
     M141 S{chambertemp}                 # Initiate Chamber Warmup as early as possible
     M140 S{bedtemp}                     # Initiate Print Bed Warmup as early as possible
+    M400                                # Wait for all prior G-code commands to be processed by MCU
     M104 S0                             # Make sure hotend is off
     M106 P3 S0                          # Turn off chamber circulation/exhaust fan
     M106 S255                           # Turn on part cooling fan to full speed
@@ -69,7 +70,7 @@ gcode:
         M106 P2 S0                      # Turn off auxiliary part cooling fan
     {% endif %}
 
-    M400                                # Wait for all prior G-code commands to complete before G28
+    M400                                # Wait for all prior G-code commands to processed before G28
     G28                                 # Home all axes
     CLEAR_NOZZLE HOTEND={hotendtemp}    # Do nozzle purge and wipe
 
