@@ -12,9 +12,11 @@ of the Qidi Plus4 3D printer.
 
 ## Issues and Possible Fixes
 
-### [PLA/PETG Heat-creep clogging](./content/nozzle-clogging-tips)
+### [PLA/PETG Heat-creep clogging](./content/nozzle-clogging-tips/README.md)
 
-### [Chamber Heater Issue](./content/chamber-heater-issue)
+### [Chamber Heater Issue](./content/chamber-heater-issue/README.md)
+
+### [Warming the Chamber Faster!](./content/tuning-for-40-percent-heater-power/README.md)
 
 
 ## Printer Configuration Tweaks
