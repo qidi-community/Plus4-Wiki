@@ -78,7 +78,7 @@ gcode:
         M106 P2 S255                    # Ensure AUX is at 100% after CLEAR_NOZZLE was called
         G0 Z5 F600                      # Bring print bed to Z=5mm.  This helps with chamber heating
         G0 X152 Y152 F6000              # Bring print head to middle of print bed
-        M191 S{chambertemp}             # Wait for chamber to reach 5C less than the target temperature
+        M191 S{chambertemp-5}           # Wait for chamber to reach 5C less than the target temperature
         M106 P2 S0                      # Turn off AUX Fan
         M106 P0 S0                      # Turn off part cooling fan
     {% endif %}
@@ -101,21 +101,6 @@ gcode:
     SET_PRINT_STATS_INFO CURRENT_LAYER=1
     ENABLE_ALL_SENSOR
     save_last_file
-```
-
-Additionally, change the `M191` macro, also within `gcode_macro.cfg` to the following in its entirety
-
-```
-[gcode_macro M191]
-gcode:
-    {% if printer["heater_generic chamber"] is defined %}
-        {% set s = params.S|float %}
-    
-        M141 {% for p in params %}{'%s%s' % (p, params[p])}{% endfor %}  
-        {% if s != 0 %}
-            TEMPERATURE_WAIT SENSOR="heater_generic chamber" MINIMUM={([s, 65]|min)-5}
-        {% endif %}
-    {% endif %}
 ```
 
 ### Discussion on why it works
