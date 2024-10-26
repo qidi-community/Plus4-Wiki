@@ -46,7 +46,14 @@ A time of 19m30s was observed to the time that the bed meshing started.
 
 ## So, what's the configuration changes you did?
 
-Change the `PRINT_START` macro within `gcode_macro.cfg` to the following in its entirety
+Change the `PRINT_START` macro within `gcode_macro.cfg` to the following in its entirety.
+I've added detailed comments to (almost) every line so it is easier to understand what all
+the gcode is doing.
+
+**Note:** I recommend just commenting out the stock `PRINT_START` macro by putting a
+`#` at the start of all of the original macro lines.
+Then copy-paste this new macro in either before or after the original macro.
+This will allow you to easily revert to the original macro should you wish to do so.
 
 ```
 [gcode_macro PRINT_START]
