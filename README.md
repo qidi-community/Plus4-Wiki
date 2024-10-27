@@ -84,9 +84,7 @@ of the Qidi Plus4 3D printer.
 
 ### [Replacement hotend heatsink fan - GDSTime GDA30105F (CN Store)](https://www.aliexpress.com/item/1005002857100082.html)
 
-### [Replacement 80 mm mainboard fan - Sunon MF80252V2 (US Store)](https://www.mouser.com/ProductDetail/Sunon/MF80252V2-1000U-A99?qs=EU6FO9ffTweuBOiBDgCHHA%3D%3D)
-
-### [Replacement 80 mm mainboard fan - Sunon MF80252V2 (EU Store)](https://eu.mouser.com/ProductDetail/Sunon/MF80252V2-1000U-A99?qs=EU6FO9ffTweuBOiBDgCHHA%3D%3D)
+### [Replacement 80 mm mainboard fan - ANVISION (Amazon US)](https://www.amazon.com/ANVISION-2-Pack-Brushless-Cooling-Bearing/dp/B0C18G953Z)
 
 
 ## Maintenance Tips
