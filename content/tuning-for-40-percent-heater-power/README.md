@@ -112,6 +112,19 @@ gcode:
     save_last_file
 ```
 
+Additionally, in `printer.cfg` find the `[verify_heater heater_bed]` section, and change the `check_gain_time` from `60` to `180` as in the following example.
+This is required because the print bed is being blasted by the fan to heat the air up faster, which means that the print bed itself heats
+up more slowly.  If we don't raise this check gain time a bit, then the firmware may throw an error because it is not seeing the print
+bed warm up quickly enough.
+
+```
+[verify_heater heater_bed]
+max_error: 200
+check_gain_time:180
+hysteresis: 10
+heating_gain: 1
+```
+
 ### Discussion on why it works
 
 - Some needless commands were commented out, but left in place if ever needed at a future time.

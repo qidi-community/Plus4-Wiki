@@ -4,7 +4,7 @@ The initial units of the Qidi Plus 4 have a problem with the SSR Board that cont
 
 This results in the SSR board getting very hot and melting the SSR and common mode choke on the board, causing a failure of this component. 
 
-This presents a fire hazard and risk of further damage to the printer and surroundings. Because of this, **we advise anyone using the Qidi Plus 4 in North America (or other areas on 110 - 120V  mains)** to take following steps before using the printer:
+This presents a potential fire hazard and risk of further damage to the printer and surroundings. Because of this, **we advise anyone using the Qidi Plus 4 in North America (or other areas on 110 - 120V  mains)** to take following steps before using the printer:
 
 - Upgrade the firmware to 1.4.3. This puts a power limit on the chamber heater and reduces the risk it will overheat. This is stopgap solution as software should never account for poor hardware design. 
 
