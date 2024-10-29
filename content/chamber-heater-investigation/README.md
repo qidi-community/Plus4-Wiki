@@ -88,7 +88,7 @@ this results in less mixing of the air to equalise the chamber temperature.*
 Two different printing scenarios were run.
 
 1. A 270mm tall, 30x30mm tower to assess typical chamber temperatures throughout a print run
-2. A special purpose top-heavy model that takes 3 hours to climb to 270mm Z, and then 3 hours to progress from 270mm to 280mm in Z-height
+2. A special purpose [top-heavy model](./top-heavy.png) that takes 3 hours to climb to 270mm Z, and then 3 hours to progress from 270mm to 280mm in Z-height
 
 *NOTE:* The 0-270mm model was printed later in the day after the room had warmed slightly (about 23-24C), hence the slightly
 higher reported temperatures at Z=270mm when compared to the 270-280mm model where the room was around 21-22C.
