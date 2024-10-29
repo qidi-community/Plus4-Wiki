@@ -11,7 +11,7 @@ stable.
 
 **Note:**  While the below configuration change works well with the stock 40mm fan, it is highly recommended to swap out
 the stock main-board fan and its mainboard cover with an 80mm fan, and a 3D printed mainboard cover that allows for the
-use of the 80mm fan.
+use of the 80mm fan.  Alternatively, a [good 4020 fan](https://www.amazon.com/dp/B0CHYF6S2N) can move significantly more air while using the stock mainboard cover.
 This ensures that the mainboard, CPU, and steppers drivers are kept cool during both idle times, and when in operation,
 while keeping fan noise to a minimum.
 
@@ -58,7 +58,7 @@ pid_deriv_time: 2.0
 pid_Kp: 5
 pid_Ki: 2
 pid_Kd: 5
-target_temp: 45
+target_temp: 50
 min_speed: 0.3
 max_speed: 1.0
 min_temp: 0
