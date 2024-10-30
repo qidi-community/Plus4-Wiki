@@ -14,7 +14,8 @@ ___
 
 ![What if I told you](./what_if_I_told_you.jpg "The cake...err...the temps are a lie!")
 
-Yep, you read it right.  The chamber temperatures that the stock Qidi Plus4, with its chamber sensor located where it is, are lying to you.
+Yep, you read it right.  The chamber temperatures that the stock Qidi Plus4, with its chamber sensor located where it is, are lying to you,
+or are at the very least, not an accurate representation of the true chamber air temperature.
 
 Read on, and let's see how deep this rabbit hole goes!
 
@@ -29,16 +30,16 @@ In the back right corner of the print chamber, below and to the right of the rig
 ![Chamber Sensor Location](./sensor_location.jpg "Sneaky little sucker!")
 
 
-## Wait!  How do you know it's lying?
+## Wait!  How do you know it's wrong?
 
-Good question! First let's figure out how to determine the truth.  The print chamber is fairly large, and air is swirling about
-everywhere.  The print head moves about, some fans are on, the print bed is emitting a bunch of heat, it's all a bit of
-a mess really.
+Good question! First let's figure out how to determine the true chamber air temperatures.
+The print chamber is fairly large, and air is swirling about everywhere.
+The print head moves about, some fans are on, the print bed is emitting a bunch of heat, it's all a bit of a mess really.
 
 The main point of a chamber heater is reduce the cooldown "shock" for hot filament after it leaves the nozzle.  Hot filament
 will contract, and if it contracts too quickly then when the next layer is put on top, it won't sit directly on top of the
 layer below it, because that layer will have shifted a bit due to contraction.  Keep repeating this and newer layers will
-try to pull back the lower layers as the newer layers cool down, and so we get warping, misaligned layers, and all other
+try to pull back the lower layers as the newer layers cool down, and so we get warping, misaligned layers, and all the other
 sorts of shenanigans that you can imagine.
 
 So, the role of the chamber heater is to SLOW DOWN this whole cooling and contraction gig, and give time for freshly laid
@@ -49,7 +50,7 @@ can continue to slowly cool down the further away from the action they are.
 Now keep in mind, there's a large chunk of hot metal (that's the print bed) under the printed part(s) that always emitting heat.
 Your printed part is basically sitting on a stove top, so it's not like the lower sections are exactly getting the chills either.
 
-So, considering all of that, the best way to measure the chamber air, as far as the printed part "cares" about it, is in the
+So, considering all of that, the best way to measure the chamber air, as far as the printed part is concerned, is in the
 vicinity of where the printing action happens.
 
 So, I put a thermal probe to measure the chamber air temps where it really matters, and that's right here!
@@ -63,9 +64,32 @@ as a whole.
 
 ## Okay, so what are we talking about here?  How much is it off by?
 
-First, let's establish our testing scenario.  The following tests were conducted with the following conditions:
+### The Warm Up Phase
+
+First, let's look at the measured chamber air temperatures during the warmup phase.  The following graph shows just
+how far off the true chamber air temperatures are when the chamber heater first turned on to warm up the chamber.
+
+![Hey!](./warmup-probe-vs-reality.png "Wotcha doing all the way up there?")
+
+Here we can see that the chamber thermal probe, when the heater unit is on, reads WAY above the real chamber temperattures.
+The reason for this is that the chamber heater blows warm air along the bottom of the chamber where it hits the right-side
+wall, and then travels up the right-wall which is where the chamber thermal probe sits.
+The air by this stage hasn't really mixed well enough to get a good reading on the actual chamber temperatures, and so it
+reads way higher than it should.
+
+This has the added effect of the PID mechanism kicking in and lowering the power to the heater unit too early before the
+chamber is really up to temperature.
+The stock `PRINT_START` macros will also start the printing when the chamber sensor reads 2C LESS than the target.
+This translates to around the 600s (10 minutes) mark.
+This means that the true chamber air temperatures are only at around 45C when the print starts.
+Clearly, this is not an ideal situation, and can possibly lead to warping early on during a print.
+
+### What About During Actual Printing?
+
+Next, let's establish our print testing scenario.  The following tests were conducted with the following conditions:
 
 * Target Chamber Temperature is 60°C
+* The chamber was allowed to warm for an additional 10 minutes before starting the actual print.
 * Target Print Bed Temperature is 100°C
 * The glass lid is on, with no additional sealing
 * The printer door is shut, with no additional sealing
