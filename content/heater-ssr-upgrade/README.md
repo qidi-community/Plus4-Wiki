@@ -34,7 +34,7 @@ They were chosen based on the following criteria:
 
 **This process is WiP!**
 
-- Print [this mount](https://www.printables.com/model/1052218-qidi-plus-4-ssr-board-mount) for the SSR 
+- Print [this mount](https://www.printables.com/model/1052218-qidi-plus-4-ssr-board-mount) or [this mount](https://www.printables.com/model/1057104-qidi-plus-4-modular-ssr-mounting-bracket/files) for the SSR 
 
 - Follow [this video](https://drive.google.com/drive/folders/180hEn-bLIeLqfGz-xd5-HUZBBD4ypZ1-) for opening the printer and accessing the SSR.
 
