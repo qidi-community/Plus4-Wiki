@@ -18,6 +18,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Warming the Chamber Faster!](./content/tuning-for-40-percent-heater-power/README.md)
 
+### [More Accurate Chamber Temperature Measurements](./chamber-heater-investigation/README.md)
+
 
 ## Printer Configuration Tweaks
 
