@@ -6,7 +6,14 @@
 
 _**Even if you read nothing else in this page, go to this page and make the config recommendations that it recommends.**_
 
-https://github.com/qidi-community/Plus4-Wiki/blob/main/content/chamber-heater-issue/README.md#additional-safety-configurations
+[Chamber Heater Safety Recommendations](../chamber-heater-issue/README.md#additional-safety-configurations)
+
+### What!  You expect me to read?
+
+_**If you want to skip the details and get straight to the configuration changes**_
+
+[You can do that by following this link](./README.md#dont-bore-me-with-the-details-just-tell-me-what-to-do)
+
 ___
 
 
@@ -282,4 +289,35 @@ ___
 
 (LOTS OF STUFF TO COME)
 
+
 ## Don't bore me with the details, just tell me what to do!
+
+If you'd read all the above, you've probably already done the following, but here it is in a compact format:
+
+Edit `printer.cfg` in Fluidd UI
+
+Find the [heater_generic_chamber] section, and comment that existing section out, and add all of the following after it:
+
+```
+[temperature_sensor chamber_probe]
+sensor_type:NTC 100K MGB18-104F39050L32
+sensor_pin:U_1:PA1
+
+[heater_generic chamber]
+heater_pin:U_1:PC8
+max_power:0.4
+control = pid
+pid_Kp=63.418 
+pid_Ki=1.342 
+pid_Kd=749.125
+min_temp:-100
+max_temp:80
+sensor_type: temperature_combined
+sensor_list: temperature_sensor GD32, temperature_sensor chamber_probe, temperature_sensor GD32, temperature_sensor GD32
+combination_method: mean
+maximum_deviation: 70
+```
+
+...and that's it.
+
+Be sure to check out [this detailed discussion for tips](../tuning-for-40-percent-heater-power/README.md) on how to warm up the chamber as fast as possible when starting a print.
