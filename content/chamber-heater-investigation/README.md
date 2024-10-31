@@ -1,6 +1,6 @@
 ![Under Construction](./under-construction.jpg "Mind the gaps!")
 
-# Chamber Temperature Investigation
+# Better Chamber Temperature Readings
 
 ## Before we get started
 
