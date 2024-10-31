@@ -1,6 +1,6 @@
-# Chamber Temperature Investigation
-
 ![Under Construction](./under-construction.jpg "Mind the gaps!")
+
+# Chamber Temperature Investigation
 
 ## Before we get started
 
@@ -281,14 +281,12 @@ Save power, temperatures more stable, less wild swings.  It's all good news now!
 
 ## What do full print run chamber temps look like now with all this?
 
-**Please bear with me.  Additional data being gathered using Firmware 1.4.3 at this moment as this has caused me to rerun tests** 
+**Additional Data being gathered**
+
+(MORE STUFF TO COME)
 
 ___
-
-![Under Construction](./under-construction.jpg "Mind the gaps!")
-
-(LOTS OF STUFF TO COME)
-
+___
 
 ## Don't bore me with the details, just tell me what to do!
 
@@ -318,6 +316,6 @@ combination_method: mean
 maximum_deviation: 70
 ```
 
-...and that's it.
+...and that's it!
 
-Be sure to check out [this detailed discussion for tips](../tuning-for-40-percent-heater-power/README.md) on how to warm up the chamber as fast as possible when starting a print.
+Be sure to also check out [these config change tips](../tuning-for-40-percent-heater-power/README.md) on how to warm up the chamber as fast as possible when starting a print.
