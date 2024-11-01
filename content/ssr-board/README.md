@@ -37,6 +37,6 @@ Unfortunately, we have not been able to verify this claim. In fact, community me
 
 ### Going forward
 
-We believe your printer should be as safe as it possibliy can be. At the moment, any printer with the current SSR board install is not safe. It is clear that Qidi must redesign the SSR board and stop sending out SSR boards that are known to get too hot on 110 - 120VAC. Qidi must warn all customers in the affected regions that have bought a printer. Qidi must offer improved replacement parts for the inadquate SSR board to all customers affected.
+We believe your printer should be as safe as it possibility can be. At the moment, any printer with the current SSR board installed is not safe. It is clear that Qidi must redesign the SSR board and stop sending out SSR boards that are known to get too hot on 110 - 120VAC. Qidi must warn all customers in the affected regions that have bought a printer. Qidi must offer improved replacement parts for the inadequate SSR board to all customers affected. We hope to see these improvements from Qidi in the coming weeks and months.
 
 
