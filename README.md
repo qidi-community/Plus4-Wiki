@@ -10,7 +10,7 @@ Fabreeko has been so kind to setup a donations page for the team. Your donation 
 
 While 100% optional, it is truly appreciated. 
 
-[![support us](./content/support.png)]([https://example.com](https://www.fabreeko.com/products/qidi-community-filament-drive-as-a-thankyou-for-members))
+[![support us](./content/support.png)](https://www.fabreeko.com/products/qidi-community-filament-drive-as-a-thankyou-for-members)
 
 
 ## Official Qidi Wiki
