@@ -8,6 +8,8 @@ This presents a potential fire hazard and risk of further damage to the printer 
 
 - Do not use the chamber heater. If you need to print using a heated chamber you can use the bed to heatsoak the chamber. It works, but is slower.
 
+- Reach out to Qidi support. At the time of writing (1/11/2024) they are sending the same SSR boards out as replacements, but it appears that a new revision is on the way. 
+
 - Upgrade the SSR following our [community guide.](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/heater-ssr-upgrade)
 
 If you are on 220 - 240V you are not affected by this issue.
