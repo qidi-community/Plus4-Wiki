@@ -101,10 +101,11 @@ variable_k:1
 gcode:
     {% set temp = printer["heater_generic chamber"].target %}
     M141 S0
-    {% if temp > 0 %}
-        G4 P15000
-    {% endif %}
+    {% if temp > 0 %}        # ADD THESE
+        G4 P15000            # 3 EXTRA
+    {% endif %}              # LINES HERE
     BED_MESH_CLEAR
+    ...                      # Rest of macro continues as before
 ```
 
 This will ensure that the chamber fan will stay on for at least 15 seconds longer to allow for the heater unit
