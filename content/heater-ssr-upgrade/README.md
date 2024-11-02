@@ -18,7 +18,7 @@ This mod replaces Qidi's SSR board with a DIN mounted SSR. We believe only the h
 
 - OMRON G3NA-210B
 - Panasonic AQA211VL 15A
-- Fotek SSR-10DA ❗Be careful of clones that look similar. Real Fotek SSRs are made in Taiwan, not China, and are not called F**Q**TEK.
+- Fotek SSR-10DA ❗Be careful of clones that look similar. Real Fotek SSRs are made in Taiwan, not China, and are not called F**Q**TEK. [See this article](https://protosupplies.com/inferior-counterfeit-fotek-ssr-25-solid-state-relays-on-the-market/) for more details. 
 
 They were chosen based on the following criteria:
 
@@ -28,6 +28,9 @@ They were chosen based on the following criteria:
 - Contain a snubber circuit to prevent EMI pollution on the AC line
 - (Optional) Contain over temp protection. 
 
+### Thermals
+
+sarge013 on Discord has done excellent work documenting the thermal performance of the replacement SSRs listed above vs the stock SSR board. We suggest taking a look at [his Google Drive](https://drive.google.com/drive/folders/18jHYNrEYjhrYad5NhcfUCJCpBB3ILfZh). In summary all of the SSRs suggested above operate acceptable temperatures. A heatsink is not strictly required, but an excellent idea. 
 
 ### Install
 ⚠️This is where the AC mains wiring starts. Do not proceed if you are in doubt of what you are doing. Your safety is your responsibly ⚠️
