@@ -34,6 +34,10 @@ sarge013 on Discord has done excellent work documenting the thermal performance 
 
 In summary all of the SSRs suggested above operate at acceptable temperatures. A heatsink is not strictly required, but an excellent idea. 
 
+[80 x 50 x 50mm Heatsink (Amazon US)](https://www.amazon.com/Easycargo-Aluminum-Heatsink-80x50x50mm-80mmx50mmx50mm/dp/B07B3Y2ZNY?th=1)
+
+[126 x 70 x 50mm Heatsink (Amazon US)](https://www.amazon.com/dp/B07QJ8DV8G)
+
 ### Install
 ⚠️This is where the AC mains wiring starts. Do not proceed if you are in doubt of what you are doing. Your safety is your responsibly ⚠️
 
