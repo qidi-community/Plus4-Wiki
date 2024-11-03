@@ -4,15 +4,6 @@ This is a summary collection of various config tweaks, print profiles, the discu
 links to various printable models that have been developed for improving the user experience
 of the Qidi Plus4 3D printer.
 
-### Supporting us
-
-Fabreeko has been so kind to setup a donations page for the team. Your donation  will be in rolls of filament to keep us printing. 
-
-While 100% optional, it is truly appreciated. 
-
-[![support us](./content/support.png)](https://www.fabreeko.com/products/qidi-community-filament-drive-as-a-thankyou-for-members)
-
-
 ## Official Qidi Wiki
 
 ### [Qidi Plus 4 Wiki/Support Page](https://wiki.qidi3d.com/en/PLUS4)
