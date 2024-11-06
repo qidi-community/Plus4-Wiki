@@ -19,6 +19,8 @@ of the Qidi Plus4 3D printer.
 
 ### [More Accurate Chamber Temperature Measurements](./content/chamber-heater-investigation/README.md)
 
+### [SSR Upgrade Mod](./content/heater-ssr-upgrade/README.md)
+
 
 ## Printer Configuration Tweaks
 
