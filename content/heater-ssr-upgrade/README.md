@@ -41,7 +41,6 @@ In summary all of the SSRs suggested above operate at acceptable temperatures. A
 ### Install
 ⚠️This is where the AC mains wiring starts. Do not proceed if you are in doubt of what you are doing. Your safety is your responsibly ⚠️
 
-**This process is WiP!**
 
 - Print [this mount](https://www.printables.com/model/1052218-qidi-plus-4-ssr-board-mount) or [this mount](https://www.printables.com/model/1057104-qidi-plus-4-modular-ssr-mounting-bracket/files) for the SSR 
 
@@ -53,7 +52,8 @@ In summary all of the SSRs suggested above operate at acceptable temperatures. A
 
 - Remove Qidi's SSR board and Install the printed mount with the new SSR.
 
-- Connect the wires as follows. You must splice together wire 2 and 5. Double check your work. 
+- Connect the wires as follows. You must splice together wire 2 and 5. Double check your work.
+  - Note: The ground wire must have continuity with the heatsink on the SSR. The Fotek you can just screw the eyelet terminal to the front of the SSR. On the Panasonic and Omron you need to attach the ground wire to the heatsink. Or on the back between the SSR and the heatsink. Check with a multimeter. Grounding the SSR is critical to preventing EMI.
 
 ![Alt text](ssr-upgrade-wiring.png)
 
