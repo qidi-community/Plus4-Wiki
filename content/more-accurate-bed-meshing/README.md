@@ -2,6 +2,20 @@
 
 ## Introduction
 
+When bed meshing, I observed that quite frequently, especially at higher bed temperatures, that the probe points would vary quite wildly from sample to sample from time to time.
+
+I then found this issue documented for Klipper here: https://klipper.discourse.group/t/bug-accumulating-microstep-shift-during-probe-moves-related-to-endstop-oversampling/19429
+
+There appears to be a bug in Klipper where it does not accurately track the microstep counts for multiple Z-probes.
+
+On top of this, the wide variations in Z-probe readings was indicating to me that the probe wasn't being lifted far enough from the bed between probes.
+
+I spent a day investigating this issue, and came up with the following work-around that results in reliable bed-meshing.
+When doing multiple samples I was always seeing Z-probe readings varying by no more than 0.005mm, and usually 0.0025 or 0.
+
+With this, I knew that probing multiple times per point was no longer necessary.
+Thus, despite each individual probe point moving a little more slowly, the fact that it only probes each point once meant that bed-meshing was taking about the same amount of time as before.
+
 ## What I changed and why
 
 All the following configuration changes are done within the `printer.cfg` file
@@ -9,6 +23,8 @@ All the following configuration changes are done within the `printer.cfg` file
 ### Z-stepper changes
 
 Find the `[stepper_z]` and `[stepper_z1]` sections, and set microsteps to 16
+
+Doing this, coupled with the changes to the `[smart_effector]` section later, ensures that the MCU more precisely catches the trigger-point of the inductive probe that is responsible for the Plus4's primary bed meshing.
 
 eg.
 
@@ -45,7 +61,10 @@ endstop_pin_reverse:tmc2209_stepper_z1:virtual_endstop
 #step_pulse_duration:0.0000001
 ```
 
-Also find the `[tmc2209 stepper_z]` and `[tmc2209 stepper_z1]` sections, and ensure interpolate is set to False
+Also find the `[tmc2209 stepper_z]` and `[tmc2209 stepper_z1]` sections, and ensure interpolate is set to False.
+Setting Interpolate to False ensure a more accurate motion of the Z steppers.
+
+Unforunately Stealthchop also introduces its own inaccuracies, but we must leave it enabled as disabling it introduces a loud resonant squealing noise from the Z-steppers through the base of the frame.
 
 eg.
 
@@ -71,6 +90,10 @@ driver_SGTHRS:100
 
 ### Z-Tilt
 
+Normally the Z-Tilt mechanism configuration is one done once through the printer's UI screen when doing manual bed tramming.
+
+Raising the `horizontal_move_z` distance for the `Z-tilt` section allows the inductive probe to get properly clean of the build plate for better probe point accuracy.
+
 Find the `[z_tilt]` section, and modify the `horizontal_move_z`, `retries`, and `retry_tolerance` fields like so:
 
 ```
@@ -89,9 +112,22 @@ retries: 5
 retry_tolerance: 0.013
 ```
 
+
 ### Smart Effector
 
-Find the `[smart_effector]` section, and modify `speed`, `samples`, and `sample_retract_dist` fields
+The `Smart Effector` config section is a Qidi-specific replacement for the traditional Klipper `probe` config section, as it mixes use of a strain sensor under the bed for nozzle offset probing, and the eddy current inductive sensor for regular bed meshing.
+
+As such, most of the significant changes for Z-offset and bed meshing changes are done in this section on the Plus4.
+
+By reducing the `speed`, coupled with reducing the `microsteps` in the Z-stepper sections, we allow the STM32 MCU on the Plus4 that Klipper is polling to more accurately catch the trigger point for when the build plate is detected.
+
+By raising the `sample_retract_dist` we increase the distance that the probe lifts between multiple samples, and this allows the eddy current probe to get a better reading of the true trigger point.
+
+Here we're also setting `samples` to 1 (the default is 2) as we've already made the required changes to catch the bed mesh trigger points more accurately.
+With a sample size of 1, the `samples_tolerance` and `sample_tolerance_retries` fields effectively do nothing.
+If you wish to keep `samples` at 2, or even raise it to 3, you will be able to observe the repeatability of the sample points in action.
+
+Find the `[smart_effector]` section, and modify `speed`, `samples`, and `sample_retract_dist` fields.  Also set `samples_tolerance` to 0.013 if you plan to use more than 1 sample per point.
 
 ```
 [smart_effector]
@@ -111,6 +147,10 @@ samples_tolerance_retries:5
 ```
 
 ### Bed Mesh
+
+Due to the large size of the Plus4's build plate, I personally prefer more probe points, so I raised the `probe_count` from `9,9` to `11,11`, and lowered the bicubin tension from `0.4` to `0.3` as we have more probe points to deal with.
+
+Even if you change nothing else in this section, at least change `horizontal_move_z` to 10, to ensure that the eddy current probe is sufficiently distant from the build plate prior to each sample.
 
 Find the `[bed_mesh]` section, and change it to the following:
 
