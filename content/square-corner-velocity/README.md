@@ -15,5 +15,5 @@ For each of the mentioned configuration sections within your `printer.cfg` file,
 
 ```
 [printer]
-square_corner_velocity: 7
+square_corner_velocity: 6
 ```
