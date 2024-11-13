@@ -24,9 +24,9 @@ of the Qidi Plus4 3D printer.
 
 ## Printer Configuration Tweaks
 
-### [Enhanced Stepper Motor Configuration](./content/stepper-motor-tweaks)
+### [Enhanced Stepper Motor Configuration](./content/stepper-motor-tweaks/README.md)
 
-### [Tweak to Square Corner Velocity](./content/square-corner-velocity)
+### [Tweak to Square Corner Velocity](./content/square-corner-velocity/README.md)
 
 ### [Adaptive Main Board Cooling configuration](./content/adaptive-main-board-cooling)
 
@@ -35,6 +35,8 @@ of the Qidi Plus4 3D printer.
 ### [Enabling KAMP Purge Line](./content/kamp-purging)
 
 ### [Enabling Screws_Tilt_Adjust](./content/Screws-Tilt-Adjust/)
+
+### [Better Bed Meshing](./content/more-accurate-bed-meshing/README.md)
 
 
 ## Orca Slicer Configuration
