@@ -8,12 +8,21 @@ I then found this issue documented for Klipper here: https://klipper.discourse.g
 
 There appears to be a bug in Klipper where it does not accurately track the microstep counts for multiple Z-probes.
 
-On top of this, the wide variations in Z-probe readings was indicating to me that the probe wasn't being lifted far enough from the bed between probes.
+Most notably, I wanted to come up with a solution that addresses these main fix suggestions from the OP of that discussion thread:
+
+- Reducing microsteps to 16 eliminates the issue when probing at 3 mm/s.
+- Setting ENDSTOP_SAMPLE_COUNT to 1 eliminates the issue at the cost of disabling noise filtering (which seems unnecessary on modern printer hardware)
+- Increasing ENDSTOP_SAMPLE_COUNT exacerbates the problem (e.g., 32 samples increases error to 4-5 microsteps per probe move in our case)
+- The issue has been reproduced on several machines with different stepper drivers (TMC2209, TMC5160)
+
+In addition to the above, the wide variations in Z-probe readings were also indicating to me that the probe wasn't being lifted far enough from the bed between probes.
+This was introducing an additional source of error itself.
 
 I spent a day investigating this issue, and came up with the following work-around that results in reliable bed-meshing.
 When doing multiple samples I was always seeing Z-probe readings varying by no more than 0.005mm, and usually 0.0025 or 0.
 
-With this, I knew that probing multiple times per point was no longer necessary.
+With this, I knew that probing multiple times per point was no longer necessary, and we can implement the suggestion of a single probe sample.
+
 Thus, despite each individual probe point moving a little more slowly, the fact that it only probes each point once meant that bed-meshing was taking about the same amount of time as before.
 
 ## What I changed and why
