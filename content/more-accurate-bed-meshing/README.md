@@ -31,6 +31,8 @@ Thus, despite each individual probe point moving a little more slowly, the fact 
 
 All the following configuration changes are done within the `printer.cfg` file
 
+**NOTE** After making these changes you may need to perform a Z-offset tuning procedure to dial in your Z-offset more accurately again for best results.
+
 
 ### Z-stepper changes
 
