@@ -1,5 +1,6 @@
 # Better Bed Meshing
 
+
 ## Introduction
 
 When bed meshing, I observed that quite frequently, especially at higher bed temperatures, that the probe points would vary quite wildly from sample to sample from time to time.
@@ -25,9 +26,11 @@ With this, I knew that probing multiple times per point was no longer necessary,
 
 Thus, despite each individual probe point moving a little more slowly, the fact that it only probes each point once meant that bed-meshing was taking about the same amount of time as before.
 
+
 ## What I changed and why
 
 All the following configuration changes are done within the `printer.cfg` file
+
 
 ### Z-stepper changes
 
@@ -97,30 +100,6 @@ diag_pin:^U_1:PC12
 driver_SGTHRS:100
 ```
 
-### Z-Tilt
-
-Normally the Z-Tilt mechanism configuration is one done once through the printer's UI screen when doing manual bed tramming.
-
-Raising the `horizontal_move_z` distance for the `Z-tilt` section allows the inductive probe to get properly clean of the build plate for better probe point accuracy.
-
-Find the `[z_tilt]` section, and modify the `horizontal_move_z`, `retries`, and `retry_tolerance` fields like so:
-
-```
-[z_tilt]
-z_positions:
-    -17.5,138.5
-    335.7,138.5
-
-points:
-    0,138.5
-    255,138.5
-
-speed: 150
-horizontal_move_z: 10
-retries: 5
-retry_tolerance: 0.013
-```
-
 
 ### Smart Effector
 
@@ -155,6 +134,7 @@ samples_tolerance: 0.013
 samples_tolerance_retries:5
 ```
 
+
 ### Bed Mesh
 
 Due to the large size of the Plus4's build plate, I personally prefer more probe points, so I raised the `probe_count` from `9,9` to `11,11`, and lowered the bicubin tension from `0.4` to `0.3` as we have more probe points to deal with.
@@ -173,4 +153,29 @@ probe_count:11,11
 algorithm:bicubic
 bicubic_tension:0.3
 mesh_pps: 2,2
+```
+
+
+### Z-Tilt
+
+Normally the Z-Tilt mechanism configuration is only done once through the printer's UI screen when doing manual bed tramming.
+
+Raising the `horizontal_move_z` distance for the `Z-tilt` section allows the inductive probe to get properly clean of the build plate for better probe point accuracy.
+
+Find the `[z_tilt]` section, and modify the `horizontal_move_z`, `retries`, and `retry_tolerance` fields like so:
+
+```
+[z_tilt]
+z_positions:
+    -17.5,138.5
+    335.7,138.5
+
+points:
+    0,138.5
+    255,138.5
+
+speed: 150
+horizontal_move_z: 10
+retries: 5
+retry_tolerance: 0.013
 ```
