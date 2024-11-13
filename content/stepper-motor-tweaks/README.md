@@ -41,10 +41,10 @@ microsteps:64
 microsteps: 64
 
 [stepper_z]
-microsteps: 32
+microsteps: 16
 
 [stepper_z1]
-microsteps: 32
+microsteps: 16
 
 [tmc2240 stepper_y]
 run_current: 1.15
