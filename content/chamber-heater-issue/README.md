@@ -47,6 +47,31 @@ and this will in turn help to keep the chamber warm as the print bed warms the a
 
 Doing this will prevent the chance for a thermal shutdown event being triggered by the chamber heater, and will keep the chamber warm for the remainder of the print.
 
+## IMPORTANT UPDATE FOR v1.6.0 FIRMWARE
+
+The v1.6.0 firmware introduces a new field called `target_min_temp` to the `[heater_generic chamber]` config section.  The above
+macro conflicts with this new field unless `target_min_temp` is set to 10
+
+For example:
+
+```
+[heater_generic chamber]
+heater_pin:U_1:PC8
+max_power:0.4
+sensor_type:NTC 100K MGB18-104F39050L32
+sensor_pin:U_1:PA1
+control = pid
+pid_Kp=63.418
+pid_Ki=1.342
+pid_Kd=749.125
+min_temp:-100
+max_temp:70
+target_min_temp: 10            #<--- Ensure that this field is set to 10C (default is 45C)
+target_max_temp:65
+heat_with_heater_bed:True
+heat_with_heater_bed_tem_add:25
+```
+
 ## Additional Safety Configurations
 
 ### Setting the chamber_fan shutdown_speed
