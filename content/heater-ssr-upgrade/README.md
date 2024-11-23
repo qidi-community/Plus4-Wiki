@@ -88,6 +88,19 @@ Heatsinks for the SSR should ideally be bare metal in order to make grounding th
 If you encounter flickering lights after installing the new SSR, then you need to adjust the PWM frequency in Klipper. This is a known issue and the Voron team has [a good explanation of how to fix it.](https://docs.vorondesign.com/community/troubleshooting/cat40/lights_flickering.html)
 
 
+**jetmech43** from the Qidi Discord server had conducted some fine tuning for his aftermarket SSR install, and arrived at the following values to both prevent light flicking when on 60Hz/120VAC power, as well as a refined set of PID paramaters
+
+Find the following field values within the `[heater_generic chamber]` chamber section within `printer.cfg` and set them to the following values (left the rest of the fields intact)
+
+```
+[heater_generic chamber]
+pwm_cycle_time:0.02088            # Reduced to 0.02088 seconds to reduce flicker (within 0.3 limit)
+control = pid
+pid_Kp=45
+pid_Ki=0.1
+pid_Kd=5000
+```
+
 
 
 
