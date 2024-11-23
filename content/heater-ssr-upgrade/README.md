@@ -90,7 +90,7 @@ If you encounter flickering lights after installing the new SSR, then you need t
 
 **jetmech43** from the Qidi Discord server had conducted some fine tuning for his aftermarket SSR install, and arrived at the following values to both prevent light flicking when on 60Hz/120VAC power, as well as a refined set of PID paramaters
 
-Find the following field values within the `[heater_generic chamber]` chamber section within `printer.cfg` and set them to the following values (left the rest of the fields intact)
+Find the following field values within the `[heater_generic chamber]` chamber section within `printer.cfg` and set them to the following values (leave the rest of the fields intact)
 
 ```
 [heater_generic chamber]
