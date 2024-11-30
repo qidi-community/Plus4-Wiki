@@ -4,7 +4,7 @@
 
 **NOTE:** It has been reported that the approach documented here does not always work well for all machines.  I suspect that this may be down to variances in the inductive
 probes that the machines are fitted with.  As mentioned below, in my situation, the variances from sample to sample were tiny, but some users on Discord have
-reported wider variations.  If you encounter issues with the following recommendations then pleae revert back to the stock configuration.  I'll continue to
+reported wider variations.  If you encounter issues with the following recommendations then please revert back to the stock configuration.  I'll continue to
 work with others in the meantime to see if there's a method that works better for all Qidi Plus 4 machines.
 
 ## Introduction
