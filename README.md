@@ -8,6 +8,7 @@ of the Qidi Plus4 3D printer.
 
 ### [Qidi Plus 4 Wiki/Support Page](https://wiki.qidi3d.com/en/PLUS4)
 
+## [SSH Access](./content/ssh-access/README.md)
 
 ## Issues and Possible Fixes
 
