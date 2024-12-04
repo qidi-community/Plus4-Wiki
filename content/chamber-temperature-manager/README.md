@@ -8,11 +8,13 @@ gcode:
     {% set target = printer['heater_generic chamber'].target %}
     {% set temperature = printer['heater_generic chamber'].temperature %}
     {% if temperature > 70 %}
-        M106 P3 S255                    # Too hot! Set the chamber circulation fan to 100%
+        M106 P3 S255                      # Too hot! Set the exhaust fan to 100%
     {% else %}
+        # Allow for 3C of "grace" before we start ramping the exhaust fan speed
+        # This prevents the macro from fighting with the chamber heater PID algorithm
         {% set diff = temperature - (target + 3) %}
         {% if diff < 0 %}
-            M106 P3 S0                    # Disable Chamber Circulation Fan
+            M106 P3 S0                    # Disable Exhaust Fan
         {% else %}
             {% set speed = ((diff * 50), 255] | min) | int %}
             M106 P3 S{speed}
