@@ -18,3 +18,9 @@ gcode:
         {% endif %}
     {% endif %}
 ```
+
+Make sure that this macro gets called on each layer change by adding it to the layer change machine g-code section in the Printer defition in your slicer.
+
+For example:
+
+![Layer Change Macro Addition](./image.png)
