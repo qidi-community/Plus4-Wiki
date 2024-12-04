@@ -16,7 +16,7 @@ gcode:
         {% if diff < 0 %}
             M106 P3 S0                    # Disable Exhaust Fan
         {% else %}
-            {% set speed = ((diff * 50), 255] | min) | int %}
+            {% set speed = ([(diff * 50), 255] | min) | int %}
             M106 P3 S{speed}
         {% endif %}
     {% endif %}
