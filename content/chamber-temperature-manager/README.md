@@ -27,7 +27,8 @@ For example:
 
 ## What it does
 
-The point of this macro is to keep ramping up the chamber exhaust fan speed if the chamber temperature is above the target chamber temperature
+The point of this macro is to keep ramping up the chamber exhaust fan speed if the chamber temperature is above the target chamber temperature.
+
 The further above the target the chamber temperature is, the faster it runs the chamber exhaust fan.  This is an attempt to keep the chamber temperature from overheating
 
 - It turns off the exhaust fan is the chamber is below the target temperature
