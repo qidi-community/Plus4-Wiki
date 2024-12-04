@@ -36,9 +36,10 @@ The further above the target the chamber temperature is, the faster it runs the 
 
 - It turns off the exhaust fan is the chamber is below the target temperature
 - If the chamber is above 70C, then it turns on the exhaust fan full blast, to prevent overheating (or try to)
-- If the chamber is a little warmer than the target then it slowly ramps the exhaust fan speed
+- If the chamber is more than 3C warmer than the target then it slowly ramps the exhaust fan speed
 
 For example:
 
-- If the chamber temperature is More than 5C above the target, then the exhaust fan is set to 100%
-- If the chamber temperature is 1C above the target, the exhaust fan is at 20%
+- If the chamber temperature is more than 8C above the target, then the exhaust fan is set to 100%
+- If the chamber temperature is 4C above the target, the exhaust fan is at 20%.  At 5C above, the fan is set 40%, and so on.
+
