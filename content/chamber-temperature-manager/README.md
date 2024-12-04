@@ -10,10 +10,11 @@ gcode:
     {% if temperature > 70 %}
         M106 P3 S255                    # Too hot! Set the chamber circulation fan to 100%
     {% else %}
-        {% if temperature < target %}
+        {% set diff = temperature - (target + 3) %}
+        {% if diff < 0 %}
             M106 P3 S0                    # Disable Chamber Circulation Fan
         {% else %}
-            {% set speed = ([(temperature - target) * 50, 255] | min) | int %}
+            {% set speed = ((diff * 50), 255] | min) | int %}
             M106 P3 S{speed}
         {% endif %}
     {% endif %}
