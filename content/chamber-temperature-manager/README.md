@@ -5,6 +5,8 @@ a more accurate reading on the Plus4's actual chamber temperatures when the cham
 heat from the print bed alone is enough to raise the air temperatures inside to the Plus4 to very high levels.
 
 This issue is actually worse if that configuration change is not made, just that the user won't be informed of the dangerous temperatures.
+Without the config change though, if the user watches the `GD32` temperatures, which is the temperature of the air inside the print head
+which gives a fairly good indication of the true chamber air temperatures, which will typically be 2-3C less than what `GD32` reports.
 
 Without adequate management, chamber temperatures can actually reach high enough to damage the camera and reduce the lifespan of other
 components located within the print chamber.
