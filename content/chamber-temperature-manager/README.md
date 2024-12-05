@@ -1,4 +1,4 @@
-# Chamber Temperature Manager
+# A Dynamic Chamber Temperature Manager
 
 If we follow [the guide outlined here](../chamber-heater-investigation#dont-bore-me-with-the-details-just-tell-me-what-to-do) to achieve
 a more accurate reading on the Plus4's actual chamber temperatures when the chamber heater is enabled, it can be observed that the
