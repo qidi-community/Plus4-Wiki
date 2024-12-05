@@ -1,6 +1,40 @@
 # Chamber Temperature Manager
 
-## Add the following to your `gcode_macro.cfg` file
+If we follow [the guide outlined here](../chamber-heater-investigation#dont-bore-me-with-the-details-just-tell-me-what-to-do) to achieve
+a more accurate reading on the Plus4's actual chamber temperatures when the chamber heater is enabled, it can be observed that the
+heat from the print bed alone is enough to raise the air temperatures inside to the Plus4 to very high levels.
+
+This issue is actually worse if that configuration change is not made, just that the user won't be informed of the dangerous temperatures.
+
+Without adequate management, chamber temperatures can actually reach high enough to damage the camera and reduce the lifespan of other
+components located within the print chamber.
+
+This is all due to the fairly excellent insulation of the Plus4 that comes installed with as stock, allowing chamber temperatures to
+climb to over 85C according to some observations.
+
+##  How to fix this?
+
+The Qidi Plus4 comes with an exhaust fan, which Qidi also sometimes refers to as the chamber circulation fan.
+This fan pulls air from the main print chamber through the activated carbon filter and exhausts it out the circular vent located on the printer's rear panel.
+
+The idea is to dynamically control the exhaust fan speed to better manage the chamber temperatures when they are above the chamber temperature target.
+
+## A chamber temperature manager implemented in Gcode
+
+The following gcode implements a fairly basic chamber temperature management functionality as a Gcode macro which is ideally called upon every layer change.
+
+It has the following functionality
+- If the chamber temperature is above 70C, then the exhaust fan is turned on to 100% speed
+- If the chamber temperature is less than the chamber target temperature, then the exhaust fan is turned off
+- If the chamber temperature is greater than 3C above the targetted chamber temperature, then the exhaust fan speed is ramped proportionally to the amount above the target + 3C.
+
+An example of the exhaust fan ramping behavior is as follows:
+
+- If the chamber temperature is more than 8C above the target, then the exhaust fan is set to 100%
+- If the chamber temperature is 4C above the target, the exhaust fan is at 20%.  At 5C above, the fan is set 40%, and so on.
+
+
+To add the chamber management functionality, add following macro to the end of your `gcode_macro.cfg` file
 
 ```
 [gcode_macro MANAGE_CHAMBER_TEMP]
@@ -22,24 +56,16 @@ gcode:
     {% endif %}
 ```
 
-Make sure that this macro gets called on each layer change by adding it to the layer change machine g-code section in the Printer defition in your slicer.
+Now make sure that this macro gets called on each layer change by adding it to the layer change machine g-code section in the Printer defition in your slicer.
 
-For example:
+As an example for Orca Slicer:
 
 ![Layer Change Macro Addition](./image.png)
 
-## What it does
+Prusa Slicer, Qidi Slicer, Qidi Studio, and others all have a similar machine code definition section within the printer definition.
 
-The point of this macro is to keep ramping up the chamber exhaust fan speed if the chamber temperature is above the target chamber temperature.
+## An Added Bonus
 
-The further above the target the chamber temperature is, the faster it runs the chamber exhaust fan.  This is an attempt to keep the chamber temperature from overheating
-
-- It turns off the exhaust fan is the chamber is below the target temperature
-- If the chamber is above 70C, then it turns on the exhaust fan full blast, to prevent overheating (or try to)
-- If the chamber is more than 3C warmer than the target then it slowly ramps the exhaust fan speed
-
-For example:
-
-- If the chamber temperature is more than 8C above the target, then the exhaust fan is set to 100%
-- If the chamber temperature is 4C above the target, the exhaust fan is at 20%.  At 5C above, the fan is set 40%, and so on.
+Generally speaking, with the above management Gcode is place, it's possible to print PLA/PETG with the door closed without issues.
+The lid should still be removed, or at the very least propped open, when printing with PLA/PETG.
 
