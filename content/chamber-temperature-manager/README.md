@@ -11,8 +11,8 @@ print head, this does give a fairly good indication of the true chamber air temp
 Now, without adequate management the true chamber temperatures can actually reach high enough to damage the camera and reduce the lifespan of other
 components located within the main print chamber.
 
-This is all due to the fairly excellent insulation of the Plus4 that comes installed with as stock, allowing chamber temperatures to
-climb to over 85C according to reports by various users on the Official Qidi Discord Channel.
+This is all due to the fairly excellent insulation of the Plus4 that comes installed with as stock, which allows chamber temperatures to
+climb to over 85C in certain scenarios, according to reports by various users on the Official Qidi Discord Channel.
 
 ##  How to fix this?
 
