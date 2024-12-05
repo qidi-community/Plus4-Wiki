@@ -66,7 +66,7 @@ As an example for Orca Slicer:
 
 ![Layer Change Macro Addition](./image.png)
 
-Prusa Slicer, Qidi Slicer, Qidi Studio, and others all have a similar machine code definition section within the printer definition.
+Prusa Slicer, Qidi Slicer, Qidi Studio, and others all have a similar machine code definition section within the Printer Settings.
 
 ## An Added Bonus
 
