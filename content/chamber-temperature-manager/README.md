@@ -16,6 +16,8 @@ climb to over 85C according to some observations.
 
 The Qidi Plus4 comes with an exhaust fan, which Qidi also sometimes refers to as the chamber circulation fan.
 This fan pulls air from the main print chamber through the activated carbon filter and exhausts it out the circular vent located on the printer's rear panel.
+This then allows for fresh cooler air to be drawn into the chamber through the various cracks in the door, the upper lid, and various other pathways into
+the main print chamber (such as via the holes between the mainboard chamber and the print chamber that the cables pass though).
 
 The idea is to dynamically control the exhaust fan speed to better manage the chamber temperatures when they are above the chamber temperature target.
 
