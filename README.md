@@ -24,6 +24,8 @@ of the Qidi Plus4 3D printer.
 
 ## Printer Configuration Tweaks
 
+### [Dynamic Chamber Temperature Manager](./content/chamber-temperature-manager/README.md)
+
 ### [Enhanced Stepper Motor Configuration](./content/stepper-motor-tweaks/README.md)
 
 ### [Tweak to Square Corner Velocity](./content/square-corner-velocity/README.md)
