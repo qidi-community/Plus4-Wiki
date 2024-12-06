@@ -6,7 +6,7 @@ of the Qidi Plus4 3D printer.
 
 ## Official Qidi Wiki
 
-### [Qidi Plus 4 Wiki/Support Page](https://wiki.qidi3d.com/en/PLUS4)
+### [Qidi Plus 4 Wiki/Support Page](https://wiki.qidi3d.com/en/X-Plus4)
 
 
 ## Issues and Possible Fixes
