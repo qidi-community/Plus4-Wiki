@@ -8,8 +8,9 @@ of the Qidi Plus4 3D printer.
 
 ### [Qidi Plus 4 Wiki/Support Page](https://wiki.qidi3d.com/en/X-Plus4)
 
-
 ## Issues and Possible Fixes
+
+## [SSH Access](./content/ssh-access/README.md)
 
 ### [PLA/PETG Heat-creep clogging](./content/nozzle-clogging-tips/README.md)
 
