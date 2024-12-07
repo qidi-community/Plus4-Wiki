@@ -66,6 +66,8 @@ As an example for Orca Slicer:
 
 ![Layer Change Macro Addition](./image.png)
 
+NOTE!  ONLY add in the `MANAGE_CHAMBER_TEMP` line to your layer change section.  Ignore the other lines in that example config, they are specific to my personal setup.
+
 Prusa Slicer, Qidi Slicer, Qidi Studio, and others all have a similar machine code definition section within the Printer Settings.
 
 ## An Added Bonus
