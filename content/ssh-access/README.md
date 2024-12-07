@@ -4,7 +4,7 @@ SSH access is needed to interact with the Klipper configuration system. You will
 
 To log into your printer, first detrmine it's IP address from the front panel's network tab.
 
-Then open a shell and type:
+Then open a shell (or Terminal on Windows) and type:
 
 ```ssh mks@x.x.x.x``` 
 
