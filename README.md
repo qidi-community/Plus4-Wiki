@@ -22,7 +22,7 @@ of the Qidi Plus4 3D printer.
 
 ### [SSR Upgrade Mod](./content/heater-ssr-upgrade/README.md)
 
-### [Broken touchscreen firmware](.content/display-firmware-repair/README.md)
+### [Broken touchscreen firmware](./content/display-firmware-repair/README.md)
 
 
 ## Printer Configuration Tweaks
