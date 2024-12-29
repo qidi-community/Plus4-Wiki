@@ -310,6 +310,7 @@ pid_Ki=1.342
 pid_Kd=749.125
 min_temp:-100
 max_temp:80
+target_min_temp: 10
 sensor_type: temperature_combined
 sensor_list: temperature_sensor GD32, temperature_sensor chamber_probe, temperature_sensor GD32, temperature_sensor GD32
 combination_method: mean
