@@ -67,9 +67,8 @@ tune_down() {
         $CPUFREQSET -d 600Mhz
         $CPUFREQINFO
 
+        # Unisolate Klipper, xindi, nginx and mjpg-streamer
         echo "Unsetting klipper/mjpg_streamer/xindi/nginx tuning"
-
-        # Isolate Klipper from xindi and mjpg-streamer
         set_affinity 0-3 klippy
         set_affinity 0-3 mjpg_streamer
         set_affinity 0-3 /root/xindi/build/xindi
