@@ -1,0 +1,102 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:       tuning
+# Required-Start:    $local_fs $remote_fs $network $syslog $named
+# Required-Stop:     $local_fs $remote_fs $network $syslog $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: tunes CPU performance and process affinity
+# Description:       tunes CPU performance and process affinity
+### END INIT INFO
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+TASKSET=/usr/bin/taskset
+RENICE=/usr/bin/renice
+CPUFREQSET=/usr/bin/cpufreq-set
+CPUFREQINFO=/usr/bin/cpufreq-info
+
+test -x $TASKSET || exit 0
+test -x $RENICE || exit 0
+
+set_affinity() {
+        AFFINITY_CPUS=$1
+        COMMAND_NAME=$2
+
+        echo "Setting CPU affinity for $COMMAND_NAME to CPU $AFFINITY_CPUS"
+        AFFINITY_PID=$(ps aux | grep -i $COMMAND_NAME | grep -v grep | head -1 | awk '{print $2}')
+        $TASKSET -acp $AFFINITY_CPUS $AFFINITY_PID
+}
+
+make_nice() {
+        NICE_LEVEL=$1
+        COMMAND_NAME=$2
+
+        echo "Setting all $COMMAND_NAME threads to niceness level $NICE_LEVEL"
+        for p in `ps -eLf | grep $COMMAND_NAME | grep -v grep | awk '{print $4}'`
+        do
+                $RENICE $NICE_LEVEL $p
+        done
+}
+
+tune_up() {
+        # Put CPU into Performance Mode
+        echo "Placing Printer CPU into Performance mode"
+        $CPUFREQSET -g performance
+        $CPUFREQSET -d 1200Mhz
+        $CPUFREQINFO
+
+        # Isolate Klipper from xindi and mjpg-streamer
+        echo "\nIsolating klipper from xindi, mjpg_streamer and nginx\n"
+        set_affinity 0-2 klippy
+        set_affinity 3 mjpg_streamer
+        set_affinity 3 /root/xindi/build/xindi
+        set_affinity 3 nginx
+
+        # Set Niceness of xindi and mjpg_streamer
+        echo "\nSetting niceness of xindi, mjpg_streamer, nginx\n"
+        make_nice 1 /root/xindi/build/xindi
+        make_nice 2 mjpg_streamer
+        make_nice 2 nginx
+}
+
+tune_down() {
+        # Put CPU into ondemand Mode
+        echo "Placing Printer CPU into ondemand mode"
+        $CPUFREQSET -g ondemand
+        $CPUFREQSET -d 600Mhz
+        $CPUFREQINFO
+
+        echo "Unsetting klipper/mjpg_streamer/xindi/nginx tuning"
+
+        # Isolate Klipper from xindi and mjpg-streamer
+        set_affinity 0-3 klippy
+        set_affinity 0-3 mjpg_streamer
+        set_affinity 0-3 /root/xindi/build/xindi
+        set_affinity 0-3 nginx
+
+        echo "Unsetting niceness of xindi, mjpg_streamer, nginx"
+        make_nice 0 /root/xindi/build/xindi
+        make_nice 0 mjpg_streamer
+        make_nice 0 nginx
+}
+
+case "$1" in
+        start)
+                # Wait for all processes to finish starting
+                sleep 60
+                tune_up
+                ;;
+
+        reload)
+                tune_up
+                ;;
+        stop)
+                tune_down
+                ;;
+        *)
+                exit 0
+                ;;
+esac
+
+exit 0
