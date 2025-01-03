@@ -32,13 +32,13 @@ Follow this sequence of steps:
 
 1. ssh into your 3D Printer's Linux command shell
 
-1. Obtain a root shell on your printer like so:
+2. Obtain a root shell on your printer like so:
 
 ```
 sudo bash
 ```
 
-1. Now run the following commands:
+3. Now run the following commands:
 
 ```
 wget -O - https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/system-tuning/tuning > /etc/init.d/tuning
@@ -50,7 +50,7 @@ ln -sf /etc/init.d/tuning /etc/rc3.d/S99tuning
 This installs the tuning script and sets it up to run at system startup when the printer is powered on
 It also does a one-time system tuneup for the currently running system so there's no need to power-cycle your printer
 
-1. Now exit out of the root shell like so with the following command:
+4. Now exit out of the root shell like so with the following command:
 
 ```
 exit
