@@ -135,7 +135,7 @@ and the tuning script will need to be manually re-run if you don't wish to power
 at any time with the following command:
 
 ```
-/etc/init.d/tuning reload
+sudo /etc/init.d/tuning reload
 ```
 
 ...and that will re-apply the tuning to the currently running system
@@ -146,7 +146,7 @@ at any time with the following command:
 If you wish to deactivate the system performance tuning, without uninstalling the script, run the following command:
 
 ```
-/etc/init.d/tuning stop
+sudo /etc/init.d/tuning stop
 ```
 
 This can be useful when making comparisons as to how the printer behaves with, and without, the tuning parameters active
