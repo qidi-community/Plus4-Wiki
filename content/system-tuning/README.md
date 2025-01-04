@@ -18,6 +18,7 @@ stuttering as the Linux scheduler tries to dynamically adjust the CPU frequency 
 
 Fortunately there are ways in which we can tune Qidi's system to better optimise the CPU power mode and resource usage.
 
+
 ## Installing a run-time system tuning script
 
 I have developed a run-time service script that attempts to isolate non-Klipper essential services to an individual CPU core
@@ -26,10 +27,11 @@ as well as bind Klipper services the remaining 3 CPU cores.
 Additionally, the CPU is placed into performance mode to prevent it from downclocking its frequencies when idle.  This allows it
 to respond more quickly to the load spikes that Klipper can introduce.
 
-## Installing the Tuning Script
-
 While ideally this installation procedure should be run when not printing anything, it is not a requirement.  It is generally safe
 to install and run this script at any time.
+
+
+## Installing the Tuning Script
 
 To install and activate the tuning, follow this sequence of steps:
 
@@ -58,6 +60,7 @@ It also does a one-time system tuneup for the currently running system so there'
 ```
 exit
 ```
+
 
 ## Verifying CPU Performance Mode
 
@@ -94,6 +97,7 @@ and that the `performance` CPU frequency governor is active
 
 This verifies that the CPU on the Plus4 is now operating in its highest possible performance mode.
 
+
 ## Verifying Process Niceness
 
 When you first ran `/etc/init.d/tuning reload` there would have been a lot of diagnostic output explaining what the script was doing.
@@ -122,6 +126,31 @@ and that will extract the Nice level of the processes, and should present output
 ```
 
 where the number at the start represents the Nice level of the process
+
+
+## What if I restart `mjpg_streamer` by changing values in `webcam.txt`?
+
+In the event that you modify the `webcam.txt` parameters, this will intiate a new set of `mjpg_streamer` process/threads
+and the tuning script will need to be manually re-run if you don't wish to power-cycle the printer.  This can be achieved
+at any time with the following command:
+
+```
+/etc/init.d/tuning reload
+```
+
+...and that will re-apply the tuning to the currently running system
+
+
+## Deactivating the Tuning
+
+If you wish to deactivate the system performance tuning, without uninstalling the script, run the following command:
+
+```
+/etc/init.d/tuning stop
+```
+
+This can be useful when making comparisons as to how the printer behaves with, and without, the tuning parameters active
+
 
 ## Uninstalling
 
