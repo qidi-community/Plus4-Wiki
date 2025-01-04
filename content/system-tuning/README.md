@@ -28,7 +28,10 @@ to respond more quickly to the load spikes that Klipper can introduce.
 
 ## Installing the Tuning Script
 
-Follow this sequence of steps:
+While ideally this installation procedure should be run when not printing anything, it is not a requirement.  It is generally safe
+to install and run this script at any time.
+
+To install and activate the tuning, follow this sequence of steps:
 
 1. ssh into your 3D Printer's Linux command shell
 
