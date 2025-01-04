@@ -56,7 +56,42 @@ It also does a one-time system tuneup for the currently running system so there'
 exit
 ```
 
-## Verifying
+## Verifying CPU Performance Mode
+
+Run the following command:
+
+```
+/usr/bin/cpufreq-info -c 0
+```
+
+This should generate output similar to the following:
+
+```
+cpufrequtils 008: cpufreq-info (C) Dominik Brodowski 2004-2009
+Report errors and bugs to cpufreq@vger.kernel.org, please.
+analyzing CPU 0:
+  driver: cpufreq-dt
+  CPUs which run at the same hardware frequency: 0 1 2 3
+  CPUs which need to have their frequency coordinated by software: 0 1 2 3
+  maximum transition latency: 62.0 us.
+  hardware limits: 408 MHz - 1.20 GHz
+  available frequency steps: 408 MHz, 600 MHz, 816 MHz, 1.01 GHz, 1.20 GHz
+  available cpufreq governors: conservative, ondemand, userspace, powersave, performance, schedutil
+  current policy: frequency should be within 1.20 GHz and 1.20 GHz.
+                  The governor "performance" may decide which speed to use
+                  within this range.
+  current CPU frequency is 1.20 GHz (asserted by call to hardware).
+  cpufreq stats: 408 MHz:0.00%, 600 MHz:0.03%, 816 MHz:0.00%, 1.01 GHz:0.00%, 1.20 GHz:99.96%  (520)
+```
+
+The important lines here at the 3 starting with `current_policy`
+
+The above output is informing us that the CPU will choose a frequency between 1200MHz and 1200Mhz (ie. a constant 1200Mhz)
+and that the `performance` CPU frequency governor is active
+
+This verifies that the CPU on the Plus4 is now operating in its highest possible performance mode.
+
+## Verifying Process Niceness
 
 When you first ran `/etc/init.d/tuning reload` there would have been a lot of diagnostic output explaining what the script was doing.
 You should see that all `xindi`, `mjpg_streamer`, and `nginx` processes and threads were affined to CPU 3, and all `klippy` processes
