@@ -1,5 +1,12 @@
 # Qidi Plus4 System Tuning
 
+If you've ever encountered the following error, this is the page for you.
+
+![Timer Too Close](./timer_too_close.jpg "It's too close!")
+
+
+## Introduction
+
 The Qidi Plus4 utilises a RockChip based CPU with 4 cores running at a peak of 1.2Ghz
 
 As such, there can be instances under certain high loads where the CPU can struggle to keep up with the MCU systems controlling the motion systems,
