@@ -35,7 +35,7 @@ to install and run this script at any time.
 
 To install and activate the tuning, follow this sequence of steps:
 
-1. ssh into your 3D Printer's Linux command shell
+1. ssh into your 3D Printer's Linux command shell (see https://github.com/qidi-community/Plus4-Wiki/tree/main/content/ssh-access for details)
 
 2. Obtain a root shell on your printer like so:
 
