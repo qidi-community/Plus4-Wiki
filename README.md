@@ -43,6 +43,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Better Bed Meshing](./content/more-accurate-bed-meshing/README.md)
 
+### [Plus4 System Performance Tuning](./content/system-tuning/README.md)
+
 
 ## Orca Slicer Configuration
 
