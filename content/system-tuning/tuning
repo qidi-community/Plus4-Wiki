@@ -23,9 +23,11 @@ set_affinity() {
         AFFINITY_CPUS=$1
         COMMAND_NAME=$2
 
-        echo "Setting CPU affinity for $COMMAND_NAME to CPU $AFFINITY_CPUS"
-        AFFINITY_PID=$(ps aux | grep -i $COMMAND_NAME | grep -v grep | head -1 | awk '{print $2}')
-        $TASKSET -acp $AFFINITY_CPUS $AFFINITY_PID
+        echo "Setting CPU affinity for all $COMMAND_NAME threads to CPU $AFFINITY_CPUS"
+        for p in `ps -eLf | grep -i $COMMAND_NAME | grep -v grep | awk '{print $4}'`
+        do
+                $TASKSET -cp $AFFINITY_CPUS $p
+        done
 }
 
 make_nice() {
