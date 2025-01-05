@@ -17,6 +17,7 @@ There are a number of CPU intensive processes that can compete with Klipper for 
 - `xindi` is Qidi's UI interface driving daemon that is responsible for converting clicks on the printer screen into Klipper actions, as well as driving USB storage, networking, and firmware updates
 - `mjpg_streamer` is the video streaming encoding daemon that provides a video stream to monitor the current print
 - `nginx` is the Web Server daemon that hosts the FluiddUI Web Interface service that slicers and a web browser can interact with
+- `moonraker` is the API process that acts as an intermediary between Klipper and Web UI's such as Fluidd or Mainsail
 
 Unfortunately the above processes can sometimes get in the way of Klipper, and cause CPU stuttering that is bad enough to cause Host CPU Timer Too Close errors
 
@@ -111,11 +112,12 @@ This verifies that the CPU on the Plus4 is now operating in its highest possible
 ## Verifying Process Niceness
 
 When you first ran `/etc/init.d/tuning reload` there would have been a lot of diagnostic output explaining what the script was doing.
-You should see that all `xindi`, `mjpg_streamer`, and `nginx` processes and threads were affined to CPU 3, and all `klippy` processes
-and threads were affined to CPUs 0-2.
+You should see that all `xindi`, `mjpg_streamer`, `moonraker`, and `nginx` processes and threads were affined to CPU 3, and all
+`klippy` processes and threads were affined to CPUs 0-2.
 
 To verify the Unix scheduling niceness changes run the `top` command and take note of the nice level for the `xindi`, `mjpg_streamer`,
-and `nginx` processes.  These should be set to `1`, `2`, and `2` respectively.
+and `nginx` processes.  These should be set to `1`, `2`, and `2` respectively.  The script does not adjust the niceness level of
+either `klippy` or `moonraker` so their nice levels should remain at `0`.
 
 Alternately, run the following command:
 
