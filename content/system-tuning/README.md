@@ -1,6 +1,6 @@
 # Qidi Plus4 System Tuning
 
-If you've ever encountered the following error, this is the page for you.
+If you've ever encountered the following error, or just want to make your Plus4 a little more responsive overall, this is the page for you.
 
 ![Timer Too Close](./timer_too_close.jpg "It's too close!")
 
@@ -60,7 +60,10 @@ ln -sf /etc/init.d/tuning /etc/rc3.d/S99tuning
 
 ```
 This installs the tuning script and sets it up to run at system startup when the printer is powered on
-It also does a one-time system tuneup for the currently running system so there's no need to power-cycle your printer
+It also does a one-time system tuneup for the currently running system so there's no need to power-cycle your printer.
+
+**Note:** `mjpg_streamer` often creates transient short-lived threads, and so the script may occasionally complain that it
+cannot find one of the `mjpg_streamer` processes.  In the chance that this error is seen, then it can be safely ignored.
 
 4. Now exit out of the root shell like so with the following command:
 
