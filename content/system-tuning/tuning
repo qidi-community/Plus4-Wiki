@@ -54,6 +54,7 @@ tune_up() {
         set_affinity 3 mjpg_streamer
         set_affinity 3 /root/xindi/build/xindi
         set_affinity 3 nginx
+        set_affinity 3 moonraker
 
         # Set Niceness of xindi and mjpg_streamer
         echo "\nSetting niceness of xindi, mjpg_streamer, nginx\n"
@@ -75,6 +76,7 @@ tune_down() {
         set_affinity 0-3 mjpg_streamer
         set_affinity 0-3 /root/xindi/build/xindi
         set_affinity 0-3 nginx
+        set_affinity 0-3 moonraker
 
         echo "Unsetting niceness of xindi, mjpg_streamer, nginx"
         make_nice 0 /root/xindi/build/xindi
