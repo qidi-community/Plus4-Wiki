@@ -57,10 +57,9 @@ tune_up() {
         set_affinity 3 moonraker
 
         # Set Niceness of xindi and mjpg_streamer
-        echo "\nSetting niceness of xindi, mjpg_streamer, nginx\n"
-        make_nice 1 /root/xindi/build/xindi
+        echo "\nSetting niceness of mjpg_streamer, and nginx\n"
         make_nice 2 mjpg_streamer
-        make_nice 2 nginx
+        make_nice 1 nginx
 }
 
 tune_down() {
@@ -82,6 +81,7 @@ tune_down() {
         make_nice 0 /root/xindi/build/xindi
         make_nice 0 mjpg_streamer
         make_nice 0 nginx
+        make_nice 0 moonraker
 }
 
 case "$1" in
