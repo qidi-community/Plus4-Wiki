@@ -45,6 +45,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Plus4 System Performance Tuning](./content/system-tuning/README.md)
 
+### [Disable Wifi Adapter](./content/8188gu-blacklist/README.md)
+
 
 ## Orca Slicer Configuration
 
