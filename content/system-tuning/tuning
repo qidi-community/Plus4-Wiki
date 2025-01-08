@@ -43,51 +43,50 @@ make_nice() {
 
 tune_up() {
         # Put CPU into Performance Mode
-        echo "Placing Printer CPU into Performance mode"
+        echo "Placing Printer CPU into Performance mode with fixed frequency"
         $CPUFREQSET -g performance
         $CPUFREQSET -d 1200Mhz
         $CPUFREQINFO
 
         # Isolate Klipper from xindi and mjpg-streamer
-        echo "\nIsolating klipper from xindi, mjpg_streamer and nginx\n"
-        set_affinity 0-2 klippy
+        echo "\nIsolating klipper from xindi, mjpg_streamer, moonraker, and nginx\n"
+        set_affinity 0 /root/xindi/build/xindi
+        set_affinity 1-2 klippy
         set_affinity 3 mjpg_streamer
-        set_affinity 3 /root/xindi/build/xindi
         set_affinity 3 nginx
         set_affinity 3 moonraker
 
         # Set Niceness of xindi and mjpg_streamer
-        echo "\nSetting niceness of mjpg_streamer, and nginx\n"
-        make_nice 2 mjpg_streamer
+        echo "\nSetting niceness of xindi, mjpg_streamer, nginx\n"
+        make_nice 1 /root/xindi/build/xindi
         make_nice 1 nginx
+        make_nice 2 mjpg_streamer
 }
 
 tune_down() {
         # Put CPU into ondemand Mode
-        echo "Placing Printer CPU into ondemand mode"
+        echo "Placing Printer CPU into default ondemand and frequency scaling mode"
         $CPUFREQSET -g ondemand
-        $CPUFREQSET -d 600Mhz
+        $CPUFREQSET -d 408Mhz
         $CPUFREQINFO
 
-        # Unisolate Klipper, xindi, nginx and mjpg-streamer
-        echo "Unsetting klipper/mjpg_streamer/xindi/nginx tuning"
+        # Unisolate Klipper, xindi, nginx, moonraker, and mjpg-streamer
+        echo "Resetting klipper/mjpg_streamer/xindi/nginx/moonraker tuning to system default"
         set_affinity 0-3 klippy
         set_affinity 0-3 mjpg_streamer
         set_affinity 0-3 /root/xindi/build/xindi
         set_affinity 0-3 nginx
         set_affinity 0-3 moonraker
 
-        echo "Unsetting niceness of xindi, mjpg_streamer, nginx"
+        echo "Resetting niceness of xindi, mjpg_streamer, nginx to system default"
         make_nice 0 /root/xindi/build/xindi
         make_nice 0 mjpg_streamer
         make_nice 0 nginx
-        make_nice 0 moonraker
 }
 
 case "$1" in
         start)
-                # Wait for all processes to finish starting
-                sleep 60
+                sleep 60        # Wait for all the main printer processes to start up
                 tune_up
                 ;;
 
