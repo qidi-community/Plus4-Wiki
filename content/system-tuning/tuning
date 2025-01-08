@@ -19,6 +19,21 @@ CPUFREQINFO=/usr/bin/cpufreq-info
 test -x $TASKSET || exit 0
 test -x $RENICE || exit 0
 
+set_irq_affinity() {
+        TTYS0=`grep ttyS0 < /proc/interrupts | awk -F: '{print $1}' | tr -d '[:blank:]'`
+        TTYS2=`grep ttyS2 < /proc/interrupts | awk -F: '{print $1}' | tr -d '[:blank:]'`
+        USB2=`grep "hcd:usb2" < /proc/interrupts | awk -F: '{print $1}' | tr -d '[:blank:]'`
+        USB3=`grep "hcd:usb3" < /proc/interrupts | awk -F: '{print $1}' | tr -d '[:blank:]'`
+        USB4=`grep "hcd:usb4" < /proc/interrupts | awk -F: '{print $1}' | tr -d '[:blank:]'`
+
+        # Split MCU IRQs evenly between CPUs 1 and 2
+        echo 4 > /proc/irq/${TTYS0}/smp_affinity
+        echo 2 > /proc/irq/${TTYS2}/smp_affinity
+        echo 8 > /proc/irq/${USB2}/smp_affinity
+        echo 8 > /proc/irq/${USB3}/smp_affinity
+        echo 8 > /proc/irq/${USB4}/smp_affinity
+}
+
 set_affinity() {
         AFFINITY_CPUS=$1
         COMMAND_NAME=$2
@@ -55,6 +70,8 @@ tune_up() {
         set_affinity 3 mjpg_streamer
         set_affinity 3 nginx
         set_affinity 3 moonraker
+
+        set_irq_affinity
 
         # Set Niceness of xindi and mjpg_streamer
         echo "\nSetting niceness of xindi, mjpg_streamer, nginx\n"
