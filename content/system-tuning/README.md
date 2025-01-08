@@ -1,3 +1,7 @@
+**NOTICE** - The following appears to cause issues with `xindi` and the filament load/unload macros.  Please disable this script if you
+are currently using it.  I am working on a solution
+
+
 # Qidi Plus4 System Tuning
 
 If you've ever encountered the following error, or just want to make your Plus4 a little more responsive overall, this is the page for you.
