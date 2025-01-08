@@ -120,7 +120,7 @@ You should see that all `xindi`, `mjpg_streamer`, `moonraker`, and `nginx` proce
 `klippy` processes and threads were affined to CPUs 0-2.
 
 To verify the Unix scheduling niceness changes run the `top` command and take note of the nice level for the `xindi`, `mjpg_streamer`,
-and `nginx` processes.  These should be set to `1`, `2`, and `2` respectively.  The script does not adjust the niceness level of
+and `nginx` processes.  These should be set to `1`, `2`, and `1` respectively.  The script does not adjust the niceness level of
 either `klippy` or `moonraker` so their nice levels should remain at `0`.
 
 Alternately, run the following command:
@@ -132,13 +132,13 @@ ps axl | egrep "mjpg|xindi|nginx" | egrep -v "bash|grep" | awk '{print $6 " " $1
 and that will extract the Nice level of the processes, and should present output similar to the following:
 
 ```
-2 nginx:
-2 nginx:
-2 nginx:
-2 nginx:
-2 nginx:
-1 /root/xindi/build/xindi
 2 ./mjpg_streamer
+1 /root/xindi/build/xindi
+1 nginx:
+1 nginx:
+1 nginx:
+1 nginx:
+1 nginx:
 ```
 
 where the number at the start represents the Nice level of the process
