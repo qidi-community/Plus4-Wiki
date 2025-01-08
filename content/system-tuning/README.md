@@ -1,5 +1,5 @@
-**NOTICE** - The following appears to cause issues with `xindi` and the filament load/unload macros.  Please disable this script if you
-are currently using it.  I am working on a solution
+**NOTICE 8th Jan 2025** - The original version of the tuning script had a compatibility issue with `xindi`.  This has now been resolved.
+Please re-download and apply the updated tuning script if you installed a version prior to 8th Jan 2025.
 
 
 # Qidi Plus4 System Tuning
