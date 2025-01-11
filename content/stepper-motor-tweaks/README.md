@@ -35,10 +35,10 @@ run_current: 0.8
 stealthchop_threshold: 0
 
 [stepper_x]
-microsteps:64
+microsteps:32
 
 [stepper_y]
-microsteps: 64
+microsteps: 32
 
 [stepper_z]
 microsteps: 16
