@@ -63,6 +63,8 @@ Heatsinks for the SSR should ideally be bare metal in order to make grounding th
 
 - Make note of the wiring on Qidi's SSR board. There are 7 wires.
 
+⚠️Wiring is different on the new SSR board, this example is for the old SSR board⚠️
+
 ![Alt text](ssr-board-wiring.png)
 
 - Remove Qidi's SSR board and Install the printed mount with the new SSR.
