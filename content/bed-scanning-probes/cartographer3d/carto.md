@@ -22,8 +22,6 @@ You must be certain the coil is between 2.6 to 3.0 mm from the nozzle tip.
 
 A small note: The code with "+" and "-" before them are meant to indicate what is added and what is removed. When you copy and paste them onto your machine, please remove the "+" before any line, and delete the lines with "-" before them. 
 
-There are example config, it is suggested you check your work. 
-
 ### Cartographer for Klipper
 
 Cartographer needs a plugin for Klipper to work, this plugin is only supported on Python 3.9 or higher. The Qidi Plus 4 ships with Python 3.7 by default, we need to download Python 3.12 and remake the Klipper virtual environment. 
