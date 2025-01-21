@@ -323,6 +323,10 @@ gcode:
 - save_zoffset
 ```
 
+#### saved_variables.cfg 
+
+Inside `saved_variables.cfg` we need to set `z_offset = 0.0` as this is now handled by Cartographer.
+
 #### KAMP_settings.cfg
 
 We need to now disable KAMP's adaptive meshing.
