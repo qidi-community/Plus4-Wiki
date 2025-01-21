@@ -2,13 +2,15 @@
 
 **Heads up - This is still a work in progress. Here (might) be dragons 🐲**
 
-**Everything is functional but not fully tested yet. It is not aimed towards notice users. It requires, SSH access, changing Klipper files and updating configs and macros. If you don't understand this, you risk damaging your printer. Performing this mod may limit your ability to update to latest firmware from Qidi. Do not update without checking as it may overwrite important configs.**
+**Everything is functional but not tested yet my muiple users (yet). Consider this an Alpha / Beta. It is not aimed towards notice users. It requires, SSH access, changing Klipper files and updating configs and macros. If you don't understand this, you risk damaging your printer. Performing this mod may limit your ability to update to latest firmware from Qidi. Do not update without checking as it may overwrite important configs.**
 
 ⚠️ Do not contact Qidi support about issues with bed leveling, first layer issues, klipper, etc after making this mod. It's now your responsibility. ⚠️
 
 This guide covers installing Cartographer3D on your Qidi Plus 4. Beacon guide is in the works and should be a mostly similar process.
 
 ## Hardware
+
+You of course need a [Cartographer3D probe](https://cartographer3d.com/). USB version. Flat pack will be the most compatible version, since you can assemble it into any configuration. 
 
 This guide is not mount specific, only to say you need a mount for the probe. A list of tested mounts are:
 
@@ -39,7 +41,7 @@ tar xvzf python-3-12-3.tgz
 
 rm python-3-12-3.tgz
 ```
-Now Python 3.12.3 in the home directory. We will delete the Klipper virtual enviroment and recreate it. Don't worry this will not touch any of your user data, but you will need to reinstall any klipper plugins after this. 
+Now Python 3.12.3 is in the home directory. We will delete the Klipper virtual enviroment and recreate it. Don't worry this will not touch any of your user data, but you will need to reinstall any klipper plugins after this. 
 
 ```bash
 rm -rf klippy-env
@@ -323,7 +325,7 @@ gcode:
 
 #### KAMP_settings.cfg
 
-We need to now disable KAMP's adpative meshing.
+We need to now disable KAMP's adaptive meshing.
 
 In `KAMP_Settings.cfg` (**Not** `KAMP/KAMP_Settings.cfg`) comment out:
 
@@ -335,7 +337,7 @@ Don't worry adaptive meshing is now handled by Kipper natively in the bed mesh c
 
 Create a new file in your config folder called `carto.cfg`. Copy and paste the contents of [this](./carto.cfg) into the new file.
 
-This file is where we are storing all the changes to printer.cfg that Carto needs to work.You need to modify a few values in this file to get your carto to work for your setup.
+This file is where we are storing all the changes to printer.cfg that Carto needs to work. You need to modify a few values in this file to get your carto to work for your setup.
 
 #### [mcu scanner]
 
