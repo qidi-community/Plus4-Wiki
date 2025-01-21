@@ -6,11 +6,6 @@ VFAs are usually the last item to tune because all other issues must be ruled ou
 
 An excellent resource is [Ellis' guide](https://ellis3dp.com/Print-Tuning-Guide/articles/troubleshooting/vfas.html). Much of this article uses advice from his guide.
 
-
-## VFAs or Resonance?
-
-It's easy to confuse VFAs with [resonance](https://www.klipper3d.org/Resonance_Compensation.html). Sometimes they happen at the same time which confuses the matter even more. VFAs will always be perfectly vertical. You can run a simple test by printing [this test.](VFA_TEST.3mf)
-
 Which one of these has VFAs?
 
 ![alt text](vfa1.jpg)

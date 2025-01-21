@@ -6,10 +6,11 @@ of the Qidi Plus4 3D printer.
 
 ## Official Qidi Wiki
 
-### [Qidi Plus 4 Wiki/Support Page](https://wiki.qidi3d.com/en/PLUS4)
-
+### [Qidi Plus 4 Wiki/Support Page](https://wiki.qidi3d.com/en/X-Plus4)
 
 ## Issues and Possible Fixes
+
+## [SSH Access](./content/ssh-access/README.md)
 
 ### [PLA/PETG Heat-creep clogging](./content/nozzle-clogging-tips/README.md)
 
@@ -19,12 +20,18 @@ of the Qidi Plus4 3D printer.
 
 ### [More Accurate Chamber Temperature Measurements](./content/chamber-heater-investigation/README.md)
 
+### [SSR Upgrade Mod](./content/heater-ssr-upgrade/README.md)
+
+### [Broken touchscreen firmware](./content/display-firmware-repair/README.md)
+
 
 ## Printer Configuration Tweaks
 
-### [Enhanced Stepper Motor Configuration](./content/stepper-motor-tweaks)
+### [Dynamic Chamber Temperature Manager](./content/chamber-temperature-manager/README.md)
 
-### [Tweak to Square Corner Velocity](./content/square-corner-velocity)
+### [Enhanced Stepper Motor Configuration](./content/stepper-motor-tweaks/README.md)
+
+### [Tweak to Square Corner Velocity](./content/square-corner-velocity/README.md)
 
 ### [Adaptive Main Board Cooling configuration](./content/adaptive-main-board-cooling)
 
@@ -33,6 +40,12 @@ of the Qidi Plus4 3D printer.
 ### [Enabling KAMP Purge Line](./content/kamp-purging)
 
 ### [Enabling Screws_Tilt_Adjust](./content/Screws-Tilt-Adjust/)
+
+### [Better Bed Meshing](./content/more-accurate-bed-meshing/README.md)
+
+### [Plus4 System Performance Tuning](./content/system-tuning/README.md)
+
+### [Disable Wifi Adapter](./content/8188gu-blacklist/README.md)
 
 
 ## Orca Slicer Configuration
