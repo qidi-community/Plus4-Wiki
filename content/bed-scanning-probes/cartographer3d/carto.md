@@ -80,7 +80,7 @@ sudo service klipper stop
 
 mv ~/klipper/klippy/extras/probe.py probe.py.bak
 
-wget -P ~/klipper/klippy/extras https://github.com/Klipper3d/klipper/blob/cf3b0475daa0d7154d2f986f94d8c184c7cf39c1/klippy/extras/probe.py
+wget -P ~/klipper/klippy/extras https://raw.githubusercontent.com/Klipper3d/klipper/refs/heads/master/klippy/extras/probe.py
 ```
 
 Run `ls` you should have `probe.py` and `probe.py.bak` in `klippy/extras`
