@@ -83,7 +83,7 @@ mv ~/klipper/klippy/extras/probe.py probe.py.bak
 wget -P ~/klipper/klippy/extras https://raw.githubusercontent.com/Klipper3d/klipper/refs/heads/master/klippy/extras/probe.py
 ```
 
-Run `ls` you should have `probe.py` and `probe.py.bak` in `klippy/extras`
+Run `ls ~/klipper/klippy/extras | grep probe` you should have `probe.py` and `probe.py.bak` in `klippy/extras`
 
 Restart Klipper
 
