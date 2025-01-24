@@ -47,7 +47,7 @@ of the Qidi Plus4 3D printer.
 
 ### [Disable Wifi Adapter](./content/8188gu-blacklist/README.md)
 
-### [Temperature Change Chimes](./content/temp-chimes/README.md)
+### [Temperature Change Chimes](./content/temp-chime/README.md)
 
 
 ## Orca Slicer Configuration
