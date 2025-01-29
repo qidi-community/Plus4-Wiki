@@ -28,7 +28,7 @@ CPU cycles.
 If you'd rather NOT remove the dongle, you can simply blacklist the module from loading
 in the first place. To do so, execute this simple one liner to create the this file:
 
-`sudo bash -c "echo 'blacklist 8188eu' > /etc/modprobe.d/blacklist-8188gu.conf"`
+`sudo bash -c "echo 'blacklist 8188*' > /etc/modprobe.d/blacklist-8188gu.conf"`
 
 Once complete, restart your Plus4.
 
