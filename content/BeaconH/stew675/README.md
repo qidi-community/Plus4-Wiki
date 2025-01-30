@@ -14,6 +14,8 @@ faster proximity mode Z axis movements to quickly cover unknown Z axis distances
 and more precise contact mode.
 
 It assumes nothing about any prior state, and certain events are chosen to work around a number of stock firmware bugs.
+For example `G28 YX` will home Y but not X (a bug).  Setting `homing_retract_distance` distance to a non-zero value in
+the `[stepper_x/y]` sections can also activate a firmware bug, so this retract distance is handled explicitly here.
 
 ```
 [gcode_macro G29]
