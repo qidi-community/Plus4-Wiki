@@ -36,12 +36,13 @@ gcode:
         G0 X10 F1200                        # Move print-head away from any potential Y end-stop collision
         G28 Y                               # Home Y axis
     {% endif %}
-                                  
+
+    M109 S145                               # Wait until hotend is up to temp if still necessary                                  
     G28 Z METHOD=CONTACT CALIBRATE=1        # Use contact to find our Z end-stop, and calibrate a model for tilt and meshing                
-    Z_TILT_ADJUST                           # Ensure bed is level
-    M109 S145                               # Wait until hotend is up to temp if still necessary
+    Z_TILT_ADJUST                           # Ensure bed is level    
     G28 Z METHOD=CONTACT CALIBRATE=0        # Re-establish Z end-stop after bed levelling
     M104 S0                                 # Turn off hotend
+    
     {% if k|int==1 %}
         BED_MESH_CALIBRATE RUNS=2 PROFILE=kamp
         BED_MESH_PROFILE LOAD=kamp
