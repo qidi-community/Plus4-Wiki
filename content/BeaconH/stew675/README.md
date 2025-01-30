@@ -8,7 +8,8 @@ Note that all these configurations relate ONLY to using the Beacon in Contact mo
 
 This should work for the widest possible range of scenarios.
 
-The sequence of events in this macro is very deliberately chosen for the fastest possible stock G29 equivalence
+The sequence of events in this macro is very deliberately chosen for the fastest possible stock G29 equivalence.
+
 Stock `G28` behaviour in Beacon Contact mode issues very slow Z axis movements.  This macro is written to use the
 faster proximity mode Z axis movements to quickly cover unknown Z axis distances, before switching to the slower
 and more precise contact mode.
