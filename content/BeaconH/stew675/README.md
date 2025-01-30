@@ -4,9 +4,16 @@
 Note that all these configurations relate ONLY to using the Beacon in Contact mode.
 
 
-## (Mostly) Idiot proof but fast G29 macro
+## A (Mostly) Idiot proof G29 macro for Beacon Contact mode
 
-Should work for the widest possible range of scenarios
+This should work for the widest possible range of scenarios.
+
+The sequence of events in this macro is very deliberately chosen for the fastest possible stock G29 equivalence
+Stock `G28` behaviour in Beacon Contact mode issues very slow Z axis movements.  This macro is written to use the
+faster proximity mode Z axis movements to quickly cover unknown Z axis distances, before switching to the slower
+and more precise contact mode.
+
+It assumes nothing about any prior state, and certain events are chosen to work around a number of stock firmware bugs.
 
 ```
 [gcode_macro G29]
@@ -26,13 +33,12 @@ gcode:
     {% if "x" not in printer.toolhead.homed_axes %}
         G28 X                               # Home X axis
     {% endif %}
-
     {% if "y" not in printer.toolhead.homed_axes %} 
         G0 X10 F1200                        # Move print-head away from any potential Y end-stop collision
         G28 Y                               # Home Y axis
     {% endif %}
                                   
-    G28 Z METHOD=PROXIMITY                  # Quickly move Z to within a decent contact probing range                 
+    G28 Z METHOD=PROXIMITY                  # Use the fast proximity Z homing to get within a decent contact probing range                 
     Z_TILT_ADJUST                           # Ensure bed is level
     M109 S145                               # Wait until hotend is up to temp if still necessary
     G28 Z METHOD=CONTACT CALIBRATE=1        # Identify source of truth regarding when the nozzle is touching the build plate
