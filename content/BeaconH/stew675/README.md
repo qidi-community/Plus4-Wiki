@@ -10,10 +10,6 @@ This should work for the widest possible range of scenarios.
 
 The sequence of events in this macro is very deliberately chosen for the fastest possible stock G29 equivalence.
 
-Stock `G28` behaviour in Beacon Contact mode issues very slow Z axis movements.  This macro is written to use the
-faster proximity mode Z axis movements to quickly cover unknown Z axis distances, before switching to the slower
-and more precise contact mode.
-
 It assumes nothing about any prior state, and certain events are chosen to work around a number of stock firmware bugs.
 For example `G28 YX` will home Y but not X (a bug).  Setting `homing_retract_distance` distance to a non-zero value in
 the `[stepper_x/y]` sections can also activate a firmware bug, so this retract distance is handled explicitly here.
@@ -41,10 +37,10 @@ gcode:
         G28 Y                               # Home Y axis
     {% endif %}
                                   
-    G28 Z METHOD=PROXIMITY                  # Use the fast proximity Z homing to get within a decent contact probing range                 
+    G28 Z METHOD=CONTACT CALIBRATE=1        # Use contact to find our Z end-stop, and calibrate a model for tilt and meshing                
     Z_TILT_ADJUST                           # Ensure bed is level
     M109 S145                               # Wait until hotend is up to temp if still necessary
-    G28 Z METHOD=CONTACT CALIBRATE=1        # Identify source of truth regarding when the nozzle is touching the build plate
+    G28 Z METHOD=CONTACT CALIBRATE=0        # Re-establish Z end-stop after bed levelling
     M104 S0                                 # Turn off hotend
     {% if k|int==1 %}
         BED_MESH_CALIBRATE RUNS=2 PROFILE=kamp
