@@ -192,12 +192,7 @@ gcode:
     M191 S{chambertemp}  
     M190 S{bedtemp}   
     M104 S140
--    G29 # Qidi's Auto Leveling
-+    G28 Z # Home Z axis again to account for thermal expansion
-+    Z_TILT_ADJUST Perform  # Z tilt adjustment
-+    G28 Z  # Home Z axis again to account for thermal expansion
-+    BED_MESH_CALIBRATE # Calibrate the bed mesh
-+    CARTOGRAPHER_TOUCH # Perform touch probe
+    G29
     G0 Z50 F600
     G0 X5 Y5  F6000
     {% if chambertemp == 0 %}
@@ -224,7 +219,8 @@ gcode:
     m204 S10000
     M220 S100
 	{% if params.X is defined %}
-
++       SET_KINEMATIC_POSITION Z=1.9 # Set Z position
++       G1 Z4 F600 # Lower Z by 4 to prevent dragging the nozzle
 	    SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR * 0.7} 
         G28 X
 		SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR}     
@@ -233,6 +229,8 @@ gcode:
     {% endif %}
 
     {% if params.Y is defined %}
++       SET_KINEMATIC_POSITION Z=1.9 # Set Z position
++       G1 Z4 F600 # Lower Z by 4 to prevent dragging the nozzle
 		SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR * 0.9} 
 		G28 Y
 		SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR}  
@@ -306,6 +304,39 @@ gcode:
     G90
 -   QIDI_PROBE_PIN_2
 ```
+
+Now we need to completely replace G29 with this
+
+```
+[gcode_macro G29]
+variable_k:1
+gcode:
+    M141 S0
+    BED_MESH_CLEAR
+    SET_GCODE_OFFSET Z=0
+    {% if "xy" not in printer.toolhead.homed_axes %}
+        G28 Y                               # Home Y axis
+        G0 Y20 F1200                        # Move Y axis away from Y end-stop
+        G28 X                               # Home X axis
+    {% endif %}
+    M109 S145                               # Set nozzle to 145 so any remaining filament stuck to nozzle is softened
+    G28 Z                                   # Home Z
+    CARTOGRAPHER_CALIBRATE SPEED=2          # Re-Calibrate incase build plate changes
+    Z_TILT_ADJUST                           # Ensure bed is level
+    G28 Z                                   # Re-home Z again now that the bed is level
+    M109 S0                                 # Turn off hotend
+    {% if k|int==1 %}
+        BED_MESH_CALIBRATE RUNS=2 PROFILE=kamp
+        BED_MESH_PROFILE LOAD=kamp
+        SAVE_VARIABLE VARIABLE=profile_name VALUE='"kamp"'
+    {% else %}
+        BED_MESH_CALIBRATE RUNS=2 PROFILE=default
+        BED_MESH_PROFILE LOAD=default
+        SAVE_VARIABLE VARIABLE=profile_name VALUE='"default"'
+    {% endif %}
+    CARTOGRAPHER_TOUCH SPEED=2 FUZZY=10 
+```
+
 
 Finally, remove the following lines to prevent the old Z_offset variable from getting saved.
 
