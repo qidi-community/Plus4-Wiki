@@ -360,7 +360,9 @@ Inside `saved_variables.cfg` we need to set `z_offset = 0.0` as this is now hand
 
 #### carto.cfg
 
-Create a new file in your config folder called `carto.cfg`. Copy and paste the contents of [this](./carto.cfg) into the new file.
+Create a new file in your config folder called `carto.cfg`. Copy and paste the contents of [this](./carto.cfg) into the new file. Save and close. 
+
+Open `printer.cfg` and at the top under the last include, write `[include carto.cfg]`. Save and restart.
 
 This file is where we are storing all the changes to printer.cfg that Carto needs to work. You need to modify a few values in this file to get your carto to work for your setup.
 
