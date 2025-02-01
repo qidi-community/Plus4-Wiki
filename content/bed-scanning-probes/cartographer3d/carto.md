@@ -358,16 +358,6 @@ gcode:
 
 Inside `saved_variables.cfg` we need to set `z_offset = 0.0` as this is now handled by Cartographer.
 
-#### KAMP_settings.cfg
-
-We need to now disable KAMP's adaptive meshing.
-
-In `KAMP_Settings.cfg` (**Not** `KAMP/KAMP_Settings.cfg`) comment out:
-
-`#[include ./KAMP/Adaptive_Meshing.cfg]       # Include to enable adaptive meshing configuration.`
-
-Don't worry adaptive meshing is now handled by Kipper natively in the bed mesh command in the `[print_start]` macro.
-
 #### carto.cfg
 
 Create a new file in your config folder called `carto.cfg`. Copy and paste the contents of [this](./carto.cfg) into the new file.
