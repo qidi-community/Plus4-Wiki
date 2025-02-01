@@ -1,4 +1,3 @@
-
 # Stew's Beacon Contact configuration settings
 
 Note that all these configurations relate ONLY to using the Beacon in Contact mode.
