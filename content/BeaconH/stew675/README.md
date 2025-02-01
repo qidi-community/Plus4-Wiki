@@ -143,7 +143,7 @@ gcode:
     M109 S145                               # Wait until hotend is up to temp to soften any filament on nozzle                                  
     G28 Z METHOD=CONTACT CALIBRATE=0        # Use contact to find our Z end-stop                
     M104 S0                                 # Turn off hotend
-    G1 Z10 F600
+    APPLY_NOZZLE_OFFSET
 
 [gcode_macro save_zoffset]
 description: Use APPLY_FILAMENT_OFFSET instead
