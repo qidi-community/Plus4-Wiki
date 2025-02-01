@@ -102,7 +102,7 @@ description: Apply the global nozzle offset and set position reference with G92
 variable_nozzle_offset: 0.115           # Fixed nozzle offset specific to the printer.
                                         # This value should rarely be changed, if ever
 gcode:
-    {% set zoff = (printer["gcode_macro APPLY_NOZZLE_OFFSET"].nozzle_offset)|float %}
+    {% set zoff = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].nozzle_offset)|float %}
     {% set ref = (5.0)|float %}
     {% set pos = (ref + zoff)|float %}
     { action_respond_info("Adjusting Z reference position by %.3fmm" % zoff) }
