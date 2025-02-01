@@ -8,6 +8,7 @@ If you're an experienced Beacon user, or generally know what you're doing with K
 generally just follow the Beacon official guide here: https://docs.beacon3d.com/quickstart/
 and the Beacon Contact guide here: https://docs.beacon3d.com/contact/
 
+***
 
 ### Physical Preparation
 
@@ -16,23 +17,46 @@ Print out my mounting model here: https://www.printables.com/model/1170120-beaco
 Install the mounting module along with the Beacon attached.  Route the beacon's cable to the mainboard.
 The beacon appears to have no issues when plugged into one of the USB2 ports on the mainboard.
 
+***
+
 ### Install the Beacon software
 
 Follow the Beacon guide here: https://docs.beacon3d.com/quickstart/#3-install-beacon-module
 
+***
+
+### First backup your configuration and klipper objects
+
+On a command shell (`ssh`) to the printer, run the following
+
+```
+cd /home/mks
+mkdir -p /home/mks/qidi-klipper-backup
+tar cvf - klipper printer_data | (cd /home/mks/qidi-klipper-backup; tar xf -)
+```
+
+This will backup your klipper installation and all of your printer configuration files to the `/home/mks/qidi-klipper-backup` directory for easy recovery
+
+***
+
 ### Klipper script changes
 
-As a word of encouragement, during the installation process
+As a word of encouragement, during the installation process you may get multiple errors regarding the configuration having issues.
+Don't worry, these can all be resolved fairly easily by carefully reading the error messages and resolving them.  It's okay.  You can do this!
+
 
 On your printer, edit the `/home/mks/klipper/klipper/extras/probe.py` file and comment out the lines as highlighted here:
 https://github.com/QIDITECH/klipper/blob/PLUS4/klippy/extras/probe.py#L485-L492
 
 Then save the file, and then power-cycle your printer.  This disables the Z-vibrate functionality that is incompatible with Beacon.
 
+***
 
 ### printer.cfg changes
 
-Edit your `printer.cfg` file.  When in doubt, check out my copy of my full [printer.cfg](./printer.cfg) for reference.
+First, on an ssh command shell to the printer, run `ls /dev/serial/by-id/usb-Beacon*` to find your Beacon serial number
+
+Edit your `printer.cfg` file.  
 
 - In `[stepper_z]` check that `endstop_pin:` is set to `probe:z_virtual_endstop`.  It should already be so on the Plus4
 - Set `homing_retract_dist` to 0 on all of your steppers
@@ -61,8 +85,9 @@ home_gcode_pre_y: BEACON_HOME_PRE_Y
 home_gcode_post_y: BEACON_HOME_POST_Y
 ```
 
-On an ssh command shell to the printer, run `ls /dev/serial/by-id/usb-Beacon*` to find your Beacon serial number
+When in doubt, check out my copy of my full [printer.cfg](./printer.cfg) for reference.
 
+***
 
 ### gcode_macros.cfg changes
 
