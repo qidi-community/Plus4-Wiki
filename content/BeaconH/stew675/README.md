@@ -91,5 +91,11 @@ When in doubt, check out my copy of my full [printer.cfg](./printer.cfg) for ref
 
 ### gcode_macros.cfg changes
 
-Edit `gcode_macros.cfg`
+Edit `gcode_macro.cfg`
 
+- Add the following `[APPLY_NOZZLE_OFFSET]` and `[APPLY_FILAMENT_OFFSET]` sections to your file: https://github.com/qidi-community/Plus4-Wiki/blob/main/content/BeaconH/stew675/gcode_macro.cfg#L12-L31
+- Replace the `[zoffset]`, `[test_zoffset]`, `[get_zoffset]`, `[save_zoffset]`, and `[set_zoffset]` sections with the sections highlighted here: https://github.com/qidi-community/Plus4-Wiki/blob/main/content/BeaconH/stew675/gcode_macro.cfg#L34-L67
+- Add a call to `APPLY_NOZZLE_OFFSET` to the end of your `PRNT_START` macro like so: https://github.com/qidi-community/Plus4-Wiki/blob/main/content/BeaconH/stew675/gcode_macro.cfg#L270  **Note that this call MUST appear after the `G29` call**
+- Comment out the `[homing_override]` section in its entirety
+
+When in doubt, check out my copy of my full [gcode_macro.cfg](./gcode_macro.cfg) for reference.
