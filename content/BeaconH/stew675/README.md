@@ -17,7 +17,7 @@ On a command shell (`ssh`) to the printer, run the following
 ```
 cd /home/mks
 mkdir -p /home/mks/qidi-klipper-backup
-tar cvf - klipper printer_data | (cd /home/mks/qidi-klipper-backup; tar xf -)
+tar cvf - klipper printer_data/config | (cd /home/mks/qidi-klipper-backup; tar xf -)
 ```
 
 This will backup your klipper installation and all of your printer configuration files to the `/home/mks/qidi-klipper-backup` directory for easy recovery
