@@ -78,10 +78,10 @@ home_y_before_x: False
 home_method: contact
 home_method_when_homed: proximity
 home_autocalibrate: unhomed
-home_gcode_pre_x: BEACON_HOME_PRE_X
-home_gcode_post_x: BEACON_HOME_POST_X
-home_gcode_pre_y: BEACON_HOME_PRE_Y
-home_gcode_post_y: BEACON_HOME_POST_Y
+home_gcode_pre_x: _BEACON_HOME_PRE_X
+home_gcode_post_x: _BEACON_HOME_POST_X
+home_gcode_pre_y: _BEACON_HOME_PRE_Y
+home_gcode_post_y: _BEACON_HOME_POST_Y
 ```
 
 When in doubt, check out the copy of my full [printer.cfg](./printer.cfg) for reference.
@@ -94,10 +94,10 @@ There are a lot of changes here.  Take your time and you'll be fine.  When in do
 
 Edit `gcode_macro.cfg`
 
-- Add the following `[APPLY_NOZZLE_OFFSET]` and `[APPLY_FILAMENT_OFFSET]` sections to your file
+- Add the following `[_APPLY_NOZZLE_OFFSET]` and `[APPLY_FILAMENT_OFFSET]` sections to your file
 
 ```
-[gcode_macro APPLY_NOZZLE_OFFSET]
+[gcode_macro _APPLY_NOZZLE_OFFSET]
 description: Apply the global nozzle offset and set position reference with G92
 variable_nozzle_offset: 0.115           # Fixed nozzle offset specific to the printer.
                                         # This value should rarely be changed, if ever
@@ -143,7 +143,7 @@ gcode:
     M109 S145                               # Wait until hotend is up to temp to soften any filament on nozzle                                  
     G28 Z METHOD=CONTACT CALIBRATE=0        # Use contact to find our Z end-stop                
     M104 S0                                 # Turn off hotend
-    APPLY_NOZZLE_OFFSET
+    _APPLY_NOZZLE_OFFSET
 
 [gcode_macro save_zoffset]
 description: Use APPLY_FILAMENT_OFFSET instead
@@ -224,18 +224,18 @@ gcode:
         BED_MESH_PROFILE LOAD=default
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"default"'
     {% endif %}
-    APPLY_NOZZLE_OFFSET                     # Apply global nozzle offset
+    _APPLY_NOZZLE_OFFSET                     # Apply global nozzle offset
 ```
 
 - Add these 4 macros to the end of your file:
 
 ```
-[gcode_macro BEACON_HOME_PRE_X]
+[gcode_macro _BEACON_HOME_PRE_X]
 gcode:
     {% set RUN_CURRENT = printer.configfile.settings['tmc2240 stepper_x'].run_current|float %}
     SET_TMC_CURRENT STEPPER=stepper_x CURRENT={RUN_CURRENT * 0.6}
 
-[gcode_macro BEACON_HOME_POST_X]
+[gcode_macro _BEACON_HOME_POST_X]
 gcode:
     {% set RUN_CURRENT = printer.configfile.settings['tmc2240 stepper_x'].run_current|float %}
     # Move away
@@ -243,12 +243,12 @@ gcode:
     M400
     SET_TMC_CURRENT STEPPER=stepper_x CURRENT={RUN_CURRENT}
 
-[gcode_macro BEACON_HOME_PRE_Y]
+[gcode_macro _BEACON_HOME_PRE_Y]
 gcode:
     {% set RUN_CURRENT = printer.configfile.settings['tmc2240 stepper_y'].run_current|float %}
     SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CURRENT * 0.8}       
 
-[gcode_macro BEACON_HOME_POST_Y]
+[gcode_macro _BEACON_HOME_POST_Y]
 gcode:
     {% set RUN_CURRENT = printer.configfile.settings['tmc2240 stepper_y'].run_current|float %}
     # Move away
