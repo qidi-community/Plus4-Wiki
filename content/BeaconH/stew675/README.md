@@ -85,13 +85,13 @@ home_gcode_pre_y: BEACON_HOME_PRE_Y
 home_gcode_post_y: BEACON_HOME_POST_Y
 ```
 
-When in doubt, check out my copy of my full [printer.cfg](./printer.cfg) for reference.
+When in doubt, check out the copy of my full [printer.cfg](./printer.cfg) for reference.
 
 ***
 
 ### gcode_macros.cfg changes
 
-There are a lot of changes here.  Take your time and you'll be fine.  When in doubt, check out my copy of my full [gcode_macro.cfg](./gcode_macro.cfg) for reference.
+There are a lot of changes here.  Take your time and you'll be fine.  When in doubt, check out the copy of my full [gcode_macro.cfg](./gcode_macro.cfg) for reference.
 
 Edit `gcode_macro.cfg`
 
