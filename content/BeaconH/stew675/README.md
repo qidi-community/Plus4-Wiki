@@ -1,6 +1,6 @@
 # Stew's Beacon Contact Installation Guide and configuration settings
 
-Note that all these configurations relate ONLY to using the Beacon in Contact mode.
+Note that all these configurations relate ONLY to using the Beacon in Contact mode on the Qidi Plus4 Printer
 
 ## Quick Summary Guide
 
