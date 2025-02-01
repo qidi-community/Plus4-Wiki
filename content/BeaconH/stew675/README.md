@@ -32,7 +32,7 @@ This will backup your klipper installation and all of your printer configuration
 Print out my mounting model here: https://www.printables.com/model/1170120-beacon3d-mount-for-qidi-plus4
 
 Install the mounting module along with the Beacon attached.  Route the beacon's cable to the mainboard.
-The beacon appears to have no issues when plugged into one of the USB2 ports on the mainboard.
+The beacon appears to have **no issues** when plugged into one of the USB2 ports on the mainboard.
 
 ***
 
