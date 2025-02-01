@@ -116,7 +116,7 @@ description: Apply a Z offset adjustment for a specific filament
 gcode:
     {% set filament_z = params.Z|default(0)|float %}
     { action_respond_info("Setting Filament Offset to %.3fmm" % (filament_z)) }
-    SET_GCODE_OFFSET Z={filament_z} MOVE=1 SPEED=3
+    SET_GCODE_OFFSET Z_ADJUST={filament_z} MOVE=1 SPEED=3
 ```
 
 - Replace the `[zoffset]`, `[test_zoffset]`, `[get_zoffset]`, `[save_zoffset]`, and `[set_zoffset]` sections with these sections:
