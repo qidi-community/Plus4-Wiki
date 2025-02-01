@@ -10,6 +10,20 @@ and the Beacon Contact guide here: https://docs.beacon3d.com/contact/
 
 ***
 
+### First backup your configuration and klipper objects
+
+On a command shell (`ssh`) to the printer, run the following
+
+```
+cd /home/mks
+mkdir -p /home/mks/qidi-klipper-backup
+tar cvf - klipper printer_data | (cd /home/mks/qidi-klipper-backup; tar xf -)
+```
+
+This will backup your klipper installation and all of your printer configuration files to the `/home/mks/qidi-klipper-backup` directory for easy recovery
+
+***
+
 ### Physical Preparation
 
 Print out my mounting model here: https://www.printables.com/model/1170120-beacon3d-mount-for-qidi-plus4
@@ -22,20 +36,6 @@ The beacon appears to have no issues when plugged into one of the USB2 ports on 
 ### Install the Beacon software
 
 Follow the Beacon guide here: https://docs.beacon3d.com/quickstart/#3-install-beacon-module
-
-***
-
-### First backup your configuration and klipper objects
-
-On a command shell (`ssh`) to the printer, run the following
-
-```
-cd /home/mks
-mkdir -p /home/mks/qidi-klipper-backup
-tar cvf - klipper printer_data | (cd /home/mks/qidi-klipper-backup; tar xf -)
-```
-
-This will backup your klipper installation and all of your printer configuration files to the `/home/mks/qidi-klipper-backup` directory for easy recovery
 
 ***
 
