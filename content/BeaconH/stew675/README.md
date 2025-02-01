@@ -8,6 +8,9 @@ If you're an experienced Beacon user, or generally know what you're doing with K
 generally just follow the Beacon official guide here: https://docs.beacon3d.com/quickstart/
 and the Beacon Contact guide here: https://docs.beacon3d.com/contact/
 
+As a word of encouragement, during the installation process you may get multiple errors regarding the configuration having issues.
+Don't worry, these can all be resolved fairly easily by carefully reading the error messages and resolving them.  It's okay.  You can do this!
+
 ***
 
 ### First backup your configuration and klipper objects
@@ -40,10 +43,6 @@ Follow the Beacon guide here: https://docs.beacon3d.com/quickstart/#3-install-be
 ***
 
 ### Klipper script changes
-
-As a word of encouragement, during the installation process you may get multiple errors regarding the configuration having issues.
-Don't worry, these can all be resolved fairly easily by carefully reading the error messages and resolving them.  It's okay.  You can do this!
-
 
 On your printer, edit the `/home/mks/klipper/klipper/extras/probe.py` file and comment out the lines as highlighted here:
 https://github.com/QIDITECH/klipper/blob/PLUS4/klippy/extras/probe.py#L485-L492
