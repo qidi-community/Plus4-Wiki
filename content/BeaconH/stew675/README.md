@@ -87,7 +87,7 @@ retry_tolerance: 0.005
 
 [bed_mesh]
 speed:250
-horizontal_move_z:10
+horizontal_move_z:2
 mesh_min:15,15
 mesh_max:295,283
 probe_count:15,15
