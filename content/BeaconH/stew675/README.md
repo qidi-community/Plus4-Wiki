@@ -59,9 +59,40 @@ First, on an ssh command shell to the printer, run `ls /dev/serial/by-id/usb-Bea
 Edit your `printer.cfg` file.  
 
 - In `[stepper_z]` check that `endstop_pin:` is set to `probe:z_virtual_endstop`.  It should already be so on the Plus4
+
 - Set `homing_retract_dist` to 0 on all of your steppers
+
 - Comment out the `[smart_effector]`, `[force_move]`, `[safe_zhome]` and `[qdprobe]` sections in `printer.cfg` in their entirety
-- Add the following section:
+
+- Replace the `[z_tilt]` and `[bed_mesh]` sections with the following sections below:
+
+```
+[z_tilt]
+z_positions:
+    -17.5,152
+    335.7,152
+
+points:
+    76, 170.8
+    230, 170.8
+
+speed: 150
+horizontal_move_z: 5
+retries: 5
+retry_tolerance: 0.005
+
+[bed_mesh]
+speed:250
+horizontal_move_z:10
+mesh_min:15,15
+mesh_max:295,283
+probe_count:15,15
+algorithm:bicubic
+bicubic_tension:0.3
+mesh_pps: 2,2
+```
+
+- Add the following `[beacon]` section:
 
 ```
 [beacon]
