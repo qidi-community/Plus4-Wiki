@@ -31,7 +31,7 @@ This will backup your klipper installation and all of your printer configuration
 
 Follow the Beacon guide here: https://docs.beacon3d.com/quickstart/#3-install-beacon-module
 
-** Please ensure that you have actually run the install script there
+_**Please ensure that you have actually run the install script as the guide suggests**_
 
 ***
 
