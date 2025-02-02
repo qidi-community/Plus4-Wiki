@@ -31,6 +31,8 @@ This will backup your klipper installation and all of your printer configuration
 
 Follow the Beacon guide here: https://docs.beacon3d.com/quickstart/#3-install-beacon-module
 
+** Please ensure that you have actually run the install script there
+
 ***
 
 ### Install the beacon unit itself
@@ -59,6 +61,8 @@ First, on an ssh command shell to the printer, run `ls /dev/serial/by-id/usb-Bea
 Edit your `printer.cfg` file.  
 
 - In `[stepper_z]` check that `endstop_pin:` is set to `probe:z_virtual_endstop`.  It should already be so on the Plus4
+
+- In `[stepper_z]`  ensure that the `position_endstop` line is commented out
 
 - Set `homing_retract_dist` to 0 on all of your steppers
 
