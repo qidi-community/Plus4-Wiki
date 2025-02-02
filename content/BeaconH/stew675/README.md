@@ -258,3 +258,36 @@ gcode:
     SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CURRENT}
 ```
 
+## APPLY_FILAMENT_OFFSET - What it does and how to use it
+
+The idea behind `APPLY_FILAMENT_OFFSET` is to do away with the fiddling about with the global Z offset
+when changing to filaments that like a different offset to another filament
+
+Whereas before, if the first layer wasn't going down properly, we would have to adjust the global Z
+offset, and save it, and then that could cause issues later when changing filaments.
+
+`APPLY_FILAMENT_OFFSET` is designed to be used within the filament material settings within your slicer.
+
+By default, the filament offset is set to 0 whenever a new print starts.  If the first layer offset
+needs to be adjusted, then that can be done the usual way on the printer's screen UI by adjusting the
+Z offset up/down as required.  This is best done with a 1 layer sheet of 100x100mm, and using the screen
+to apply Z offset adjustments until the first layer sheet is printing well.
+
+When you are happy with the Z offset adjustment, take note of the offset that is displayed, and we can
+apply that to our filament settings.
+
+For example, let's say that we were printing our test sheet and saw best results with an offset of 0.02mm
+
+We edit the filament start G-code and end G-codes like so:
+
+![image](https://github.com/user-attachments/assets/b7b3281e-6a2d-402a-a1da-a64a2215860e)
+
+and save the filament settings.  Note that we are reversing the sign of the filament offset in the Filament
+end G-code section.  This allows for filaments with different preferred offsets to be swapped mid-print.
+This should be especially useful when the QidiBox is released.
+
+The next time that we print with this filament, the filament specific Z offset will be applied and we will
+get perfect first layers with it without having to fiddle with the global Z offset.
+
+If this is done for all the filaments that you print with, then every time that you switch a filament then
+it will be printed with the correct Z-offset and your layers should turn out perfect.
