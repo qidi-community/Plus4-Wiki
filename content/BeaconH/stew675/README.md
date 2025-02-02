@@ -141,7 +141,7 @@ gcode:
     SET_GCODE_OFFSET Z=0
     G1 Z{pos} F600
     G92 Z{ref}
-    G1 Z{pos} F600
+    G1 Z{ref} F600
 
 [gcode_macro APPLY_FILAMENT_OFFSET]
 description: Apply a Z offset adjustment for a specific filament
