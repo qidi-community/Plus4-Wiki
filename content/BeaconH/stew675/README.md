@@ -261,9 +261,9 @@ gcode:
 ## APPLY_FILAMENT_OFFSET - What it does and how to use it
 
 The idea behind `APPLY_FILAMENT_OFFSET` is to do away with the fiddling about with the global Z offset
-when changing to filaments that like a different offset to another filament
+when changing to filaments that prefer a different Z offset to the replaced filament
 
-Whereas before, if the first layer wasn't going down properly, we would have to adjust the global Z
+With the original method, if the first layer wasn't going down properly, we would have to adjust the global Z
 offset, and save it, and then that could cause issues later when changing filaments.
 
 `APPLY_FILAMENT_OFFSET` is designed to be used within the filament material settings within your slicer.
