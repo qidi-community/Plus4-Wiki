@@ -170,7 +170,7 @@ gcode:
 #    {% endif %}
 ```
 
-- Comment out, or delete, the gcode in the `Z_VIBRATE` macro like so:
+- Comment out, or delete, the gcode in the `Z_VIBRATE` macro like so.  Be sure to leave the macro still defined, just empty of all active gcode
 
 ```
 [gcode_macro Z_VIBRATE]
