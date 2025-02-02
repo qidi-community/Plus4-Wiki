@@ -24,8 +24,8 @@ It shoudl be noted that there have been no reports of clogging on the Qidi Disco
 - Print, out of ABS or ASA, and install [this heatsink duct model](https://www.thingiverse.com/thing:6782612).
   This model helps to better direct the cooling fan's airflow over the heatsink.
 - Install a stronger heatsink cooling fan.
-  I recommend the [GDSTime GDA30105F](http://gdstime.com/pro1/62.html) 12,000PM fans.
-  These can be purchased from this [US Store](https://west3d.com/products/gdstime-dc-24v-30x30x10-axial-fan-24v-gda30105f-dual-ball-bearing-1200rpm-1w-06a-xh2-54), [EU Store](https://www.hotend.eu/p/gdstime-axial-fan-sleeve-3010-24v) or from [CN Store](https://www.aliexpress.com/item/1005001769596081.html)
+  We recommend the [GDSTime GDA30105F](http://gdstime.com/pro1/62.html) 12,000PM fans.
+  These can be purchased from this [US Store](https://west3d.com/products/gdstime-dc-24v-30x30x10-axial-fan-24v-gda30105f-dual-ball-bearing-1200rpm-1w-06a-xh2-54), [EU Store](https://www.hotend.eu/p/gdstime-axial-fan-sleeve-3010-24v) 
 - Raise the nozzle temperature by 5-10C.
   This can sometimes resolve the heatcreep clogging as it keeps the filament within the heatbreak molten for longer between retraction events.
 
