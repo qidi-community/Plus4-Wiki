@@ -21,8 +21,18 @@ You should note the X and Y offset of the center of the coil to the center of th
 You must be certain the coil is between 2.6 to 3.0 mm from the nozzle tip.
 
 ## Software
-
 A small note: The code with "+" and "-" before them are meant to indicate what is added and what is removed. When you copy and paste them onto your machine, please remove the "+" before any line, and delete the lines with "-" before them. 
+
+### Backup Klipper
+
+Firstly, we need to make a backup of your klipper install. Via SSH run the following: 
+
+```
+mkdir -p /home/mks/qidi-klipper-backup
+(cd /home/mks; tar cvf - klipper printer_data/config) | (cd /home/mks/qidi-klipper-backup; tar xf -)
+```
+
+Now your klipper install has been backed up to `/home/mks/qidi-klipper-backup`. Just in case!
 
 ### Cartographer for Klipper
 
@@ -78,12 +88,9 @@ Qidi's version of Klipper has a heavily modified version of `probe.py` and will 
 ```bash
 sudo service klipper stop
 
-mv ~/klipper/klippy/extras/probe.py probe.py.bak
-
 wget -P ~/klipper/klippy/extras https://raw.githubusercontent.com/Klipper3d/klipper/refs/heads/master/klippy/extras/probe.py
 ```
 
-Run `ls ~/klipper/klippy/extras | grep probe` you should have `probe.py` and `probe.py.bak` in `klippy/extras`
 
 Restart Klipper
 
