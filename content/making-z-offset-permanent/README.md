@@ -41,7 +41,6 @@ samples_tolerance: 0.05
 samples_tolerance_retries:5
 ```
 
-
 After applying this offset value and saving the updated `printer.cfg` file, we MUST edit `saved_variables.cfg` file and set `z_offset` there back to 0.
 
 Ignore all the other values there.
@@ -62,3 +61,31 @@ profile_name = 'kamp'
 was_interrupted = False
 z_offset = 0.0
 ```
+
+## Fixing `gcode_macro.cfg`
+
+Additionally, we need to change the `PRINT_END` and `save_zoffset` macros in the `gcode_macro.cfg` file.
+
+Open up your `gcode_macro.cfg` file, and find the `PRINT_END` macro and comment out the lines as in the below example
+
+```
+[gcode_macro PRINT_END]
+gcode:
+#    {% if printer.gcode_move.homing_origin.z < 0.5 %}
+#       SAVE_VARIABLE VARIABLE=z_offset VALUE={printer.gcode_move.homing_origin.z}
+#    {% endif %}
+```
+
+This prevents the macro from writing over the stored 0 value in `saved_variables.cfg`
+
+We also need to do the same thing in the following `save_zoffset` macro (also in `gcode_macro.cfg`)
+
+```
+[gcode_macro save_zoffset]
+gcode:
+#    {% if printer.gcode_move.homing_origin.z < 0.5 %}
+#       SAVE_VARIABLE VARIABLE=z_offset VALUE={printer.gcode_move.homing_origin.z}
+#    {% endif %}
+```
+
+Just comment out those 3 lines
