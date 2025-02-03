@@ -100,6 +100,10 @@ sudo service klipper restart
 
 ### Klipper Configs
 
+When you restarted Klipper, it probably crashed with errors that something is not found. This normal at this point. We'll fix this with configs.
+
+**Remeber you need to reinstall any Klipper plugins like Shake & Tune!**
+
 #### printer.cfg
 
 We need to modify `[Z_stepper]` with the following:
