@@ -44,7 +44,7 @@ rm python-3-12-3.tgz
 Now Python 3.12.3 is in the home directory. We will delete the Klipper virtual enviroment and recreate it. Don't worry this will not touch any of your user data, but you will need to reinstall any klipper plugins after this. 
 
 ```bash
-rm -rf klippy-env
+sudo rm -rf klippy-env
 
 ~/python-3.12.3/bin/python3.12 -m venv klippy-env
 
