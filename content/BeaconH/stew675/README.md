@@ -66,7 +66,9 @@ Edit your `printer.cfg` file.
 
 - Set `homing_retract_dist` to 0 on all of your steppers
 
-- Comment out the `[smart_effector]`, `[force_move]`, `[safe_zhome]` and `[qdprobe]` sections in `printer.cfg` in their entirety
+- Comment out the `[smart_effector]`, `[safe_zhome]` and `[qdprobe]` sections in `printer.cfg` in their entirety
+
+- Ensure `[force_move]` remains uncommented.  Various Plus4 UI moves, platform reset, and power loss recovery, need it.  We'll fix up any unnecessary calls to `SET_KINEMATIC_POSITION` later.
 
 - Replace the `[z_tilt]` and `[bed_mesh]` sections with the following sections below:
 
@@ -206,11 +208,11 @@ gcode:
 #    {% endif %}
 ```
 
-- Comment out, or delete, the gcode in the `Z_VIBRATE` macro like so.  Be sure to leave the macro still defined, just empty of all active gcode
+- Comment out, or delete, the gcode in the `Z_VIBRATE` macro like so
 
 ```
-[gcode_macro Z_VIBRATE]
-gcode:
+#[gcode_macro Z_VIBRATE]
+#gcode:
 #   Commented out for use of Beacon Contact
 #    m204 S400
 #    G90
@@ -229,6 +231,20 @@ gcode:
 #    G4 P1000
 #    G1 Z4
 #    G90
+```
+
+- Modify the `M4027` macro in its entirety to look like this.  This does the Bed Meshing in a Beacon appropriate manner:
+
+```
+[gcode_macro M4027]
+gcode:
+    { action_respond_info("M4027 called")  }
+    G32                                     # Set bed meshing to default profile
+    G29                                     # Do full homing, z-tilt, and bed meshing
+    G31                                     # Set bed meshing back to kamp profile
+    M400                                    # Wait for all outstanding G-code moves to finish
+    M118 Bed mesh calibrate complete        # Tell xindi we're done
+    SAVE_CONFIG
 ```
 
 - Replace your `G29` macro with this version here:
