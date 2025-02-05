@@ -31,7 +31,7 @@ curl -fsSL https://pkgs.tailscale.com/stable/debian/buster.list | sudo tee /etc/
 
 # install packages
 sudo apt-get update
-sudo apt-get install tailscale
+sudo apt-get install tailscale -y
 
 # Start tailscale, show a QR code to add it, and enable ssh!
 sudo tailscale up --qr --ssh
