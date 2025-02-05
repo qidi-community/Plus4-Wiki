@@ -6,8 +6,13 @@ set up a VPN mesh network that allows you to access your printer using various K
 apps for mobile devices, using your trusted network as opposed to Qidi's.
 
 ## Prerequisites
-Comfortable with SSH access to your printer and executing commands
-Have a free Tailscale account - https://login.tailscale.com/start
+* Comfortable with SSH access to your printer, executing commands, and editing files from CLI
+* Have a free Tailscale account - https://login.tailscale.com/start
+
+**NOTICE:**
+All of the below steps should be done from a laptop or computer that you use to print from regularly for simplicity. None of these commands need to be executed over your tailscale network. Unless specifically called out, when instructions call you to ssh to your printer, the expectation is that you are connecting over your LAN IP address.
+
+The only step that requires the VPN IP address is the last step and that is only for the mobile klipper client you installed to be configured.
 
 ## 1. Setup Tailscale VPN Account
 Follow the onboarding guidelines from Tailscale to create and register your first device, preferably your phone since you are replacing Qidi Link! Instructions are [here](https://tailscale.com/kb/1017/install). Once you see your phone listed in the devices, move on to the next step!
@@ -46,7 +51,27 @@ sudo systemctl enable --now tailscaled
 
 Once you confirm that you see your printer associated and live with your tailscale account, proceed to the next step!
 
-## 4. Install a mobile klipper client
+## 4. Configure Moonraker 
+Since you are connecting to the printer from a different IP subnet, we need to configure moonraker to allow this connection. You'll need to look at your list of devices in tailscale and select your mobile device. From here, you can simply copy the IP address. For most people, the easiest way to add this to the moonraker configuration is through the fluidd web interface on your printer. To do that, punch in the IP address of your printer in a browser, press the `x` to open configurations, select the `moonraker.conf` file. 
+
+In section labeled authorization, we'll add the VPN IP Address of your mobile device, followed by a `/32` as displayed here:
+
+```
+[authorization]
+force_logins: True
+trusted_clients:
+    100.XXX.XXX.XXX/32
+    10.0.0.0/8
+    127.0.0.0/8
+    169.254.0.0/16
+    172.16.0.0/12
+    192.168.0.0/16
+    FE80::/10
+    ::1/128
+```
+Your IP address for the Tailscale connection should start with `100.`, plug the whole address in below `trust_clients`, and click save and restart!
+
+## 5. Install a mobile klipper client
 Using your device's app store, install a Klipper client. There are multiple options available on Apple devices, with no preferential treatment for any particular one. Try them out and find one you like! The important part is that the app will prompt you for an address for your printer. Enter the IP address or MagicDNS name associated with your printer in this field. That should be all you need to connect your printer!
 
 You can test remote access by disabling Wi-Fi on your mobile device and opening the Klipper app you downloaded to check your printer. Congratulations! You are now using a private network to access your device!
