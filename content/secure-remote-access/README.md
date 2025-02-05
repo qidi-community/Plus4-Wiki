@@ -7,7 +7,7 @@ apps for mobile devices using your trusted network as opposed to using Qidi's.
 
 ## Prerequisites
 * Comfortable with SSH access to your printer and executing commands
-* Have an free tailscale account - https://tailscale.com/signup/
+* Have an free tailscale account - https://login.tailscale.com/start
 
 ## 1. Setup Tailscale VPN Account
 Follow the onboarding guidelines from tailscale to create and register your first device, preferabbly your phone since you are replacing qidi link! Instructions are [here](https://tailscale.com/kb/1017/install). Once you see your phone listed in the devices, move on to the next step!
