@@ -52,5 +52,5 @@ Using the app store on your device, install a klipper client. There are multiple
 ![IMG_5422.PNG](./IMG_5422.PNG "Yay, Security!")
 
 ## Closing Pointers
-While not required, it can be convenient to disable key expiration on the printer. This obviously has security trade offs, but nothing especially critical with all things considered. This will ensure your printer is available all the time instead of having to periodically log in to tailscale from the printer periodically.
+While not required, it can be convenient to disable key expiration on the printer. This obviously has security trade offs, but nothing especially critical with all things considered. This will ensure your printer is available all the time instead of having to periodically log in to tailscale from the printer periodically. You can disable key expiration from the tailscale UI when selecting the printer from your list of hosts
 
