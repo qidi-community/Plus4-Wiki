@@ -49,7 +49,7 @@ The beacon appears to have **no issues** when plugged into one of the USB2 ports
 
 ### Klipper script changes
 
-On your printer, edit the `/home/mks/klipper/klipper/extras/probe.py` file and comment out the lines as highlighted here:
+On your printer, edit the `/home/mks/klipper/klippy/extras/probe.py` file and comment out the lines as highlighted here:
 
 [probe.py lines to comment out](./probe.py#L485-L492)
 
