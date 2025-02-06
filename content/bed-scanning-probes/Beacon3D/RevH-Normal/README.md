@@ -1,6 +1,9 @@
-# Stew's Beacon Contact Installation Guide and configuration settings
+# Beacon3D RevH Normal Installation and Configuration Guide
 
-Note that all these configurations relate ONLY to using the Beacon in Contact mode on the Qidi Plus4 Printer
+*Note that all these configurations relate ONLY to using the Beacon in Contact mode on the Qidi Plus4 Printer*
+
+This install guide should work for all other Beacon models, but it is untested on those.  The sample mounting
+model provided is also only tested for clearances using the RevH Normal Beacon module.
 
 ## Quick Summary Guide
 
