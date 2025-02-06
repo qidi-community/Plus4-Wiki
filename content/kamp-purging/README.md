@@ -49,4 +49,7 @@ We want to remove those lines and put `LINE_PURGE` in their place, like so.
 
 ![Modifying Slicer Printer Start G-Code](./Adding_Line_Purge_Gcode.png)
 
-...and that's basically it.  Now you have an easy to remove purge line that takes up less of the build area.
+Restart klipper.
+Now you have an easy to remove purge line that takes up less of the build area.
+
+_Note: At the start of a print during KAMP purging you might notice a comment in the console about turning on firmware retraction. Ignore this. It is not necessary and slicer based retraction is superior._
