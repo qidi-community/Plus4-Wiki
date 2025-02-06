@@ -51,7 +51,7 @@ The beacon appears to have **no issues** when plugged into one of the USB2 ports
 
 On your printer, edit the `/home/mks/klipper/klipper/extras/probe.py` file and comment out the lines as highlighted here:
 
-[https://github.com/QIDITECH/klipper/blob/PLUS4/klippy/extras/probe.py#L485-L492](https://github.com/qidi-community/Plus4-Wiki/blob/main/content/BeaconH/stew675/probe.py#L485-L492)
+[probe.py lines to comment out](./probe.py#L485-L492)
 
 Then save the file, and then power-cycle your printer.  This disables the Z-vibrate functionality that is incompatible with Beacon.
 
