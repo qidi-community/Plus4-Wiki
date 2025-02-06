@@ -36,6 +36,11 @@ Follow the Beacon guide here: https://docs.beacon3d.com/quickstart/#3-install-be
 
 _**Please ensure that you have actually run the install script as the guide suggests**_
 
+
+**Note:** If you run into inssues with git when installing the Beacon software, it may be because your
+printer's system time is too far out of sync.  Follow [this guide](https://wiki.qidi3d.com/en/Memo/System-Time-Modification)
+to sync your printer's system time.
+
 ***
 
 ### Install the beacon unit itself
@@ -44,10 +49,6 @@ Print out my mounting model here: https://www.printables.com/model/1170120-beaco
 
 Install the mounting module along with the Beacon attached.  Route the beacon's cable to the mainboard.
 The beacon appears to have **no issues** when plugged into one of the USB2 ports on the mainboard.
-
-Note: If you run into inssues with git when installing the Beacon software, it may be because your
-printer's system time is too far out of sync.  Follow [this guide](https://wiki.qidi3d.com/en/Memo/System-Time-Modification)
-to sync your printer's system time.
 
 ***
 
