@@ -408,12 +408,13 @@ Each of the macros above will position the probe above the knobs so you can adju
 To use these macros, first clear the bed mash, home and recalibrate the probe by calling the following macros
 
 ```
-M4030
-BEACON_AUTO_CALIBRATE
+BED_MESH_CLEAR
+SET_GCODE_OFFSET Z=0
+G28
 ```
 
 then call the macros listed above and look at the `Result is z=1.xxxxxx` line.  This informs you of how far away
 the print bed is from the probe.  You can adjust the knob under the bed and call the same macro again to obtain
 the new offset.  This can be repeated for each of the 4 screw points until all are equal within ~0.02mm.  It will
-be difficult to obtain better accuracy than that.  As a personal suggestion, I recommend aiming for z=1.90 for each
+be difficult to obtain better accuracy than that.  As a personal suggestion, I recommend aiming for z=2.00 for each
 of the 4 screw positions.
