@@ -413,6 +413,7 @@ BED_MESH_CLEAR
 SET_GCODE_OFFSET Z=0
 G28
 Z_TILT_ADJUST
+G28
 ```
 
 then call the macros listed above and look at the last line (eg. `// Result is z=1.948191
