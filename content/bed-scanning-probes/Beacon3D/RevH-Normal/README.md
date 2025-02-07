@@ -411,6 +411,7 @@ To use these macros, first clear the bed mash, home and recalibrate the probe by
 BED_MESH_CLEAR
 SET_GCODE_OFFSET Z=0
 G28
+Z_TILT_ADJUST
 ```
 
 then call the macros listed above and look at the last line (eg. `// Result is z=1.948191
