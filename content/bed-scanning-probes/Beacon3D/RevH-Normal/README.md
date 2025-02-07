@@ -368,3 +368,52 @@ get perfect first layers with it without having to fiddle with the global Z offs
 
 If this is done for all the filaments that you print with, then every time that you switch a filament then
 it will be printed with the correct Z-offset and your layers should turn out perfect.
+
+
+## Optional QoL Bed Tramming Macros
+
+With the Beacon Probe now providing for accurate bed offset measurements, the probe can be used to make the
+task tramming the bed using the 4 knobs under the print bed a lot easier.
+
+Add the following macros to the end of your `gcode_macro.cfg` file:
+
+```
+[gcode_macro SFL]
+description: Get zoffset at front-left bed adjustment screw position
+gcode:
+    G1 X{25 - printer.configfile.settings.beacon.x_offset} Y{21 - printer.configfile.settings.beacon.y_offset} F6000
+    PROBE PROBE_METHOD=proximity
+
+[gcode_macro SFR]
+description: Get zoffset at front-right bed adjustment screw position
+gcode:
+    G1 X{285 - printer.configfile.settings.beacon.x_offset} Y{21 - printer.configfile.settings.beacon.y_offset} F6000
+    PROBE PROBE_METHOD=proximity
+
+[gcode_macro SBL]
+description: Get zoffset at back-left bed adjustment screw position
+gcode:
+    G1 X{25 - printer.configfile.settings.beacon.x_offset} Y{281 - printer.configfile.settings.beacon.y_offset} F6000
+    PROBE PROBE_METHOD=proximity
+
+[gcode_macro SBR]
+description: Get zoffset at back-right bed adjustment screw position
+gcode:
+    G1 X{285 - printer.configfile.settings.beacon.x_offset} Y{281 - printer.configfile.settings.beacon.y_offset} F6000
+    PROBE PROBE_METHOD=proximity
+```
+
+Each of the macros above will position the probe above the knobs so you can adjust and re-measure quickly
+
+To use these macros, first clear the bed mash, home and recalibrate the probe by calling the following macros
+
+```
+M4030
+BEACON_AUTO_CALIBRATE
+```
+
+then call the macros listed above and look at the `Result is z=1.xxxxxx` line.  This informs you of how far away
+the print bed is from the probe.  You can adjust the knob under the bed and call the same macro again to obtain
+the new offset.  This can be repeated for each of the 4 screw points until all are equal within ~0.02mm.  It will
+be difficult to obtain better accuracy than that.  As a personal suggestion, I recommend aiming for z=1.90 for each
+of the 4 screw positions.
