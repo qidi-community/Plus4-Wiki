@@ -408,6 +408,7 @@ Each of the macros above will position the probe above the knobs so you can adju
 To use these macros, first clear the bed mash, home and recalibrate the probe by calling the following macros
 
 ```
+M84
 BED_MESH_CLEAR
 SET_GCODE_OFFSET Z=0
 G28
