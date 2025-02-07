@@ -1,12 +1,10 @@
-# Cartographer3D for Qidi Plus 4
+# Cartographer3D for Qidi Plus 4 Installation and Configuration Guide
 
-**Heads up - This is still a work in progress. Here (might) be dragons 🐲**
-
-**Everything is functional but not tested yet by multiple users (yet). Consider this an Alpha / Beta. It is not aimed towards notice users. It requires, SSH access, changing Klipper files and updating configs and macros. If you don't understand this, you risk damaging your printer. Performing this mod may limit your ability to update to latest firmware from Qidi. Do not update without checking as it may overwrite important configs.**
+**This guide is not aimed towards notice users. It requires, SSH access, changing Klipper files and updating configs and macros. If you don't understand this, you risk damaging your printer. Performing this mod may limit your ability to update to latest firmware from Qidi. Do not update without checking as it may overwrite important configs.**
 
 ⚠️ Do not contact Qidi support about issues with bed leveling, first layer issues, klipper, etc after making this mod. It's now your responsibility. ⚠️
 
-This guide covers installing Cartographer3D on your Qidi Plus 4. Beacon guide is in the works and should be a mostly similar process.
+This guide covers installing Cartographer3D on your Qidi Plus 4.
 
 ## Hardware
 
@@ -51,7 +49,7 @@ tar xvzf python-3-12-3.tgz
 
 rm python-3-12-3.tgz
 ```
-Now Python 3.12.3 is in the home directory. We will delete the Klipper virtual enviroment and recreate it. Don't worry this will not touch any of your user data, but **you will need to reinstall any klipper plugins after this.**
+Now Python 3.12.3 is in the home directory. We will delete the Klipper virtual environment and recreate it. Don't worry this will not touch any of your user data, but **you will need to reinstall any klipper plugins after this.**
 
 ```bash
 sudo rm -rf klippy-env
@@ -83,26 +81,21 @@ sudo service klipper start
 
 ### Patching Klipper
 
-Qidi's version of Klipper has a heavily modified version of `probe.py` and will not work with Cartographer for Klipper, we need to replace this file with vanilla Klipper's  `probe.py`.
+Qidi's version of Klipper has a modified version of `probe.py` and will not work with Cartographer for Klipper, we need to patch it so it will work.
 
-```bash
-sudo service klipper stop
+First stop klipper: `sudo service klipper stop`
 
-wget -P ~/klipper/klippy/extras https://raw.githubusercontent.com/Klipper3d/klipper/refs/heads/master/klippy/extras/probe.py
-```
+These lines in [probe.py](./probe.py#L485-L492) need to be commented out in `/home/mks/klipper/klippy/extras/probe.py`.
 
+You can do this using nano: `nano ~/mks/klipper/klippy/extras/probe.py`. Then finished press `ctrl+x` and then `y`.
 
-Restart Klipper
-
-```bash
-sudo service klipper restart
-```
+Once this is done, start klipper: `sudo service klipper start`. Or power cycle the printer.
 
 ### Klipper Configs
 
 When you restarted Klipper, it probably crashed with errors that something is not found. This normal at this point. We'll fix this with configs.
 
-**Remeber you need to reinstall any Klipper plugins like Shake & Tune!**
+**Remember you need to reinstall any Klipper plugins like Shake & Tune!** (Use mainline Shake&Tune because we're running Python 3.12.)
 
 #### printer.cfg
 
@@ -181,26 +174,26 @@ Comment out (or delete) all the lines in the following sections:
 
 We need to change what the printer does at the start of the print to not use the stock Qidi probes and use Carto instead.
 
-```diff
+Find and replace `[gcode_macro PRINT_START]` with this:
+
+```
 [gcode_macro PRINT_START]
 gcode:
     AUTOTUNE_SHAPERS
-
     {% set bedtemp = params.BED|int %}
     {% set hotendtemp = params.HOTEND|int %}
     {% set chambertemp = params.CHAMBER|default(0)|int %}
+    SET_GCODE_OFFSET Z=0 # Zero out z-offset
     M104 S0
--   set_zoffset # This is now handled by Carto
-
     M106 P2 S0
     M106 P3 S0
     M106 S255
-    G28  
-    M141 S{chambertemp}  
-    M140 S{bedtemp}  
+    G28      
+    M141 S{chambertemp}    
+    M140 S{bedtemp}    
     M106 S0
     CLEAR_NOZZLE HOTEND={hotendtemp}
-    M191 S{chambertemp}  
+    M191 S{chambertemp}   
     M190 S{bedtemp}   
     M104 S140
     G29
@@ -210,16 +203,16 @@ gcode:
         M106 P3 S255
     {% endif %}
     M109 S{hotendtemp}
-    M141 S{chambertemp}  
+    M141 S{chambertemp}    
     M204 S10000
     SET_PRINT_STATS_INFO CURRENT_LAYER=1
     ENABLE_ALL_SENSOR
     save_last_file
 ```
 
-We need to change the homing overrides so the Z axis homes correctly
+Find and replace `[homing_override]` with this:
 
-```diff 
+```
 [homing_override]
 axes:xyz
 gcode: 
@@ -229,22 +222,22 @@ gcode:
     {% set HOLD_CUR = driver_config.hold_current %}
     m204 S10000
     M220 S100
-	{% if params.X is defined %}
-+       SET_KINEMATIC_POSITION Z=1.9 # Set Z position
-+       G1 Z4 F600 # Lower Z by 4 to prevent dragging the nozzle
-	    SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR * 0.7} 
+    {% if params.X is defined %}
+        SET_KINEMATIC_POSITION Z=1.9 # Set Z position
+        G1 Z4 F600 # Lower Z by 4 to prevent dragging the nozzle
+        SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR * 0.7} 
         G28 X
-		SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR}     
+        SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR}     
         BEEP I=1 DUR=100       
         G1 X10 F1200
     {% endif %}
 
     {% if params.Y is defined %}
-+       SET_KINEMATIC_POSITION Z=1.9 # Set Z position
-+       G1 Z4 F600 # Lower Z by 4 to prevent dragging the nozzle
-		SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR * 0.9} 
-		G28 Y
-		SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR}  
+        SET_KINEMATIC_POSITION Z=1.9 # Set Z position
+        G1 Z4 F600 # Lower Z by 4 to prevent dragging the nozzle
+        SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR * 0.9} 
+        G28 Y
+        SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR}  
         BEEP I=1 DUR=100          
        G1 Y10 F1200
     {% endif %}
@@ -254,16 +247,8 @@ gcode:
         G28 Y
         G28 X
         G1 X150 Y150 F7800
-
         SET_KINEMATIC_POSITION Z={printer.toolhead.axis_maximum.z-30}
--       QIDI_PROBE_PIN_2
--       probe samples=2
--       SET_KINEMATIC_POSITION Z=1.9
--       G1 Z10 F600
--       Z_VIBRATE
--       QIDI_PROBE_PIN_1
--       probe probe_speed=10
-+       probe
+        probe
         SET_KINEMATIC_POSITION Z=-0.1
         G1 Z30 F480
     {% endif %}
@@ -275,26 +260,26 @@ gcode:
         SET_KINEMATIC_POSITION Y=0
         SET_KINEMATIC_POSITION Z={printer.toolhead.axis_maximum.z-30}
         G91
-        G1 Z7 F600	
+        G1 Z7 F600  
         G1 X5 F2400
         G1 Y5 F2400
         G4 P2000
     
        SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR * 0.8} 
         G28 X
-    	SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR} 
+        SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR} 
         BEEP I=1 DUR=100  
         G1 X45 F1200
     
-    	SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR * 0.9} 
-    	G28 Y
-    	SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR} 
+        SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR * 0.9} 
+        G28 Y
+        SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR} 
         BEEP I=1 DUR=100        
         G1 Y10 F1200
 
         SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR * 0.8} 
         G28 X
-    	SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR} 
+        SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR} 
         BEEP I=1 DUR=100  
         G1 X10 F1200
 
@@ -303,7 +288,6 @@ gcode:
         G90
         G1 X150 Y150 F7800
         G91
--       QIDI_PROBE_PIN_2
         G28 Z
         G1 Z30  F600
     {% endif %}
@@ -313,10 +297,10 @@ gcode:
     SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CUR} 
     M204 S10000
     G90
--   QIDI_PROBE_PIN_2
+
 ```
 
-Now we need to completely replace G29 with this
+Find and replace `[gcode_macro G29]` with this:
 
 ```
 [gcode_macro G29]
@@ -389,9 +373,9 @@ Find this by running `ls /dev/serial/by-id/*` in SSH. It should output something
 
 These should be provided from the maker of the mount you are using. The distance in X and Y from the center of the coil to the center of the nozzle.
 
-`x_offset: 0  `
+`x_offset: 0`
 
-`y_offset: 15 `
+`y_offset: 15`
 
 #### [z_tilt]
 
@@ -412,10 +396,13 @@ Similar to z_tilt you need adjust the mesh_min and mesh_max to match your probe'
 The values below are correct if you are using Spooknik's side mount.
 
 ```
-mesh_min: 22, 45 # Adjust based on Y X offset
-mesh_max: 295, 295 # Adjust based on Y X offset
+mesh_min: 27, 45 # Adjust based on Y X offset
+mesh_max: 285, 285 # Adjust based on Y X offset
 ```
 
 #### Finishing up
 
 Now you should have everything set up and you are now ready to follow Cartographer's guide for [calibration](https://docs.cartographer3d.com/cartographer-probe/installation-and-setup/installation/calibration).
+
+
+
