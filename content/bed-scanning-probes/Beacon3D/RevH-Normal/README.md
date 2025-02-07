@@ -413,8 +413,10 @@ SET_GCODE_OFFSET Z=0
 G28
 ```
 
-then call the macros listed above and look at the `Result is z=1.xxxxxx` line.  This informs you of how far away
+then call the macros listed above and look at the last line (eg. `// Result is z=1.948191
+`).  This informs you of how far away
 the print bed is from the probe.  You can adjust the knob under the bed and call the same macro again to obtain
 the new offset.  This can be repeated for each of the 4 screw points until all are equal within ~0.02mm.  It will
-be difficult to obtain better accuracy than that.  As a personal suggestion, I recommend aiming for z=2.00 for each
-of the 4 screw positions.
+be difficult to obtain better accuracy than that.  By default, the Beacon probe sets itself to 2.00mm from the center
+of the print bed after the call to `G28` is made, so therefore we are aiming for all 4 screw positions to report
+something greater than `z=1.98` and less than `z=2.02`
