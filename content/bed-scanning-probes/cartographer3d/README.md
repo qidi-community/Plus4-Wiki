@@ -19,7 +19,6 @@ You should note the X and Y offset of the center of the coil to the center of th
 You must be certain the coil is between 2.6 to 3.0 mm from the nozzle tip.
 
 ## Software
-A small note: The code with "+" and "-" before them are meant to indicate what is added and what is removed. When you copy and paste them onto your machine, please remove the "+" before any line, and delete the lines with "-" before them. 
 
 ### Backup Klipper
 
@@ -87,13 +86,17 @@ First stop klipper: `sudo service klipper stop`
 
 These lines in [probe.py](./probe.py#L485-L492) need to be commented out in `/home/mks/klipper/klippy/extras/probe.py`.
 
-You can do this using nano: `nano ~/mks/klipper/klippy/extras/probe.py`. Then finished press `ctrl+x` and then `y`.
+You can do this using nano: `nano ~/klipper/klippy/extras/probe.py`. Then finished press `ctrl+x` and then `y`.
 
 Once this is done, start klipper: `sudo service klipper start`. Or power cycle the printer.
 
 ### Klipper Configs
 
-When you restarted Klipper, it probably crashed with errors that something is not found. This normal at this point. We'll fix this with configs.
+When you restarted Klipper, it probably crashed with errors that something is not found. 
+
+![image](https://github.com/user-attachments/assets/bfe9acdc-0c6c-4236-b4fb-8082bcca164f)
+
+Don't worry, we just need to update some configs. 
 
 **Remember you need to reinstall any Klipper plugins like Shake & Tune!** (Use mainline Shake&Tune because we're running Python 3.12.)
 
@@ -126,7 +129,7 @@ homing_positive_dir_reverse:true
 
 Comment out (or delete) all the lines in the following sections:
 
-```gcode
+```
 #[z_tilt]
 #z_positions:
 #    -17.5,138.5
@@ -379,9 +382,9 @@ These should be provided from the maker of the mount you are using. The distance
 
 #### [z_tilt]
 
-Depending on your mount's X and Y offset to the nozzle, you need to update the z tilt points so it measures over the lead screws.
+Depending on your mount's X and Y offset to the nozzle, you need to update the z tilt points so it measures over the lead screws. Generally you will need to apply your probe mount's Z offset to the stock Z tilt points. You can also manually move the toolhead in Fluidd and note down the X and Y coordinates. See the [Klipper docs](https://www.klipper3d.org/Config_Reference.html?h=z_tilt#z_tilt) for more info.
 
-The values below are correct if you are using Spooknik's side mount.
+The values below are correct if you are using Spooknik's side mount and just an example.
 
 ```
 points:
@@ -391,7 +394,9 @@ points:
 
 #### [bed_mesh]
 
-Similar to z_tilt you need adjust the mesh_min and mesh_max to match your probe's offset. 
+Similar to z_tilt you need adjust the mesh_min and mesh_max to match your probe's offset. You need to apply your probe mount's X and Y offset to the mesh range so the probe is always scanning over the bed 
+
+[This video](https://www.youtube.com/watch?v=5vmjBXvY6BA) gives a good intro to this concept. 
 
 The values below are correct if you are using Spooknik's side mount.
 
