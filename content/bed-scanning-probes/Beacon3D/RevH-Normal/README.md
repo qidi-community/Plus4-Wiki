@@ -64,9 +64,15 @@ Then save the file, and then power-cycle your printer.  This disables the Z-vibr
 
 ### printer.cfg changes
 
-First, on an ssh command shell to the printer, run `ls /dev/serial/by-id/usb-Beacon*` to find your Beacon serial number
+- First, on an ssh command shell to the printer, run `ls /dev/serial/by-id/usb-Beacon*` to find your Beacon serial number
 
-Edit your `printer.cfg` file.  
+It should look something like the following:
+
+![image](https://github.com/user-attachments/assets/499294c2-c79c-42da-b4df-15d46b4d3011)
+
+
+
+Now edit your `printer.cfg` file.  
 
 - In `[stepper_z]` check that `endstop_pin:` is set to `probe:z_virtual_endstop`.  It should already be so on the Plus4
 
