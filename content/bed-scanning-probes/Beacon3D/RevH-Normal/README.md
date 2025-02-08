@@ -74,7 +74,9 @@ Edit your `printer.cfg` file.
 
 - Set `homing_retract_dist` to 0 on all of your steppers
 
-- Comment out the `[smart_effector]`, `[safe_zhome]` and `[qdprobe]` sections in `printer.cfg` in their entirety
+- Comment out the `[smart_effector]`, and `[qdprobe]` sections in `printer.cfg` in their entirety.
+
+- Also comment out `[safe_z_home]` IF it appears in your `printer.cfg` file.  It does not on stock Plus4 configs, but other mods may have added it.
 
 - Ensure `[force_move]` remains uncommented.  Various Plus4 UI moves, platform reset, and power loss recovery, need it.  We'll fix up any unnecessary calls to `SET_KINEMATIC_POSITION` later.
 
