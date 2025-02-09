@@ -136,6 +136,8 @@ home_gcode_pre_x: _BEACON_HOME_PRE_X
 home_gcode_post_x: _BEACON_HOME_POST_X
 home_gcode_pre_y: _BEACON_HOME_PRE_Y
 home_gcode_post_y: _BEACON_HOME_POST_Y
+contact_activate_gcode: _BEACON_CONTACT_PRE_Z
+contact_deactivate_gcode: _BEACON_CONTACT_POST_Z
 ```
 
 When in doubt, check out the copy of my full [printer.cfg](./printer.cfg) for reference.
@@ -296,23 +298,6 @@ gcode:
     _APPLY_NOZZLE_OFFSET                     # Apply global nozzle offset
 ```
 
-- Modify the `M604` macro to start like this. This ensures homing doesn't fail due to the hotend heating up for filament loading:
-
-```
-[gcode_macro M604]
-description: Load filament
-gcode:
-    {% set hotendtemp = params.S|default(250)|int %}
-    {% set current_state = params.F|default(1)|int %}
-    {% set accel = printer.toolhead.max_accel|int %}
-    M204 S10000
-    M109 S145
-    _CG28
-    M104 S{hotendtemp}
-    {% if current_state == 1 %} # this line should already be there
-    ...
-```
-
 - Add these 4 macros to the end of your file:
 
 ```
@@ -341,6 +326,14 @@ gcode:
     G1 Y20 F9000
     M400
     SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CURRENT}
+
+[gcode_macro _BEACON_CONTACT_PRE_Z]
+gcode:
+    M109 S145
+
+[gcode_macro _BEACON_CONTACT_POST_Z]
+gcode:
+    M104 S0
 ```
 
 ## Calibration of your new Beacon
