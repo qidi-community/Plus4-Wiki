@@ -329,6 +329,7 @@ gcode:
 
 [gcode_macro _BEACON_CONTACT_PRE_Z]
 gcode:
+    M104 S145
     TEMPERATURE_WAIT SENSOR=extruder MAXIMUM=150
     M109 S145
 
