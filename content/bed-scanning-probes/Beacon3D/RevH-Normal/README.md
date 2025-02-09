@@ -296,6 +296,23 @@ gcode:
     _APPLY_NOZZLE_OFFSET                     # Apply global nozzle offset
 ```
 
+- Modify the `M604` macro to start like this. This ensures homing doesn't fail due to the hotend heating up for filament loading:
+
+```
+[gcode_macro M604]
+description: Load filament
+gcode:
+    {% set hotendtemp = params.S|default(250)|int %}
+    {% set current_state = params.F|default(1)|int %}
+    {% set accel = printer.toolhead.max_accel|int %}
+    M204 S10000
+    M109 S145
+    _CG28
+    M104 S{hotendtemp}
+    {% if current_state == 1 %} # this line should already be there
+    ...
+```
+
 - Add these 4 macros to the end of your file:
 
 ```
