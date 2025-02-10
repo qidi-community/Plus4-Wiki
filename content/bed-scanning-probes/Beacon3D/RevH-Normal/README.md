@@ -439,8 +439,11 @@ it will be printed with the correct Z-offset and your layers should turn out per
 
 ## Optional QoL Bed Tramming Macros
 
-With the Beacon Probe now providing for accurate bed offset measurements, the probe can be used to make the
-task tramming the bed using the 4 knobs under the print bed a lot easier.
+Tired of tramming the bed using the old paper and nozzle drag test?  The Beacon Probe knows precisely when
+the nozzle is touching the print bed, so let it do that job for you!  It'll do it more accurately than you
+can by dragging a piece of paper under the nozzle.
+
+This makes the task of tramming the bed using the 4 knobs under the print bed a lot easier.
 
 Add the following macros to the end of your `gcode_macro.cfg` file:
 
@@ -483,14 +486,12 @@ gcode:
 
 Each of the macros above will position the probe above the knobs so you can adjust and re-measure quickly
 
-To use these macros, first call `SCREW_ADJUST_START` from the console.  This re-homes the axes and re-confirms
-where the nozzle touches the build plate, and leaves the hotend on at the contact probing temperature.
+To use these macros, first heat your print bed to your typical printing temperature.
+When the print bed's temperature has stabilised, call `SCREW_ADJUST_START` from the console.
+This re-homes the axes and re-confirms where the nozzle touches the build plate, and leaves the hotend
+on at the contact probing temperature.
 
-```
-SCREW_ADJUST_START
-```
-
-then call the `SFL`, `SFR`, `SBL`, and `SBR` macro listed above and look at the last line of the output
+Now call the `SFL`, `SFR`, `SBL`, and `SBR` macro listed above and look at the last line of the output
 
 For example: `// Result is z=0.038333`
 
@@ -499,4 +500,7 @@ position at the center of the print bed.  You can now adjust the knob under the 
 and call the same macro again to obtain the new offset.  The goal is to get within 0.02mm of Z=0
 This can be repeated for each of the 4 screw points until all are equal within -0.02 to +0.02mm
 Better accuracy than this may be difficult to achieve due to backlash in the Z-axis lead screws.
+
+Note that the macros heat the nozzle up to the Z contact probing temperature (typically 145C) and
+so may take a few seconds after a probing macro is activated before tapping the build plate.
 
