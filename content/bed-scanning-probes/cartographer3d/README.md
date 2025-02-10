@@ -1,14 +1,18 @@
 # Cartographer3D for Qidi Plus 4 Installation and Configuration Guide
 
-**This guide is not aimed towards novice users. It requires, SSH access, changing Klipper files and updating configs and macros. If you don't understand this, you risk damaging your printer. Performing this mod may limit your ability to update to latest firmware from Qidi. Do not update without checking as it may overwrite important configs.**
+> [!IMPORTANT]
+> This guide is not aimed towards novice users. It requires, SSH access, changing Klipper files and updating configs and macros. If you don't understand this, you risk damaging your printer. Performing this mod may limit your ability to update to latest firmware from Qidi. Do not update without checking as it may overwrite important configs.
 
-⚠️ Do not contact Qidi support about issues with bed leveling, first layer issues, klipper, etc after making this mod. It's now your responsibility. ⚠️
+> [!WARNING]
+>  Do not contact Qidi support about issues with bed leveling, first layer issues, klipper, etc after making this mod. It's now your responsibility. ⚠️
 
 This guide covers installing Cartographer3D on your Qidi Plus 4.
 
-## Hardware
+***
 
-You of course need a [Cartographer3D probe](https://cartographer3d.com/). USB version. Flat pack will be the most compatible version, since you can assemble it into any configuration. 
+# Hardware
+
+You of course need a [Cartographer3D probe](https://cartographer3d.com/). USB version. Flat pack will be the most compatible version, since you can assemble it into any configuration, however this requires soldering. 
 
 This guide is not mount specific, only to say you need a mount for the probe. A list of tested mounts are:
 
@@ -18,9 +22,11 @@ You should note the X and Y offset of the center of the coil to the center of th
 
 You must be certain the coil is between 2.6 to 3.0 mm from the nozzle tip.
 
-## Software
+***
 
-### Backup Klipper
+# Software
+
+## 1. Backup Klipper
 
 Firstly, we need to make a backup of your klipper install. Via SSH run the following: 
 
@@ -31,7 +37,7 @@ mkdir -p /home/mks/qidi-klipper-backup
 
 Now your klipper install has been backed up to `/home/mks/qidi-klipper-backup`. Just in case!
 
-### Cartographer for Klipper
+## 2. Updating Python
 
 Cartographer needs a plugin for Klipper to work, this plugin is only supported on Python 3.9 or higher. The Qidi Plus 4 ships with Python 3.7 by default, we need to download Python 3.12 and remake the Klipper virtual environment. 
 
@@ -62,6 +68,8 @@ sed -i 's/greenlet==2.0.2/greenlet==3.0.3/' ../klipper/scripts/klippy-requiremen
 bin/pip install -r ../klipper/scripts/klippy-requirements.txt
 ```
 
+## 3. Installing Cartographer for Klipper
+
 Now Klipper installed again using Python 3.12. Now we can install Cartographer.
 
 ```bash
@@ -78,7 +86,7 @@ The plugin is now installed. And we can start up Klipper again
 sudo service klipper start
 ```
 
-### Patching Klipper
+## 4. Patching Klipper
 
 Qidi's version of Klipper has a modified version of `probe.py` and will not work with Cartographer for Klipper, we need to patch it so it will work.
 
@@ -86,11 +94,14 @@ First stop klipper: `sudo service klipper stop`
 
 These lines in [probe.py](./probe.py#L485-L492) need to be commented out in `/home/mks/klipper/klippy/extras/probe.py`.
 
-You can do this using nano: `nano ~/klipper/klippy/extras/probe.py`. Then finished press `ctrl+x` and then `y`.
+You can do this using nano: `nano +485 /home/mks/klipper/klippy/extras/probe.py`. Then finished press `ctrl+x` and then `y`. 
 
 Once this is done, start klipper: `sudo service klipper start`. Or power cycle the printer.
 
-### Klipper Configs
+> [!TIP]
+> Now is a good time to reinstall any Klipper Plugins you were using. If you wish to install Shake&Tune again, use the mainline version since Python is now at a newer version.
+
+## 5. Klipper Configs
 
 When you restarted Klipper, it probably crashed with errors that something is not found. 
 
@@ -98,9 +109,7 @@ When you restarted Klipper, it probably crashed with errors that something is no
 
 Don't worry, we just need to update some configs. 
 
-**Remember you need to reinstall any Klipper plugins like Shake & Tune!** (Use mainline Shake&Tune because we're running Python 3.12.)
-
-#### printer.cfg
+## 5.1. Changes in printer.cfg
 
 We need to modify `[Z_stepper]` with the following:
 
@@ -127,7 +136,7 @@ homing_positive_dir_reverse:true
 #step_pulse_duration:0.0000001
 ```
 
-Comment out (or delete) all the lines in the following sections:
+Comment out (or delete) all the lines in the following sections, these will be added back later:
 
 ```
 #[z_tilt]
@@ -173,7 +182,7 @@ Comment out (or delete) all the lines in the following sections:
 #mesh_pps: 2,2
 ```
 
-### gcode_macro.cfg
+## 5.2. Changes in gcode_macro.cfg
 
 We need to change what the printer does at the start of the print to not use the stock Qidi probes and use Carto instead.
 
@@ -352,11 +361,11 @@ gcode:
 - save_zoffset
 ```
 
-#### saved_variables.cfg 
+## 5.3. Changes in saved_variables.cfg 
 
 Inside `saved_variables.cfg` we need to set `z_offset = 0.0` as this is now handled by Cartographer.
 
-#### carto.cfg
+## 5.4. Install carto.cfg
 
 Create a new file in your config folder called `carto.cfg`. Copy and paste the contents of [this](./carto.cfg) into the new file. Save and close. 
 
@@ -405,9 +414,67 @@ mesh_min: 27, 45 # Adjust based on Y X offset
 mesh_max: 285, 285 # Adjust based on Y X offset
 ```
 
-#### Finishing up
+That was a lot of configs! But you make it through 🎊
+
+***
+
+## Finishing up
 
 Now you should have everything set up and you are now ready to follow Cartographer's guide for [calibration](https://docs.cartographer3d.com/cartographer-probe/installation-and-setup/installation/calibration).
 
 
+## Optional QoL Bed Tramming Macros
 
+This is courtesy of the Beacon guide and stew675. It has just been adapted for Cartographer.
+
+With the Beacon Probe now providing for accurate bed offset measurements, the probe can be used to make the
+task tramming the bed using the 4 knobs under the print bed a lot easier.
+
+Add the following macros to the end of your `gcode_macro.cfg` file:
+
+```
+[gcode_macro SFL]
+description: Get zoffset at front-left bed adjustment screw position
+gcode:
+    G1 X{25 - printer.configfile.settings.scanner.x_offset} Y{21 - printer.configfile.settings.scanner.y_offset} F6000
+    PROBE
+
+[gcode_macro SFR]
+description: Get zoffset at front-right bed adjustment screw position
+gcode:
+    G1 X{285 - printer.configfile.settings.scanner.x_offset} Y{21 - printer.configfile.settings.scanner.y_offset} F6000
+    PROBE
+
+[gcode_macro SBL]
+description: Get zoffset at back-left bed adjustment screw position
+gcode:
+    G1 X{25 - printer.configfile.settings.scanner.x_offset} Y{281 - printer.configfile.settings.scanner.y_offset} F6000
+    PROBE
+
+[gcode_macro SBR]
+description: Get zoffset at back-right bed adjustment screw position
+gcode:
+    G1 X{285 - printer.configfile.settings.scanner.x_offset} Y{281 - printer.configfile.settings.scanner.y_offset} F6000
+    PROBE
+```
+
+Each of the macros above will position the probe above the knobs so you can adjust and re-measure quickly
+
+To use these macros, first clear the bed mash, home and recalibrate the probe by calling the following macros
+
+```
+M84
+BED_MESH_CLEAR
+SET_GCODE_OFFSET Z=0
+G28
+Z_TILT_ADJUST
+G28
+```
+
+then call the macros listed above and look at the last line (eg. `// Result is z=1.948191
+`).  This informs you of how far away
+the print bed is from the probe.  You can adjust the knob under the bed and call the same macro again to obtain
+the new offset.  This can be repeated for each of the 4 screw points until all are equal within ~0.02mm.  It will
+be difficult to obtain better accuracy than that.  By default, the Beacon probe sets itself to 2.00mm from the center
+of the print bed after the call to `G28` is made, so therefore we are aiming for all 4 screw positions to report
+something greater than `z=1.98` and less than `z=2.02`
