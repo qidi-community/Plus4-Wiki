@@ -454,36 +454,30 @@ gcode:
     G28
     Z_TILT_ADJUST
     G1 X{printer.configfile.settings.beacon.home_xy_position[0]} Y{printer.configfile.settings.beacon.home_xy_position[1]} F7200
-    METHOD=CONTACT CALIBRATE=0
-    M104 S{z_home_temp}
-    TEMPERATURE_WAIT SENSOR=extruder MINIMUM={z_home_temp - 1} MAXIMUM={z_home_temp + 1}
-
-[gcode_macro SCREW_ADJUST_END]
-gcode:
-    M104 S0
+    G28 Z METHOD=CONTACT CALIBRATE=0
 
 [gcode_macro SFL]
 description: Get zoffset at front-left bed adjustment screw position
 gcode:
-    G1 X{25 - printer.configfile.settings.beacon.x_offset} Y{21 - printer.configfile.settings.beacon.y_offset} F6000
+    G1 X25 Y21 F6000
     PROBE PROBE_METHOD=CONTACT
 
 [gcode_macro SFR]
 description: Get zoffset at front-right bed adjustment screw position
 gcode:
-    G1 X{285 - printer.configfile.settings.beacon.x_offset} Y{21 - printer.configfile.settings.beacon.y_offset} F6000
+    G1 X285 Y21 F6000
     PROBE PROBE_METHOD=CONTACT
 
 [gcode_macro SBL]
 description: Get zoffset at back-left bed adjustment screw position
 gcode:
-    G1 X{25 - printer.configfile.settings.beacon.x_offset} Y{281 - printer.configfile.settings.beacon.y_offset} F6000
+    G1 X25 Y281 F6000
     PROBE PROBE_METHOD=CONTACT
 
 [gcode_macro SBR]
 description: Get zoffset at back-right bed adjustment screw position
 gcode:
-    G1 X{285 - printer.configfile.settings.beacon.x_offset} Y{281 - printer.configfile.settings.beacon.y_offset} F6000
+    G1 X285 Y281 F6000
     PROBE PROBE_METHOD=CONTACT
 ```
 
@@ -505,6 +499,4 @@ position at the center of the print bed.  You can now adjust the knob under the 
 and call the same macro again to obtain the new offset.  The goal is to get within 0.02mm of Z=0
 This can be repeated for each of the 4 screw points until all are equal within -0.02 to +0.02mm
 Better accuracy than this may be difficult to achieve due to backlash in the Z-axis lead screws.
-
-When you have completed adjustments, finish by calling `SCREW_ADJUST_END` (which just turns the hotend off).
 
