@@ -498,16 +498,13 @@ SCREW_ADJUST_START
 
 then call the `SFL`, `SFR`, `SBL`, and `SBR` macro listed above and look at the last line of the output
 
-For example: `// Result is z=1.948191`
+For example: `// Result is z=0.038333`
 
-This informs you of how far away the print bed is from the probe.  You can adjust the knob under the bed
-and call the same macro again to obtain the new offset.  This can be repeated for each of the 4 screw points
-until all are equal within ~0.02mm.
-It will be difficult to obtain better accuracy than 0.02mm.
+This informs you of the Z offset of the print bed at each screw location relative to the Z=0 homing
+position at the center of the print bed.  You can now adjust the knob under the bed
+and call the same macro again to obtain the new offset.  The goal is to get within 0.02mm of Z=0
+This can be repeated for each of the 4 screw points until all are equal within -0.02 to +0.02mm
+Better accuracy than this may be difficult to achieve due to backlash in the Z-axis lead screws.
 
-By default, the Beacon probe sets itself to 2.00mm from the center of the print bed after the call to
-`SCREW_ADJUST_START`, so therefore we are aiming for all 4 screw positions to report something greater
-than `z=1.98` and less than `z=2.02`
-
-When you have completed adjustments, finish by calling `SCREW_ADJUST_END`
+When you have completed adjustments, finish by calling `SCREW_ADJUST_END` (which just turns the hotend off).
 
