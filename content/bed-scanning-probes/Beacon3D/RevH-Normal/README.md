@@ -350,7 +350,7 @@ gcode:
     _APPLY_NOZZLE_OFFSET
 ```
 
-- Add these 4 macros to the end of your file:
+- Add these 6 macros to the end of your file:
 
 ```
 [gcode_macro _BEACON_HOME_PRE_X]
