@@ -146,6 +146,11 @@ When in doubt, check out the copy of my full [printer.cfg](./printer.cfg) for re
 
 ### gcode_macros.cfg changes
 
+**NOTE**: *If you were following this guide before 11th Feb 2025, then most of the following content
+has changed significantly and it is best to re-follow this guide carefully and copy and replace all
+of the macros again from this guide.  Also pay particular attention to the line of gcode added to
+the `[PRINT_START]` macro. *
+
 There are a lot of changes here.  Take your time and you'll be fine.  When in doubt, check out the copy of my full [gcode_macro.cfg](./gcode_macro.cfg) for reference.
 
 Edit `gcode_macro.cfg`
@@ -401,11 +406,18 @@ This will set the Plus4 to generate a `default` bed mesh (`G32`), then do a full
 and bed mesh (`G29`), and then finally put the Plus4 back into Kamp mode meshing ready for the
 next print (`G31`).  The whole lot gets saved afterwards (`SAVE_CONFIG`)
 
+***
 
 ## APPLY_FILAMENT_OFFSET - What it does and how to use it
 
+**NOTE**: *If you have applied filament offsets from using this guide before 11th Feb 2025, then these
+may need to all be commented out, as the automated filament offset system should largely make doing
+filament specific offsets unnecessary.*
+
 The idea behind `APPLY_FILAMENT_OFFSET` is to do away with the fiddling about with the global Z offset
-when changing to filaments that prefer a different Z offset to the replaced filament
+when changing to filaments that prefer a different Z offset to the replaced filament.  By and large the
+automated filament nozzle temperature management system should set the correct offset for almost all
+filaments, however there may still be a handful of standout filaments that need tweaking.
 
 With the original method, if the first layer wasn't going down properly, we would have to adjust the global Z
 offset, and save it, and then that could cause issues later when changing filaments.
@@ -430,14 +442,15 @@ and save the filament settings.  Note that we are reversing the sign of the fila
 end G-code section.  This allows for filaments with different preferred offsets to be swapped mid-print.
 This should be especially useful when the QidiBox is released.
 
-The next time that we print with this filament, the filament specific Z offset will be applied and we will
-get perfect first layers with it without having to fiddle with the global Z offset.
+The next time that we print with this filament, the filament specific Z offset will be applied and we should
+get perfect first layers with it moving forwards.
 
-If this is done for all the filaments that you print with, then every time that you switch a filament then
-it will be printed with the correct Z-offset and your layers should turn out perfect.
-
+***
 
 ## Optional QoL Bed Tramming Macros
+
+**NOTE**: *If you were doing bed tramming from using this guide before 11th Feb 2025, then those macros
+will need to be replaced with the following macros as they handle bed tramming more accurately*
 
 Tired of tramming the bed using the old paper and nozzle drag test?  The Beacon Probe knows precisely when
 the nozzle is touching the print bed, so let it do that job for you!  It'll do it more accurately than you
