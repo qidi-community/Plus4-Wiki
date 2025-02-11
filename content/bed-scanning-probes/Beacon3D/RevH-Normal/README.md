@@ -107,14 +107,18 @@ retries: 5
 retry_tolerance: 0.008
 
 [bed_mesh]
-speed:250
+speed:200
 horizontal_move_z:2
+zero_reference_position: 152, 152
 mesh_min:15,15
 mesh_max:295,283
 probe_count:15,15
 algorithm:bicubic
 bicubic_tension:0.3
 mesh_pps: 2,2
+fade_start: 2
+fade_end: 10
+fade_target: 0
 ```
 
 - Add the following `[beacon]` section:
