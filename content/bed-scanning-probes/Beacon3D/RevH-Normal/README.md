@@ -104,7 +104,7 @@ points:
 speed: 150
 horizontal_move_z: 5
 retries: 5
-retry_tolerance: 0.005
+retry_tolerance: 0.008
 
 [bed_mesh]
 speed:250
@@ -279,6 +279,8 @@ gcode:
 #    {% endif %}
 ```
 
+- Comment out, or delete, the call to `save_zoffset` in the `[CANCEL_PRINT]` macro
+ 
 - Comment out, or delete, the `[homing_override]` section in its entirety
 
 - Comment out, or delete, the gcode in the `Z_VIBRATE` macro like so
