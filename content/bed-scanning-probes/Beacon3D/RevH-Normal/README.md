@@ -1,6 +1,9 @@
 # Beacon3D RevH Normal Installation and Configuration Guide
 
-*Note that all these configurations relate ONLY to using the Beacon in Contact mode on the Qidi Plus4 Printer*
+**Note 1 :** *All these configurations relate ONLY to using the Beacon in Contact mode on the Qidi Plus4 Printer*
+
+**NOTE 2:** *Power Loss Recovery does not work correctly yet when using the Beacon probe.  I am working on a solution
+for this, but for now, do not expect to be able to safely resume prints after a power loss event.*
 
 This install guide should work for all other Beacon models, but it is untested on those.  The sample mounting
 model provided is also only tested for clearances using the RevH Normal Beacon module.
@@ -125,7 +128,7 @@ mesh_main_direction: x
 mesh_runs: 2
 contact_max_hotend_temperature: 180
 home_xy_position: 152, 152      # update with your safe Z home position
-home_z_hop: 0                   # Important to set this value to 0 for Power Loss Recovery to work
+home_z_hop: 5
 home_z_hop_speed: 30
 home_xy_move_speed: 300
 home_y_before_x: False
