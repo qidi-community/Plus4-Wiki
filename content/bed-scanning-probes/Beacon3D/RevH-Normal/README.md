@@ -463,7 +463,6 @@ Add the following macros to the end of your `gcode_macro.cfg` file:
 ```
 [gcode_macro SCREW_ADJUST_START]
 gcode:
-    {% set z_home_temp = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].z_homing_temperature)|int %}
     M84
     BED_MESH_CLEAR
     SET_GCODE_OFFSET Z=0
