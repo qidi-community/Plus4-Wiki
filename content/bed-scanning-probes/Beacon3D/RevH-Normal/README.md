@@ -521,3 +521,24 @@ Better accuracy than this may be difficult to achieve due to backlash in the Z-a
 Note that the macros heat the nozzle up to the Z contact probing temperature (typically 145C) and
 so may take a few seconds after a probing macro is activated before tapping the build plate.
 
+
+## Beacon and KAMP Line Purge
+
+If you are using the KAMP Line Purging, you may notice that some parts of the Beacon will catch onto
+the purged line.  If this is affecting you, then here's a solution.  This places the purge line
+towards the back-right of the print area where the Beacon module is unlikely to catch on any part of it.
+
+[KAMP_Settings.cfg](./KAMP_Settings.cfg)
+
+[KAMP/Line_Purge.cfg](./Line_Purge.cfg)
+
+Replace the contents of the `KAMP_Settings.cfg` file that lives __*in the same directory*__ as your
+`printer.cfg` file with the contents of the [KAMP_Settings.cfg](./KAMP_Settings.cfg) file.
+
+**NOTE**: Do not edit the `KAMP_Settings.cfg` file that is in the `KAMP` sub-directory as it is
+unused by the Plus4.
+
+Also, replace the contents of the `Line_Purge.cfg` file which is in the `KAMP` sub-directory
+with the contents of the [KAMP/Line_Purge.cfg](./Line_Purge.cfg) file.
+
+Now Save and Restart.
