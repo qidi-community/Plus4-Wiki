@@ -197,7 +197,7 @@ gcode:
     { action_respond_info("  Target Position = %f" % target_position|float) }
 
     SET_GCODE_OFFSET Z=0                            # Clear any pre-existing Gcode offsets
-    G1 Z{target_position} F600                      # Move Z to determined target position
+    G1 Z{target_position} F600                      # Move Z to determined target position before moving X/Y to avoid possible plate gouging
     G1 X{printer.configfile.settings.beacon.home_xy_position[0]} Y{printer.configfile.settings.beacon.home_xy_position[1]} F7200    # Move X/Y to Z homing position
     M400                                            # Wait for prior gcode-commands to finish
     SET_KINEMATIC_POSITION Z={reference_position}   # Set target position to be the reference position
@@ -393,11 +393,12 @@ gcode:
     {% set z_home_temp = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].z_homing_temperature)|int %}
     M104 S{z_home_temp}
     TEMPERATURE_WAIT SENSOR=extruder MINIMUM={z_home_temp - 1} MAXIMUM={z_home_temp + 1}
+    G4 P3000        # Give the hotend a small amount of time to stabilise
 
 [gcode_macro _BEACON_CONTACT_POST_Z]
 gcode:
     M104 S0
-    G1 Z3 F600      # Ensure Z is lifted away from nozzle
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
     M400
 ```
 
@@ -460,11 +461,11 @@ get perfect first layers with it moving forwards.
 
 ## Optional QoL Bed Tramming Macros
 
-**NOTE**: *If you were doing bed tramming from using this guide before 11th Feb 2025, then those macros
+**NOTE**: *If you were using bed tramming by folllowing this guide before 11th Feb 2025, then those macros
 will need to be replaced with the following macros as they handle bed tramming more accurately*
 
-Tired of tramming the bed using the old paper and nozzle drag test?  The Beacon Probe knows precisely when
-the nozzle is touching the print bed, so let it do that job for you!  It'll do it more accurately than you
+Are you tired of tramming the bed using the old paper and nozzle drag test?  The Beacon Probe knows precisely
+when the nozzle is touching the print bed, so let it do that job for you!  It'll do it more accurately than you
 can by dragging a piece of paper under the nozzle.
 
 This makes the task of tramming the bed using the 4 knobs under the print bed a lot easier.
@@ -478,11 +479,12 @@ gcode:
     BED_MESH_CLEAR
     SET_GCODE_OFFSET Z=0
     G28
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
     Z_TILT_ADJUST
-    G1 Z3 F600      # Ensure Z is lifted away from nozzle
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
     G1 X{printer.configfile.settings.beacon.home_xy_position[0]} Y{printer.configfile.settings.beacon.home_xy_position[1]} F7200
     G28 Z METHOD=CONTACT CALIBRATE=0
-    G1 Z3 F600      # Ensure Z is lifted away from nozzle
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
     M400
 
 [gcode_macro SFL]
@@ -490,32 +492,24 @@ description: Get zoffset at front-left bed adjustment screw position
 gcode:
     G1 X25 Y21 F6000
     PROBE PROBE_METHOD=CONTACT
-    G1 Z3 F600      # Ensure Z is lifted away from nozzle
-    M400
 
 [gcode_macro SFR]
 description: Get zoffset at front-right bed adjustment screw position
 gcode:
     G1 X285 Y21 F6000
     PROBE PROBE_METHOD=CONTACT
-    G1 Z3 F600      # Ensure Z is lifted away from nozzle
-    M400
 
 [gcode_macro SBL]
 description: Get zoffset at back-left bed adjustment screw position
 gcode:
     G1 X25 Y281 F6000
     PROBE PROBE_METHOD=CONTACT
-    G1 Z3 F600      # Ensure Z is lifted away from nozzle
-    M400
 
 [gcode_macro SBR]
 description: Get zoffset at back-right bed adjustment screw position
 gcode:
     G1 X285 Y281 F6000
     PROBE PROBE_METHOD=CONTACT
-    G1 Z3 F600      # Ensure Z is lifted away from nozzle
-    M400
 ```
 
 Each of the macros above will position the probe above the knobs so you can adjust and re-measure quickly
@@ -564,20 +558,20 @@ Now Save and Restart.
 # FAQ
 
 
-## I've done all of the above, but my first layers still aren't perfect (but they're close)
+## I've configured everything using the guide, but my first layers still aren't perfect (but they are close)
 
 This may be due to differences in the `expansion_factor` from my setup, to yours.  In the `_APPLY_NOZZLE_OFFSET` macro
-we can find the `variable_expansion_factor` value.  A value of `0.00099` works perfect on my system, but due to
+we can find the `variable_expansion_factor` value.  A value of `0.00099` works perfectly on my system, but due to
 manufacturing variances, your particular hotend may behave differently to mine.
 
-This can be fixed by calibrating this value for your setup.
+This can be addressed by calibrating this value for your setup.
 
 1. Print out a single layer 100x100mm square using some PLA+ at 230C.
 2. If the nozzle is too high, subtract 0.00003 from the expansion factor, then save and restart. eg. 0.00099 would become 0.00096
 3. Repeat steps 1 and 2 until the first layer looks good.
 4. We do the reverse if you first layer is too low.  Increase the expansion factor by 0.00003 each time until it looks good
 5. You can fine tune using 0.00001 steps, but generally these steps are so small that inherent inaccuracies in the eddy current based bed meshing tend to dominate
-6. If your expansion factor is below 0.0008, or above 0.00120, then stop.  Something else is likely wrong and seek help.
+6. If your expansion factor is getting below 0.00075, or above 0.00125, then stop.  Something else is likely wrong and seek help.
 
 
 ##  I've calibrated my `expansion_factor` and it's good, but there's still some spots on the bed that are never perfect
@@ -591,20 +585,20 @@ particularly inconsistent.
 
 ## My first layers are pretty good most of the time, but sometimes it can be a little inconsistent
 
-In this case, your meshing speed may be too high.  The high the speed you generate a mesh at, the less accurate the
-eddy current sensing gets.
+In this case, your bed meshing speed may be too high.  The higher the speed you generate a mesh at, the less accurate the
+eddy current sensing becomes.
 
-Inside your `[bed_mesh]` section in your `printer.cfg` file, find the `speed` field and drop it back to `150` or even `100`
+Inside the `[bed_mesh]` section in your `printer.cfg` file, find the `speed` field and drop it back to `150` or even `100`
 and see if that helps.  If that doesn't resolve issues then reach out to the Beacon discord for assistance.
 
 
-## Bed Z homing is slow!  Can't it move faster?
+## Bed Z homing is slow!  Can it be faster?
 
 Yes, it can, but there is a risk of a nozzle crash if you change print bed sheets to something wildly different to what was
 there before.  The current configuration is deliberately conservative and safe to try to avoid nozzle crashes.
 
-The chance of nozzle crashes are generally very, very small, but not zero.  If you accept the risk, you can enable faster
-homing by changing your `[beacon]` config in `printer.cfg` like so:
+While the chance of a nozzle crashe is generally very, very small, it is not zero.  If you accept the risk, you can enable faster
+homing by changing the `[beacon]` config in your `printer.cfg` like so:
 
 ```
 [beacon]
@@ -615,8 +609,9 @@ home_autocalibrate: never
 ...
 ```
 
-This will enable the much faster proximity based homing for all regular homing operations.  `G29` will still do contact
-based homing to accurately determine the nozzle offset, but otherwise all other Z homing should be relately quick.
+This will enable the much faster proximity based homing for all regular homing operations.
+The `G29` macro will still do contact based homing to accurately determine the nozzle offset, and bed mesh, but otherwise
+all other Z homing operations should be relatively quick.
 
 Only make this change if you're okay with the risk that the nozzle may crash into the build plate if you do something
 weird and forget to recalibrate your Beacon's proximity models.  See: https://docs.beacon3d.com/quickstart/#6-calibrate-beacon
