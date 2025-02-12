@@ -598,13 +598,6 @@ Inside your `[bed_mesh]` section in your `printer.cfg` file, find the `speed` fi
 and see if that helps.  If that doesn't resolve issues then reach out to the Beacon discord for assistance.
 
 
-## Where can I go for further assistance with issues?
-
-You can reach out to me, `stew675` on the [Qidi Official Discord](https://discord.gg/B6jDttWUE6) in the Plus 4 channel
-
-Alternately you can reach out to the [Official Beacon Discord Channel](https://discord.gg/MzTR3zE) and ask for help there
-
-
 ## Bed Z homing is slow!  Can't it move faster?
 
 Yes, it can, but there is a risk of a nozzle crash if you change print bed sheets to something wildly different to what was
@@ -627,3 +620,11 @@ based homing to accurately determine the nozzle offset, but otherwise all other 
 
 Only make this change if you're okay with the risk that the nozzle may crash into the build plate if you do something
 weird and forget to recalibrate your Beacon's proximity models.  See: https://docs.beacon3d.com/quickstart/#6-calibrate-beacon
+
+
+
+## Where can I go for further assistance with issues?
+
+You can reach out to me, `stew675` on the [Qidi Official Discord](https://discord.gg/B6jDttWUE6) in the Plus 4 channel
+
+Alternately you can reach out to the [Official Beacon Discord Channel](https://discord.gg/MzTR3zE) and ask for help there
