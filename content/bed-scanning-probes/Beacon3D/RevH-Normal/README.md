@@ -109,10 +109,10 @@ retry_tolerance: 0.008
 [bed_mesh]
 speed:200
 horizontal_move_z:2
-zero_reference_position: 152, 152
+zero_reference_position: 152, 152            # Must match [beacon].home_xy_position
 mesh_min:15,15
 mesh_max:295,283
-probe_count:15,15
+probe_count:14,14
 algorithm:bicubic
 bicubic_tension:0.3
 mesh_pps: 2,2
@@ -126,12 +126,12 @@ fade_target: 0
 ```
 [beacon]
 serial: /dev/serial/by-id/usb-Beacon_Beacon_RevH_<**INSERT-YOUR-BEACON-SERIAL-HERE**>
-x_offset: 0                     # update with X offset from nozzle on your machine
-y_offset: -18.8                 # update with Y offset from nozzle on your machine
+x_offset: 0                                 # update with X offset from nozzle on your machine
+y_offset: -18.8                             # update with Y offset from nozzle on your machine
 mesh_main_direction: x
 mesh_runs: 2
 contact_max_hotend_temperature: 180
-home_xy_position: 152, 152      # update with your safe Z home position
+home_xy_position: 152, 152                  # update with your safe Z home position
 home_z_hop: 5
 home_z_hop_speed: 30
 home_xy_move_speed: 300
