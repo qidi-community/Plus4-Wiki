@@ -197,8 +197,8 @@ gcode:
     { action_respond_info("  Target Position = %f" % target_position|float) }
 
     SET_GCODE_OFFSET Z=0                            # Clear any pre-existing Gcode offsets
-    G1 X{printer.configfile.settings.beacon.home_xy_position[0]} Y{printer.configfile.settings.beacon.home_xy_position[1]} F7200    # Move X/Y to Z homing position
     G1 Z{target_position} F600                      # Move Z to determined target position
+    G1 X{printer.configfile.settings.beacon.home_xy_position[0]} Y{printer.configfile.settings.beacon.home_xy_position[1]} F7200    # Move X/Y to Z homing position
     M400                                            # Wait for prior gcode-commands to finish
     SET_KINEMATIC_POSITION Z={reference_position}   # Set target position to be the reference position
     G1 Z{reference_position} F600                   # Move Z to reference position.  Ideally the bed should not move
@@ -397,6 +397,8 @@ gcode:
 [gcode_macro _BEACON_CONTACT_POST_Z]
 gcode:
     M104 S0
+    G1 Z3 F600      # Ensure Z is lifted away from nozzle
+    M400
 ```
 
 ## Calibration of your new Beacon
@@ -477,32 +479,43 @@ gcode:
     SET_GCODE_OFFSET Z=0
     G28
     Z_TILT_ADJUST
+    G1 Z3 F600      # Ensure Z is lifted away from nozzle
     G1 X{printer.configfile.settings.beacon.home_xy_position[0]} Y{printer.configfile.settings.beacon.home_xy_position[1]} F7200
     G28 Z METHOD=CONTACT CALIBRATE=0
+    G1 Z3 F600      # Ensure Z is lifted away from nozzle
+    M400
 
 [gcode_macro SFL]
 description: Get zoffset at front-left bed adjustment screw position
 gcode:
     G1 X25 Y21 F6000
     PROBE PROBE_METHOD=CONTACT
+    G1 Z3 F600      # Ensure Z is lifted away from nozzle
+    M400
 
 [gcode_macro SFR]
 description: Get zoffset at front-right bed adjustment screw position
 gcode:
     G1 X285 Y21 F6000
     PROBE PROBE_METHOD=CONTACT
+    G1 Z3 F600      # Ensure Z is lifted away from nozzle
+    M400
 
 [gcode_macro SBL]
 description: Get zoffset at back-left bed adjustment screw position
 gcode:
     G1 X25 Y281 F6000
     PROBE PROBE_METHOD=CONTACT
+    G1 Z3 F600      # Ensure Z is lifted away from nozzle
+    M400
 
 [gcode_macro SBR]
 description: Get zoffset at back-right bed adjustment screw position
 gcode:
     G1 X285 Y281 F6000
     PROBE PROBE_METHOD=CONTACT
+    G1 Z3 F600      # Ensure Z is lifted away from nozzle
+    M400
 ```
 
 Each of the macros above will position the probe above the knobs so you can adjust and re-measure quickly
