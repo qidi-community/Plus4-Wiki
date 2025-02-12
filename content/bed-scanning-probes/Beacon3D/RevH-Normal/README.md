@@ -559,3 +559,71 @@ Also, replace the contents of the `Line_Purge.cfg` file which is in the `KAMP` s
 with the contents of the [KAMP/Line_Purge.cfg](./Line_Purge.cfg) file.
 
 Now Save and Restart.
+
+
+# FAQ
+
+
+## I've done all of the above, but my first layers still aren't perfect (but they're close)
+
+This may be due to differences in the `expansion_factor` from my setup, to yours.  In the `_APPLY_NOZZLE_OFFSET` macro
+we can find the `variable_expansion_factor` value.  A value of `0.00099` works perfect on my system, but due to
+manufacturing variances, your particular hotend may behave differently to mine.
+
+This can be fixed by calibrating this value for your setup.
+
+1. Print out a single layer 100x100mm square using some PLA+ at 230C.
+2. If the nozzle is too high, subtract 0.00003 from the expansion factor, then save and restart. eg. 0.00099 would become 0.00096
+3. Repeat steps 1 and 2 until the first layer looks good.
+4. We do the reverse if you first layer is too low.  Increase the expansion factor by 0.00003 each time until it looks good
+5. You can fine tune using 0.00001 steps, but generally these steps are so small that inherent inaccuracies in the eddy current based bed meshing tend to dominate
+6. If your expansion factor is below 0.0008, or above 0.00120, then stop.  Something else is likely wrong and seek help.
+
+
+##  I've calibrated my `expansion_factor` and it's good, but there's still some spots on the bed that are never perfect
+
+Unfortunately Eddy Current bed meshing, while very good, isn't a perfect science.  The Beacon detects eddy currents in the
+metal of the build plate.  Variations in the thickness of a PEI, or other, coating atop the metal plate cannot be accounted
+for by eddy current probing.  The best we can do here is get it close enough, and trust that the 2nd and 3rd layers will
+cover over any small inconsistencies.  The other tactic is to switch build plates if your build plate's coating is
+particularly inconsistent.
+
+
+## My first layers are pretty good most of the time, but sometimes it can be a little inconsistent
+
+In this case, your meshing speed may be too high.  The high the speed you generate a mesh at, the less accurate the
+eddy current sensing gets.
+
+Inside your `[bed_mesh]` section in your `printer.cfg` file, find the `speed` field and drop it back to `150` or even `100`
+and see if that helps.  If that doesn't resolve issues then reach out to the Beacon discord for assistance.
+
+
+## Where can I go for further assistance with issues?
+
+You can reach out to me, `stew675` on the [Qidi Official Discord](https://discord.gg/B6jDttWUE6) in the Plus 4 channel
+
+Alternately you can reach out to the [Official Beacon Discord Channel](https://discord.gg/MzTR3zE) and ask for help there
+
+
+## Bed Z homing is slow!  Can't it move faster?
+
+Yes, it can, but there is a risk of a nozzle crash if you change print bed sheets to something wildly different to what was
+there before.  The current configuration is deliberately conservative and safe to try to avoid nozzle crashes.
+
+The chance of nozzle crashes are generally very, very small, but not zero.  If you accept the risk, you can enable faster
+homing by changing your `[beacon]` config in `printer.cfg` like so:
+
+```
+[beacon]
+...
+home_method: proximity
+home_method_when_homed: proximity
+home_autocalibrate: never
+...
+```
+
+This will enable the much faster proximity based homing for all regular homing operations.  `G29` will still do contact
+based homing to accurately determine the nozzle offset, but otherwise all other Z homing should be relately quick.
+
+Only make this change if you're okay with the risk that the nozzle may crash into the build plate if you do something
+weird and forget to recalibrate your Beacon's proximity models.  See: https://docs.beacon3d.com/quickstart/#6-calibrate-beacon
