@@ -98,18 +98,18 @@ z_positions:
     335.7,152
 
 points:
-    76, 170.8
-    230, 170.8
+    50, 170.8           # Assumes using stew675 beacon mount's offsets
+    255, 170.8          # Assumes using stew675 beacon mount's offsets
 
-speed: 150
+speed: 200
 horizontal_move_z: 5
 retries: 5
-retry_tolerance: 0.008
+retry_tolerance: 0.006
 
 [bed_mesh]
-speed:200
+speed:150
 horizontal_move_z:2
-zero_reference_position: 152, 152            # Must match [beacon].home_xy_position
+zero_reference_position: 152, 152
 mesh_min:15,15
 mesh_max:295,283
 probe_count:14,14
@@ -126,25 +126,26 @@ fade_target: 0
 ```
 [beacon]
 serial: /dev/serial/by-id/usb-Beacon_Beacon_RevH_<**INSERT-YOUR-BEACON-SERIAL-HERE**>
-x_offset: 0                                 # update with X offset from nozzle on your machine
-y_offset: -18.8                             # update with Y offset from nozzle on your machine
+x_offset: 0                     # Assumes using stew675 beacon mount's offsets
+y_offset: -18.8                 # Assumes using stew675 beacon mount's offsets
 mesh_main_direction: x
 mesh_runs: 2
-contact_max_hotend_temperature: 180
-home_xy_position: 152, 152                  # update with your safe Z home position
+contact_max_hotend_temperature: 270  # 180
+home_xy_position: 152, 152      # update with your safe Z home position
 home_z_hop: 5
 home_z_hop_speed: 30
 home_xy_move_speed: 300
 home_y_before_x: False
-home_method: contact
+home_method: proximity
 home_method_when_homed: proximity
-home_autocalibrate: unhomed
+home_autocalibrate: never
 home_gcode_pre_x: _BEACON_HOME_PRE_X
 home_gcode_post_x: _BEACON_HOME_POST_X
 home_gcode_pre_y: _BEACON_HOME_PRE_Y
 home_gcode_post_y: _BEACON_HOME_POST_Y
 contact_activate_gcode: _BEACON_CONTACT_PRE_Z
 contact_deactivate_gcode: _BEACON_CONTACT_POST_Z
+autocal_tolerance: 0.006
 ```
 
 When in doubt, check out the copy of my full [printer.cfg](./printer.cfg) for reference.
@@ -165,19 +166,24 @@ Edit `gcode_macro.cfg`
 - Add the following `[_APPLY_NOZZLE_OFFSET]` and `[APPLY_FILAMENT_OFFSET]` sections to your file.
 
 ```
-# _APPLY_NOZZLE_OFFSET` implements an adaptive Z offset management system that attempts to
-# automatically set the correct Z offset depending upon the first layer filament temperature
 [gcode_macro _APPLY_NOZZLE_OFFSET]
 description: Determine the global nozzle offset and apply
-variable_z_homing_temperature: 145      # Temperature that we home the nozzle at to determine Z=0
+variable_z_homing_temperature: 150      # Temperature that we home the nozzle at to determine Z=0
 variable_reference_position: 5.0        # A safe Z position at which we'll apply the offset change
-variable_expansion_factor: 0.00099      # Amount hotend lengthens by per 1C temperature rise
+variable_expansion_factor: 0.00045      # Amount hotend lengthens by per 1C temperature rise, within ±3%
+variable_contact_compensation: 0.06     # Static Offset to compensate for Beacon contact latency
+                                        # 0.05 to 0.07 appears to be typical for the Plus 4
 variable_hotend_temp: 250               # Target hotend temp (typically set by PRINT_START)
 gcode:
     # Set our working variables.  We treat everything as floats for these calculations
     {% set z_home_temp = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].z_homing_temperature)|float %}
+    {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
+	{% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
+    {% set z_speed = (printer.configfile.settings['stepper_z'].homing_speed)|float * 60 %}
+	{% set z_hop = (printer.configfile.settings['beacon'].home_z_hop)|float %}
     {% set reference_position = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].reference_position)|float %}
     {% set expansion_factor = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].expansion_factor)|float %}
+    {% set contact_comp = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].contact_compensation)|float %}
     {% set hotend_temp = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].hotend_temp)|float %}
 
     # Calculate Offset and sanity check it so we don't end up etching the build plate
@@ -187,25 +193,46 @@ gcode:
     {% endif %}
 
     # Determine the Z target position
-    {% set target_position = (reference_position + temperature_offset)|float %}
+    {% set target_position = (reference_position + contact_comp + temperature_offset)|float %}
 
     # Report to the console what we've determined
     { action_respond_info("Applying Z offset adjustment for hotend temperature of %.1f°C" % hotend_temp|float) }
-    { action_respond_info("  Reference Position = %f" % reference_position|float) }
-    { action_respond_info("  Temperature Offset= %f" % temperature_offset|float) }
-    { action_respond_info("  Total Offset = %f" % (temperature_offset)|float) }
-    { action_respond_info("  Target Position = %f" % target_position|float) }
+    { action_respond_info("  Expansion Coefficient = %.6f" % (expansion_factor)|float) }
+    { action_respond_info("  Temperature Offset    = %.6f" % (temperature_offset)|float) }
+    { action_respond_info("  Contact Compensation  = %.3f" % (contact_comp)|float) }
+    { action_respond_info("  Total Offset          = %.6f" % (temperature_offset + contact_comp)|float) }
+    { action_respond_info("  Reference Position    = %.1f" % (reference_position)|float) }
+    { action_respond_info("  Target Position       = %.6f" % (target_position)|float) }
 
     SET_GCODE_OFFSET Z=0                            # Clear any pre-existing Gcode offsets
-    G1 Z{target_position} F600                      # Move Z to determined target position before moving X/Y to avoid possible plate gouging
-    G1 X{printer.configfile.settings.beacon.home_xy_position[0]} Y{printer.configfile.settings.beacon.home_xy_position[1]} F7200    # Move X/Y to Z homing position
+    G1 Z{target_position} F{z_speed}                # Move Z to determined target position
+    G1 X{z_home_x} Y{z_home_y} F7200                # Move X/Y to Z homing position 
     M400                                            # Wait for prior gcode-commands to finish
     SET_KINEMATIC_POSITION Z={reference_position}   # Set target position to be the reference position
     G1 Z{reference_position} F600                   # Move Z to reference position.  Ideally the bed should not move
     M400
 
-# APPLY_FILAMENT_OFFSET allows for users to correct the offset for filaments that aren't properly
-# handled by the automatic Z offset management system.  It should very rarely need to be used.
+[gcode_macro _FIND_Z_EQUALS_ZERO]
+gcode:
+    {% set z_home_temp = printer["gcode_macro _APPLY_NOZZLE_OFFSET"].z_homing_temperature|int %}
+    {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
+	{% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
+
+    # Turn off all fans to minimise sources of vibration and clear any old state
+    M109 S{z_home_temp}                     # Commence nozzle warmup for z homing        
+    BED_MESH_CLEAR                          # Clear out any existing bed meshing context
+    SET_KINEMATIC_POSITION Z=0              # Force firmware to believe Z is homed at 0
+    G1 Z3 F600                              # Move bed away from the nozzle by 3mm from where it was
+    SET_KINEMATIC_POSITION CLEAR=XYZ        # Clear all kinematic repositionings
+    SET_GCODE_OFFSET Z=0                    # Comnpletely reset all prior notions of Z offset
+    G28 X Y                                 # Home X and Y Axes
+    G28 Z METHOD=CONTACT CALIBRATE=1        # Home Z axis, and calibrate beacon                                               
+    Z_TILT_ADJUST                           # Ensure bed is level
+    G1 X{z_home_x} Y{z_home_y} F7200        # Move to Z home position
+    G4 P30000                               # Heatsoak hotend for 30s more
+    G28 Z METHOD=CONTACT CALIBRATE=0        # Establish Z=0
+    G1 Z3 F600                              # Move bed away from the nozzle by 3mm from where it was
+
 [gcode_macro APPLY_FILAMENT_OFFSET]
 description: Apply a Z offset adjustment for a specific filament
 gcode:
@@ -217,6 +244,7 @@ gcode:
 - Replace the `[zoffset]`, `[test_zoffset]`, `[get_zoffset]`, `[save_zoffset]`, and `[set_zoffset]` sections with these sections:
 
 ```
+# All the following zoffset calls only exist to keep Qidi's xindi happy
 [gcode_macro zoffset]
 description: Apply baseline Z offset which is always zero for Beacon Contact
 gcode:
@@ -224,7 +252,7 @@ gcode:
 
 # Development test
 [gcode_macro test_zoffset]
-description: Debugging test to compare the probe's contact and proximity Z Offset values
+description: Debugging test to compare the probe contact and proximity Z Offset values
 gcode:
     G28 X Y
     get_zoffset
@@ -235,8 +263,8 @@ gcode:
 
 [gcode_macro get_zoffset]
 description: Homes nozzle against build plate and applies global z offset
-gcode:                                  
-    G28 Z METHOD=CONTACT CALIBRATE=1        # Use contact to find our Z end-stop                
+gcode:
+    _FIND_Z_EQUALS_ZERO
     _APPLY_NOZZLE_OFFSET
 
 [gcode_macro save_zoffset]
@@ -331,28 +359,15 @@ gcode:
 ```
 [gcode_macro G29]
 variable_k:1
-description: Home all, generate a bed mesh, and apply global Z nozzle offset
+description: Prepare print bed, generate a bed mesh, and apply global Z nozzle offset
 gcode:
-    {% set z_home_temp = printer["gcode_macro _APPLY_NOZZLE_OFFSET"].z_homing_temperature|int %}
-    # Turn off all fans to minimise sources of vibration and clear any old state
-    M104 S{z_home_temp}                     # Commence nozzle warmup for z homing
-    M141 S0                                 # Turn off chamber heater
-    M106 S0                                 # Turn off part cooling fan
-    M106 P2 S0                              # Turn off auxiliary part cooling fan
-    M106 P3 S0                              # Turn off chamnber exhaust/circulation fan        
-    BED_MESH_CLEAR                          # Clear out any existing bed meshing context
-    SET_GCODE_OFFSET Z=0                    # Comnpletely reset all prior notions of Z offset
-    SET_KINEMATIC_POSITION CLEAR=XYZ        # Clear all kinematic repositionings
-    G28 X Y                                 # Home X and Y Axes
-    G28 Z METHOD=CONTACT CALIBRATE=1        # Home Z axis, and calibrate beacon                                               
-    Z_TILT_ADJUST                           # Ensure bed is level    
-    G28 Z METHOD=CONTACT CALIBRATE=0        # Re-establish Z end-stop after bed levelling
+    _FIND_Z_EQUALS_ZERO
     {% if k|int==1 %}
-        BED_MESH_CALIBRATE RUNS=2 PROFILE=kamp
+        BED_MESH_CALIBRATE RUNS=2 USE_CONTACT_AREA=1 PROFILE=kamp
         BED_MESH_PROFILE LOAD=kamp
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"kamp"'
     {% else %}
-        BED_MESH_CALIBRATE RUNS=2 PROFILE=default
+        BED_MESH_CALIBRATE RUNS=2 USE_CONTACT_AREA=1 PROFILE=default
         BED_MESH_PROFILE LOAD=default
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"default"'
     {% endif %}
@@ -390,15 +405,10 @@ gcode:
 
 [gcode_macro _BEACON_CONTACT_PRE_Z]
 gcode:
-    {% set z_home_temp = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].z_homing_temperature)|int %}
-    M104 S{z_home_temp}
-    TEMPERATURE_WAIT SENSOR=extruder MINIMUM={z_home_temp - 1} MAXIMUM={z_home_temp + 1}
-    G4 P3000        # Give the hotend a small amount of time to stabilise
 
 [gcode_macro _BEACON_CONTACT_POST_Z]
 gcode:
-    M104 S0
-    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
+    G1 Z3 F600              # Ensure the bed is moved away from the nozzle
     M400
 ```
 
@@ -475,41 +485,57 @@ Add the following macros to the end of your `gcode_macro.cfg` file:
 ```
 [gcode_macro SCREW_ADJUST_START]
 gcode:
-    M84
-    BED_MESH_CLEAR
-    SET_GCODE_OFFSET Z=0
-    G28
-    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
-    Z_TILT_ADJUST
-    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
-    G1 X{printer.configfile.settings.beacon.home_xy_position[0]} Y{printer.configfile.settings.beacon.home_xy_position[1]} F7200
-    G28 Z METHOD=CONTACT CALIBRATE=0
-    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
+    _FIND_Z_EQUALS_ZERO
+
+[gcode_macro SCREW_ADJUST_END]
+gcode:
+    G1 Z3 F600              # Move print bed away from nozzle
+    M104 S0                 # Turn off hotend
     M400
 
 [gcode_macro SFL]
 description: Get zoffset at front-left bed adjustment screw position
 gcode:
-    G1 X25 Y21 F6000
-    PROBE PROBE_METHOD=CONTACT
+    {% set screw_pos_x = printer.configfile.settings.bed_screws.screw1[0] %}
+    {% set screw_pos_y = printer.configfile.settings.bed_screws.screw1[1] %}
+    {% set beacon_off_x = printer.configfile.settings.beacon.x_offset %}
+    {% set beacon_off_y = printer.configfile.settings.beacon.y_offset %}
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
+    G1 X{screw_pos_x - beacon_off_x + 20} Y{screw_pos_y - beacon_off_y + 20} F6000
+    PROBE PROBE_METHOD=proximity
 
 [gcode_macro SFR]
 description: Get zoffset at front-right bed adjustment screw position
 gcode:
-    G1 X285 Y21 F6000
-    PROBE PROBE_METHOD=CONTACT
+    {% set screw_pos_x = printer.configfile.settings.bed_screws.screw2[0] %}
+    {% set screw_pos_y = printer.configfile.settings.bed_screws.screw2[1] %}
+    {% set beacon_off_x = printer.configfile.settings.beacon.x_offset %}
+    {% set beacon_off_y = printer.configfile.settings.beacon.y_offset %}
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
+    G1 X{screw_pos_x - beacon_off_x - 20} Y{screw_pos_y - beacon_off_y + 20} F6000
+    PROBE PROBE_METHOD=proximity
 
 [gcode_macro SBL]
 description: Get zoffset at back-left bed adjustment screw position
 gcode:
-    G1 X25 Y281 F6000
-    PROBE PROBE_METHOD=CONTACT
+    {% set screw_pos_x = printer.configfile.settings.bed_screws.screw3[0] %}
+    {% set screw_pos_y = printer.configfile.settings.bed_screws.screw3[1] %}
+    {% set beacon_off_x = printer.configfile.settings.beacon.x_offset %}
+    {% set beacon_off_y = printer.configfile.settings.beacon.y_offset %}
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
+    G1 X{screw_pos_x - beacon_off_x + 20} Y{screw_pos_y - beacon_off_y - 20} F6000
+    PROBE PROBE_METHOD=proximity
 
 [gcode_macro SBR]
 description: Get zoffset at back-right bed adjustment screw position
 gcode:
-    G1 X285 Y281 F6000
-    PROBE PROBE_METHOD=CONTACT
+    {% set screw_pos_x = printer.configfile.settings.bed_screws.screw4[0] %}
+    {% set screw_pos_y = printer.configfile.settings.bed_screws.screw4[1] %}
+    {% set beacon_off_x = printer.configfile.settings.beacon.x_offset %}
+    {% set beacon_off_y = printer.configfile.settings.beacon.y_offset %}
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
+    G1 X{screw_pos_x - beacon_off_x - 20} Y{screw_pos_y - beacon_off_y - 20} F6000
+    PROBE PROBE_METHOD=proximity
 ```
 
 Each of the macros above will position the probe above the knobs so you can adjust and re-measure quickly
@@ -529,8 +555,7 @@ and call the same macro again to obtain the new offset.  The goal is to get with
 This can be repeated for each of the 4 screw points until all are equal within -0.02 to +0.02mm
 Better accuracy than this may be difficult to achieve due to backlash in the Z-axis lead screws.
 
-Note that the macros heat the nozzle up to the Z contact probing temperature (typically 145C) and
-so may take a few seconds after a probing macro is activated before tapping the build plate.
+When done, call the `SCREW_ADJUST_END` macro to disable the hotend
 
 
 ## Beacon and KAMP Line Purge
