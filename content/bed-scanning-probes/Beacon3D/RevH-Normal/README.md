@@ -156,7 +156,7 @@ When in doubt, check out the copy of my full [printer.cfg](./printer.cfg) for re
 
 ### gcode_macros.cfg changes
 
-**NOTE**: *If you were following this guide before 11th Feb 2025, then most of the following content
+**NOTE**: *If you were following this guide before 14th Feb 2025, then most of the following content
 has changed significantly and it is best to re-follow this guide carefully and copy and replace all
 of the macros again from this guide.  Also pay particular attention to the line of gcode added to
 the `[PRINT_START]` macro. *
@@ -468,7 +468,7 @@ get perfect first layers with it moving forwards.
 
 ## Optional QoL Bed Tramming Macros
 
-**NOTE**: *If you were using bed tramming by folllowing this guide before 11th Feb 2025, then those macros
+**NOTE**: *If you were using bed tramming by folllowing this guide before 14th Feb 2025, then those macros
 will need to be replaced with the following macros as they handle bed tramming more accurately*
 
 Are you tired of tramming the bed using the old paper and nozzle drag test?  The Beacon Probe knows precisely
