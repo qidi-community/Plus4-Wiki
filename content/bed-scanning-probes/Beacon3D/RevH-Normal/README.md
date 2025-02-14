@@ -583,8 +583,28 @@ Now Save and Restart.
 
 ## I've configured everything using the guide, but my first layers still aren't perfect (but they are close)
 
+First, make sure that your nozzle has been torqued at 300C into the hotend.
+I have found that inadequate torquing of the nozzle at a high temperature is the primary cause of unreliable/inconsistent results.
+
+
+## I've tightened my nozzle at 300C, but results are still a bit off
+
+My first recommendation is to use the `APPLY_FILAMENT_OFFSET` to apply per-filament tweaks to your offset.  See the section above.
+
+
+## I'm using APPLY_FILAMENT_OFFSET but most the offsets are roughly the same
+
+The beacon module when touching the build plate to establish where Z=0 is can experience some "overshoot".  Within the `_APPLY_NOZZLE_OFFSET`
+macro there is a `contact_compensation` variable that is presently set to `0.06mm` which is a value that I personally found
+to be necessary.  If most of your filaments are requiring something of a fixed adjustment, then it may be that your
+particular beacon module is reacting differently to mine.  In this case feel free to adjust that fixed contact compensation
+offset up/down as suits your particular module.
+
+
+## I've done all the above, but hotter temperature filaments are worse than cold temperature filaments, or vica-versa
+
 This may be due to differences in the `expansion_factor` from my setup, to yours.  In the `_APPLY_NOZZLE_OFFSET` macro
-we can find the `variable_expansion_factor` value.  A value of `0.00099` works perfectly on my system, but due to
+we can find the `variable_expansion_factor` value.  A value of `0.00045` works perfectly on my system, but due to
 manufacturing variances, your particular hotend may behave differently to mine.
 
 This can be addressed by calibrating this value for your setup.
@@ -596,6 +616,12 @@ This can be addressed by calibrating this value for your setup.
 5. You can fine tune using 0.00001 steps, but generally these steps are so small that inherent inaccuracies in the eddy current based bed meshing tend to dominate
 6. If your expansion factor is getting below 0.00038, or above 0.00052, then stop.  Something else is likely wrong and seek help.
 
+## Is there an easier way to determine my hotend's thermal expansion co-efficient?
+
+I won't say it's easier, but there is an automated process that is [documented here](,/Hotend-Expansion-Coefficient.md)
+
+If you enjoy pain, frustration and fastidiously cleaning your nozzle and hotend, then proceed.
+
 
 ##  I've calibrated my `expansion_factor` and it's good, but there's still some spots on the bed that are never perfect
 
@@ -605,12 +631,6 @@ for by eddy current probing.  The best we can do here is get it close enough, an
 cover over any small inconsistencies.  The other tactic is to switch build plates if your build plate's coating is
 particularly inconsistent.
 
-## Is there an easier way to determine my hotend's thermal expansion co-efficient?
-
-I won't say it's easier, but there is an automated process that is [documented here](,/Hotend-Expansion-Coefficient.md)
-
-If you enjoy pain, frustration and fastidiously cleaning your nozzle and hotend, then proceed.
-
 
 ## My first layers are pretty good most of the time, but sometimes it can be a little inconsistent
 
@@ -619,32 +639,6 @@ eddy current sensing becomes.
 
 Inside the `[bed_mesh]` section in your `printer.cfg` file, find the `speed` field and drop it back to `150` or even `100`
 and see if that helps.  If that doesn't resolve issues then reach out to the Beacon discord for assistance.
-
-
-## Bed Z homing is slow!  Can it be faster?
-
-Yes, it can, but there is a risk of a nozzle crash if you change print bed sheets to something wildly different to what was
-there before.  The current configuration is deliberately conservative and safe to try to avoid nozzle crashes.
-
-While the chance of a nozzle crashe is generally very, very small, it is not zero.  If you accept the risk, you can enable faster
-homing by changing the `[beacon]` config in your `printer.cfg` like so:
-
-```
-[beacon]
-...
-home_method: proximity
-home_method_when_homed: proximity
-home_autocalibrate: never
-...
-```
-
-This will enable the much faster proximity based homing for all regular homing operations.
-The `G29` macro will still do contact based homing to accurately determine the nozzle offset, and bed mesh, but otherwise
-all other Z homing operations should be relatively quick.
-
-Only make this change if you're okay with the risk that the nozzle may crash into the build plate if you do something
-weird and forget to recalibrate your Beacon's proximity models.  See: https://docs.beacon3d.com/quickstart/#6-calibrate-beacon
-
 
 
 ## Where can I go for further assistance with issues?
