@@ -434,10 +434,6 @@ next print (`G31`).  The whole lot gets saved afterwards (`SAVE_CONFIG`)
 
 ## APPLY_FILAMENT_OFFSET - What it does and how to use it
 
-**NOTE**: *If you have applied filament offsets from using this guide before 11th Feb 2025, then these
-may need to all be commented out, as the automated filament offset system should largely make doing
-filament specific offsets unnecessary.*
-
 The idea behind `APPLY_FILAMENT_OFFSET` is to do away with the fiddling about with the global Z offset
 when changing to filaments that prefer a different Z offset to the replaced filament.  By and large the
 automated filament nozzle temperature management system should set the correct offset for almost all
