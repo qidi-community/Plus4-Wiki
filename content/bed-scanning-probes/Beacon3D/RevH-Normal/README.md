@@ -178,9 +178,9 @@ gcode:
     # Set our working variables.  We treat everything as floats for these calculations
     {% set z_home_temp = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].z_homing_temperature)|float %}
     {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
-	{% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
+    {% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
     {% set z_speed = (printer.configfile.settings['stepper_z'].homing_speed)|float * 60 %}
-	{% set z_hop = (printer.configfile.settings['beacon'].home_z_hop)|float %}
+    {% set z_hop = (printer.configfile.settings['beacon'].home_z_hop)|float %}
     {% set reference_position = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].reference_position)|float %}
     {% set expansion_factor = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].expansion_factor)|float %}
     {% set contact_comp = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].contact_compensation)|float %}
@@ -216,7 +216,7 @@ gcode:
 gcode:
     {% set z_home_temp = printer["gcode_macro _APPLY_NOZZLE_OFFSET"].z_homing_temperature|int %}
     {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
-	{% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
+    {% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
 
     # Turn off all fans to minimise sources of vibration and clear any old state
     M109 S{z_home_temp}                     # Commence nozzle warmup for z homing        
