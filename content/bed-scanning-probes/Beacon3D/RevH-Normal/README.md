@@ -512,27 +512,27 @@ gcode:
     PROBE PROBE_METHOD=proximity
     G1 Z3 F600      # Ensure the bed is moved away from the nozzle
 
-[gcode_macro SBL]
-description: Get zoffset at back-left bed adjustment screw position
+[gcode_macro SBR]
+description: Get zoffset at back-right bed adjustment screw position
 gcode:
     {% set screw_pos_x = printer.configfile.settings.bed_screws.screw3[0] %}
     {% set screw_pos_y = printer.configfile.settings.bed_screws.screw3[1] %}
     {% set beacon_off_x = printer.configfile.settings.beacon.x_offset %}
     {% set beacon_off_y = printer.configfile.settings.beacon.y_offset %}
     G1 Z3 F600      # Ensure the bed is moved away from the nozzle
-    G1 X{screw_pos_x - beacon_off_x + 20} Y{screw_pos_y - beacon_off_y - 20} F6000
+    G1 X{screw_pos_x - beacon_off_x - 20} Y{screw_pos_y - beacon_off_y - 20} F6000
     PROBE PROBE_METHOD=proximity
     G1 Z3 F600      # Ensure the bed is moved away from the nozzle
 
-[gcode_macro SBR]
-description: Get zoffset at back-right bed adjustment screw position
+[gcode_macro SBL]
+description: Get zoffset at back-left bed adjustment screw position
 gcode:
     {% set screw_pos_x = printer.configfile.settings.bed_screws.screw4[0] %}
     {% set screw_pos_y = printer.configfile.settings.bed_screws.screw4[1] %}
     {% set beacon_off_x = printer.configfile.settings.beacon.x_offset %}
     {% set beacon_off_y = printer.configfile.settings.beacon.y_offset %}
     G1 Z3 F600      # Ensure the bed is moved away from the nozzle
-    G1 X{screw_pos_x - beacon_off_x - 20} Y{screw_pos_y - beacon_off_y - 20} F6000
+    G1 X{screw_pos_x - beacon_off_x + 20} Y{screw_pos_y - beacon_off_y - 20} F6000
     PROBE PROBE_METHOD=proximity
     G1 Z3 F600      # Ensure the bed is moved away from the nozzle
 ```
