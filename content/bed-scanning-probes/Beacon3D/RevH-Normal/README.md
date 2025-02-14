@@ -590,11 +590,11 @@ manufacturing variances, your particular hotend may behave differently to mine.
 This can be addressed by calibrating this value for your setup.
 
 1. Print out a single layer 100x100mm square using some PLA+ at 230C.
-2. If the nozzle is too high, subtract 0.00003 from the expansion factor, then save and restart. eg. 0.00099 would become 0.00096
+2. If the nozzle is too high, subtract 0.00002 from the expansion factor, then save and restart. eg. 0.00045 would become 0.00043
 3. Repeat steps 1 and 2 until the first layer looks good.
 4. We do the reverse if you first layer is too low.  Increase the expansion factor by 0.00003 each time until it looks good
 5. You can fine tune using 0.00001 steps, but generally these steps are so small that inherent inaccuracies in the eddy current based bed meshing tend to dominate
-6. If your expansion factor is getting below 0.00075, or above 0.00125, then stop.  Something else is likely wrong and seek help.
+6. If your expansion factor is getting below 0.00038, or above 0.00052, then stop.  Something else is likely wrong and seek help.
 
 
 ##  I've calibrated my `expansion_factor` and it's good, but there's still some spots on the bed that are never perfect
@@ -604,6 +604,12 @@ metal of the build plate.  Variations in the thickness of a PEI, or other, coati
 for by eddy current probing.  The best we can do here is get it close enough, and trust that the 2nd and 3rd layers will
 cover over any small inconsistencies.  The other tactic is to switch build plates if your build plate's coating is
 particularly inconsistent.
+
+## Is there an easier way to determine my hotend's thermal expansion co-efficient?
+
+I won't say it's easier, but there is an automated process that is [documented here](,/Hotend-Expansion-Coefficient.md)
+
+If you enjoy pain, frustration and fastidiously cleaning your nozzle and hotend, then proceed.
 
 
 ## My first layers are pretty good most of the time, but sometimes it can be a little inconsistent
