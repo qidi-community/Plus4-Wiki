@@ -486,12 +486,7 @@ Add the following macros to the end of your `gcode_macro.cfg` file:
 [gcode_macro SCREW_ADJUST_START]
 gcode:
     _FIND_Z_EQUALS_ZERO
-
-[gcode_macro SCREW_ADJUST_END]
-gcode:
-    G1 Z3 F600              # Move print bed away from nozzle
     M104 S0                 # Turn off hotend
-    M400
 
 [gcode_macro SFL]
 description: Get zoffset at front-left bed adjustment screw position
@@ -503,6 +498,7 @@ gcode:
     G1 Z3 F600      # Ensure the bed is moved away from the nozzle
     G1 X{screw_pos_x - beacon_off_x + 20} Y{screw_pos_y - beacon_off_y + 20} F6000
     PROBE PROBE_METHOD=proximity
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
 
 [gcode_macro SFR]
 description: Get zoffset at front-right bed adjustment screw position
@@ -514,6 +510,7 @@ gcode:
     G1 Z3 F600      # Ensure the bed is moved away from the nozzle
     G1 X{screw_pos_x - beacon_off_x - 20} Y{screw_pos_y - beacon_off_y + 20} F6000
     PROBE PROBE_METHOD=proximity
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
 
 [gcode_macro SBL]
 description: Get zoffset at back-left bed adjustment screw position
@@ -525,6 +522,7 @@ gcode:
     G1 Z3 F600      # Ensure the bed is moved away from the nozzle
     G1 X{screw_pos_x - beacon_off_x + 20} Y{screw_pos_y - beacon_off_y - 20} F6000
     PROBE PROBE_METHOD=proximity
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
 
 [gcode_macro SBR]
 description: Get zoffset at back-right bed adjustment screw position
@@ -536,6 +534,7 @@ gcode:
     G1 Z3 F600      # Ensure the bed is moved away from the nozzle
     G1 X{screw_pos_x - beacon_off_x - 20} Y{screw_pos_y - beacon_off_y - 20} F6000
     PROBE PROBE_METHOD=proximity
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
 ```
 
 Each of the macros above will position the probe above the knobs so you can adjust and re-measure quickly
@@ -554,8 +553,6 @@ position at the center of the print bed.  You can now adjust the knob under the 
 and call the same macro again to obtain the new offset.  The goal is to get within 0.02mm of Z=0
 This can be repeated for each of the 4 screw points until all are equal within -0.02 to +0.02mm
 Better accuracy than this may be difficult to achieve due to backlash in the Z-axis lead screws.
-
-When done, call the `SCREW_ADJUST_END` macro to disable the hotend
 
 
 ## Beacon and KAMP Line Purge
