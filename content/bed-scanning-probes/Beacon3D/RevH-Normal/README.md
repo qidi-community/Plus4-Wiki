@@ -220,7 +220,6 @@ gcode:
     {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
     {% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
 
-    # Turn off all fans to minimise sources of vibration and clear any old state
     M109 S{z_home_temp}                     # Commence nozzle warmup for z homing        
     BED_MESH_CLEAR                          # Clear out any existing bed meshing context
     SET_KINEMATIC_POSITION Z=0              # Force firmware to believe Z is homed at 0
