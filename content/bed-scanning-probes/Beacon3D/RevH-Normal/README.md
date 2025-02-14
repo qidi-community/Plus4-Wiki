@@ -1,5 +1,7 @@
 # Beacon3D RevH Normal Installation and Configuration Guide
 
+**Last Updated:** _4PM US CST 14th Feb 2025_
+
 **Note 1 :** *All these configurations relate ONLY to using the Beacon in Contact mode on the Qidi Plus4 Printer*
 
 **NOTE 2:** *Power Loss Recovery does not work correctly yet when using the Beacon probe.  I am working on a solution
