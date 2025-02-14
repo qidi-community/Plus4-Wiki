@@ -4,7 +4,7 @@
 
 | Lubricant | Recommended Products                                                                | Alternative Products |
 |-----------------|-----------------------------------------------------------------------------|--------------|
-| **Oil (used for Rods)**        | Super Lube 53008 Synthetic Extra Lightweight Oil ISO 46, Translucent | - 3-IN-ONE Multi-Purpose Oil, <br> - Sewing Machine Oil, <br> - Hydraulic Oil|
+| **Oil (used for Rods)**        | Super Lube 53008 Synthetic Extra Lightweight Oil ISO 46, Translucent | - Sewing Machine Oil, <br> - Hydraulic Oil|
 | **Grease (used for Z Lead Screws)** | _If printing hotter materials, it's best to use high temp grease such as this engine assembly grease to avoid blackening._ <br>Super Lube 19003 Engine Assembly Grease  | N/A          |
 
 ## Procedure
