@@ -109,6 +109,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Lubing Idler Bearings](https://drive.google.com/file/d/1_KHpMQJNxle0u21L5dIt-LYLbkvVnGiD/view)
 
+### [Lubing Rods and Screws](./content/lube-rods-screws)
+
 
 ## Hardware Fixes
 
