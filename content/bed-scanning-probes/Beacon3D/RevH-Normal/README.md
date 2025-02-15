@@ -581,7 +581,12 @@ Now Save and Restart.
 ## I've configured everything using the guide, but my first layers still aren't perfect (but they are close)
 
 First, make sure that your nozzle has been torqued at 300C into the hotend.
-I have found that inadequate torquing of the nozzle at a high temperature is the primary cause of unreliable/inconsistent results.
+
+Secondly, ensure that your Z axis lead screws are thoroughly cleaned and lubricated. The contact based Z end stop detection works by determining when the bed slows down against the nozzle. Other sources of friction in the lead screws can have a similar effect and cause false/high readings.
+
+Additionally if your nozzle is dirty and/or covered in melted filament this may also be causing bad end stop detection.
+
+I have found that inadequate torquing of the nozzle at a high temperature, dirty leads screws and/or nozzle is the primary cause of unreliable/inconsistent results.
 
 
 ## I've tightened my nozzle at 300C, but results are still a bit off
