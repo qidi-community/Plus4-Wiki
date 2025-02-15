@@ -607,7 +607,9 @@ contact_latency_min: 2          # You can try the default of 0, but if your
 ```
 
 The above configurations attempts to work around the issue of overly early nozzle tap triggers from a mechanically noisy/rough Z axis
-system which can cause the first layer to be too high.
+system which can cause the first layer to be too high.  If you are still seeing your offsets be consistently high, try raising
+`contact_latency_min` up to `4` and see if that resolves it.  If that still doesn't solve it, then there is likely something
+mechanically wrong going on with your printer and this needs to be addressed.
 
 
 ## I've tightened my nozzle at 300C, but results are still a bit off
