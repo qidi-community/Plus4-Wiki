@@ -593,25 +593,6 @@ Additionally if your nozzle is dirty and/or covered in melted filament this may 
 I have found that inadequate torquing of the nozzle at a high temperature, dirty leads screws and/or nozzle is the primary cause of unreliable/inconsistent results.
 
 
-## The automated offset mechanism seems to be placing the nozzle WAY too far from the bed
-
-This generally caused by mechanical issues whereby the nozzle touch is triggering too early, or you have hard filament stuck to your nozzle.
-If cleaning the Z-axis lead screws and cleaning your nozzle doesn't solve this issue, then try these following entries added to the
-`[beacon]` config section in `printer.cfg`
-
-```
-contact_sensitivity: 1          # You can try the default of 0, but if your
-                                # automatic Z is too high, then put back to 1
-contact_latency_min: 2          # You can try the default of 0, but if your
-                                # automatic Z is high, put back to 2 or 3
-```
-
-The above configurations attempts to work around the issue of overly early nozzle tap triggers from a mechanically noisy/rough Z axis
-system which can cause the first layer to be too high.  If you are still seeing your offsets be consistently high, try raising
-`contact_latency_min` up to `4` and see if that resolves it.  If that still doesn't solve it, then there is likely something
-mechanically wrong going on with your printer and this needs to be addressed.
-
-
 ## I've tightened my nozzle at 300C, but results are still a bit off
 
 My first recommendation is to use the `APPLY_FILAMENT_OFFSET` to apply per-filament tweaks to your offset.  See the section above.
@@ -626,13 +607,37 @@ particular beacon module is reacting differently to mine.  In this case feel fre
 offset up/down as suits your particular module.
 
 
-## I've done all the above, but hotter temperature filaments are worse than cold temperature filaments, or vica-versa
+## The automated offset mechanism still seems to be placing the nozzle WAY too far from the bed
+
+This generally caused by mechanical issues whereby the nozzle touch is triggering too early, or you have hard filament stuck to your nozzle.
+If cleaning the Z-axis lead screws and cleaning your nozzle doesn't solve this issue, then try these following entries added to the
+`[beacon]` config section in `printer.cfg`.
+
+**Updated Note:** I have made the following the default config now after some testing to ensure that
+it doesn't affect the operation of machines in good mechanical condition.
+
+```
+contact_sensitivity: 1          # You can try the default of 0, but if your
+                                # automatic Z is too high, then put back to 1
+contact_latency_min: 2          # You can try the default of 0, but if your
+                                # automatic Z is high, put back to 2 or 3
+```
+
+The above configurations attempts to work around the issue of overly early nozzle tap triggers from a mechanically noisy/rough Z axis
+system which can cause the first layer to be too high.
+
+If you are still seeing your offsets be consistently high, try raising
+`contact_latency_min` up to `4` and see if that resolves it.  If that still doesn't solve it, then there is likely something
+mechanically wrong occurring with your printer and this needs to be addressed.
+
+
+## I've done all the above, but hotter temperature filaments have worse first layers than cold temperature filaments, or vica-versa
 
 This may be due to differences in the `expansion_factor` from my setup, to yours.  In the `_APPLY_NOZZLE_OFFSET` macro
 we can find the `variable_expansion_factor` value.  A value of `0.00045` works perfectly on my system, but due to
 manufacturing variances, your particular hotend may behave differently to mine.
 
-This can be addressed by calibrating this value for your setup.
+This can be addressed by calibrating that value for your setup.
 
 1. Print out a single layer 100x100mm square using some PLA+ at 230C.
 2. If the nozzle is too high, subtract 0.00002 from the expansion factor, then save and restart. eg. 0.00045 would become 0.00043
@@ -640,6 +645,7 @@ This can be addressed by calibrating this value for your setup.
 4. We do the reverse if you first layer is too low.  Increase the expansion factor by 0.00002 each time until it looks good
 5. You can fine tune using 0.00001 steps, but generally these steps are so small that inherent inaccuracies in the eddy current based bed meshing tend to dominate
 6. If your expansion factor is getting below 0.00038, or above 0.00052, then stop.  Something else is likely wrong and seek help.
+
 
 ## Is there an easier way to determine my hotend's thermal expansion co-efficient?
 
