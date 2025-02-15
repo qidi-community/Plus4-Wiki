@@ -2,10 +2,12 @@
 
 ## Items Needed
 
-| Lubricant | Recommended Products                                                                | Alternative Products |
+| Item | Recommended Products                                                                | Alternative Products |
 |-----------------|-----------------------------------------------------------------------------|--------------|
 | **Oil (used for Rods only)**        | - Super Lube 53008 Synthetic Extra Lightweight Oil ISO 46, Translucent | - Sewing Machine Oil <br> - Hydraulic Oil|
 | **Grease (used for Z Lead Screws only)** | _If printing hotter materials, it's best to use high temp grease such as this engine assembly grease to avoid blackening._ <br> - Super Lube 19003 Engine Assembly Grease </br> - Super Lube Multi-Purpose Synthetic Lubricant with Syncolon | </br> - White Lithium Grease |
+| **Cleaning Aids** | - [Rod Sloth](https://www.printables.com/model/605305-rod-sloth-fits-most-3d-printers-prusa-bambu-creali) | |
+
 
 > **⚠️ Caution:** It is not recommended to use grease or any PTFE based lubricant on the bottom X axis bearing. This can damage the bearing.
 
