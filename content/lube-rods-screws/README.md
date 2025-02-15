@@ -16,6 +16,8 @@
 1. Apply another thin coat of grease and oil (if needed) and home the printer again.
 1. If needed, you can repeat the movement process a few times to ensure the grease is evenly spread out.
 
-## Schedule
 
-TBD
+## Further Reading
+
+- This [reddit post](https://www.reddit.com/r/3Dprinting/comments/190oyf6/comment/khf05hr/) has a lot of detail
+- The official Qidi wiki has details on lubricating the rods and screws [here](https://wiki.qidi3d.com/en/X-Plus4/Manual/Maintenance-Manual) but caution is advised. We believe Qidi is recommending subpar lubricants that can cause damage to certain bearings.
