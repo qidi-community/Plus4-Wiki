@@ -606,6 +606,10 @@ to be necessary.  If most of your filaments are requiring something of a fixed a
 particular beacon module is reacting differently to mine.  In this case feel free to adjust that fixed contact compensation
 offset up/down as suits your particular module.
 
+Note that `contact_compensation` should NEVER need to be lowered to below `0.0mm`.  If you find yourself in this situation, then stop.
+Something else is definitely wrong and it needs to be fixed.  In this case, read the rest of the FAQ as the answer to your problem is
+instead likely addressed by those suggestions.
+
 
 ## The automated offset mechanism still seems to be placing the nozzle WAY too far from the bed
 
