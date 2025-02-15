@@ -635,7 +635,7 @@ This can be addressed by calibrating this value for your setup.
 1. Print out a single layer 100x100mm square using some PLA+ at 230C.
 2. If the nozzle is too high, subtract 0.00002 from the expansion factor, then save and restart. eg. 0.00045 would become 0.00043
 3. Repeat steps 1 and 2 until the first layer looks good.
-4. We do the reverse if you first layer is too low.  Increase the expansion factor by 0.00003 each time until it looks good
+4. We do the reverse if you first layer is too low.  Increase the expansion factor by 0.00002 each time until it looks good
 5. You can fine tune using 0.00001 steps, but generally these steps are so small that inherent inaccuracies in the eddy current based bed meshing tend to dominate
 6. If your expansion factor is getting below 0.00038, or above 0.00052, then stop.  Something else is likely wrong and seek help.
 
