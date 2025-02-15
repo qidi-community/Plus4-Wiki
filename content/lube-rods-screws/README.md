@@ -7,6 +7,8 @@
 | **Oil (used for Rods)**        | Super Lube 53008 Synthetic Extra Lightweight Oil ISO 46, Translucent | - Sewing Machine Oil, <br> - Hydraulic Oil|
 | **Grease (used for Z Lead Screws)** | _If printing hotter materials, it's best to use high temp grease such as this engine assembly grease to avoid blackening._ <br>Super Lube 19003 Engine Assembly Grease  | N/A          |
 
+_Caution: It is not recommended to use grease or any PTFE based lubricant on the bottom X axis bearing. This can damage the bearing._
+
 ## Procedure
 
 1. Use a clean cloth to wipe down all rods and screws, removing any dust or debris.
