@@ -16,7 +16,7 @@ Preparation of the hotend and nozzle are absolutely critical for reliable result
 Important factors:
 
 - Do NOT use PLA to start with.
-  * It will ooze and crystallise and ooze and be the enemy of all repeatability.
+  * It will crystallise and ooze and generally be the enemy of all repeatability.
   * Instead flush it out with some higher temperature filament like PET or PA, and then proceed to cold pull
 - Cool-pull any filament from hotend.
   * Start with the hotend being cold.
