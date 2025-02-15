@@ -15,10 +15,14 @@ Preparation of the hotend and nozzle are absolutely critical for reliable result
 
 Important factors:
 
+- Do NOT use PLA to start with.
+  * It will ooze and crystallise and ooze and be the enemy of all repeatability.
+  * Instead flush it out with some higher temperature filament like PET or PA, and then proceed to cold pull
 - Cool-pull any filament from hotend.
-  Start with the hotend being cold.
-  Then turn on the hotend and keep pulling up on the filament until it yanks out at the earliest opportunity.
-  This minimises any stringing and it'll just come out pretty much with the shape of the internal nozzle cavity intact
+  * Start with the hotend being cold.
+  * Press the motors off button on the UI so the extruder stepper motor is disengaged.
+  * Then turn on the hotend and keep pulling up on the filament until it yanks out at the earliest opportunity.
+  * This minimises any stringing and it'll just come out pretty much with the shape of the internal nozzle cavity intact
 - Make sure nozzle has been tightened at 300C to minimise the impact joint expansion around the threads
 - Poke the nozzle orifice with a fine needle dislodge any filament.  We want absolutely NO oozing at all
 - Thoroughly clean the nozzle with a wire brush at 300C to remove any debris.  We want that nozzle tip to be as clean as possible.
