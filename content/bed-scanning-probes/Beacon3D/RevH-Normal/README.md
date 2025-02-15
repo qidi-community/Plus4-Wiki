@@ -147,6 +147,10 @@ home_gcode_pre_y: _BEACON_HOME_PRE_Y
 home_gcode_post_y: _BEACON_HOME_POST_Y
 contact_activate_gcode: _BEACON_CONTACT_PRE_Z
 contact_deactivate_gcode: _BEACON_CONTACT_POST_Z
+contact_sensitivity: 1          # You can try the default of 0, but if your
+                                # automatic Z is too high, then put back to 1
+contact_latency_min: 2          # You can try the default of 0, but if your
+                                # automatic Z is high, put back to 2 or 3
 autocal_tolerance: 0.006
 ```
 
