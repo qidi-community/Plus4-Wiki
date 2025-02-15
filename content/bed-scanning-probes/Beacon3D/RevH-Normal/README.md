@@ -582,7 +582,7 @@ Now Save and Restart.
 # FAQ
 
 
-## I've configured everything using the guide, but my first layers still aren't perfect (but they are close)
+## I've configured everything using the guide, but my first layers still aren't perfect
 
 First, make sure that your nozzle has been torqued at 300C into the hotend.
 
@@ -591,6 +591,23 @@ Secondly, ensure that your Z axis lead screws are thoroughly cleaned and lubrica
 Additionally if your nozzle is dirty and/or covered in melted filament this may also be causing bad end stop detection.
 
 I have found that inadequate torquing of the nozzle at a high temperature, dirty leads screws and/or nozzle is the primary cause of unreliable/inconsistent results.
+
+
+## The automated offset mechanism seems to be placing the nozzle WAY too far from the bed
+
+This generally caused by mechanical issues whereby the nozzle touch is triggering too early, or you have hard filament stuck to your nozzle.
+If cleaning the Z-axis lead screws and cleaning your nozzle doesn't solve this issue, then try these following entries added to the
+`[beacon]` config section in `printer.cfg`
+
+```
+contact_sensitivity: 1          # You can try the default of 0, but if your
+                                # automatic Z is too high, then put back to 1
+contact_latency_min: 2          # You can try the default of 0, but if your
+                                # automatic Z is high, put back to 2 or 3
+```
+
+The above configurations attempts to work around the issue of overly early nozzle tap triggers from a mechanically noisy/rough Z axis
+system which can cause the first layer to be too high.
 
 
 ## I've tightened my nozzle at 300C, but results are still a bit off
