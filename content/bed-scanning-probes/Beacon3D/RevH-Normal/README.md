@@ -243,7 +243,7 @@ description: Apply a Z offset adjustment for a specific filament
 gcode:
     {% set filament_z = params.Z|default(0)|float %}
     { action_respond_info("Setting Filament Offset to %.3fmm" % (filament_z)) }
-    SET_GCODE_OFFSET Z_ADJUST={filament_z} MOVE=1 SPEED=3
+    SET_GCODE_OFFSET Z_ADJUST={filament_z}
 ```
 
 - Replace the `[zoffset]`, `[test_zoffset]`, `[get_zoffset]`, `[save_zoffset]`, and `[set_zoffset]` sections with these sections:
@@ -253,7 +253,7 @@ gcode:
 [gcode_macro zoffset]
 description: Apply baseline Z offset which is always zero for Beacon Contact
 gcode:
-    SET_GCODE_OFFSET Z=0 MOVE=1             # Apply a zero gcode_offset
+    SET_GCODE_OFFSET Z=0                    # Apply a zero gcode_offset
 
 # Development test
 [gcode_macro test_zoffset]
@@ -280,7 +280,7 @@ gcode:
 [gcode_macro set_zoffset]
 description: Apply baseline Z offset which is always zero for Beacon Contact      
 gcode: 
-    SET_GCODE_OFFSET Z=0 MOVE=1             # Apply a zero gcode_offset
+    SET_GCODE_OFFSET Z=0                    # Apply a zero gcode_offset
 ```
 
 - In the `[PRINT_START]` macro, towards the top of the macro, add this line:
