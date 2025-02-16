@@ -110,7 +110,7 @@ retry_tolerance: 0.006
 
 [bed_mesh]
 speed:150
-horizontal_move_z: 1.7
+horizontal_move_z: 2
 zero_reference_position: 152, 152
 mesh_min:15,15
 mesh_max:295,283
