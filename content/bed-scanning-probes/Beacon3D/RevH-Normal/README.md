@@ -437,12 +437,12 @@ next print (`G31`).  The whole lot gets saved afterwards (`SAVE_CONFIG`)
 
 ***
 
-## Note regarding bed-meshing behaviour changes
+## A note regarding `default` bed-meshing behaviour changes
 
 With the above changes, the intent of `default` bed meshing has changed somewhat from the original behavior.
 
 Due to the speed of Beacon meshing, and for the benefits of always using an up to date mesh, the
-`G29` macro is designed around always using generating new meshes by default.
+`G29` macro is designed around always generating a new mesh by default.
 
 If you're wanting to generate a new default mesh (eg. by calling `G32`) then `G29` will default to generating
 a fresh full bed mesh of the whole bed.  Basically `G32` is only used now to see what your full bed mesh looks
@@ -450,8 +450,8 @@ like for tasks like tramming, initial configuration, and so on.
 
 What this means is that when re-printing objects, if you select the `Re-use existing mesh` option, what
 it will do instead is generate a fresh full `default` bed mesh and load that, which may not be what you
-were expecting.  Your model will now print using the freshly generated default mesh, so this new behaviour
-doesn't affect print quality in any way.
+were expecting.  Your model will still print, but using the freshly generated default mesh, so this new
+behaviour doesn't affect regular printing operations in any other way.
 
 Basically just leave KAMP/dynamic meshing on all the time unless you have a specific need to generate
 a `default` mesh (such as during the initial Beacon calibration after installation, tramming, etc).
