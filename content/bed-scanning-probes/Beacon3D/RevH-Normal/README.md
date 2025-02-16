@@ -594,6 +594,10 @@ Additionally if your nozzle is dirty and/or covered in melted filament this may 
 
 I have found that inadequate torquing of the nozzle at a high temperature, dirty leads screws and/or nozzle is the primary cause of unreliable/inconsistent results.
 
+Additionally, it's been reported that various after-market nozzles and hotends for the Qidi Plus4 are poorly sized, ill-fitting,
+and/or do not hold the nozzles or the heated portion of the hotend steady.  If you are using after-market hotend parts, it would
+serve you well to verify that every part of your aftermarket hotend is adequately sized and secured properly.
+
 
 ## I've tightened my nozzle at 300C, but results are still a bit off
 
