@@ -442,7 +442,7 @@ next print (`G31`).  The whole lot gets saved afterwards (`SAVE_CONFIG`)
 With the above changes, the intent of `default` bed meshing has changed from the original behavior.
 
 Due to the speed of Beacon meshing, and for the benefits of always using an up to date mesh, the
-`G29` is designed around always using Kamp meshing always.
+`G29` is designed around always using Kamp meshing by default.
 
 If you're wanting to generate a default mesh (ie. by calling `G32`) then `G29` will default to generating
 a full bed mesh of the whole bed.  Basically `G32` is only used now to see what your full bed mesh looks
