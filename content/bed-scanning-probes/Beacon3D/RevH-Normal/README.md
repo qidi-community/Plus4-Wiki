@@ -246,7 +246,9 @@ gcode:
     SET_GCODE_OFFSET Z_ADJUST={filament_z}
 ```
 
-- Replace the `[zoffset]`, `[test_zoffset]`, `[get_zoffset]`, `[save_zoffset]`, and `[set_zoffset]` sections with these sections:
+- Replace the `[zoffset]`, `[test_zoffset]`, `[get_zoffset]`, `[save_zoffset]`, and `[set_zoffset]` sections with these sections.
+
+  * Note that the `[move_subzoffset]` is deleted/removed as a consequence of these changes.
 
 ```
 # All the following zoffset calls only exist to keep Qidi's xindi happy
