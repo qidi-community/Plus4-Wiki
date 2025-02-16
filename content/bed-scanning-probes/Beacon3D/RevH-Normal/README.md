@@ -739,6 +739,8 @@ variable_bed_meshing_offset: -0.4           # Generate bed with this amount appl
                                             # Acceptable range is [-1.0, 1.0]
 description: Prepare print bed, generate a bed mesh, and apply global Z nozzle offset
 gcode:
+    {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
+	{% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
     # Read bed meshing offset value.  Cap value to within the [-1.0, 1.0] range
     {% set bmo = [([(printer["gcode_macro G29"].bed_meshing_offset)|float, -1.0]|max), 1.0]|min %}
     {% set mesh_closer = (2.0 + bmo)|float %}
@@ -748,6 +750,7 @@ gcode:
 
     _FIND_Z_EQUALS_ZERO
 
+    G1 X{z_home_x} Y{z_home_y} F7200
     G1 Z{mesh_closer} F600
     SET_KINEMATIC_POSITION Z=2.0
 
@@ -761,6 +764,7 @@ gcode:
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"default"'
     {% endif %}
 
+    G1 X{z_home_x} Y{z_home_y} F7200
     G1 Z{mesh_return} F600
     SET_KINEMATIC_POSITION Z=2.0
 
