@@ -703,6 +703,75 @@ Inside the `[bed_mesh]` section in your `printer.cfg` file, find the `speed` fie
 and see if that helps.  If that doesn't resolve issues then reach out to the Beacon discord for assistance.
 
 
+## My beacon meshing detection light doesn't stay on for the whole meshing sequence
+
+Firstly, it is ok/normal for the meshing light to turn off at the ends of an X pass, but if midway during an X pass the
+Beacon's eddy current detection light doesn't stay on, then the print bed is too far away from the sensor to adequately
+take an accurate mesh.
+
+It is unfortunate, but with the stock build plate, and even when using my mounting model which mounts the beacon as closely
+to the bed that Beacon officially recommends, that sometimes over a full (or partial) bed mesh that variances in the print
+bed height can cause the bed to move out of detection range.
+
+If you are experiencing this issue, then I have developed a modified `G29` macro below, which you can replace the guide's
+regular `G29` macro with in its entirety.
+
+The Beacon module always does a bed mesh with the nozzle 2.0mm away from the print bed, but the following tweaked `G29`
+will fool the Beacon that it is 2.0mm away when really it is closer, and this hopefully we can keep the print bed always
+in range of the eddy current scanning.
+
+The variable `bed_meshing_offset` controls this adjustment.  A negative value will move the bed a bit closer to the
+nozzle/Beacon while a positive value will move it further away.  For safety values less outside of the range of
+`[-1.0, 1.0]` are normalised to `-1.0` or `1.0`.
+
+Since this has the effect of bringing the nozzle closer to the bed during scanning, there is a risk that if your
+bed is seriously out of level that the nozzle can scratch the build plate.  For this reason I have kept this version
+of `G29` separate to the main configuration guide.  A `bed_meshing_offset` value of `-0.4` should be enough to allow
+for the full eddy-current meshing of the whole print bed in most circumstances without adding too much risk of
+scratching the build plate, but I make no promises that it won't.  Use at your own risk with this knowledge in mind.
+
+```
+[gcode_macro G29]
+variable_k:1
+variable_bed_meshing_offset: -0.4           # Generate bed with this amount applied
+                                            # to the default meshing height of 2.0mm
+                                            # negative = closer, positive = further
+                                            # Acceptable range is [-1.0, 1.0]
+description: Prepare print bed, generate a bed mesh, and apply global Z nozzle offset
+gcode:
+    {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
+    {% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
+    # Read bed meshing offset value.  Cap value to within the [-1.0, 1.0] range
+    {% set bmo = [([(printer["gcode_macro G29"].bed_meshing_offset)|float, -1.0]|max), 1.0]|min %}
+    {% set mesh_closer = (2.0 + bmo)|float %}
+    {% set mesh_return = (2.0 - bmo)|float %}
+    { action_respond_info("  Mesh Closer = %.2f" % (mesh_closer)|float) }
+    { action_respond_info("  Mesh Return = %.2f" % (mesh_return)|float) }
+
+    _FIND_Z_EQUALS_ZERO
+
+    G1 X{z_home_x} Y{z_home_y} F7200
+    G1 Z{mesh_closer} F600
+    SET_KINEMATIC_POSITION Z=2.0
+
+    {% if k|int==1 %}
+        BED_MESH_CALIBRATE RUNS=2 USE_CONTACT_AREA=1 PROFILE=kamp
+        BED_MESH_PROFILE LOAD=kamp
+        SAVE_VARIABLE VARIABLE=profile_name VALUE='"kamp"'
+    {% else %}
+        BED_MESH_CALIBRATE RUNS=2 USE_CONTACT_AREA=1 PROFILE=default
+        BED_MESH_PROFILE LOAD=default
+        SAVE_VARIABLE VARIABLE=profile_name VALUE='"default"'
+    {% endif %}
+
+    G1 X{z_home_x} Y{z_home_y} F7200
+    G1 Z{mesh_return} F600
+    SET_KINEMATIC_POSITION Z=2.0
+
+    _APPLY_NOZZLE_OFFSET
+```
+
+
 ## Where can I go for further assistance with issues?
 
 You can reach out to me, `stew675` on the [Qidi Official Discord](https://discord.gg/B6jDttWUE6) in the Plus 4 channel
