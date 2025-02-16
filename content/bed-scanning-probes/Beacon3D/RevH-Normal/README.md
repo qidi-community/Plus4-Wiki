@@ -740,7 +740,7 @@ variable_bed_meshing_offset: -0.4           # Generate bed with this amount appl
 description: Prepare print bed, generate a bed mesh, and apply global Z nozzle offset
 gcode:
     {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
-	{% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
+    {% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
     # Read bed meshing offset value.  Cap value to within the [-1.0, 1.0] range
     {% set bmo = [([(printer["gcode_macro G29"].bed_meshing_offset)|float, -1.0]|max), 1.0]|min %}
     {% set mesh_closer = (2.0 + bmo)|float %}
