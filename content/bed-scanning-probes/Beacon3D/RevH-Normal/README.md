@@ -112,8 +112,8 @@ retry_tolerance: 0.006
 speed:150
 horizontal_move_z: 2
 zero_reference_position: 152, 152
-mesh_min:15,15
-mesh_max:295,283
+mesh_min:22,22
+mesh_max:283,283        # Do NOT set Y > 283, otherwise the print head will collide with the left stepper motor
 probe_count:14,14
 algorithm:bicubic
 bicubic_tension:0.3
