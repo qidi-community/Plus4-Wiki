@@ -715,7 +715,7 @@ This can be addressed by calibrating that value for your setup.
 
 ## Is there an easier way to determine my hotend's thermal expansion co-efficient?
 
-I won't say it's easier, but there is an automated process that is [documented here](,/Hotend-Expansion-Coefficient.md)
+I won't say it's easier, but there is an automated process that is [documented here](./Hotend-Expansion-Coefficient.md)
 
 If you enjoy pain, frustration and fastidiously cleaning your nozzle and hotend, then proceed.
 
