@@ -195,8 +195,8 @@ description: Determine the global nozzle offset and apply
 variable_z_homing_temperature: 150      # Temperature that we home the nozzle at to determine Z=0
 variable_reference_position: 5.0        # A safe Z position at which we'll apply the offset change
 variable_expansion_factor: 0.00045      # Amount hotend lengthens by per 1C temperature rise, within ±3%
-variable_contact_compensation: 0.06     # Static Offset to compensate for Beacon contact latency
-                                        # 0.05 to 0.07 appears to be typical for the Plus 4
+variable_contact_compensation: 0.05     # Static Offset to compensate for Beacon contact latency
+                                        # Values from 0.03 to 0.07 appear to be typical for the Plus 4
 variable_hotend_temp: 250               # Target hotend temp (typically set by PRINT_START)
 gcode:
     # Set our working variables.  We treat everything as floats for these calculations
