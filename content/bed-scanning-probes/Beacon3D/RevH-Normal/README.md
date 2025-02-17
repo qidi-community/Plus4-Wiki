@@ -59,11 +59,29 @@ The beacon appears to have **no issues** when plugged into one of the USB2 ports
 
 ### Klipper script changes
 
-On your printer, edit the `/home/mks/klipper/klippy/extras/probe.py` file and comment out the lines as highlighted here:
+First we need to remove the `Z-Vibrate` functionality from `/home/mks/klipper/klippy/extras/probe.py` as this
+is incompatible with beacon.
+
+There are two options for how this can be done.
+
+1.  Run the following command which overwrites the file with a version that already has the problematic lines commented out.
+
+```
+wget -O /home/mks/klipper/klippy/extras/probe.py https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/bed-scanning-probes/Beacon3D/RevH-Normal/probe.py
+
+```
+
+-OR-  (if you wish to do it manually for more personal control)
+
+2. On your printer, edit the `/home/mks/klipper/klippy/extras/probe.py` file, then find and comment out the lines as highlighted here:
 
 [probe.py lines to comment out](./probe.py#L485-L492)
 
-Then save the file, and then power-cycle your printer.  This disables the Z-vibrate functionality that is incompatible with Beacon.
+Then save the file and exit the editor.
+
+
+After either option is complete, then power-cycle your printer.
+
 
 ***
 
@@ -625,20 +643,25 @@ serve you well to verify that every part of your aftermarket hotend is adequatel
 My first recommendation is to use the `APPLY_FILAMENT_OFFSET` to apply per-filament tweaks to your offset.  See the section above.
 
 
-## I'm using APPLY_FILAMENT_OFFSET but most the offsets are roughly the same
+## I've been using APPLY_FILAMENT_OFFSET but most the offsets are consistently a little high, or a little low
 
-The beacon module when touching the build plate to establish where Z=0 is can experience some "overshoot".  Within the `_APPLY_NOZZLE_OFFSET`
-macro there is a `contact_compensation` variable that is presently set to `0.06mm` which is a value that I personally found
-to be necessary.  If most of your filaments are requiring something of a fixed adjustment, then it may be that your
-particular beacon module is reacting differently to mine.  In this case feel free to adjust that fixed contact compensation
-offset up/down as suits your particular module.
+The beacon module, when touching the build plate to establish where Z=0 is, often experiences some "overshoot".
 
-Note that `contact_compensation` should NEVER need to be lowered to below `0.0mm`.  If you find yourself in this situation, then stop.
-Something else is definitely wrong and it needs to be fixed.  In this case, read the rest of the FAQ as the answer to your problem is
-instead likely addressed by those suggestions.
+Within the `_APPLY_NOZZLE_OFFSET` macro there is a variable named `contact_compensation` that is presently set to `0.05mm` which is
+a value that I personally found to be necessary.  If most of your filaments are requiring something of a fixed adjustment up or down,
+then it may be that your particular beacon module is reacting differently to mine.  In this case feel free to adjust that fixed
+contact compensation offset up/down as suits your particular module.  Just remember to save and restart the firmware after
+making the change.
+
+Note that `contact_compensation` should NEVER need to be lowered to below `0.0`, nor above `1.0`.  If you find yourself in this
+situation, then stop, as something else is definitely going wrong and it needs to be addressed.
+In this situation, read the rest of the FAQ as the answer to your problem is instead likely addressed by those suggestions.
 
 
-## The automated offset mechanism still seems to be placing the nozzle WAY too far from the bed
+## The automated offset mechanism is having difficulty consistently finding when the nozzle touches the print bed
+
+This could manifest as the `G29` macro constantly retrying and complaining that there's too much varation, or it may succeed, but
+with the nozzle actually located some distance away from the print bed.
 
 This generally caused by mechanical issues whereby the nozzle touch is triggering too early, or you have hard filament stuck to your nozzle.
 If cleaning the Z-axis lead screws and cleaning your nozzle doesn't solve this issue, then try these following entries added to the
@@ -706,28 +729,31 @@ and see if that helps.  If that doesn't resolve issues then reach out to the Bea
 ## My beacon meshing detection light doesn't stay on for the whole meshing sequence
 
 Firstly, it is ok/normal for the meshing light to turn off at the ends of an X pass, but if midway during an X pass the
-Beacon's eddy current detection light doesn't stay on, then the print bed is too far away from the sensor to adequately
-take an accurate mesh.
+Beacon's eddy current detection LED light doesn't stay on, that means that the print bed is too far away from the sensor
+to take an accurate mesh.
 
-It is unfortunate, but with the stock build plate, and even when using my mounting model which mounts the beacon as closely
-to the bed that Beacon officially recommends, that sometimes over a full (or partial) bed mesh that variances in the print
-bed height can cause the bed to move out of detection range.
+It is unfortunate, but with the stock Qidi build plate, and even when using my mounting model which mounts the beacon as
+close to the bed that Beacon officially recommends, that sometimes over a full (or partial) bed mesh that variances in the
+print bed height can cause the bed to move out of detection range.
 
-If you are experiencing this issue, then I have developed a modified `G29` macro below, which you can replace the guide's
-regular `G29` macro with in its entirety.
+If you are experiencing this issue, then I have developed a modified `G29` macro below, with which you can replace the
+above guide's regular `G29` macro with in its entirety.
 
-The Beacon module always does a bed mesh with the nozzle 2.0mm away from the print bed, but the following tweaked `G29`
-will fool the Beacon that it is 2.0mm away when really it is closer, and this hopefully we can keep the print bed always
-in range of the eddy current scanning.
+*So what's going on here?* - The Beacon module always does a bed mesh with the nozzle 2.0mm away from the print bed.  This
+is hard-coded into the beacon code.  The following tweaked `G29` macro will fool the Beacon into believing that the nozzle
+is 2.0mm away when in reality it is closer, and with this we can hopefully keep the print bed always in range of the eddy
+current scanning mode.
 
-The variable `bed_meshing_offset` controls this adjustment.  A negative value will move the bed a bit closer to the
-nozzle/Beacon while a positive value will move it further away.  For safety values less outside of the range of
-`[-1.0, 1.0]` are normalised to `-1.0` or `1.0`.
+The Gcode macro variable, `bed_meshing_offset`, controls this over-ride adjustment.  A negative value will move the bed a
+bit closer to the nozzle/Beacon while a positive value will move it further away.  For bed safety reasons, specifying
+values outside of the range of `[-1.0, 1.0]` will be capped to `-1.0` or `1.0`.
 
-Since this has the effect of bringing the nozzle closer to the bed during scanning, there is a risk that if your
-bed is seriously out of level that the nozzle can scratch the build plate.  For this reason I have kept this version
-of `G29` separate to the main configuration guide.  A `bed_meshing_offset` value of `-0.4` should be enough to allow
-for the full eddy-current meshing of the whole print bed in most circumstances without adding too much risk of
+*A Warning* - Since this has the effect of bringing the nozzle closer to the bed during scanning, there is a small risk
+that if your bed is dramatically tilted that the nozzle can potentially scratch the build plate.  For this reason I have
+kept this version of `G29` separate to the main configuration guide. 
+
+A `bed_meshing_offset` value of `-0.4`, which is present in the replacement `G29` macro below, should provide for enough
+of an adjustment to allow for eddy-current meshing of the whole print bed without adding too great of a risk of
 scratching the build plate, but I make no promises that it won't.  Use at your own risk with this knowledge in mind.
 
 ```
