@@ -629,6 +629,9 @@ Now Save and Restart.
 
 **You are encouraged to read it fully as it will very likely answer most of your questions you'll have along the way.**
 
+![image](https://github.com/user-attachments/assets/ef9a4788-260d-4640-8cb5-208ebfb9c259)
+
+
 ## I've configured everything using the guide, but my first layers still aren't perfect
 
 First, make sure that your nozzle has been torqued at 300C into the hotend.
