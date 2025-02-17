@@ -638,9 +638,14 @@ and/or do not hold the nozzles or the heated portion of the hotend steady.  If y
 serve you well to verify that every part of your aftermarket hotend is adequately sized and secured properly.
 
 
-## I've tightened my nozzle at 300C, but results are still a bit off
+## I've tightened my nozzle at 300C, cleaned my Z-Axis lead screws and nozzle, but the results are still a bit off
 
-My first recommendation is to use the `APPLY_FILAMENT_OFFSET` to apply per-filament tweaks to your offset.  See the section above.
+My first recommendation here is to read and use [the `APPLY_FILAMENT_OFFSET` guide](./README.md#apply_filament_offset---what-it-does-and-how-to-use-it)
+to apply per-filament tweaks to your offset for a filament.
+
+In general, try to avoid the urge to rush in and start fiddling with the inner workings of the automatic Z offset calculation
+system within `_APPLY_NOZZLE_OFFSET` as doing so will affect the behavior of ALL filaments.  Wait until you have used a wide
+range of filament of different temperatures and are able to see a pattern in how it's behaving.
 
 
 ## I've been using APPLY_FILAMENT_OFFSET but most the offsets are consistently a little high, or a little low
@@ -650,18 +655,19 @@ The beacon module, when touching the build plate to establish where Z=0 is, ofte
 Within the `_APPLY_NOZZLE_OFFSET` macro there is a variable named `contact_compensation` that is presently set to `0.05mm` which is
 a value that I personally found to be necessary.  If most of your filaments are requiring something of a fixed adjustment up or down,
 then it may be that your particular beacon module is reacting differently to mine.  In this case feel free to adjust that fixed
-contact compensation offset up/down as suits your particular module.  Just remember to save and restart the firmware after
+contact compensation offset up/down as suits your particular module.  Closer to zero means bringing the nozzle closer to the print
+bed, and larger values means moving the nozzle further from the print bed.  Just remember to save and restart the firmware after
 making the change.
 
 Note that `contact_compensation` should NEVER need to be lowered to below `0.0`, nor above `1.0`.  If you find yourself in this
-situation, then stop, as something else is definitely going wrong and it needs to be addressed.
-In this situation, read the rest of the FAQ as the answer to your problem is instead likely addressed by those suggestions.
+situation, then stop, as something else is definitely going wrong and it needs to be addressed first.  If you find yourself this
+situation, read the rest of the FAQ as the answer to your problem is instead likely addressed by those suggestions.
 
 
 ## The automated offset mechanism is having difficulty consistently finding when the nozzle touches the print bed
 
 This could manifest as the `G29` macro constantly retrying and complaining that there's too much varation, or it may succeed, but
-with the nozzle actually located some distance away from the print bed.
+with the nozzle actually located some significant distance away from the print bed.
 
 This generally caused by mechanical issues whereby the nozzle touch is triggering too early, or you have hard filament stuck to your nozzle.
 If cleaning the Z-axis lead screws and cleaning your nozzle doesn't solve this issue, then try these following entries added to the
