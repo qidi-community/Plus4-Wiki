@@ -619,9 +619,15 @@ with the contents of the [KAMP/Line_Purge.cfg](./Line_Purge.cfg) file.
 
 Now Save and Restart.
 
+***
+
+***
 
 # FAQ
 
+**This is an optimized and fairly comprehensive guide resulting from questions from dozens of users on Discord.**
+
+**You are encouraged to read it fully as it will very likely answer most of your questions you'll have along the way.**
 
 ## I've configured everything using the guide, but my first layers still aren't perfect
 
