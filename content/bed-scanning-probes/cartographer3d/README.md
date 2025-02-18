@@ -396,7 +396,7 @@ These should be provided from the maker of the mount you are using. The distance
 
 Depending on your mount's X and Y offset to the nozzle, you need to update the z tilt points so it measures over the lead screws. Generally you will need to apply your probe mount's Z offset to the stock Z tilt points. You can also manually move the toolhead in Fluidd and note down the X and Y coordinates. See the [Klipper docs](https://www.klipper3d.org/Config_Reference.html?h=z_tilt#z_tilt) for more info.
 
-The values below are correct if you are using Spooknik's side mount and just an example.
+The values below are correct if you are using Stew's mount and just an example.
 
 ```
 points:
