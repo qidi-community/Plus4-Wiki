@@ -12,11 +12,14 @@ This guide covers installing Cartographer3D on your Qidi Plus 4.
 
 # Hardware
 
-You of course need a [Cartographer3D probe](https://cartographer3d.com/). USB version. Flat pack will be the most compatible version, since you can assemble it into any configuration, however this requires soldering. 
+You of course need a [Cartographer3D probe](https://cartographer3d.com/). USB version. Flat pack will be the most compatible version, since you can assemble it into any configuration, however this requires soldering. Normal is likely what most mounts will use. 
 
 This guide is not mount specific, only to say you need a mount for the probe. A list of tested mounts are:
 
+- [Beacon3D mount for Qidi Plus4 by stew675](https://www.printables.com/model/1170120-beacon3d-mount-for-qidi-plus4)
+    - This is the recommended mount due to its very rigid design    
 - [Cartographer3D Mount for Qidi Plus 4 by Spooknik](https://www.printables.com/model/1154767-cartographer3d-mount-for-qidi-plus-4)
+    - This is not recommended because it is not rigid enough. Also requires soldering wires between the MCU and coil. 
 
 You should note the X and Y offset of the center of the coil to the center of the nozzle. That will be needed later.
 
@@ -385,9 +388,9 @@ Find this by running `ls /dev/serial/by-id/*` in SSH. It should output something
 
 These should be provided from the maker of the mount you are using. The distance in X and Y from the center of the coil to the center of the nozzle.
 
-`x_offset: 0`
+`x_offset: 0 # Based on Stew's mount, adjust accordingly` 
 
-`y_offset: 15`
+`y_offset: -18.8 # Based on Stew's mount, adjust accordingly`
 
 #### [z_tilt]
 
@@ -397,8 +400,8 @@ The values below are correct if you are using Spooknik's side mount and just an 
 
 ```
 points:
-    0,171.6 # Adjust based on Y X offset
-    255,171.6 # Adjust based on Y X offset
+    50, 170.8   # Based on Stew's mount, adjust accordingly
+    255, 170.8  # Based on Stew's mount, adjust accordingly
 ```
 
 #### [bed_mesh]
@@ -410,8 +413,8 @@ Similar to z_tilt you need adjust the mesh_min and mesh_max to match your probe'
 The values below are correct if you are using Spooknik's side mount.
 
 ```
-mesh_min: 27, 45 # Adjust based on Y X offset
-mesh_max: 285, 285 # Adjust based on Y X offset
+mesh_min: 15, 15    # Based on Stew's mount, adjust accordingly
+mesh_max: 290, 283  # Based on Stew's mount, adjust accordingly
 ```
 
 That was a lot of configs! But you make it through 🎊
