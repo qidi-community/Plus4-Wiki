@@ -8,7 +8,7 @@ This also allows klipper to tell you exactly how much each screw will need to be
 
 ## Installation
 
-The [config-xplus4](https://github.com/qidi-community/config-xplus4/tree/main) repo contains the most up to date version of the `screws-tilt-calculate.cfg`. Please follow the install process outlined there to get this macro up and running. 
+Copy the contents of the file [here](https://github.com/qidi-community/config-xplus4/blob/main/screws-tilt-calculate.cfg) into your printer.cfg (somewhere in the middle will do). Restart the printer.
 
 ## How to use the Macro
 
