@@ -1,6 +1,6 @@
 # Adaptive Main Board Cooling Configuration
 
-**Reader Beware!** If you have previously imported the cofiguration files from [config-xplus4 repo](https://github.com/qidi-community/config-xplus4), then you already have a variation of this configuration installed and active! Verify by accessing the fluidd UI in your web browser and pressing the `x` key on your keyboard and look for a folder called `config-xplus4`. If you do not have it already, you can implement this page as documented. 
+**Reader Beware!** If you have previously imported the cofiguration files from [config-xplus4 repo](https://github.com/qidi-community/config-xplus4), then you already have a variation of this configuration installed and active! Verify by accessing the fluidd UI in your web browser and pressing the `x` key on your keyboard and look for a folder called `config-xplus4`. If you do not have it already, you can implement this page as documented. Additionally, installing the `config-xplus4` mods actively conflicts with this guide, so before installing the set of config mods you will have to undo what you did here.
 
 By default, the main board cooling fan is only active/on when the X/Y stepper motors are active (ie. during printing).
 While this ensures that the printer makes less noise during idle times when not printing, it does allow for the main
