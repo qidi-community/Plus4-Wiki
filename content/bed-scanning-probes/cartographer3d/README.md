@@ -417,7 +417,7 @@ mesh_min: 15, 15    # Based on Stew's mount, adjust accordingly
 mesh_max: 290, 283  # Based on Stew's mount, adjust accordingly
 ```
 
-That was a lot of configs! But you make it through 🎊
+That was a lot of configs! But you made it through 🎊
 
 ***
 
