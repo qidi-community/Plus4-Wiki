@@ -17,7 +17,7 @@ You of course need a [Cartographer3D probe](https://cartographer3d.com/). USB ve
 This guide is not mount specific, only to say you need a mount for the probe. A list of tested mounts are:
 
 - [Beacon3D mount for Qidi Plus4 by stew675](https://www.printables.com/model/1170120-beacon3d-mount-for-qidi-plus4)
-    - This is the recommended mount due to its very rigid design    
+- [QIDI Plus4 beacon/cartographer mount by Vega D](https://www.printables.com/model/1191610-qidi-plus4-beaconcartographer-mount) 
 - [Cartographer3D Mount for Qidi Plus 4 by Spooknik](https://www.printables.com/model/1154767-cartographer3d-mount-for-qidi-plus-4)
     - This is not recommended because it is not rigid enough. Also requires soldering wires between the MCU and coil. 
 
