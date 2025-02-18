@@ -2,6 +2,11 @@
 
 ## Introduction
 
+**Update**:  *Do not use this warmup sequence on v1.6.0 or later firmware as it clashes with chamber heater behavior changes that
+Qidi introduced with their 1.6.0 update. *
+
+***
+
 With the 1.4.3 Firmware Release from Qidi, the stock chamber heater power was dropped from a 70% duty cycle to a 40% duty cycle.
 
 This now made chamber warmup times considerably slower as a result, however we can make some configuration changes to make it not so bad.
