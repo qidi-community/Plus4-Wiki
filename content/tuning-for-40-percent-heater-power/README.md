@@ -156,7 +156,10 @@ and there are reports that this can take up to 1 hour for the chamber to reach 6
 
 1. SSH into the printer
 2. Write a new file named ```heaters.patch``` with these contents:
-```.patch
+<details open>
+<summary>Patch for heaters.py</summary>
+
+```patch
 --- a/klippy/extras/heaters.py
 +++ b/klippy/extras/heaters.py
 @@ -234,7 +234,10 @@ class ControlPID:
@@ -172,9 +175,12 @@ and there are reports that this can take up to 1 hour for the chamber to reach 6
          else:
              self.heater.set_pwm(read_time, bounded_co)
 -- 
-
 ```
+
+</details>
+
 3. Apply the patch ```patch /home/mks/klipper/klippy/extras/heaters.py < /path/to/heaters.patch```
+
 4. If that was succesfull you will see something like ```patching file heaters.py```
 
 ### Explanation
