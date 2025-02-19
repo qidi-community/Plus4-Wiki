@@ -428,7 +428,8 @@ Now you should have everything set up and you are now ready to follow Cartograph
 
 # FAQ
 
-Q. I follwed the guide but I get this error in Klipper ![image](https://github.com/user-attachments/assets/6ecc2d2a-c9b5-4b6b-9fae-bccec204833e)
+Q. I follwed the guide but I get this error in Klipper 
+![image](https://github.com/user-attachments/assets/6ecc2d2a-c9b5-4b6b-9fae-bccec204833e)
 
 A. Likely a Klipper plugin needs to be reinstalled. Either disable or reinstall it. If you are reinstalling from Shake&Tune, use the [mainline version](https://github.com/Frix-x/klippain-shaketune/tree/main). 
 
