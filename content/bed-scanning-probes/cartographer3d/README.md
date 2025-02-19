@@ -410,7 +410,7 @@ Similar to z_tilt you need adjust the mesh_min and mesh_max to match your probe'
 
 [This video](https://www.youtube.com/watch?v=5vmjBXvY6BA) gives a good intro to this concept. 
 
-The values below are correct if you are using Spooknik's side mount.
+The values below are correct if you are using Stew's mount.
 
 ```
 mesh_min: 15, 15    # Based on Stew's mount, adjust accordingly
@@ -424,6 +424,13 @@ That was a lot of configs! But you made it through 🎊
 ## Finishing up
 
 Now you should have everything set up and you are now ready to follow Cartographer's guide for [calibration](https://docs.cartographer3d.com/cartographer-probe/installation-and-setup/installation/calibration).
+
+
+# FAQ
+
+Q. I follwed the guide but I get this error in Klipper ![image](https://github.com/user-attachments/assets/6ecc2d2a-c9b5-4b6b-9fae-bccec204833e)
+
+A. Likely a Klipper plugin needs to be reinstalled. Either disable or reinstall it. If you are reinstalling from Shake&Tune, use the [mainline version](https://github.com/Frix-x/klippain-shaketune/tree/main). 
 
 
 ## Optional QoL Bed Tramming Macros
