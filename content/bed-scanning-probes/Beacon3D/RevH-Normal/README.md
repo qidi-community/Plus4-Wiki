@@ -388,13 +388,14 @@ description: Prepare print bed, generate a bed mesh, and apply global Z nozzle o
 gcode:
     _FIND_Z_EQUALS_ZERO
     {% if k|int==1 %}
-        BED_MESH_CALIBRATE RUNS=2 USE_CONTACT_AREA=1 PROFILE=kamp
+        BED_MESH_CALIBRATE RUNS=2 ADAPTIVE=1 PROFILE=kamp
         BED_MESH_PROFILE LOAD=kamp
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"kamp"'
     {% else %}
-        BED_MESH_CALIBRATE RUNS=2 USE_CONTACT_AREA=1 PROFILE=default
+        BED_MESH_CALIBRATE RUNS=2 ADAPTIVE=0 PROFILE=default
         BED_MESH_PROFILE LOAD=default
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"default"'
+        SET_GCODE_VARIABLE MACRO=G29 VARIABLE=k VALUE=1            # Reactivate KAMP/Adaptive mode for next time
     {% endif %}
     _APPLY_NOZZLE_OFFSET
 ```
