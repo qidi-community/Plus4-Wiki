@@ -2,7 +2,7 @@
 
 **Last Updated:** _4PM US CST 14th Feb 2025_
 
-**Note 1 :** *All these configurations relate ONLY to using the Beacon in Contact mode on the Qidi Plus4 Printer*
+**NOTE 1 :** *All these configurations relate ONLY to using the Beacon in Contact mode on the Qidi Plus4 Printer*
 
 **NOTE 2:** *Power Loss Recovery does not work correctly yet when using the Beacon probe.  I am working on a solution
 for this, but for now, do not expect to be able to safely resume prints after a power loss event.*
