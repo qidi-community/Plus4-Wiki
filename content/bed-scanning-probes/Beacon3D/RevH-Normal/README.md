@@ -7,6 +7,11 @@
 **NOTE 2:** *Power Loss Recovery does not work correctly yet when using the Beacon probe.  I am working on a solution
 for this, but for now, do not expect to be able to safely resume prints after a power loss event.*
 
+**NOTE 3:** *This guide is primarly intended for use with the stock Qidi configs, or a lightly modified version of
+them, and also be actively using the `KAMP/Line_Purge.cfg` and `KAMP/Adapative_Meshing.cfg` macros.  If you are
+trying to call native Klipper `BED_MESH_CALIBRATE` without using the `KAMP/Adapative_Meshing.cfg` then it is almost
+guaranteed that the bed meshing will require dramatically different offset adjustments.*
+
 This install guide should work for all other Beacon models, but it is untested on those.  The sample mounting
 model provided is also only tested for clearances using the RevH Normal Beacon module.
 
@@ -631,6 +636,15 @@ Now Save and Restart.
 **You are encouraged to read it fully as it will very likely answer most of your questions you'll have along the way.**
 
 ![image](https://github.com/user-attachments/assets/ef9a4788-260d-4640-8cb5-208ebfb9c259)
+
+## I've followed your guide, but the automatic Z height detection is WAY off!
+
+The above configuration guide is primarly intended for use with the stock Qidi configs, or a lightly modified version
+of them.  It assumed you are using the `KAMP/Line_Purge.cfg` and `KAMP/Adapative_Meshing.cfg` macros.
+
+If you are trying to call native Klipper `BED_MESH_CALIBRATE` without using the `KAMP/Adapative_Meshing.cfg` then it
+is almost guaranteed that the bed meshing will require dramatically different offset adjustments.  I'm in the process
+of figuring out why this is, but until I or someone else figures it out, please use the stock KAMP meshing macros.
 
 
 ## I've configured everything using the guide, but my first layers still aren't perfect
