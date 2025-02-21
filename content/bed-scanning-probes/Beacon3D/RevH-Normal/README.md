@@ -640,18 +640,23 @@ Now Save and Restart.
 ## I've followed your guide, but the automatic Z height detection is WAY off!
 
 The above configuration guide is primarly intended for use with the stock Qidi configs, or a lightly modified version
-of them.  It assumed you are using the `KAMP/Line_Purge.cfg` and `KAMP/Adapative_Meshing.cfg` macros.
+of them.  It is assumed you are using the `KAMP/Line_Purge.cfg` and `KAMP/Adapative_Meshing.cfg` macros.
 
-If you are trying to call native Klipper `BED_MESH_CALIBRATE` without using the `KAMP/Adapative_Meshing.cfg` then it
-is almost guaranteed that the bed meshing will require dramatically different offset adjustments.  I'm in the process
-of figuring out why this is, but until I or someone else figures it out, please use the stock KAMP meshing macros.
+Without doing so, there is a strong chance that the wrong bed mesh is being loaded, especially if you have modified
+the `G29` macro to add `ADAPTIVE=1` to the `BED_MESH_CALIBRATE` call arguments.
 
 
 ## I've configured everything using the guide, but my first layers still aren't perfect
 
 First, make sure that your nozzle has been torqued at 300C into the hotend.
 
-Secondly, ensure that your Z axis lead screws are thoroughly cleaned and lubricated. The contact based Z end stop detection works by determining when the bed slows down against the nozzle. Other sources of friction in the lead screws can have a similar effect and cause false/high readings.
+Secondly, ensure that your Z axis lead screws are thoroughly cleaned and lubricated.
+The contact based Z end stop detection works by determining when the bed slows down against the nozzle.
+Other sources of friction in the lead screws can have a similar effect and cause false/high readings.
+
+Further, the state of the silicon rubber scrubbing brush, and small PEI cleaning plate is very important.  If
+these are worn or otherwise in bad condition, then they may not be cleaning your nozzle properly, resulting in
+filament left on the nozzle, which can affect Z offset readings.
 
 Additionally if your nozzle is dirty and/or covered in melted filament this may also be causing bad end stop detection.
 
