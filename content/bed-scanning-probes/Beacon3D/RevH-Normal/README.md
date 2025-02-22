@@ -389,7 +389,7 @@ gcode:
 variable_k:1
 description: Prepare print bed, generate a bed mesh, and apply global Z nozzle offset
 gcode:
-    _FIND_Z_EQUALS_ZERO
+    _FIND_Z_EQUALS_ZERO                                            # The user must make sure that nothing else homes Z after this call
     {% if k|int==1 %}
         BED_MESH_CALIBRATE RUNS=2 PROFILE=kamp
         BED_MESH_PROFILE LOAD=kamp
