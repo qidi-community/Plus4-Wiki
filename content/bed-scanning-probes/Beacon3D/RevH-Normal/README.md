@@ -816,11 +816,11 @@ gcode:
     SET_KINEMATIC_POSITION Z=2.0
 
     {% if k|int==1 %}
-        BED_MESH_CALIBRATE RUNS=2 USE_CONTACT_AREA=1 PROFILE=kamp
+        BED_MESH_CALIBRATE RUNS=2 PROFILE=kamp
         BED_MESH_PROFILE LOAD=kamp
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"kamp"'
     {% else %}
-        BED_MESH_CALIBRATE RUNS=2 USE_CONTACT_AREA=1 PROFILE=default
+        BED_MESH_CALIBRATE RUNS=2 PROFILE=default
         BED_MESH_PROFILE LOAD=default
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"default"'
     {% endif %}
