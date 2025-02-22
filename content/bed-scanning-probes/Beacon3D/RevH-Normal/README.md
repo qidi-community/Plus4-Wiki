@@ -58,7 +58,10 @@ to sync your printer's system time.
 Print out my mounting model here: https://www.printables.com/model/1170120-beacon3d-mount-for-qidi-plus4
 
 Install the mounting module along with the Beacon attached.  Route the beacon's cable to the mainboard.
-The beacon appears to have **no issues** when plugged into one of the USB2 ports on the mainboard.
+
+It has been reported by some users that using the USB3 port (which is the upper of the 3 USB-A connectors on the left of the mainboard can cause intermittent errors and problems with the Beacon.
+
+The Beacon module appears to have **no issues** when plugged into one of the USB2 ports (being the lower two) on the mainboard,
 
 ***
 
