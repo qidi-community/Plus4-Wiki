@@ -677,7 +677,8 @@ serve you well to verify that every part of your aftermarket hotend is adequatel
 
 ## I've tightened my nozzle at 300C, cleaned my Z-Axis lead screws and nozzle, but the results are still a bit off
 
-My first recommendation here is to read and use [the `APPLY_FILAMENT_OFFSET` guide](./README.md#apply_filament_offset---what-it-does-and-how-to-use-it)
+My first recommendation here is to read and use
+[the `APPLY_FILAMENT_OFFSET` guide](./README.md#apply_filament_offset---what-it-does-and-how-to-use-it)
 to apply per-filament tweaks to your offset for a filament.
 
 In general, try to avoid the urge to rush in and start fiddling with the inner workings of the automatic Z offset calculation
@@ -689,16 +690,16 @@ range of filament of different temperatures and are able to see a pattern in how
 
 The beacon module, when touching the build plate to establish where Z=0 is, often experiences some "overshoot".
 
-Within the `_APPLY_NOZZLE_OFFSET` macro there is a variable named `contact_compensation` that is presently set to `0.05mm` which is
+Within the `_APPLY_NOZZLE_OFFSET` macro there is a variable named `offset_correction` that is presently set to `0.07mm` which is
 a value that I personally found to be necessary.  If most of your filaments are requiring something of a fixed adjustment up or down,
 then it may be that your particular beacon module is reacting differently to mine.  In this case feel free to adjust that fixed
 contact compensation offset up/down as suits your particular module.  Closer to zero means bringing the nozzle closer to the print
 bed, and larger values means moving the nozzle further from the print bed.  Just remember to save and restart the firmware after
 making the change.
 
-Note that `contact_compensation` should NEVER need to be lowered to below `0.0`, nor above `1.0`.  If you find yourself in this
-situation, then stop, as something else is definitely going wrong and it needs to be addressed first.  If you find yourself this
-situation, read the rest of the FAQ as the answer to your problem is instead likely addressed by those suggestions.
+Note that `offset_correction` should NEVER need to be lowered to below `0.0`, nor above `0.2`.  If you find yourself in this
+situation, then stop, as something else is definitely going wrong and it needs to be addressed first.  Read the rest of the FAQ as
+the answer to your problem is instead likely addressed by those suggestions.
 
 
 ## The automated offset mechanism is having difficulty consistently finding when the nozzle touches the print bed
@@ -730,34 +731,20 @@ mechanically wrong occurring with your printer and this needs to be addressed.
 
 ## I've done all the above, but hotter temperature filaments have worse first layers than cold temperature filaments, or vica-versa
 
-This may be due to differences in the `expansion_factor` from my setup, to yours.  In the `_APPLY_NOZZLE_OFFSET` macro
-we can find the `variable_expansion_factor` value.  A value of `0.00045` works perfectly on my system, but due to
-manufacturing variances, your particular hotend may behave differently to mine.
+This shouldn't really occur as the updates macros now determine where Z=0 is by using a fixed temperature offset from
+the printing temperature.  This eliminates variations due to the thermal expansion of the hotend as all probing temperatures
+are now relative by a fixed difference.
 
-This can be addressed by calibrating that value for your setup.
-
-1. Print out a single layer 100x100mm square using some PLA+ at 230C.
-2. If the nozzle is too high, subtract 0.00002 from the expansion factor, then save and restart. eg. 0.00045 would become 0.00043
-3. Repeat steps 1 and 2 until the first layer looks good.
-4. We do the reverse if you first layer is too low.  Increase the expansion factor by 0.00002 each time until it looks good
-5. You can fine tune using 0.00001 steps, but generally these steps are so small that inherent inaccuracies in the eddy current based bed meshing tend to dominate
-6. If your expansion factor is getting below 0.00038, or above 0.00052, then stop.  Something else is likely wrong and seek help.
+If you are experiencing inconsistent from one filament to another, then I refer to the `APPLY_FILAMENT_OFFSET` section.
 
 
 ## Is there an easier way to determine my hotend's thermal expansion co-efficient?
 
+**NOTE:** *This section is now deprecated, but I'll leave this macro and work here for posterity sake*
+
 I won't say it's easier, but there is an automated process that is [documented here](./Hotend-Expansion-Coefficient.md)
 
 If you enjoy pain, frustration and fastidiously cleaning your nozzle and hotend, then proceed.
-
-
-##  I've calibrated my `expansion_factor` and it's good, but there's still some spots on the bed that are never perfect
-
-Unfortunately Eddy Current bed meshing, while very good, isn't a perfect science.  The Beacon detects eddy currents in the
-metal of the build plate.  Variations in the thickness of a PEI, or other, coating atop the metal plate cannot be accounted
-for by eddy current probing.  The best we can do here is get it close enough, and trust that the 2nd and 3rd layers will
-cover over any small inconsistencies.  The other tactic is to switch build plates if your build plate's coating is
-particularly inconsistent.
 
 
 ## My first layers are pretty good most of the time, but sometimes it can be a little inconsistent
