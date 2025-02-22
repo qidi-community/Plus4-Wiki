@@ -1,6 +1,6 @@
 # Beacon3D RevH Normal Installation and Configuration Guide
 
-**Last Updated:** _4PM US CST 14th Feb 2025_
+**Last Updated:** _8AM US CST 22nd Feb 2025_
 
 **NOTE 1 :** *All these configurations relate ONLY to using the Beacon in Contact mode on the Qidi Plus4 Printer*
 
