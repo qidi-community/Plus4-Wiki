@@ -210,7 +210,7 @@ gcode:
 
     # Determine the rest of our working variables
     {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
-	{% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
+    {% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
     {% set z_speed  = printer.configfile.settings['stepper_z'].homing_speed|float * 60 %}
     
     {% set target_position = (reference_position + offset_correction)|float %}
@@ -236,7 +236,7 @@ gcode:
 
     {% set z_home_temp = hotend_temp - probe_temp_delta %}
     {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
-	{% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
+    {% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
     {% set k = printer["gcode_macro G29"].k|int %}
 
     # Turn off all fans to minimise sources of vibration and clear any old state
