@@ -9,8 +9,8 @@ for this, but for now, do not expect to be able to safely resume prints after a 
 
 **NOTE 3:** *This guide is primarly intended for use with the stock Qidi configs, or a lightly modified version of
 them, and also be actively using the `KAMP/Line_Purge.cfg` and `KAMP/Adapative_Meshing.cfg` macros.  If you are
-trying to call native Klipper `BED_MESH_CALIBRATE` without using the `KAMP/Adapative_Meshing.cfg` then it is almost
-guaranteed that the bed meshing will require dramatically different offset adjustments.*
+trying to call native Klipper `BED_MESH_CALIBRATE ADAPTIVE=1...` instead of using the `KAMP/Adapative_Meshing.cfg`
+macro then there is a chance where the wrong bed mesh will be loaded.*
 
 This install guide should work for all other Beacon models, but it is untested on those.  The sample mounting
 model provided is also only tested for clearances using the RevH Normal Beacon module.
@@ -119,12 +119,12 @@ Now edit your `printer.cfg` file.
 ```
 [z_tilt]
 z_positions:
-    -17.5,152
-    335.7,152
+    -17.5,152.5
+    335.7,152.5
 
 points:
-    50, 170.8           # Assumes using stew675 beacon mount's offsets
-    255, 170.8          # Assumes using stew675 beacon mount's offsets
+    40, 171.3           # Assumes we are using the stew675 beacon mount offsets of X=0, Y=-18.8
+    265, 171.3          # Assumes we are using the stew675 beacon mount offsets of X=0, Y=-18.8
 
 speed: 200
 horizontal_move_z: 5
@@ -132,18 +132,20 @@ retries: 5
 retry_tolerance: 0.006
 
 [bed_mesh]
-speed:150
+speed: 150
 horizontal_move_z: 2
-zero_reference_position: 152, 152
-mesh_min:22,22
-mesh_max:283,283        # Do NOT set Y > 283, otherwise the print head will collide with the left stepper motor
-probe_count:14,14
+zero_reference_position: 152.5, 152.5
+mesh_min: 22,22
+mesh_max: 283,283
+probe_count: 14,14
 algorithm:bicubic
-bicubic_tension:0.3
+bicubic_tension: 0.3
 mesh_pps: 2,2
 fade_start: 2
 fade_end: 10
 fade_target: 0
+split_delta_z: 0.01
+move_check_distance: 4
 ```
 
 - Add the following `[beacon]` section:
@@ -156,7 +158,7 @@ y_offset: -18.8                 # Assumes using stew675 beacon mount's offsets
 mesh_main_direction: x
 mesh_runs: 2
 contact_max_hotend_temperature: 270  # 180
-home_xy_position: 152, 152      # update with your safe Z home position
+home_xy_position: 152.5, 152.5      # update with your safe Z home position
 home_z_hop: 5
 home_z_hop_speed: 30
 home_xy_move_speed: 300
@@ -173,7 +175,7 @@ contact_deactivate_gcode: _BEACON_CONTACT_POST_Z
 contact_sensitivity: 1          # You can try the default of 0, but if your
                                 # automatic Z is too high, then put back to 1
 contact_latency_min: 2          # You can try the default of 0, but if your
-                                # automatic Z is high, put back to 2 or 3
+                                # automatic Z is high, put back to 2, 3 or 4
 autocal_tolerance: 0.006
 ```
 
@@ -197,41 +199,27 @@ Edit `gcode_macro.cfg`
 ```
 [gcode_macro _APPLY_NOZZLE_OFFSET]
 description: Determine the global nozzle offset and apply
-variable_z_homing_temperature: 150      # Temperature that we home the nozzle at to determine Z=0
-variable_reference_position: 5.0        # A safe Z position at which we'll apply the offset change
-variable_expansion_factor: 0.00045      # Amount hotend lengthens by per 1C temperature rise, within ±3%
-variable_contact_compensation: 0.05     # Static Offset to compensate for Beacon contact latency
-                                        # Values from 0.03 to 0.07 appear to be typical for the Plus 4
 variable_hotend_temp: 250               # Target hotend temp (typically set by PRINT_START)
+variable_probe_temp_delta: 80           # We probe at this amount less than the hotend temp
+variable_reference_position: 5.0        # A safe Z position at which we'll apply the offset change
+variable_offset_correction: 0.07        # Static Offset Correction
 gcode:
-    # Set our working variables.  We treat everything as floats for these calculations
-    {% set z_home_temp = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].z_homing_temperature)|float %}
+    # Set our local working variables.  We treat everything as floats for these calculations
+    {% set reference_position = reference_position|float %}
+    {% set offset_correction  = offset_correction|float %}
+
+    # Determine the rest of our working variables
     {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
-    {% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
-    {% set z_speed = (printer.configfile.settings['stepper_z'].homing_speed)|float * 60 %}
-    {% set z_hop = (printer.configfile.settings['beacon'].home_z_hop)|float %}
-    {% set reference_position = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].reference_position)|float %}
-    {% set expansion_factor = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].expansion_factor)|float %}
-    {% set contact_comp = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].contact_compensation)|float %}
-    {% set hotend_temp = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].hotend_temp)|float %}
-
-    # Calculate Offset and sanity check it so we don't end up etching the build plate
-    {% set temperature_offset = ((hotend_temp - z_home_temp) * expansion_factor)|float %}
-    {% if temperature_offset < 0 %}
-        {% set temperature_offset = 0|float %}
-    {% endif %}
-
-    # Determine the Z target position
-    {% set target_position = (reference_position + contact_comp + temperature_offset)|float %}
+	{% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
+    {% set z_speed  = printer.configfile.settings['stepper_z'].homing_speed|float * 60 %}
+    
+    {% set target_position = (reference_position + offset_correction)|float %}
 
     # Report to the console what we've determined
     { action_respond_info("Applying Z offset adjustment for hotend temperature of %.1f°C" % hotend_temp|float) }
-    { action_respond_info("  Expansion Coefficient = %.6f" % (expansion_factor)|float) }
-    { action_respond_info("  Temperature Offset    = %.6f" % (temperature_offset)|float) }
-    { action_respond_info("  Contact Compensation  = %.3f" % (contact_comp)|float) }
-    { action_respond_info("  Total Offset          = %.6f" % (temperature_offset + contact_comp)|float) }
-    { action_respond_info("  Reference Position    = %.1f" % (reference_position)|float) }
-    { action_respond_info("  Target Position       = %.6f" % (target_position)|float) }
+    { action_respond_info("  Offset Correction    = %.3f" % (offset_correction)|float) }
+    { action_respond_info("  Reference Position   = %.1f" % (reference_position)|float) }
+    { action_respond_info("  Target Position      = %.6f" % (target_position)|float) }
 
     SET_GCODE_OFFSET Z=0                            # Clear any pre-existing Gcode offsets
     G1 Z{target_position} F{z_speed}                # Move Z to determined target position
@@ -243,23 +231,33 @@ gcode:
 
 [gcode_macro _FIND_Z_EQUALS_ZERO]
 gcode:
-    {% set z_home_temp = printer["gcode_macro _APPLY_NOZZLE_OFFSET"].z_homing_temperature|int %}
-    {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
-    {% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
+    {% set hotend_temp = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].hotend_temp)|float %}
+    {% set probe_temp_delta = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].probe_temp_delta)|float %}
 
-    M109 S{z_home_temp}                     # Commence nozzle warmup for z homing        
+    {% set z_home_temp = hotend_temp - probe_temp_delta %}
+    {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
+	{% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
+    {% set k = printer["gcode_macro G29"].k|int %}
+
+    # Turn off all fans to minimise sources of vibration and clear any old state
+    M104 S{z_home_temp}                     # Commence nozzle warmup for z homing        
     BED_MESH_CLEAR                          # Clear out any existing bed meshing context
     SET_KINEMATIC_POSITION Z=0              # Force firmware to believe Z is homed at 0
     G1 Z3 F600                              # Move bed away from the nozzle by 3mm from where it was
     SET_KINEMATIC_POSITION CLEAR=XYZ        # Clear all kinematic repositionings
     SET_GCODE_OFFSET Z=0                    # Comnpletely reset all prior notions of Z offset
     G28 X Y                                 # Home X and Y Axes
+    {% if (k == 1) and (printer.configfile.settings['beacon model default'] is defined) %}
+        G28 Z METHOD=proximity              # Do a rapid proximity based Z home
+    {% endif %}
+    M109 S{z_home_temp}                     # Commence nozzle warmup for z homing
     G28 Z METHOD=CONTACT CALIBRATE=1        # Home Z axis, and calibrate beacon                                               
     Z_TILT_ADJUST                           # Ensure bed is level
     G1 X{z_home_x} Y{z_home_y} F7200        # Move to Z home position
     G4 P30000                               # Heatsoak hotend for 30s more
     G28 Z METHOD=CONTACT CALIBRATE=1        # Establish Z=0
     G1 Z3 F600                              # Move bed away from the nozzle by 3mm from where it was
+    _APPLY_NOZZLE_OFFSET
 
 [gcode_macro APPLY_FILAMENT_OFFSET]
 description: Apply a Z offset adjustment for a specific filament
@@ -402,7 +400,6 @@ gcode:
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"default"'
         SET_GCODE_VARIABLE MACRO=G29 VARIABLE=k VALUE=1            # Reactivate KAMP/Adaptive mode for next time
     {% endif %}
-    _APPLY_NOZZLE_OFFSET
 ```
 
 - Add these 6 macros to the end of your file:
@@ -604,7 +601,7 @@ This can be repeated for each of the 4 screw points until all are equal within 1
 Better accuracy than this may be difficult to achieve due to backlash in the Z-axis lead screws.
 
 
-## Beacon and KAMP Line Purge
+## Beacon and KAMP Line Purge and Meshing
 
 If you are using the KAMP Line Purging, you may notice that some parts of the Beacon will catch onto
 the purged line.  If this is affecting you, then here's a solution.  This places the purge line
@@ -614,6 +611,11 @@ towards the back-right of the print area where the Beacon module is unlikely to 
 
 [KAMP/Line_Purge.cfg](./Line_Purge.cfg)
 
+Additionally here are some (optional) changes to the KAMP meshing file which will always do full bed
+meshing when the `default` meshing profile is selected.
+
+[KAMP/Adaptive_Meshing.cfg](./Adaptive_Meshing.cfg)
+
 Replace the contents of the `KAMP_Settings.cfg` file that lives __*in the same directory*__ as your
 `printer.cfg` file with the contents of the [KAMP_Settings.cfg](./KAMP_Settings.cfg) file.
 
@@ -622,6 +624,9 @@ unused by the Plus4.
 
 Also, replace the contents of the `Line_Purge.cfg` file which is in the `KAMP` sub-directory
 with the contents of the [KAMP/Line_Purge.cfg](./Line_Purge.cfg) file.
+
+Optionally, replace the contents of the `Adaptive_Meshing.cfg` file which is in the `KAMP` sub-directory
+with the contents of the [KAMP/Adaptive_Meshing.cfg](./Adaptive_Meshing.cfg) file.
 
 Now Save and Restart.
 
@@ -637,13 +642,15 @@ Now Save and Restart.
 
 ![image](https://github.com/user-attachments/assets/ef9a4788-260d-4640-8cb5-208ebfb9c259)
 
+
 ## I've followed your guide, but the automatic Z height detection is WAY off!
 
-The above configuration guide is primarly intended for use with the stock Qidi configs, or a lightly modified version
-of them.  It is assumed you are using the `KAMP/Line_Purge.cfg` and `KAMP/Adapative_Meshing.cfg` macros.
+The above configuration guide is primarly intended for use with the stock Qidi configs, or a very lightly modified
+version of them.  It is also assumed you are using the `KAMP/Line_Purge.cfg` and `KAMP/Adapative_Meshing.cfg` macros.
 
-Without doing so, there is a strong chance that the wrong bed mesh is being loaded, especially if you have modified
-the `G29` macro to add `ADAPTIVE=1` to the `BED_MESH_CALIBRATE` call arguments.
+Without doing so, there is a strong chance that the wrong bed mesh may be loaded.  This can occur if you have modified
+the `G29` macro to add `ADAPTIVE=1` to the `BED_MESH_CALIBRATE` call arguments and then call `BED_MESH_PROFILE LOAD=xxx`
+afterwards.  It appears that adding `ADAPTIVE=1` will cause `BED_MESH_CALIBRATE` to ignore the `PROFILE` argument.
 
 
 ## I've configured everything using the guide, but my first layers still aren't perfect
@@ -660,7 +667,8 @@ filament left on the nozzle, which can affect Z offset readings.
 
 Additionally if your nozzle is dirty and/or covered in melted filament this may also be causing bad end stop detection.
 
-I have found that inadequate torquing of the nozzle at a high temperature, dirty leads screws and/or nozzle is the primary cause of unreliable/inconsistent results.
+I have found that inadequate torquing of the nozzle at a high temperature, dirty leads screws and/or nozzle, and
+poorly maintained nozzle cleaning hardware are the primary cause of unreliable/inconsistent results.
 
 Additionally, it's been reported that various after-market nozzles and hotends for the Qidi Plus4 are poorly sized, ill-fitting,
 and/or do not hold the nozzles or the heated portion of the hotend steady.  If you are using after-market hotend parts, it would
@@ -823,13 +831,12 @@ gcode:
         BED_MESH_CALIBRATE RUNS=2 PROFILE=default
         BED_MESH_PROFILE LOAD=default
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"default"'
+        SET_GCODE_VARIABLE MACRO=G29 VARIABLE=k VALUE=1
     {% endif %}
 
     G1 X{z_home_x} Y{z_home_y} F7200
     G1 Z{mesh_return} F600
     SET_KINEMATIC_POSITION Z=2.0
-
-    _APPLY_NOZZLE_OFFSET
 ```
 
 
