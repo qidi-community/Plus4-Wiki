@@ -18,13 +18,7 @@ The only step that requires the VPN IP address is the last step and that is only
 Follow the onboarding guidelines from Tailscale to create and register your first device, preferably your phone since you are replacing Qidi Link! Instructions are [here](https://tailscale.com/kb/1017/install). Once you see your phone listed in the devices, move on to the next step!
 
 ## 2. Disable qidi link
-Since we don't need this service running anymore, let's scavenge back those resources! SSH into your printer, then disable the Qidi Link service with the following command:
-
-```
-sudo systemctl disable --now QIDILink-client.service
-```
-
-This command will stop the service and also disable it from starting up! 
+Since we don't need this service running anymore, let's scavenge back those resources! From the Qidi Plus 4 screen, enable lan-only mode.
 
 ## 3. Install Tailscale
  
