@@ -255,7 +255,6 @@ gcode:
 	{% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
     {% set k = printer["gcode_macro G29"].k|int %}
 
-    # Turn off all fans to minimise sources of vibration and clear any old state
     M104 S{z_home_temp}                     # Commence nozzle warmup for z homing        
     BED_MESH_CLEAR                          # Clear out any existing bed meshing context
     SET_KINEMATIC_POSITION Z=0              # Force firmware to believe Z is homed at 0
