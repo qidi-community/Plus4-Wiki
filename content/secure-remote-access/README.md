@@ -44,9 +44,9 @@ While out of scope for this specific documented procedure, it's worth calling ou
 
 
 ## 4. Configure Moonraker 
-Since you are connecting to the printer from a different IP subnet, we need to configure moonraker to allow this connection. You'll need to look at your list of devices in tailscale and select your mobile device. From here, you can simply copy the IP address. For most people, the easiest way to add this to the moonraker configuration is through the fluidd web interface on your printer. To do that, punch in the IP address of your printer in a browser, press the `x` to open configurations, select the `moonraker.conf` file. 
+Since you are connecting to the printer from a different IP subnet, we need to configure moonraker to allow this connection. For most people, the easiest way to add this to the moonraker configuration is through the fluidd web interface on your printer. To do that, punch in the IP address of your printer in a browser, press the `x` key to open configurations, select the `moonraker.conf` file. 
 
-In section labeled authorization, we'll add the VPN IP Address of your mobile device, followed by a `/32` as displayed here:
+In section labeled authorization, we'll add the tailscale subnet `100.64.0.0/24`, as displayed here:
 
 ```
 [authorization]
@@ -61,16 +61,23 @@ trusted_clients:
     FE80::/10
     ::1/128
 ```
-Your IP address for the Tailscale connection should start with `100.`, plug the whole address in below `trust_clients`, and click save and restart!
 
-## 5. Install a mobile klipper client
+Click save and restart!
+
+## 5. Accessing On The Go!
+Now that your printer is on your VPN and moonraker is configured to allow access for connections from it, let's talk about options for access.
+
+### Connecting to the fluidd interface
+This is the easiest option. Just use the [magicDNS](https://tailscale.com/kb/1081/magicdns) name or the IP associated with your printer in your list of Tailscale Machines in your web browser. This should load up the fluidd interface.
+
+### Using a klipper mobile app
 Using your device's app store, install a Klipper client. There are multiple options available on Apple devices, with no preferential treatment for any particular one. Try them out and find one you like! The important part is that the app will prompt you for an address for your printer. Enter the IP address or MagicDNS name associated with your printer in this field. That should be all you need to connect your printer!
-
-You can test remote access by disabling Wi-Fi on your mobile device and opening the Klipper app you downloaded to check your printer. Congratulations! You are now using a private network to access your device!
 
 Pictured below is the UI from the iOS app MobileRaker:
 
 ![IMG_5422.PNG](./IMG_5422.PNG "Yay, Security!")
+
+You can test remote access by disabling Wi-Fi on your mobile device and trying either option above using the tailscale IP or magicDNS entry. Congratulations! You are now using a private network to access your device!
 
 ## Closing Pointers
 While not required, it can be convenient to disable key expiration on the printer. This obviously has security trade-offs, but nothing especially critical, all things considered. Disabling key expiration ensures your printer remains accessible without requiring you to periodically log in to Tailscale from the printer. You can disable key expiration from the Tailscale UI when selecting the printer from your list of hosts.
