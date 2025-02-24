@@ -26,30 +26,22 @@ sudo systemctl disable --now QIDILink-client.service
 
 This command will stop the service and also disable it from starting up! 
 
-## 3. Install Tailscale VPN On The Printer
-Following the documentation from tailscale [here](https://tailscale.com/kb/1041/install-debian-buster), install the tailscale client on the printer with the following command:
+## 3. Install Tailscale
+ 
+To install tailscale on the printer, there is a single command to run:
 
 ```
-# package signing keys
-curl -fsSL https://pkgs.tailscale.com/stable/debian/buster.gpg | sudo apt-key add -
-curl -fsSL https://pkgs.tailscale.com/stable/debian/buster.list | sudo tee /etc/apt/sources.list.d/tailscale.list
-
-# install packages
-sudo apt-get update
-sudo apt-get install tailscale -y
-
-# Start tailscale, show a QR code to add it, and enable ssh!
-sudo tailscale up --qr --ssh
-```
-THe last command will start tailscale and give you a QR code to scan with your mobile device to easily add it to your account activate it. It also enables ssh communication to your device from your trusted devices on tailscale vpn. This is pretty neat so you can access your printer's CLI from anywhere securely without opening up your firewall! 
-
-Last thing to do is to enable the tailscale service once you've registered the device to your account.
-
-```
-sudo systemctl enable --now tailscaled
+curl -fsSL https://tailscale.com/install.sh | sh
 ```
 
-Once you confirm that you see your printer associated and live with your tailscale account, proceed to the next step!
+Follow the onscreen instructions to complete the installation process.
+
+Once you complete the installation and receive confirmation of installation, head over to your tailscale.com account to confirm it! Click the admin console link in the top right of the tailscale site and look for your printer in the list of machines. 
+
+**Alternative Option - Subnet Router**
+
+While out of scope for this specific documented procedure, it's worth calling out that one can configure a [subnet router](https://tailscale.com/kb/1019/subnets) to avoid having to install the tailscale client on your printer. It allows for more flexibility but comes at the cost of complexity; ie dedicated device acting as the subnet router and configuring it as a gateway on devices that you want access to. This notice is to draw awareness to the end user that alernative installations exist. 
+
 
 ## 4. Configure Moonraker 
 Since you are connecting to the printer from a different IP subnet, we need to configure moonraker to allow this connection. You'll need to look at your list of devices in tailscale and select your mobile device. From here, you can simply copy the IP address. For most people, the easiest way to add this to the moonraker configuration is through the fluidd web interface on your printer. To do that, punch in the IP address of your printer in a browser, press the `x` to open configurations, select the `moonraker.conf` file. 
