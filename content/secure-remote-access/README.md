@@ -52,7 +52,7 @@ In section labeled authorization, we'll add the VPN IP Address of your mobile de
 [authorization]
 force_logins: True
 trusted_clients:
-    100.XXX.XXX.XXX/32
+    100.64.0.0/10
     10.0.0.0/8
     127.0.0.0/8
     169.254.0.0/16
