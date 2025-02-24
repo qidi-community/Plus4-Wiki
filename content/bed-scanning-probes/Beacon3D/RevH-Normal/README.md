@@ -197,7 +197,7 @@ There are a lot of changes here.  Take your time and you'll be fine.  When in do
 
 Edit `gcode_macro.cfg`
 
-- Add the following `[_APPLY_NOZZLE_OFFSET]` and `[APPLY_FILAMENT_OFFSET]` sections to your file.
+- Add the following `[_APPLY_NOZZLE_OFFSET]`, `[_Z_VIBRATE]`, `[_FIND_Z_EQUALS_ZERO]`, and `[APPLY_FILAMENT_OFFSET]` sections to your file.
 
 ```
 [gcode_macro _APPLY_NOZZLE_OFFSET]
@@ -232,6 +232,19 @@ gcode:
     G1 Z{reference_position} F600                   # Move Z to reference position.  Ideally the bed should not move
     M400
 
+[gcode_macro _Z_VIBRATE]
+gcode:
+    G1 Z4 F600                              # Move to Z=4
+    G91                                     # Enter relative positioning mode
+    M400                                    # Wait for all prior commands to finish
+    {% for z in range(50) %}                # Loop 50 times
+        G1 Z1 F5000                         # Move bed down by 1mm
+        G1 Z-1 F5000                        # Move bed up by 1mm
+    {% endfor %}
+    G90                                     # Go back to absolute positioning mode
+    M400                                    # Wait for all prior commands to finish
+    G1 Z4 F600                              # Make sure Z=4mm before we leave the macro
+
 [gcode_macro _FIND_Z_EQUALS_ZERO]
 gcode:
     {% set hotend_temp = (printer["gcode_macro _APPLY_NOZZLE_OFFSET"].hotend_temp)|float %}
@@ -239,7 +252,7 @@ gcode:
 
     {% set z_home_temp = hotend_temp - probe_temp_delta %}
     {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
-    {% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
+	{% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
     {% set k = printer["gcode_macro G29"].k|int %}
 
     # Turn off all fans to minimise sources of vibration and clear any old state
@@ -247,17 +260,21 @@ gcode:
     BED_MESH_CLEAR                          # Clear out any existing bed meshing context
     SET_KINEMATIC_POSITION Z=0              # Force firmware to believe Z is homed at 0
     G1 Z3 F600                              # Move bed away from the nozzle by 3mm from where it was
-    SET_KINEMATIC_POSITION CLEAR=XYZ        # Clear all kinematic repositionings
+    SET_KINEMATIC_POSITION CLEAR=XYZ        # Ensure all kinematic repositionings are cleared
     SET_GCODE_OFFSET Z=0                    # Comnpletely reset all prior notions of Z offset
     G28 X Y                                 # Home X and Y Axes
     {% if (k == 1) and (printer.configfile.settings['beacon model default'] is defined) %}
-        G28 Z METHOD=proximity              # Do a rapid proximity based Z home
+        G28 Z METHOD=proximity              # Do a rapid proximity based Z home if possible
+    {% else %}
+        M109 S{z_home_temp}                 # Wait for nozzle to fully heat up
+        G28 Z METHOD=CONTACT CALIBRATE=0    # Home Z axis without calibration
     {% endif %}
-    M109 S{z_home_temp}                     # Commence nozzle warmup for z homing
-    G28 Z METHOD=CONTACT CALIBRATE=1        # Home Z axis, and calibrate beacon                                               
+    _Z_VIBRATE                              # Try to settle the build plate
+    M109 S{z_home_temp}                     # Wait for nozzle to fully reach Z probing temperature
+    G28 Z METHOD=CONTACT CALIBRATE=1        # Home Z axis, and calibrate beacon                                     
     Z_TILT_ADJUST                           # Ensure bed is level
     G1 X{z_home_x} Y{z_home_y} F7200        # Move to Z home position
-    G4 P30000                               # Heatsoak hotend for 30s more
+    G4 P15000                               # Heatsoak hotend for 15s more
     G28 Z METHOD=CONTACT CALIBRATE=1        # Establish Z=0
     G1 Z3 F600                              # Move bed away from the nozzle by 3mm from where it was
     _APPLY_NOZZLE_OFFSET
@@ -296,7 +313,6 @@ gcode:
 description: Homes nozzle against build plate and applies global z offset
 gcode:
     _FIND_Z_EQUALS_ZERO
-    _APPLY_NOZZLE_OFFSET
 
 [gcode_macro save_zoffset]
 description: Use APPLY_FILAMENT_OFFSET instead
