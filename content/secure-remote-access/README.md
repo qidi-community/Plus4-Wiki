@@ -12,7 +12,7 @@ apps for mobile devices, using your trusted network as opposed to Qidi's.
 **NOTICE:**
 All of the below steps should be done from a laptop or computer that you use to print from regularly for simplicity. None of these commands need to be executed over your tailscale network. Unless specifically called out, when instructions call you to ssh to your printer, the expectation is that you are connecting over your LAN IP address.
 
-The only step that requires the VPN IP address is the last step and that is only for the mobile klipper client you installed to be configured.
+The only step that requires the VPN IP address or [magicdns](https://tailscale.com/kb/1081/magicdns) name is the last step and that is only for the mobile klipper client you installed to be configured.
 
 ## 1. Setup Tailscale VPN Account
 Follow the onboarding guidelines from Tailscale to create and register your first device, preferably your phone since you are replacing Qidi Link! Instructions are [here](https://tailscale.com/kb/1017/install). Once you see your phone listed in the devices, move on to the next step!
@@ -22,7 +22,7 @@ Since we don't need this service running anymore, let's scavenge back those reso
 
 ## 3. Install Tailscale
  
-To install tailscale on the printer, there is a single command to run:
+To install tailscale on your printer, first connect via ssh and run this single command:
 
 ```
 curl -fsSL https://tailscale.com/install.sh | sh
