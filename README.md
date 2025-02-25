@@ -24,6 +24,10 @@ of the Qidi Plus4 3D printer.
 
 ### [Broken touchscreen firmware](./content/display-firmware-repair/README.md)
 
+### [Adding Beacon3D](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/bed-scanning-probes/Beacon3D/RevH-Normal)
+
+### [Adding Cartographer](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/bed-scanning-probes/cartographer3d)
+
 
 ## Printer Configuration Tweaks
 
