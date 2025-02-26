@@ -252,8 +252,7 @@ gcode:
 
     {% set z_home_temp = hotend_temp - probe_temp_delta %}
     {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
-	{% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
-    {% set k = printer["gcode_macro G29"].k|int %}
+    {% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
 
     M104 S{z_home_temp}                     # Commence nozzle warmup for z homing        
     BED_MESH_CLEAR                          # Clear out any existing bed meshing context
@@ -262,7 +261,7 @@ gcode:
     SET_KINEMATIC_POSITION CLEAR=XYZ        # Ensure all kinematic repositionings are cleared
     SET_GCODE_OFFSET Z=0                    # Comnpletely reset all prior notions of Z offset
     G28 X Y                                 # Home X and Y Axes
-    {% if (k == 1) and (printer.configfile.settings['beacon model default'] is defined) %}
+    {% if (printer.configfile.settings['beacon model default'] is defined) %}
         G28 Z METHOD=proximity              # Do a rapid proximity based Z home if possible
     {% else %}
         M109 S{z_home_temp}                 # Wait for nozzle to fully heat up
