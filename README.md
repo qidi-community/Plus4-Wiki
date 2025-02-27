@@ -53,6 +53,7 @@ of the Qidi Plus4 3D printer.
 
 ### [Temperature Change Chimes](./content/temp-chime/README.md)
 
+### [Secure Remote Access](./content/secure-remote-access/README.md)
 
 ## Orca Slicer Configuration
 
