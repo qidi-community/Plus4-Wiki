@@ -8,26 +8,35 @@ of the Qidi Plus4 3D printer.
 
 ### [Qidi Plus 4 Wiki/Support Page](https://wiki.qidi3d.com/en/X-Plus4)
 
+---
+
 ## Issues and Possible Fixes
 
-## [SSH Access](./content/ssh-access/README.md)
-
-### [PLA/PETG Heat-creep clogging](./content/nozzle-clogging-tips/README.md)
-
-### [Chamber Heater Issue](./content/chamber-heater-issue/README.md)
-
-### [Warming the Chamber Faster!](./content/tuning-for-40-percent-heater-power/README.md)
-
-### [More Accurate Chamber Temperature Measurements](./content/chamber-heater-investigation/README.md)
-
-### [SSR Upgrade Mod](./content/heater-ssr-upgrade/README.md)
-
-### [Broken touchscreen firmware](./content/display-firmware-repair/README.md)
+### [SSH Access](./content/ssh-access/README.md)
 
 ### [Adding Beacon3D](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/bed-scanning-probes/Beacon3D/RevH-Normal)
 
 ### [Adding Cartographer](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/bed-scanning-probes/cartographer3d)
 
+### [Conditional purging and pei wiping to address cracking ceramic nozzle heat-breaks](content/conditional_purging_and_wiping/README.md)
+
+### [Warming the Chamber Faster!](./content/tuning-for-40-percent-heater-power/README.md)
+
+### [More Accurate Chamber Temperature Measurements](./content/chamber-heater-investigation/README.md)
+
+### [Broken touchscreen firmware](./content/display-firmware-repair/README.md)
+
+---
+
+## (Mostly) Defunct fixes that have been fixed with newer shipping Plus4 models
+
+### [PLA/PETG Heat-creep clogging](./content/nozzle-clogging-tips/README.md)
+
+### [Chamber Heater Issue](./content/chamber-heater-issue/README.md)
+
+### [SSR Upgrade Mod](./content/heater-ssr-upgrade/README.md)
+
+---
 
 ## Printer Configuration Tweaks
 
@@ -53,11 +62,13 @@ of the Qidi Plus4 3D printer.
 
 ### [Temperature Change Chimes](./content/temp-chime/README.md)
 
+---
 
 ## Orca Slicer Configuration
 
 ### [Orca Slicer Settings](./content/orca-slicer-settings)
 
+---
 
 ## Printable Models
 
@@ -91,10 +102,13 @@ of the Qidi Plus4 3D printer.
 
 ### [WIP - A better chamber thermal sensor mounting position](https://www.thingiverse.com/thing:6802256)
 
+---
+
 ## Additional Software
 
 ### [Klippain Shake & Tune v4.1.0 - Qidi Plus 4 Compatible Version](https://github.com/qidi-community/ShakeTune-For-Plus4)
 
+---
 
 ## Aftermarket Parts
 
@@ -106,6 +120,7 @@ of the Qidi Plus4 3D printer.
 
 ### [Replacement 80 mm mainboard fan - ANVISION (Amazon US)](https://www.amazon.com/ANVISION-2-Pack-Brushless-Cooling-Bearing/dp/B0C18G953Z)
 
+---
 
 ## Maintenance Tips
 
@@ -115,6 +130,7 @@ of the Qidi Plus4 3D printer.
 
 ### [Lubing Rods and Screws](./content/lube-rods-screws)
 
+---
 
 ## Hardware Fixes
 
