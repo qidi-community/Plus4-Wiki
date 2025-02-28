@@ -30,11 +30,11 @@ of the Qidi Plus4 3D printer.
 
 ## (Mostly) Defunct fixes that have been fixed with newer shipping Plus4 models
 
-### [PLA/PETG Heat-creep clogging](./content/nozzle-clogging-tips/README.md)
+### [PLA/PETG Heat-creep clogging](./content/nozzle-clogging-tips/README.md) - Fixed by using nozzles with ceramic heatbreaks
 
-### [Chamber Heater Issue](./content/chamber-heater-issue/README.md)
+### [Chamber Heater Issue](./content/chamber-heater-issue/README.md) - Largely addressed by the v1.6.0 and later firmware
 
-### [SSR Upgrade Mod](./content/heater-ssr-upgrade/README.md)
+### [SSR Upgrade Mod](./content/heater-ssr-upgrade/README.md) - All Plus4's manufactured after Dec 2024 should already have the fixed SSR's
 
 ---
 
