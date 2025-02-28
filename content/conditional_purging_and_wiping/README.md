@@ -1,6 +1,42 @@
 # CLEAR_NOZZLE With Conditional Purging and Wiping
 
 
+## What it does
+
+The following set of macros are intended to replace the stock `CLEAR_NOZZLE` and `CLEAR_NOZZLE_PLR`
+
+It separates out the various sub-operations of these macros into discrete functions.
+
+This allows for the user to have greater control over the initial nozzle wipe and purge steps
+
+For `CLEAR_NOZZLE` the purging and PEI plate wiping are optional.  By default both are disabled
+by they can be enabled by passing the following parameters
+
+`PEI_WIPE=1`  - Enable PEI plate wiping
+`PURGE=1`  - Enable purging into the chute
+
+For example, to restore default `CLEAR_NOZZLE` operation, we would call `CLEAR_NOZZLE` from
+within the `PRINT_START` macro like so
+
+```
+CLEAR_NOZZLE HOTEND={hotendtemp} PEI_WIPE=1 PURGE=1
+```
+
+## A note on the PEI plate wiping
+
+Various videos have demonstarted how violently the nozzle can collide with the edge of the mini
+PEI wiping plate.  There have been a growing number of cases whereby people have reported that the
+ceramic heat-break on their nozzles are cracking.  It is highly suspected that it is this violent
+collision that is the cause of the heat-breaks cracking and leaking
+
+The following macro-set defaults to not doing the PEI wipe in an attempt to protect your expensive
+nozzles until Qidi comes up with a better solution.
+
+
+## The macro set
+
+Replace the stock `CLEAR_NOZZLE` and `CLEAR_NOZZLE_PLR` with all of the following macros
+
 ```
 [gcode_macro _MOVE_TO_CHUTE]
 description: Safely move nozzle over the purge chute if not already there
