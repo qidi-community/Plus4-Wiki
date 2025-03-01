@@ -413,8 +413,8 @@ Similar to z_tilt you need adjust the mesh_min and mesh_max to match your probe'
 The values below are correct if you are using Stew's mount.
 
 ```
-mesh_min: 15, 15    # Based on Stew's mount, adjust accordingly
-mesh_max: 290, 283  # Based on Stew's mount, adjust accordingly
+mesh_min: 22,22   # Based on Stew's mount, adjust accordingly
+mesh_max: 283,283 # Based on Stew's mount, adjust accordingly
 ```
 
 That was a lot of configs! But you made it through 🎊
