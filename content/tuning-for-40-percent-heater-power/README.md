@@ -2,6 +2,12 @@
 
 ## Introduction
 
+> **⚠️ Caution:** *For firmware v1.6.0 or later, you have two choices:*
+> 1. *Don't use this warmup sequence at all.*
+> 2. *Use the [Improved PRINT_START macro](#Improved-PRINT_START-macro) in addition to the steps detailed in [Firmware v1.6.0 - Required Steps](#firmware-v160---required-steps).*
+
+***
+
 With the 1.4.3 Firmware Release from Qidi, the stock chamber heater power was dropped from a 70% duty cycle to a 40% duty cycle.
 
 This now made chamber warmup times considerably slower as a result, however we can make some configuration changes to make it not so bad.
@@ -44,7 +50,7 @@ It was observed that it took 25 minutes to the time that the bed meshing started
 A time of 19m30s was observed to the time that the bed meshing started.
 
 
-## So, what's the configuration changes you did?
+## Improved PRINT_START macro
 
 Change the `PRINT_START` macro within `gcode_macro.cfg` to the following in its entirety.
 I've added detailed comments to (almost) every line so it is easier to understand what all
@@ -112,7 +118,7 @@ gcode:
     save_last_file
 ```
 
-Additionally, in `printer.cfg` find the `[verify_heater heater_bed]` section, and change the `check_gain_time` from `60` to `180` as in the following example.
+Additionally, in `printer.cfg` find the `[verify_heater heater_bed]` section, and change the `check_gain_time` from `60` to `360` as in the following example.
 This is required because the print bed is being blasted by the fan to heat the air up faster, which means that the print bed itself heats
 up more slowly.  If we don't raise this check gain time a bit, then the firmware may throw an error because it is not seeing the print
 bed warm up quickly enough.
@@ -120,7 +126,7 @@ bed warm up quickly enough.
 ```
 [verify_heater heater_bed]
 max_error: 200
-check_gain_time:180
+check_gain_time:360
 hysteresis: 10
 heating_gain: 1
 ```
@@ -141,3 +147,67 @@ If this feature is active, then the slicer will instruct the printer to attempt 
 and there are reports that this can take up to 1 hour for the chamber to reach 60C.
 
 ![DISABLE THIS!](./disable-me.png "You REALLY don't want this enabled!")
+
+## Firmware v1.6.0 - Required Steps
+
+> **⚠️ Caution:** Do not follow these steps if on firmware earlier than v1.6.0
+
+### Modifying heaters.py
+
+1. SSH into the printer
+2. Write a new file named ```heaters.patch``` with these contents:
+<details open>
+<summary>Patch for heaters.py</summary>
+
+```patch
+--- a/klippy/extras/heaters.py
++++ b/klippy/extras/heaters.py
+@@ -234,7 +234,10 @@ class ControlPID:
+         #logging.debug("pid: %f@%.3f -> diff=%f deriv=%f err=%f integ=%f co=%d",
+         #    temp, read_time, temp_diff, temp_deriv, temp_err, temp_integ, co)
+         bounded_co = max(0., min(self.heater_max_power, co))
+-        if self.heater.name == "chamber" and heater_bed.heater_bed_state != 2 and heater_bed.is_heater_bed == 1:
++        # We add this DISABLE_BED_CHECK flag so that the chamber heater can be controlled independently of the bed heater
++        # This should not be used in normal operation with the stock piezo sensor
++        DISABLE_BED_CHECK = True
++        if self.heater.name == "chamber" and heater_bed.heater_bed_state != 2 and heater_bed.is_heater_bed == 1 and not DISABLE_BED_CHECK:
+             self.heater.set_pwm(read_time, 0.)
+         else:
+             self.heater.set_pwm(read_time, bounded_co)
+-- 
+```
+
+</details>
+
+3. Apply the patch ```patch /home/mks/klipper/klippy/extras/heaters.py < /path/to/heaters.patch```
+
+4. If that was succesfull you will see something like ```patching file heaters.py```
+
+### Explanation
+
+We have modified the code in heaters.py to add a ```DISABLE_BED_CHECK = True``` flag. 
+Where normally the chamber heater does not turn on unless the bed is within 2 degrees of the target bed temp, we ignore this using our new flag.
+Set ```DISABLE_BED_CHECK = False``` if you want to revert to the default behavior.
+
+```python
+        # We add this DISABLE_BED_CHECK flag so that the chamber heater can be controlled independently of the bed heater
+        # This should not be used in normal operation with the stock piezo sensor
+        DISABLE_BED_CHECK = True
+        if self.heater.name == "chamber" and heater_bed.heater_bed_state != 2 and heater_bed.is_heater_bed == 1 and not DISABLE_BED_CHECK:
+            self.heater.set_pwm(read_time, 0.)
+        else:
+            self.heater.set_pwm(read_time, bounded_co)
+        # Store state for next measurement
+        self.prev_temp = temp
+        self.prev_temp_time = read_time
+        self.prev_temp_deriv = temp_deriv
+        if co == bounded_co:
+            self.prev_temp_integ = temp_integ
+        if self.heater.name == "heater_bed" :
+            if target_temp < 70:
+                heater_bed.heater_bed_state = 0
+            elif temp < target_temp - 2.:
+                heater_bed.heater_bed_state = 1
+            else:
+                heater_bed.heater_bed_state = 2
+```

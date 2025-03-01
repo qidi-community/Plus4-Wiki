@@ -35,6 +35,8 @@ The stock Qidi purge pattern is created by a set of lines in the Printer's Start
 The Qidi Purge Pattern G-Code will look like this:
 
 ```
+G0 Z[initial_layer_print_height] F600
+G1 E3 F1800
 G1 X{(min(print_bed_max[0] - 12, first_layer_print_min[0] + 80))} E{85 * 0.5 * initial_layer_print_height * nozzle_diameter[0]} F3000
 G1 Y{max((min(print_bed_max[1] - 3, first_layer_print_min[1] + 80) - 85), 0) + 2} E{2 * 0.5 * initial_layer_print_height * nozzle_diameter[0]} F3000
 G1 X{max((min(print_bed_max[0] - 12, first_layer_print_min[0] + 80) - 85), 0)} E{85 * 0.5 * initial_layer_print_height * nozzle_diameter[0]} F3000
@@ -49,4 +51,7 @@ We want to remove those lines and put `LINE_PURGE` in their place, like so.
 
 ![Modifying Slicer Printer Start G-Code](./Adding_Line_Purge_Gcode.png)
 
-...and that's basically it.  Now you have an easy to remove purge line that takes up less of the build area.
+Restart klipper.
+Now you have an easy to remove purge line that takes up less of the build area.
+
+_Note: At the start of a print during KAMP purging you might notice a comment in the console about turning on firmware retraction. Ignore this. It is not necessary and slicer based retraction is superior._
