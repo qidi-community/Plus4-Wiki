@@ -48,8 +48,8 @@ gcode:
                 G1 X56 F12000           # Move to avoid collision with stepper motor
                 M400
             {% endif %}
-            {% if (printer.gcode_move.position.y) != 310 %}
-                G1 Y310 F12000          # Move to avoid collision with purge activation arm
+            {% if (printer.gcode_move.position.y) != 300 %}
+                G1 Y300 F12000          # Move to avoid collision with purge activation arm
                 M400
             {% endif %}
             {% if (printer.gcode_move.position.x) > 56 %}
@@ -59,6 +59,12 @@ gcode:
             G1 Y324 F600                # Slowly move back in line with purge chute
             G1 X95 F600                 # Move directly over the purge chute
             M400                        # Wait for all operations to complete
+        {% endif %}
+    {% else %}
+        {% if (printer.gcode_move.position.y) != 324 %}
+            G1 Y300 F12000
+            G1 Y324 F600
+            M400
         {% endif %}
     {% endif %}
 
