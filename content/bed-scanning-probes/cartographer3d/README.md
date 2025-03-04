@@ -25,6 +25,10 @@ You should note the X and Y offset of the center of the coil to the center of th
 
 You must be certain the coil is between 2.6 to 3.0 mm from the nozzle tip.
 
+You need to also pass the USB cable up from the mainboard to the toolhead, the involves taking the back of the printer off and routing the cable accordingly. 
+
+Ideally you want to use one of the USB 2.0 ports, which is either the middle or the bottom port. The top port that has the Wifi dongle is the USB 3.0 and has been known to randomly disconnect with Carto. 
+
 ***
 
 # Software
@@ -95,9 +99,9 @@ Qidi's version of Klipper has a modified version of `probe.py` and will not work
 
 First stop klipper: `sudo service klipper stop`
 
-These lines in [probe.py](./probe.py#L485-L492) need to be commented out in `/home/mks/klipper/klippy/extras/probe.py`.
+Run this command, which will download a patched copy of `probe.py`. 
 
-You can do this using nano: `nano +485 /home/mks/klipper/klippy/extras/probe.py`. Then finished press `ctrl+x` and then `y`. 
+`wget -O /home/mks/klipper/klippy/extras/probe.py https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/bed-scanning-probes/Beacon3D/RevH-Normal/probe.py`
 
 Once this is done, start klipper: `sudo service klipper start`. Or power cycle the printer.
 
