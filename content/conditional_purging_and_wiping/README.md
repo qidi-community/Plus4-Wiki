@@ -118,6 +118,10 @@ gcode:
     G2 I0.5 J0.5 F200
     G2 I0.5 J0.5 F200
     G2 I0.5 J0.5 F200
+
+    M400
+    G1 Y320 F600
+    G1 X95 F600            # Gently move off the PEI plate back over the purge chute
     M400
 
 [gcode_macro _BRUSH_WIPE]
