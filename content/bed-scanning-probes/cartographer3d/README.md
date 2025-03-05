@@ -432,10 +432,15 @@ Now you should have everything set up and you are now ready to follow Cartograph
 
 # FAQ
 
+Q. When I run `CARTOGRAPHER_CALIBRATE METHOD=manual` I get: ![image](https://github.com/user-attachments/assets/32145c6d-391e-4c85-b868-4bc09d176e29)
+
+
+A. Your bed is lower and it goes beyond the max movement range Klipper will allow for the Z axis. Simply use `SET_KINEMATIC_POSITION Z=250` and then run `CARTOGRAPHER_CALIBRATE METHOD=manual`
+
 Q. I follwed the guide but I get this error in Klipper 
 ![image](https://github.com/user-attachments/assets/6ecc2d2a-c9b5-4b6b-9fae-bccec204833e)
 
-A. Likely a Klipper plugin needs to be reinstalled. Either disable or reinstall it. If you are reinstalling from Shake&Tune, use the [mainline version](https://github.com/Frix-x/klippain-shaketune/tree/main). 
+A. Likely a Klipper plugin needs to be reinstalled. Either disable or reinstall it. If you are reinstalling from Shake&Tune, use this [version](https://github.com/qidi-community/klippain_v511_for_qidi_plus4). Remember to delete the old install. 
 
 
 ## Optional QoL Bed Tramming Macros
