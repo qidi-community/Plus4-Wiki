@@ -197,7 +197,7 @@ There are a lot of changes here.  Take your time and you'll be fine.  When in do
 
 Edit `gcode_macro.cfg`
 
-- Add the following `[_APPLY_NOZZLE_OFFSET]`, `[_Z_VIBRATE]`, `[_FIND_Z_EQUALS_ZERO]`, and `[APPLY_FILAMENT_OFFSET]` sections to your file.
+- Add the following `[_APPLY_NOZZLE_OFFSET]`, `[_SETTLE_PRINT_BED]`, `[_FIND_Z_EQUALS_ZERO]`, and `[APPLY_FILAMENT_OFFSET]` sections to your file.
 
 ```
 [gcode_macro _APPLY_NOZZLE_OFFSET]
@@ -232,7 +232,7 @@ gcode:
     G1 Z{reference_position} F600                   # Move Z to reference position.  Ideally the bed should not move
     M400
 
-[gcode_macro _Z_VIBRATE]
+[gcode_macro _SETTLE_PRINT_BED]
 gcode:
     G1 Z4 F600                              # Move to Z=4
     G91                                     # Enter relative positioning mode
@@ -267,7 +267,7 @@ gcode:
         M109 S{z_home_temp}                 # Wait for nozzle to fully heat up
         G28 Z METHOD=CONTACT CALIBRATE=0    # Home Z axis without calibration
     {% endif %}
-    _Z_VIBRATE                              # Try to settle the build plate
+    _SETTLE_PRINT_BED                        # Try to settle the build plate
     M109 S{z_home_temp}                     # Wait for nozzle to fully reach Z probing temperature
     G28 Z METHOD=CONTACT CALIBRATE=1        # Home Z axis, and calibrate beacon                                     
     Z_TILT_ADJUST                           # Ensure bed is level
