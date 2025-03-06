@@ -10,7 +10,7 @@ It separates out the various sub-operations of these macros into discrete functi
 This allows for the user to have greater control over the initial nozzle wipe and purge steps
 
 For `CLEAR_NOZZLE` the purging and PEI plate wiping are optional.  By default both are disabled
-by they can be enabled by passing the following parameters
+but they can be enabled by passing the following parameters
 
 `PEI_WIPE=1`  - Enable PEI plate wiping
 `PURGE=1`  - Enable purging into the chute
