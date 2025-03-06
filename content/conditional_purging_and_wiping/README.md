@@ -71,10 +71,11 @@ gcode:
 [gcode_macro _ACTIVATE_PURGE_EJECTION]
 description: Activate purge arm to drop purged filament down chute
 gcode:
+    {% set hotendtemp = params.HOTEND|default(250)|int %}
     _MOVE_TO_CHUTE
     M106 S255
     G4 P5000
-    M104 S140
+    M104 S{hotendtemp - 80}
     G1 Y318 F9000
     G1 Y322 F600
     G1 Y318 F9000
@@ -85,15 +86,16 @@ gcode:
 [gcode_macro _PURGE_INTO_CHUTE]
 description: Purge Filament into purge chute
 gcode:
+    {% set hotendtemp = params.HOTEND|default(250)|int %}
     _MOVE_TO_CHUTE
-    G92 E0                              # Set extruder position to 0
-    G1 E5 F50                           # Purge 5mm of filament slowly
-    G92 E0                              # Set extruder position to 0
-    G1 E80 F200                         # Purge 80mm of filament at 2mm/s
-    G92 E0                              # Set extruder position to 0
-    G1 E-2 F200                         # Perform a 2mm retraction
-    _ACTIVATE_PURGE_EJECTION            # Eject the purged filament
-    G1 E-1                              # Perform a 1mm retraction
+    G92 E0                                          # Set extruder position to 0
+    G1 E5 F50                                       # Purge 5mm of filament slowly
+    G92 E0                                          # Set extruder position to 0
+    G1 E80 F200                                     # Purge 80mm of filament at 2mm/s
+    G92 E0                                          # Set extruder position to 0
+    G1 E-2 F200                                     # Perform a 2mm retraction
+    _ACTIVATE_PURGE_EJECTION HOTEND={hotendtemp}    # Eject the purged filament
+    G1 E-1                                          # Perform a 1mm retraction
 
 [gcode_macro _PEI_WIPE]
 description: Wipe nozzle over PEI Plate
@@ -127,7 +129,7 @@ gcode:
 
     M400
     G1 Y320 F600
-    G1 X95 F600            # Gently move off the PEI plate back over the purge chute
+    G1 X95 F600
     M400
 
 [gcode_macro _BRUSH_WIPE]
@@ -225,11 +227,11 @@ gcode:
     M106 S0                                             # Turn off part cooling fan
     M109 S{hotendtemp}                                  # Wait for nozzle to reach full temperature
     {% if purge == 1 %}
-        _PURGE_INTO_CHUTE                               # Hotend temp is set to 140 after this call
+        _PURGE_INTO_CHUTE HOTEND={hotendtemp}           # Hotend temp is set to 80C less than hotendtemp after this call
     {% else %}
-        _ACTIVATE_PURGE_EJECTION                        # Hotend temp is set to 140 after this call
+        _ACTIVATE_PURGE_EJECTION HOTEND={hotendtemp}    # Hotend temp is set to 80C less than hotendtemp after this call
     {% endif %}
-    TEMPERATURE_WAIT SENSOR=extruder MAXIMUM={170}
+    TEMPERATURE_WAIT SENSOR=extruder MAXIMUM={hotendtemp - 70}
 
     # Wipe Nozzle over the PEI plate
     {% if pei_wipe == 1 %}
@@ -247,9 +249,10 @@ gcode:
 
     # Cool hotend down
     M106 S255
-    M104 S140
-    TEMPERATURE_WAIT SENSOR=extruder MAXIMUM={150}
+    M104 S{hotendtemp - 80}
+    TEMPERATURE_WAIT SENSOR=extruder MAXIMUM={hotendtemp - 70}
     M106 S0
     M400
     M118 Nozzle cooled
+
 ```
