@@ -42,14 +42,32 @@ This will backup your klipper installation and all of your printer configuration
 
 ### Install the Beacon software
 
-Follow the Beacon guide here: https://docs.beacon3d.com/quickstart/#3-install-beacon-module
+You have two choices:
 
-_**Please ensure that you have actually run the install script as the guide suggests**_
+1. Run the following commands to install the Beacon3D software:
+
+```
+cd /home/mks
+git clone https://github.com/beacon3d/beacon_klipper.git
+./beacon_klipper/install.sh
+
+```
+
+-OR-
+
+2. Follow Beacon3D's own guide here: https://docs.beacon3d.com/quickstart/#3-install-beacon-module
+
+   _**Please ensure that you have actually run the install script as the guide suggests**_
 
 
 **Note:** If you run into inssues with git when installing the Beacon software, it may be because your
 printer's system time is too far out of sync.  Follow [this guide](https://wiki.qidi3d.com/en/Memo/System-Time-Modification)
 to sync your printer's system time.
+
+**Note 2:** Make sure that your printer can connect to the internet.  If it is in LAN-Only mode, then
+you may need to take it out of LAN-mode for this step.  Alternately you can also download the Beacon
+software to a USB stick and transfer it to your printer that way, but I leave this as an exercise for
+the reader if you choose that path.
 
 ***
 
