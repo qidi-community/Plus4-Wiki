@@ -129,6 +129,8 @@ Now edit your `printer.cfg` file.
 
 - Set `homing_retract_dist` to 0 on all of your steppers
 
+- Commenting out lines in G-code is done by putting the `#` symbol at the start of the line.  Everything after the `#` symbol is ignored by the printer firmware
+
 - Comment out the `[smart_effector]`, and `[qdprobe]` sections in `printer.cfg` in their entirety.
 
 - Also comment out `[safe_z_home]` IF it appears in your `printer.cfg` file.  It does not on stock Plus4 configs, but other mods may have added it.
@@ -171,9 +173,12 @@ move_check_distance: 4
 
 - Add the following `[beacon]` section:
 
+Using the serial number you had captured before, put that in the serial section here:
+
 ```
 [beacon]
-serial: /dev/serial/by-id/usb-Beacon_Beacon_RevH_<**INSERT-YOUR-BEACON-SERIAL-HERE**>
+serial: /dev/serial/by-id/usb-Beacon_Beacon_RevH_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-if00      # Replaces the X's with your unit's serial number
+# serial: /dev/serial/by-id/usb-Beacon_Beacon_RevH_0123456789ABCDEF0123456789ABCDEF-if00    # Example only, DO NOT uncomment this line
 x_offset: 0                     # Assumes using stew675 beacon mount's offsets
 y_offset: -18.8                 # Assumes using stew675 beacon mount's offsets
 mesh_main_direction: x
