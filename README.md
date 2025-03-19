@@ -106,7 +106,9 @@ of the Qidi Plus4 3D printer.
 
 ## Additional Software
 
-### [Klippain Shake & Tune v4.1.0 - Qidi Plus 4 Compatible Version](https://github.com/qidi-community/ShakeTune-For-Plus4)
+### [Klippain Shake & Tune v5.1.1 - Qidi Plus 4 Compatible Version](https://github.com/qidi-community/klippain_v511_for_qidi_plus4)
+
+### [(Retired) Klippain Shake & Tune v4.1.0 - Qidi Plus 4 Compatible Version](https://github.com/qidi-community/ShakeTune-For-Plus4)
 
 ---
 
