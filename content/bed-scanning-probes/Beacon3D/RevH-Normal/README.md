@@ -125,11 +125,11 @@ Now edit your `printer.cfg` file.
 
 - In `[stepper_z]` check that `endstop_pin:` is set to `probe:z_virtual_endstop`.  It should already be so on the Plus4
 
+- Commenting out lines in G-code is done by putting the `#` symbol at the start of the line.  Everything after the `#` symbol is ignored by the printer firmware
+
 - In `[stepper_z]`  ensure that the `position_endstop` line is commented out
 
 - Set `homing_retract_dist` to 0 on all of your steppers
-
-- Commenting out lines in G-code is done by putting the `#` symbol at the start of the line.  Everything after the `#` symbol is ignored by the printer firmware
 
 - Comment out the `[smart_effector]`, and `[qdprobe]` sections in `printer.cfg` in their entirety.
 
