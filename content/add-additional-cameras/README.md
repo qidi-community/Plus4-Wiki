@@ -16,7 +16,7 @@ There are three main phases for adding a USB camera
 
 
 
-===================================
+================= Phase 1 ==================
 
 Gathering USB camera fileptahs
 
@@ -41,7 +41,7 @@ If all your cameras are different models (no identical cameras), copy the path_b
 
 If you have more than one camera of the same make/model, they will have identical path_by_id. In that case, copy the path_by_hardware which will be unnique to each camera, but could change if you change where you plug in your cameras.
 
-===================================
+================= Phase 2 ==================
 
 Create Video Streamers
 
@@ -96,11 +96,16 @@ Save and Close to write our your edits to webcam3.txt
 
 ---
 Activate newly definite video streams.
-Restart webcamd service to apply your newly definied streamers.
 
 
+Restart webcamd service to apply your newly definied streamers. Services are accessed via the vertical three dots icon in upper right of Fluidd screen
+<img src="./servicesicon.jpg">
 
-=====================
+Once there restart webcam.
+<img src="./restarrwebcamd">
+
+
+================= Phase 3 ==================
 Add cameras to Fluidd
 
 
