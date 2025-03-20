@@ -105,7 +105,7 @@ Restart webcamd service to apply your newly definied streamers. Services are acc
 <img src="./servicesicon.jpg">
 
 Once there restart webcam.
-<img src="./restarrwebcamd.jpg)">
+<img src="./restarrwebcamd.jpg">
 
 At this point, the streams should be acive, but you won't see them in Fluidd yet. You must also add the cameras to Fluidd's cameras.
 
