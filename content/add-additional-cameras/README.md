@@ -52,6 +52,7 @@ webcam2.txt <- 2nd camera
 webcam3.txt <- 3rd camera
 
 --- webcam.txt
+
 You will need to edit two lines in webcam.txt.
 
 line 24 should be uncommented and editied to specify camera fielpath
@@ -67,6 +68,7 @@ Select All and COPY to clipboard (We will be reusing nearly all the same info fo
 Save and Close to write our your edits to webcam.txt
 
 --- webcam2.txt
+
 Have fluid create a new webcam2.txt file. It will be empty.
 Paste the previously copied webcam.txt contents into webcam2.txt
 
@@ -83,6 +85,7 @@ Line 72 specifies next port (8081)
 Save and Close to write our your edits to webcam2.txt
 
 --- webcam3.text
+
 Do same for creating webcam3 if you have yet another camera.
 In example below, we'll use the by_hardware id so you know how that would look.
 
@@ -95,8 +98,8 @@ Line 72 would specify next port (8082)
 Save and Close to write our your edits to webcam3.txt
 
 ---
-Activate newly definite video streams.
 
+Activate newly defined video streams.
 
 Restart webcamd service to apply your newly definied streamers. Services are accessed via the vertical three dots icon in upper right of Fluidd screen
 <img src="./servicesicon.jpg">
@@ -104,10 +107,31 @@ Restart webcamd service to apply your newly definied streamers. Services are acc
 Once there restart webcam.
 <img src="./restarrwebcamd">
 
+At this point, the streams should be acive, but you won't see them in Fluidd yet. You must also add the cameras to Fluidd's cameras.
+
 
 ================= Phase 3 ==================
 Add cameras to Fluidd
 
+First you figure out the URL for each stream. This is where you must have the printer IP. Unfortunately, we must use the actual IP of the printer because relative URL addresses cannot include a port number. We must specify port in the URL to indicate which camera stream we want via the URL.
+
+Example camera stream URL's assuming IP of printer is 192.168.1.32
+
+1st camera
+http://192.168.1.32:8080/?action=stream
+http://192.168.1.32:8080/?action=snapshot
+
+2nd camera
+http://192.168.1.32:8081/?action=stream
+http://192.168.1.32:8081/?action=snapshot
+
+3rd camera
+http://192.168.1.32:8082/?action=stream
+http://192.168.1.32:8082/?action=snapshot
+
+If you point a browser at the stream addresses, your browser should already show the specified camera stream. We just have to define the cameras and add them Fluidd
+
+Go to fluids settings and click on cameras.
 
 
 
