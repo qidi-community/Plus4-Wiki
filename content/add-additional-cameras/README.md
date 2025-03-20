@@ -107,13 +107,15 @@ Restart webcamd service to apply your newly definied streamers. Services are acc
 Once there restart webcam.
 <img src="./restarrwebcamd.jpg">
 
-At this point, the streams should be acive, but you won't see them in Fluidd yet. You must also add the cameras to Fluidd's cameras.
+At this point, the streams should be acitve, but you won't see them in Fluidd yet. You must also add the cameras to Fluidd's cameras.
 
 
 ================= Phase 3 ==================
-Add cameras to Fluidd
+Add Cameras to Fluidd
 
-First you figure out the URL for each stream. This is where you must have the printer IP. Unfortunately, we must use the actual IP of the printer because relative URL addresses cannot include a port number. We must specify port in the URL to indicate which camera stream we want via the URL.
+First you figure out the URL for each camera stream. This is where you must have the printer IP. 
+
+Unfortunately, we must use the actual IP of the printer because relative URL addresses (like the default camera URL supplied by Qidi) cannot include a port number. We must specify port in the URL to indicate which camera stream we want via the URL. So, we must have actual IP number of printer in camera URL.
 
 Example camera stream URL's assuming IP of printer is 192.168.1.32
 
@@ -129,9 +131,13 @@ http://192.168.1.32:8081/?action=snapshot
 http://192.168.1.32:8082/?action=stream
 http://192.168.1.32:8082/?action=snapshot
 
-If you point a browser at the stream addresses, your browser should already show the specified camera stream. We just have to define the cameras and add them Fluidd
+If you point a browser at the STREAM addresses, your browser should already show the specified camera stream. We just have to define the cameras and add them Fluidd. If they do not appear in your web browser, either you have the wrong URL address or did something wrong settup up the streams. Go back and fix your work until you can see streams in your web browser.
+
+Once you have the stream URL verified as working, we add the cameras to Fluidd
 
 Go to fluids settings and click on cameras.
+
+You can redefine existing cameras or add a camera. FIll in each camera like below using the stream and snapshot URL for each cameera.
 
 
 
