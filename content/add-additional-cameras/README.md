@@ -1,6 +1,6 @@
 # Adding Extra Cameras to Qidi Plus 4 Printer
 
-Qidi Plus 4 printers ship with a single, built-in camera, but is also capable of displaying multiple USB cameras. This can be accomplished using just the Fluidd GUI. No SSH into printer, nor installation of additional software is needed.
+Qidi Plus 4 printers ship with a single, built-in camera, but are also capable of displaying multiple USB cameras. This can be accomplished using just the Fluidd GUI. No SSH into printer, nor installation of additional software is needed.
 
 <img src="./fluidd%20with%20multiple%20cameras.jpg">
 
