@@ -1,22 +1,25 @@
 Qidi Plus 4 is shipped with a single, built-in camera, but is also capable of displaying multiple USB cameras. This can be accomplished using just the Fluidd GUI. No SSH into printer, nor installation of additional software is needed.
 <img src="./fluidd%20with%20multiple%20cameras.jpg">
 
-#Pre-requisites: 
-b) Have all your USB cameras connected to printer and Fluidd interface showing in a browser. 
-a) Know the IP address of your printer. 
-c) Your printer has a static IP address, and never changes its IP address upon startup.
+# Pre-requisites: 
+```
+    b) Have all your USB cameras connected to printer and Fluidd interface showing in a browser. 
+    a) Know the IP address of your printer. 
+    c) Your printer has a static IP address, and never changes its IP address upon startup.
+```
 
-#There are three main phases for adding a USB camera
+# There are three main phases in adding a USB camera
 
-1. Gather required USB device filepath for each connected camera. The filepaths are used to specify which camera is streamed in next step
+```
+    1. Gather required USB device filepath for each connected camera. The filepaths are used to specify which camera is streamed in next step
 
-2. Create a video streamer for each camera. This is done by defining 1st camera in webcam.txt, 2nd camera in webcam2.txt, 3rd camera in webcam3.txt.
+    2. Create a video streamer for each camera. This is done by defining 1st camera in webcam.txt, 2nd camera in webcam2.txt, 3rd camera in webcam3.txt.
 
-3. Add each video streams as a cameras in Fluidd.
+    3. Add each video streams as a cameras in Fluidd.
+````
 
 
-
-#================= Phase 1 ==================
+# ================= Phase 1 ==================
 
 Gathering USB camera fileptahs
 
@@ -41,7 +44,7 @@ If all your cameras are different models (no identical cameras), copy the path_b
 
 If you have more than one camera of the same make/model, they will have identical path_by_id. In that case, copy the path_by_hardware which will be unnique to each camera, but could change if you change where you plug in your cameras.
 
-#================= Phase 2 ==================
+# ================= Phase 2 ==================
 
 Create Video Streamers
 
@@ -67,7 +70,7 @@ Select All and COPY to clipboard (We will be reusing nearly all the same info fo
 
 Save and Close to write our your edits to webcam.txt
 
---- webcam2.txt
+## --- webcam2.txt
 
 Have fluid create a new webcam2.txt file. It will be empty.
 Paste the previously copied webcam.txt contents into webcam2.txt
@@ -84,7 +87,7 @@ Line 72 specifies next port (8081)
 
 Save and Close to write our your edits to webcam2.txt
 
---- webcam3.text
+## --- webcam3.text
 
 Do same for creating webcam3 if you have yet another camera.
 In example below, we'll use the by_hardware id so you know how that would look.
@@ -97,10 +100,7 @@ Line 72 would specify next port (8082)
 
 Save and Close to write our your edits to webcam3.txt
 
----
-
-Activate newly defined video streams.
-
+### ---
 Restart webcamd service to apply your newly definied streamers. Services are accessed via the vertical three dots icon in upper right of Fluidd screen
 <img src="./servicesicon.jpg">
 
@@ -110,7 +110,7 @@ Once there restart webcam.
 At this point, the streams should be acitve, but you won't see them in Fluidd yet. You must also add the cameras to Fluidd's cameras.
 
 
-#================= Phase 3 ==================
+# ================= Phase 3 ==================
 Add Cameras to Fluidd
 
 First compose the URL for each camera stream. This is where you must have the printer IP. 
@@ -119,17 +119,19 @@ Unfortunately, we MUST use the actual IP of the printer because relative URL add
 
 Example camera stream URL's assuming IP of printer is 192.168.1.32
 
-1st camera
-http://192.168.1.32:8080/?action=stream
-http://192.168.1.32:8080/?action=snapshot
+```
+   1st camera
+      http://192.168.1.32:8080/?action=stream
+      http://192.168.1.32:8080/?action=snapshot
 
-2nd camera
-http://192.168.1.32:8081/?action=stream
-http://192.168.1.32:8081/?action=snapshot
+   2nd camera
+      http://192.168.1.32:8081/?action=stream
+      http://192.168.1.32:8081/?action=snapshot
 
-3rd camera
-http://192.168.1.32:8082/?action=stream
-http://192.168.1.32:8082/?action=snapshot
+   3rd camera
+      http://192.168.1.32:8082/?action=stream
+      http://192.168.1.32:8082/?action=snapshot
+```
 
 If you point a browser at the STREAM addresses, your browser should already show the specified camera stream. We just have to define the cameras and add them Fluidd. If they do not appear in your web browser, either you have the wrong URL address or did something wrong settup up the streams. Go back and fix your work until you can see streams in your web browser.
 
