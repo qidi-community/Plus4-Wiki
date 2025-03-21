@@ -113,9 +113,9 @@ At this point, the streams should be acitve, but you won't see them in Fluidd ye
 ================= Phase 3 ==================
 Add Cameras to Fluidd
 
-First you figure out the URL for each camera stream. This is where you must have the printer IP. 
+First compose the URL for each camera stream. This is where you must have the printer IP. 
 
-Unfortunately, we must use the actual IP of the printer because relative URL addresses (like the default camera URL supplied by Qidi) cannot include a port number. We must specify port in the URL to indicate which camera stream we want via the URL. So, we must have actual IP number of printer in camera URL.
+Unfortunately, we MUST use the actual IP of the printer because relative URL addresses (like the default camera URL supplied by Qidi) cannot include a port number. We must specify port in the URL to indicate which camera stream we want via the URL.
 
 Example camera stream URL's assuming IP of printer is 192.168.1.32
 
@@ -135,12 +135,17 @@ If you point a browser at the STREAM addresses, your browser should already show
 
 Once you have the stream URL verified as working, we add the cameras to Fluidd
 
-Go to fluids settings and click on cameras.
+Go to fluids settings and click on cameras to add or edit cameras to display in Fluidd.
+<img src="./camerasfluidd.jpg">
 
-You can redefine existing cameras or add a camera. FIll in each camera like below using the stream and snapshot URL for each cameera.
+Here you can redefine existing cameras or add a camera. FIll in each camera's entries like below using the stream and snapshot URL for each cameera.
+<img src="./examplecamera.jpg">
 
+Be sure to put stream and snapshot URL's in correct entry spots.
+If you have removed the Wifi dongle to free up CPU, you can set FPS to 10 or sometimes 15. 
+If still using WiFi, consider 5 FPS as safer frame rate.
 
-
+After completing camera set up in Fluidd's camera, your cameras should be display in the main Fluidd page. You can select an individual camera or all cameras as your display.
 
 
 
