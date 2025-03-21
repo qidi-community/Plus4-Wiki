@@ -32,15 +32,21 @@ Click on the System icon within Fluidd to bring up Fluidd's "system information"
 <img src="./system%20icon.jpg">
 
 
+
 Click on USB device icon. It is shaped like the USB device symbol. This will bring up the USB devices panel
 <img src="./devices%20icon.jpg">
+
+
 
 Once at the USB device panel, select "video" then click on refresh icon to get currently connected USB video device info.
 <img src="./devices%20panel.jpg">
 
 
+
 You now are looking at info about your USB video devices (cameras). The filepaths for each camera are shown here. This is the information other instructions have users obtain via SSH and command line. As you see, this info is available via Fluidd GUI.
 <img src="./usb%20filepaths.jpg">
+
+
 
 Copy down a unique filepath for each camera. Get the entire filepath starting with "/dev" 
 You should obtain one filepath for each camera. It is easiest if you paste your fielpaths into a file for use in phase 2, creating the video streams.
@@ -113,8 +119,12 @@ Save and Close to write our your edits to webcam3.txt
 Restart webcamd service to apply your newly definied streamers. Services are accessed via the vertical three dots icon in upper right of Fluidd screen
 <img src="./servicesicon.jpg">
 
+
+
 Once there restart webcam.
 <img src="./restarrwebcamd.jpg">
+
+
 
 At this point, camera streams should be acitve, but you won't see them in Fluidd yet. You must also add the cameras to Fluidd's cameras.
 
@@ -147,8 +157,12 @@ Once you have the stream URL's verified as working, add the cameras to Fluidd
 Go to Fluidd settings and click on cameras to add or edit cameras to display in Fluidd.
 <img src="./camerasfluidd.jpg">
 
+
+
 Here you can redefine existing cameras or add a camera. FIll in each camera's entries like below using the stream and snapshot URL for each cameera.
 <img src="./examplecamera.jpg">
+
+
 
 Edit existing default camera to use a URL's you composed. 
 
@@ -162,6 +176,7 @@ After completing camera set up in Fluidd's camera, your cameras should display i
 You can select an individual camera or all cameras as your display.
 
 This completes addition of cameras to the Qidi Plus 4 Printer
+
 Guy Kuo
 
 
