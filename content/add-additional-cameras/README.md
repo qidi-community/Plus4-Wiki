@@ -56,7 +56,9 @@ If you have more than one camera of the same make/model, they will have identica
 We will create one webcam txt file for each camera. There is already webcam.txt in your fluid configuration files for the stock camera. 
 
 webcam.txt <- 1st camera
+
 webcam2.txt <- 2nd camera
+
 webcam3.txt <- 3rd camera
 
 
