@@ -20,6 +20,7 @@ Qidi Plus 4 printers ship with a single, built-in camera, but is also capable of
     2. Create a video streamer for each camera. This is done by defining 1st camera in webcam.txt, 2nd camera in webcam2.txt, 3rd camera in webcam3.txt.
 
     3. Add each video streams as a cameras in Fluidd.
+
 ````
 
 
