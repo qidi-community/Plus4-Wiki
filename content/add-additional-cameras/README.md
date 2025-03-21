@@ -1,4 +1,6 @@
-Qidi Plus 4 is shipped with a single, built-in camera, but is also capable of displaying multiple USB cameras. This can be accomplished using just the Fluidd GUI. No SSH into printer, nor installation of additional software is needed.
+# Adding Extra Cameras to Qidi Plus 4 Printer
+
+Qidi Plus 4 printers ship with a single, built-in camera, but is also capable of displaying multiple USB cameras. This can be accomplished using just the Fluidd GUI. No SSH into printer, nor installation of additional software is needed.
 
 <img src="./fluidd%20with%20multiple%20cameras.jpg">
 
@@ -145,7 +147,9 @@ Go to Fluidd settings and click on cameras to add or edit cameras to display in 
 Here you can redefine existing cameras or add a camera. FIll in each camera's entries like below using the stream and snapshot URL for each cameera.
 <img src="./examplecamera.jpg">
 
-Be sure to put stream and snapshot URL's in correct entry spots.
+Edit existing default camera to use a URL's you composed. 
+
+Be sure to put stream and snapshot URL's in respective entry fields.
 
 If you have removed the Wifi dongle to free up CPU cycles, you can set FPS to 10 or sometimes 15. 
 If still using WiFi, consider 5 FPS as safer frame rate for CPU load.
@@ -153,6 +157,9 @@ If still using WiFi, consider 5 FPS as safer frame rate for CPU load.
 
 After completing camera set up in Fluidd's camera, your cameras should display in main Fluidd page. 
 You can select an individual camera or all cameras as your display.
+
+This completes addition of cameras to the Qidi Plus 4 Printer
+Guy Kuo
 
 
 
