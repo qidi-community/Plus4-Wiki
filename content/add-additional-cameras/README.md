@@ -56,7 +56,8 @@ webcam.txt <- 1st camera
 webcam2.txt <- 2nd camera
 webcam3.txt <- 3rd camera
 
---- webcam.txt
+
+## --- webcam.txt
 
 You will need to edit two lines in webcam.txt.
 
@@ -102,14 +103,15 @@ Line 72 would specify next port (8082)
 
 Save and Close to write our your edits to webcam3.txt
 
-### ---
+### --- Restart webcamd
+
 Restart webcamd service to apply your newly definied streamers. Services are accessed via the vertical three dots icon in upper right of Fluidd screen
 <img src="./servicesicon.jpg">
 
 Once there restart webcam.
 <img src="./restarrwebcamd.jpg">
 
-At this point, the streams should be acitve, but you won't see them in Fluidd yet. You must also add the cameras to Fluidd's cameras.
+At this point, camera streams should be acitve, but you won't see them in Fluidd yet. You must also add the cameras to Fluidd's cameras.
 
 
 # ======= Phase 3 Add Cameras to Fluidd =======
@@ -135,7 +137,7 @@ Example camera stream URL's assuming IP of printer is 192.168.1.32
 
 If you point a browser at the STREAM addresses, your browser should already show the specified camera stream. We just have to define the cameras and add them Fluidd. If they do not appear in your web browser, either you have the wrong URL address or did something wrong settup up the streams. Go back and fix your work until you can see streams in your web browser.
 
-Once you have the stream URL's verified as working, we add the cameras to Fluidd
+Once you have the stream URL's verified as working, add the cameras to Fluidd
 
 Go to Fluidd settings and click on cameras to add or edit cameras to display in Fluidd.
 <img src="./camerasfluidd.jpg">
@@ -144,10 +146,13 @@ Here you can redefine existing cameras or add a camera. FIll in each camera's en
 <img src="./examplecamera.jpg">
 
 Be sure to put stream and snapshot URL's in correct entry spots.
-If you have removed the Wifi dongle to free up CPU, you can set FPS to 10 or sometimes 15. 
-If still using WiFi, consider 5 FPS as safer frame rate.
 
-After completing camera set up in Fluidd's camera, your cameras should be display in the main Fluidd page. You can select an individual camera or all cameras as your display.
+If you have removed the Wifi dongle to free up CPU cycles, you can set FPS to 10 or sometimes 15. 
+If still using WiFi, consider 5 FPS as safer frame rate for CPU load.
+
+
+After completing camera set up in Fluidd's camera, your cameras should display in main Fluidd page. 
+You can select an individual camera or all cameras as your display.
 
 
 
