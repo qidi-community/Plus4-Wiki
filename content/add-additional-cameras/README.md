@@ -8,6 +8,7 @@ Qidi Plus 4 is shipped with a single, built-in camera, but is also capable of di
     c) Your printer has a static IP address, and never changes its IP address upon startup.
 ```
 
+
 # There are three main phases in adding a USB camera
 
 ```
@@ -19,9 +20,9 @@ Qidi Plus 4 is shipped with a single, built-in camera, but is also capable of di
 ````
 
 
-# ================= Phase 1 ==================
 
-Gathering USB camera fileptahs
+# ======= Phase 1 Gathering USB Camera Filepaths =======
+
 
 Click on the System icon within Fluidd to bring up Fluidd's "system information" page
 <img src="./system%20icon.jpg">
@@ -44,9 +45,9 @@ If all your cameras are different models (no identical cameras), copy the path_b
 
 If you have more than one camera of the same make/model, they will have identical path_by_id. In that case, copy the path_by_hardware which will be unnique to each camera, but could change if you change where you plug in your cameras.
 
-# ================= Phase 2 ==================
 
-Create Video Streamers
+
+# ======= Phase 2 Create Video Streamers =======
 
 We will create one webcam txt file for each camera. There is already webcam.txt in your fluid configuration files for the stock camera. 
 
@@ -110,12 +111,10 @@ Once there restart webcam.
 At this point, the streams should be acitve, but you won't see them in Fluidd yet. You must also add the cameras to Fluidd's cameras.
 
 
-# ================= Phase 3 ==================
-Add Cameras to Fluidd
+# ======= Phase 3 Add Cameras to Fluidd =======
+First, compose the URL for each camera stream. This is where you need the printer IP. 
 
-First compose the URL for each camera stream. This is where you must have the printer IP. 
-
-Unfortunately, we MUST use the actual IP of the printer because relative URL addresses (like the default camera URL supplied by Qidi) cannot include a port number. We must specify port in the URL to indicate which camera stream we want via the URL.
+We MUST use the actual IP of the printer because relative URL addresses (like the default camera URL supplied by Qidi) cannot include a port number. We specify port in our URL's to indicate which camera stream we want.
 
 Example camera stream URL's assuming IP of printer is 192.168.1.32
 
