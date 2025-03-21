@@ -1,12 +1,12 @@
 Qidi Plus 4 is shipped with a single, built-in camera, but is also capable of displaying multiple USB cameras. This can be accomplished using just the Fluidd GUI. No SSH into printer, nor installation of additional software is needed.
 <img src="./fluidd%20with%20multiple%20cameras.jpg">
 
-Pre-requisites: 
+#Pre-requisites: 
 b) Have all your USB cameras connected to printer and Fluidd interface showing in a browser. 
 a) Know the IP address of your printer. 
 c) Your printer has a static IP address, and never changes its IP address upon startup.
 
-There are three main phases for adding a USB camera
+#There are three main phases for adding a USB camera
 
 1. Gather required USB device filepath for each connected camera. The filepaths are used to specify which camera is streamed in next step
 
@@ -16,7 +16,7 @@ There are three main phases for adding a USB camera
 
 
 
-================= Phase 1 ==================
+#================= Phase 1 ==================
 
 Gathering USB camera fileptahs
 
@@ -41,7 +41,7 @@ If all your cameras are different models (no identical cameras), copy the path_b
 
 If you have more than one camera of the same make/model, they will have identical path_by_id. In that case, copy the path_by_hardware which will be unnique to each camera, but could change if you change where you plug in your cameras.
 
-================= Phase 2 ==================
+#================= Phase 2 ==================
 
 Create Video Streamers
 
@@ -110,7 +110,7 @@ Once there restart webcam.
 At this point, the streams should be acitve, but you won't see them in Fluidd yet. You must also add the cameras to Fluidd's cameras.
 
 
-================= Phase 3 ==================
+#================= Phase 3 ==================
 Add Cameras to Fluidd
 
 First compose the URL for each camera stream. This is where you must have the printer IP. 
@@ -133,9 +133,9 @@ http://192.168.1.32:8082/?action=snapshot
 
 If you point a browser at the STREAM addresses, your browser should already show the specified camera stream. We just have to define the cameras and add them Fluidd. If they do not appear in your web browser, either you have the wrong URL address or did something wrong settup up the streams. Go back and fix your work until you can see streams in your web browser.
 
-Once you have the stream URL verified as working, we add the cameras to Fluidd
+Once you have the stream URL's verified as working, we add the cameras to Fluidd
 
-Go to fluids settings and click on cameras to add or edit cameras to display in Fluidd.
+Go to Fluidd settings and click on cameras to add or edit cameras to display in Fluidd.
 <img src="./camerasfluidd.jpg">
 
 Here you can redefine existing cameras or add a camera. FIll in each camera's entries like below using the stream and snapshot URL for each cameera.
