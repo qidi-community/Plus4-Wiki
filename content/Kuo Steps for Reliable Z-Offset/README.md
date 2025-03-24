@@ -206,10 +206,14 @@ Once you complete Screws_Tilt_Calculate, go into Tune section to do bedmesh. If 
 
 
 
-# 7. Default Bedmesh
-Once screws_tilt_calculate has your bed leveled (all four screws indicated as green), go into Fluidd's "tune" to perform bedmesh. Do so with bed at your usual printing temperature. Pay attention to the console log and watch for out of tolerance retries. If you cannot get the printer to complete bedmeshes without tolerance warnings, change probing speed 1 mm/sec slower and increase probing distance by 0.5 mm. If the system can complete four bed meshes in a row without out of tolerance reports, you can consider setting probing count down to 1.
+# 7. Default Bedmesh and Probing Tolerance Check.
+Once screws_tilt_calculate has your bed leveled (all four screws indicated as green), go into Fluidd's "tune" to perform bedmesh. Do so with bed at your usual printing temperature. Examine the mesh to see if there are residual tilts to correct. If so, go back and fine adjust bed screws as needed.
 
-Save completed bedmesh as the default bedmesh. 
+Also, pay attention to the console log and watch for out of tolerance retries. If you cannot get the printer to complete bedmeshes without tolerance warnings, go back to step 4 and change probing speed 1 mm/sec slower and increase probing distance by 0.5 mm. Once the printer has been restarted, reheat bed to temp and repeat "tune" for bedmesh again.
+
+Once the printer can complete four bed meshes in a row without out of tolerance reports, you can consider setting probing count down to 1 for more speed.
+
+Don't forget to save a completed bedmesh as the default bedmesh. 
 
 
 
