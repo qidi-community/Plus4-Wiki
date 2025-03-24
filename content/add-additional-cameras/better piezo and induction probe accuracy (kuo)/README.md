@@ -250,7 +250,7 @@ gcode:
 
 
 # 8. Set Desired Z-offset for 1st Layer.
-I set set and store z-offset between bed and nozzle directly in the formula that specifies z-offset-internal
+I set and store z-offset between bed and nozzle directly in the formula that specifies z-offset-internal
 
 Find the section in gcode_macro for get_zoffset
 
@@ -276,9 +276,11 @@ gcode:
 ````
 
 
+
 Notice the formula....
        
     {% set p=(-0.15 + printer.gcode_move.homing_origin.z)|float %}
+
 
 The -0.15 means the bed should be placed 0.15 mm below z_nozzle_touch for first print layer.
 
@@ -288,12 +290,14 @@ The -0.15 means the bed should be placed 0.15 mm below z_nozzle_touch for first 
 
 Recall that thse distance measurements are being performed by printer using the induction probe. Higher temps tend to make induction probes trigger at a shorter distance. So, consider setting bed a little further below nozzle if printing is going to be with high temp filaments. 
 
-You will need to experiment to find your best offset. One way is to find best z-offset for your printer is to manually tweak z-0ffset while printing. Then remember that value and use that to adjust your formula value.
-
-Each of my printers does best with a slightly different formula z-offset-internal, but it is between -0.12 and -0.15 for my four Plus4 printers despite printing a range for filaments from PLA to Polycarbonate
-
-
 Save and Restart for changs to take place.
 
+You will need to experiment to determine your best offset. One way is to manually tweak z-0ffset while printing. Then, remember that value and use that to adjust your formula value.
 
-This concludes the changes I made for better piezo and induction probe performance.
+Each of my printers does best with a slightly different formula z-offset-internal, but they are between -0.12 and -0.15 for my four Plus4 printers despite printing a range for filaments from PLA (205c nozzle / 60c bed) to Polycarbonate (325c nozzle / 115c bed)
+
+
+
+=========================
+
+This concludes the changes I make for better piezo and induction probe performance.
