@@ -42,6 +42,7 @@ Note: Because the vast majority of distance measurements are performed using the
 NB: Induction probes (and even Beacon probes) do not measure reliably near the edges of the print plate. Also, probe offset and mechanical limits mean the printer can never actually take measurements of bed mesh all the way out to print bed edges. Therefore, bed mesh may be dramatically wrong when printing is at extreme edge of bed.
 
 
+
 # Problems on the Qidi Plus 4:
 
 
@@ -81,14 +82,71 @@ Do NOT just follow that guide. I do NOT do everything identically to the wiki an
 
 
 
-# 3. Z /Z1Stepper and Driver Settings for Better Kiipper Z tracking
-Follow the instructions the wiki to set in sections...
+# 3. Z /Z1 Stepper and Driver Settings for Better Kiipper Z tracking
+Follow the instructions the wiki to set printer.cfg
+
+Microsteps to 16
+
+sections...
+
  
-    [stepper_z] and [stepper_z1]  Microsteps: 16
+```
+[stepper_z]
+step_pin:U_1:PB1
+dir_pin:U_1:PB6
+enable_pin:!U_1:PB0
+microsteps: 16 ;<---------
+rotation_distance: 4
+full_steps_per_rotation: 200
+endstop_pin:probe:z_virtual_endstop # U_1:PC3 for Z-max
+endstop_pin_reverse:tmc2209_stepper_z:virtual_endstop
+position_endstop:1
+position_endstop_reverse:285
+position_max:285
+position_min: -4
+homing_speed: 10
+homing_speed_reverse: 10
+second_homing_speed: 5
+homing_retract_dist: 5.0
+homing_positive_dir:false
+homing_positive_dir_reverse:true
+#step_pulse_duration:0.0000001
+
+[stepper_z1]
+step_pin:U_1:PC10
+dir_pin:U_1:PA15
+enable_pin:!U_1:PC11
+microsteps: 16 ;<---------
+rotation_distance: 4
+full_steps_per_rotation: 200
+endstop_pin_reverse:tmc2209_stepper_z1:virtual_endstop
+#step_pulse_duration:0.0000001
+```
+
 
 Also follow the instructions there to set in sections...
 
-    [tmc2209 stepper_z] and [tmc2209 stepper_z1] interpolate FALSE
+
+```
+[tmc2209 stepper_z]
+uart_pin:U_1: PB7
+run_current: 1.07
+# hold_current: 0.17
+interpolate: False ;<-----
+stealthchop_threshold: 9999999999
+diag_pin:^U_1:PA13
+driver_SGTHRS:100
+
+[tmc2209 stepper_z1]
+uart_pin:U_1: PC5
+run_current: 1.07
+# hold_current: 0.17
+interpolate: False ;<-----
+stealthchop_threshold: 9999999999
+diag_pin:^U_1:PC12
+driver_SGTHRS:100
+```
+
 
 # 4. Induction Probing Distance and Speed
 My testing at multiple bed temperatures, probing speeds, and distances demonstrates that the firmware 1.6.0 speed and distance are not optimal. Probing distances of 6.5 mm or greater yields fewer pre-triggered sensor errors than the stock 5 mm. Probing speed is less critical, and can probe faster than the stock 5 mm/sec.
@@ -125,7 +183,7 @@ mesh_pps: 2,2
 ````
 
 
-# 5. Leveling Blocks:
+# 5. Leveling Blocks
 Use whatever whatever SOLID, same height objects you have for initial setup, but
 once you have permanent leveling blocks installed, redo your bed screws adjust and "tune" for bed mesh.
 
@@ -148,7 +206,7 @@ Once you complete Screws_Tilt_Calculate, go into Tune section to do bedmesh. If 
 
 
 
-# 7. Make z-offset-user and stored z_offset permanently ZERO
+# 7. Make z-offset-user and Stored z_offset Permanently ZERO
 I make these permanently zero to avoid the bug that unpredictably changes z-offset.
 In the next step, we will store z-offset-internal explicity for the printer. 
 That lets us permanently and specify what the printer is using for distance between bed and nozzle during first layer.
