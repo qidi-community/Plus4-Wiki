@@ -193,7 +193,7 @@ Permanent z-leveling blocks by Stew675 is a convenient design. They can be left 
 
 
 
-# 6. Screws_Tilt_Calculate / Bed Left/Right Tramming and Defalut Bedmesh
+# 6. Screws_Tilt_Calculate / Bed Left/Right Tramming and Default Bedmesh
 Now that we have the Piezo and induction probes optimized with our [smart_effector] and [bed_mesh] changes, we can use the probes to help with bed leveling.
 
 Do the steps in https://github.com/qidi-community/Plus4-Wiki/tree/main/content/Screws-Tilt-Adjust to enable Screws_Tilt_Calculate. It is faster than working with paper or feeler gauges. 
