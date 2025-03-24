@@ -175,6 +175,21 @@ If still using WiFi, consider 5 FPS as safer frame rate for CPU load.
 After completing camera set up in Fluidd's camera, your cameras should display in main Fluidd page. 
 You can select an individual camera or all cameras as your display.
 
+
+# USB Main Board Ports and What If I Need More Ports?
+
+The two USB 2.0 ports and one USB 3.0 ports all can support cameras.
+
+I have not successfully gotten a camera to work on the USB C port.
+
+If you need more USB ports, you can run three cameras off one USB port via a USB hub. 
+I have successfully done so even using just a USB 2.0 port. Did not have to use up the faster USB 3.0 port. 
+
+This USB 3.0 hub worked https://www.amazon.com/dp/B0CD1BHXPZ for three cameras. Got success using path_by_hardware filepaths.
+
+
+
+
 This completes addition of cameras to the Qidi Plus 4 Printer
 
 Guy Kuo
