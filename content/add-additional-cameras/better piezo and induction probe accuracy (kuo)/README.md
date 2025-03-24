@@ -1,4 +1,4 @@
-# Improving Piezo and Induction Probe Accuracy (Kuo Process)
+# Improving Z-Offset Reliability via Piezo and Induction Probe Accuracy (Kuo Process)
 Qidi Plus 4 printers come equipped with nozzle touch and bed proxumity sensors to enable automatic z-offset, bed leveling, and per-print meshbed functionality. User expectation is that the printer will automatically level the bed and repeatably place nozzle distance accurately for printing. Unfortunately, stock Plus4 implementaiton is not entirely reliable. Multiple owners have reported unreliable first layers, or even gouged print plates despite ABL sensors. 
 
 I use multiple strategies from the community wiki to improved the odds of accurate and repeatable z-offset and bed mesh. To those recommendations, I have added tweaks based upon days of sensor reliablity testing at various temperatures, speeds, and probing distances. An entire chain of things must happen correctly for first layer accuracy. Break any item in the chain, and the result is flawed first layer bed / nozzle positioning. 
