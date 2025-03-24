@@ -1,11 +1,11 @@
 # Kuo Steps for Improving Z-Offset Reliability
-Qidi Plus 4 printers come equipped with nozzle touch and bed proxumity sensors to enable automatic z-offset, bed leveling, and per-print meshbed functionality. User expectation is that the printer will automatically level the bed and repeatably place nozzle distance accurately for printing. Unfortunately, stock Plus4 implementaiton is not entirely reliable. Multiple owners have reported unreliable first layers, or even gouged print plates despite ABL sensors. 
+Qidi Plus 4 printers come equipped with nozzle touch and bed proximity sensors to enable automatic z-offset, bed leveling, and per-print meshbed functionality. User expectation is that the printer will automatically level the bed and repeatably set nozzle distance accurately for printing. Unfortunately, stock Plus4 implementaiton is not entirely reliable. Multiple owners have reported unreliable first layers, or even gouged print plates despite ABL sensors. 
 
-I use multiple strategies from the community wiki to improved the odds of accurate and repeatable z-offset and bed mesh. To those recommendations, I have added tweaks based upon days of sensor reliablity testing at various temperatures, speeds, and probing distances. An entire chain of things must happen correctly for first layer accuracy. Break any item in the chain, and the result is flawed first layer bed / nozzle positioning. 
+I use multiple strategies from the community wiki to improve odds of accurate and repeatable z-offset and bed mesh. To the wiki recommendations, I have added tweaks based upon days of sensor reliablity testing at various temperatures, speeds, and probing distances. An entire chain of things must happen correctly for first layer accuracy. Break any item in the chain, and the result is flawed first layer bed / nozzle positioning. 
 
 
 # Terms Used
-Reading online advice z-offset, bed tramming, and bed mesh can be confusing because the same phrase, z-offset, is used for mutiple different things. For the purpose of this discussion I define the some terms to differentiate various z-offset meanings. They may not be exactly how Klipper and the Qidi firmware implement or name them, but are needed to convey the concepts.
+Reading online advice on z-offset, bed tramming, and bed mesh can be confusing because the same phrase, z-offset, is used for mutiple different things. For the purposes of this discussion I define the some terms to differentiate various z-offset meanings. They may not be exactly how Klipper and Qidi firmware implement or name them, but are needed to convey the concepts.
 
 
 ## z-screw-position-count: 
@@ -37,7 +37,7 @@ As a KAMP printer, there are actually two bed meshes potentially in use. The def
 
 
 
-Note: Because the vast majority of distance measurements are performed using the induction probe, accuracy of BOTH nozzle touch and induction probe are needed for bed mesh, bed z-tilt, and bed mesh compensation. 
+Note: Because the vast majority of distance measurements are performed using the induction probe which is re-calibrated with nozzle touch, accuracy of BOTH nozzle touch and induction probe are needed for bed mesh, bed z-tilt, and bed mesh compensation. 
 
 NB: Induction probes (and even Beacon probes) do not measure reliably near the edges of the print plate. Also, probe offset and mechanical limits mean the printer can never actually take measurements of bed mesh all the way out to print bed edges. Therefore, bed mesh may be dramatically wrong when printing is at extreme edge of bed.
 
@@ -49,36 +49,36 @@ NB: Induction probes (and even Beacon probes) do not measure reliably near the e
 a: Piezo bed sensors at incorrect pre-tension: Nozzle touch sensing becomes unreliable at low PLA bed temperatures, and increasingly worse at high bed temperatures.
 
 
-b: Piezo bed sensor mechanically damaged or poorly built: Piezo sensor discs are bonded to their brackets using glue. There are reports of a batch of sensor discs having weakened glue that deteriorates at high temperatures. Also, hard impacts to print bed can overstress mounting glue for the sensor discs. The majority of piezo sensor are okay, but if they break, z-nozzle-touch may not be detected. As a result, the user sees x-carriage lifted during nozzle touch and subsequently suffer a gouged print plate because z-nozzle-touch was incorrectly detected too high (too late). Once piezo sensors fail, they need to be replaced or possibly repaired via re-bonding.
+b: Piezo bed sensor mechanically damaged or poorly made: Piezo sensor discs are bonded to their brackets using glue. There are reports of a batch of sensor discs having  glue that deteriorates at high temperatures. Also, hard impacts to print bed can overstress mounting glue for the sensor discs. The majority of piezo sensor are okay, but if they break, z-nozzle-touch may not be detected. As a result, the user sees x-carriage lifted during nozzle touch and subsequently suffer a gouged print plate. Z-nozzle-touch was incorrectly detected too high (too late). Once piezo sensors fail, they need to be replaced or possibly repaired via re-bonding.
 
 
-c: Bed downward mechanical stop is uneven without leveling blocks due to shape of platform bottom: Letting the printer lower bed to bottom, without leveling blocks, does not repeatably bottom out the z screws in same position. Leveling blocks must be used. These should be exactly the same height give SOLID stops for both left and right z-screws. 
+c: Bed downward mechanical stop is uneven without leveling blocks due to shape of platform bottom: Letting the printer lower bed to bottom, without leveling blocks, does not repeatably bottom out the z screws in same position. Leveling blocks must be used. These should be exactly the same height and provide a SOLID stop for both left and right z-screws. 
 
 
 d: Z-stepper motor microstepping and driver interpolation settings in firmware 1.6.0 may cause a Klipper issue with accuratetly counting and tracking z position.
 
 
-e: Induction probe accuracy and reliability are not fully optimized in firmware 1.6.0. The firmware settings for probing distance and speed fail to work properly with some induction probes. The default 5 mm distance and 5 mm/sec speed works for most induciton probes, but for some units the distance, especially, is too short. The bed must move far enough to be reliably out of hysteresis range of the induction probe. My measurements suggest that at least 6.5 mm probing distance is needed to be compatible with probes that trigger at a longer distance.
+e: Induction probe accuracy and reliability are not fully optimized in firmware 1.6.0. The firmware settings for probing distance and speed fail to work properly with some induction probes. The default 5 mm distance and 5 mm/sec speed works for most induction probes, but for some units, the distance especially, is too short. The bed must move far enough to be reliably out of hysteresis range of the induction probe. My measurements suggest that at least 6.5 mm probing distance is needed to be compatible with probes that trigger at a longer distance.
 
 
-f: Stored-Z-offset unpredictably changes. Users report stored z-offset can mysteriously become zero and seem to stack up over a series of prints.
+f: Stored-Z-offset unpredictably changes. Users report stored z-offset can mysteriously become zero or seem to stack up over a series of prints. The exact mechanism or circumstances of this happening are not yet known.
 
 
 
 # What I Do (After Removing Packing Materials)
 
 ## 1. Download and install firmware 1.6.0. 
-Everything I do here is with firmware 1.6.0
+Everything I describe here is with firmware 1.6.0
 
 
 ## 2. Set Piezo Sensors to Reasonble Pre-tension
-Before doing any bed leveling, set bed screw knobs to position the bottom of the plastic knobs to 9-10 mm away from bottom of metal bed plate above. If your printer has just the locking nut (no lock washer), that leaves about three threads visible below lock nut. Once at this position, lock the front left screw in place and do bed leveling ONLY with the other three screws. That should keep you in good pre-tension range for the piezos.
+Before doing any bed leveling, set bed screw knobs to position the bottom of the plastic knobs to 9-10 mm away from bottom of metal bed plate above. If your printer has just the locking nut (no lock washer), that leaves about three threads visible below lock nut. Once at this position, lock the front left screw in place. Leave that screw alone. Do bed leveling ONLY with the other three screws. That should keep you in good pre-tension range for all four piezos.
 
 
 
 ## 3&4 Preamble: 
 For background, see Better Bed Meshing, https://github.com/qidi-community/Plus4-Wiki/blob/main/content/more-accurate-bed-meshing/README.md
-Do NOT just follow that guide. I do NOT do everything identically to the wiki and do additional crucial steps.
+Do NOT just follow that guide. I do NOT do everything identically to the wiki and I add crucial steps.
 
 
 
@@ -87,7 +87,7 @@ Follow the instructions the wiki to set printer.cfg
 
 Microsteps to 16
 
-sections...
+in stepper sections...
 
  
 ```
@@ -149,7 +149,7 @@ driver_SGTHRS:100
 
 
 # 4. Induction Probing Distance and Speed
-My testing at multiple bed temperatures, probing speeds, and distances demonstrates that the firmware 1.6.0 speed and distance are not optimal. Probing distances of 6.5 mm or greater yields fewer pre-triggered sensor errors than the stock 5 mm. Probing speed is less critical, and can probe faster than the stock 5 mm/sec.
+My testing at multiple bed temperatures, probing speeds, and distances demonstrates that the firmware 1.6.0 speed and distance are not optimal. Probing distances of 6.5 mm or greater yields fewer pre-triggered sensor errors than the stock 5 mm. Probing speed is less critical, and can actually probe faster than the stock 5 mm/sec.
 
 
 My settings for [smart_effector] and [bed_mesh] are below. Comments are at my changes.
@@ -193,14 +193,14 @@ Permanent z-leveling blocks by Stew675 is a convenient design. They can be left 
 
 
 
-6. Screws_Tilt_Calculate / Bed Left/Right Tramming
+6. Screws_Tilt_Calculate / Bed Left/Right Tramming and Defalut Bedmesh
 Now that we have the Piezo and induction probes optimized with our [smart_effector] and [bed_mesh] changes, we can use the probes to help with bed leveling.
 
-I perform Screws_Tilt_Calculate (and bed meshes) with print bed at 90C because that is my most common print bed temp. If you typically print hotter, consider doing screw tilt adjust and bedmesh at the elevated bed temp. Doing this at room temp gives a different result than when performed at printing temperature.
-
-NOTE: We already set left front screw to known good piezo pre-tension. LEAVE THAT LEFT FRONT SCREW ALONE and it will tend to leave the other three at also reasonable positions. Be leary of big adjustments tightening the adjustment knobs.
-
 Do the steps in https://github.com/qidi-community/Plus4-Wiki/tree/main/content/Screws-Tilt-Adjust to enable Screws_Tilt_Calculate. It is faster than working with paper or feeler gauges. 
+
+I perform Screws_Tilt_Calculate (and bedmeshes) with print bed at 90C because that is my most common print bed temp. If you typically print hotter, consider doing screw tilt adjust and bedmesh at the elevated bed temp. Doing this at room temp gives a different result than when performed at printing temperature.
+
+NOTE: We already set left front screw to known good piezo pre-tension. LEAVE THAT LEFT FRONT SCREW ALONE and you will tend end up with other three also at reasonable pretension for piezos. Be leary of big adjustments tightening the adjustment knobs more than one full rotation.
 
 Once you complete Screws_Tilt_Calculate, go into Tune section to do bedmesh. If the mesh looks level enough, save it. Otherwise, repeat Screws_Tilt_Calculate.
 
