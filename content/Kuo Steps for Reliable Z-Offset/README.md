@@ -193,7 +193,7 @@ Permanent z-leveling blocks by Stew675 is a convenient design. They can be left 
 
 
 
-# 6. Screws_Tilt_Calculate / Bed Left/Right Tramming and Default Bedmesh
+# 6. Screws_Tilt_Calculate / Bed Left/Right Tramming
 Now that we have the Piezo and induction probes optimized with our [smart_effector] and [bed_mesh] changes, we can use the probes to help with bed leveling.
 
 Do the steps in https://github.com/qidi-community/Plus4-Wiki/tree/main/content/Screws-Tilt-Adjust to enable Screws_Tilt_Calculate. It is faster than working with paper or feeler gauges. 
@@ -206,7 +206,14 @@ Once you complete Screws_Tilt_Calculate, go into Tune section to do bedmesh. If 
 
 
 
-# 7. Make z-offset-user and Stored z_offset Permanently ZERO
+# 7. Default Bedmesh
+Once screws_tilt_calculate has your bed leveled (all four screws indicated as green), go into Fluidd's "tune" to perform bedmesh. Do so with bed at your usual printing temperature. Pay attention to the console log and watch for out of tolerance retries. If you cannot get the printer to complete bedmeshes without tolerance warnings, change probing speed 1 mm/sec slower and increase probing distance by 0.5 mm. If the system can complete four bed meshes in a row without out of tolerance reports, you can consider setting probing count down to 1.
+
+Save completed bedmesh as the default bedmesh. 
+
+
+
+# 8. Make z-offset-user and Stored z_offset Permanently ZERO
 I make these permanently zero to avoid the bug that unpredictably changes z-offset.
 In the next step, we will store z-offset-internal explicity for the printer. 
 That lets us permanently and specify what the printer is using for distance between bed and nozzle during first layer.
@@ -249,7 +256,7 @@ gcode:
 ```
 
 
-# 8. Set Desired Z-offset for 1st Layer.
+# 9. Set Desired Z-offset for 1st Layer.
 I set and store z-offset between bed and nozzle directly in the formula that specifies z-offset-internal
 
 Find the section in gcode_macro for get_zoffset
