@@ -42,7 +42,7 @@ Once you have heights adjusted, put the PEI plate back on and verify how the tip
 
 
 
-## CAUTIONs
+## CAUTIONS
 
 ALWAYS MOVE TOOLHEAD BACK TO CENTER OF BED BEFORE TURNING PRINTER ON
 If you leave the toolhead all the way to the rear and to the right of the PEI platform, the nozzle will forcefully strike right edge of platform as printer attempts XY homing.
