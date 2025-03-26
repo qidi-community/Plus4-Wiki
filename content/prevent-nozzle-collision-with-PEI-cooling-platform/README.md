@@ -8,17 +8,22 @@ We can prevent hard nozzle strikes by adjusting height and slope of the PEI plat
 
 ## Steps to Adjust PEI Platform
 
+
 1. Turn off printer power so you can manually move the toolhead. 
 
 
+
 <img src="./pry%20off%20PEI%20cooling%20plate.jpg">
-2. Pry off the PEI cooling plate with a thin pry tool. Plate is only held in place by adhesive. 
+2. Pry off the PEI cooling plate
+This is readily done with a thin pry tool. Plate is only held in place by adhesive. 
+
 
 
 <img src="./screws.jpg">
 3. Adjust Height Screws
 
 You wil see two screws that were hidden under the PEI cooling plate. Left screw sets left height of platform. Right screw sets right height. We want to lower the left edge enough for the nozzle tip to barely clear. We set the right edge about 0.75 mm higher so the nozzle tip makes contact against PEI plate before it reaches center of plate.
+
 
 Gently move nozzle tip across the left edge of the platform to feel and see how the tip engages the platform. Adjust left height screw until nozzle tip just barely clears the left platform edge. You should not feel resistance as the nozzle tip enters the elevated platform. Right height should be set about 0.75 mm. This slightly slopes the platform so the nozzle will contact the PEI plate as nozzle moves rightward. 
 
