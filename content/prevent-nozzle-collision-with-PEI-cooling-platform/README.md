@@ -21,7 +21,7 @@ Gently move nozzle tip across the left edge of the platform and adjust left heig
 Once you have the heights adjusted, put the PEI plate back on and recheck how the tip interacts with PEI plate. The nozzle should cleanly and effortless glide past left edge of PEI plate. As you move the nozzle further right, it should engage the PEI plate. Verify it is touching by moving the toolhead forwards and backwards slightly. That should move the PEI plate and its platform, if the nozzle is in contact.
 
 
-<img src="./screws.jpg">
+<img src="./nylock-nuts.jpg">
 The adjustment screws thread into a pair of nylock nuts below them. This is the bottom view which is revealed by opening the rear of the printer and removing the "poop" chute. You don't need to see the nuts to adjust platform height. I show them here to warn against loosening the screws fully. You will detach the nut.
 
 ## WARNING! BE SURE TO MOVE THE TOOLHEAD BACK TO CENTER OF BED BEFORE TURNING PRINTER ON
