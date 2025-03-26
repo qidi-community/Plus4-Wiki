@@ -36,7 +36,8 @@ Gently move nozzle tip across the left edge of the platform to feel and see how 
 
 
 
-4. Replace PEI Plate and Verify
+4. Replace PEI Plate and Verify Fit
+
 Once you have heights adjusted, put the PEI plate back on and verify how the tip interacts with PEI plate. The nozzle should cleanly and effortless glide onto left edge of PEI plate. As you move the nozzle further right, it should engage the PEI plate. Verify it is actually touching by moving the toolhead forwards and backwards slightly. That will shift the PEI plate and its platform, if the nozzle is in actual contact. If heights need further adjustment, remove PEI plate once more to access the screws.
 
 
