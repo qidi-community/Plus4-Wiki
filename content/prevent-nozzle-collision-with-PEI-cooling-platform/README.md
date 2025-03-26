@@ -14,18 +14,15 @@ We can prevent hard nozzle strikes by adjusting height and slope of the PEI plat
 
 
 
-
+2. Pry off the PEI cooling plate
 <img src="./pry%20off%20PEI%20cooling%20plate.jpg">
 
-2. Pry off the PEI cooling plate
 This is readily done with a thin pry tool. Plate is only held in place by adhesive. 
 
 
 
-
-<img src="./screws.jpg">
-
 3. Adjust Height Screws
+<img src="./screws.jpg">
 
 
 You wil see two screws that were hidden under the PEI cooling plate. Left screw sets left height of platform. Right screw sets right height. We want to lower the left edge enough for the nozzle tip to barely clear. Lower by tightening the screw (clockwise). Raise by loosening the screw.
@@ -49,10 +46,9 @@ ALWAYS MOVE TOOLHEAD BACK TO CENTER OF BED BEFORE TURNING PRINTER ON
 If you leave the toolhead all the way to the rear and right of the PEI platform, the nozzle will forcefully strike right edge of platform as printer attempts XY homing.
 
 
-
+DO NOT COMPLETELY LOOSEN OR REMOVE ADJUSTMENT SCREWS
 <img src="./nylock-nuts.jpg">
 
-DO NOT COMPLETELY LOOSEN OR REMOVE ADJUSTMENT SCREWS
 
 The adjustment screws thread into a pair of nylock nuts below them. Here is the bottom view which is revealed by opening the rear of the printer and removing the "poop" chute. You do not need to see the nuts to adjust platform height. I show them here to warn against loosening the screws fully. That would detach the nut.
 
