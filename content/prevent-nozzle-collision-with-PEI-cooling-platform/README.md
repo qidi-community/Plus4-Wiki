@@ -22,6 +22,7 @@ This is readily done with a thin pry tool. Plate is only held in place by adhesi
 
 
 
+
 <img src="./screws.jpg">
 
 3. Adjust Height Screws
@@ -33,19 +34,23 @@ You wil see two screws that were hidden under the PEI cooling plate. Left screw 
 Gently move nozzle tip across the left edge of the platform to feel and see how the tip engages the platform. Adjust left height screw until nozzle tip just barely clears the left platform edge. You should not feel resistance as the nozzle tip enters the elevated platform. Right height should be set about 0.75 mm. This slightly slopes the platform so the nozzle will contact the PEI plate as nozzle moves rightward. 
 
 
+
+
 4. Replace PEI Plate and Verify
 Once you have heights adjusted, put the PEI plate back on and verify how the tip interacts with PEI plate. The nozzle should cleanly and effortless glide onto left edge of PEI plate. As you move the nozzle further right, it should engage the PEI plate. Verify it is actually touching by moving the toolhead forwards and backwards slightly. That will shift the PEI plate and its platform, if the nozzle is in actual contact. If heights need further adjustment, remove PEI plate once more to access the screws.
 
 
 
-## CAUTION 1
+## CAUTIONs
 
 <img src="./nylock-nuts.jpg">
 
-The adjustment screws thread into a pair of nylock nuts below them. This is the bottom view which is revealed by opening the rear of the printer and removing the "poop" chute. You don't need to see the nuts to adjust platform height. I show them here to warn against loosening the screws fully. You will detach the nut.
+a. The adjustment screws thread into a pair of nylock nuts below them. This is the bottom view which is revealed by opening the rear of the printer and removing the "poop" chute. You don't need to see the nuts to adjust platform height. I show them here to warn against loosening the screws fully. You will detach the nut.
 
-## CAUTION 2 - ALWAYS MOVE TOOLHEAD BACK TO CENTER OF BED BEFORE TURNING PRINTER ON
+b. ALWAYS MOVE TOOLHEAD BACK TO CENTER OF BED BEFORE TURNING PRINTER ON
 If you leave the toolhead all the way to the rear and to the right of the PEI platform, the nozzle will forcefully strike right edge of platform as printer attempts XY homing.
+
+
 
 
 ## DONE 
