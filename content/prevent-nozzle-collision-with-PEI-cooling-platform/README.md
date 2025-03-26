@@ -22,6 +22,7 @@ This is readily done with a thin pry tool. Plate is only held in place by adhesi
 
 
 
+
 3. Adjust Height Screws
 <img src="./screws.jpg">
 
