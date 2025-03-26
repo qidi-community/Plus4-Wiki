@@ -72,6 +72,8 @@ Everything I describe here is with firmware 1.6.0
 
 
 ## 2. Set Piezo Sensors to Reasonble Pre-tension
+<img src="./leftfrontsrcrew.jpg">
+
 Before doing any bed leveling, set bed screw knobs to position the bottom of the plastic knobs to 9-10 mm away from bottom of metal bed plate above. If your printer has just the locking nut (no lock washer), that leaves about three threads visible below lock nut. Once at this position, lock the front left screw in place. Leave that screw alone. Do bed leveling ONLY with the other three screws. That should keep you in good pre-tension range for all four piezos.
 
 
