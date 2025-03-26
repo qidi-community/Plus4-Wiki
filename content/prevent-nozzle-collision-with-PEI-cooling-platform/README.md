@@ -45,11 +45,14 @@ Once you have screws adjusted, put the PEI plate back on and verify how nozzle t
 ## CAUTIONS
 
 ALWAYS MOVE TOOLHEAD BACK TO CENTER OF BED BEFORE TURNING PRINTER ON
+
 If you leave the toolhead all the way to the rear and right of the PEI platform, the nozzle will forcefully strike right edge of platform as printer attempts XY homing.
 
 
 
 <img src="./nylock-nuts.jpg">
+
+DO NOT COMPLETELY LOOSEN OR REMOVE ADJUSTMENT SCREWS
 
 The adjustment screws thread into a pair of nylock nuts below them. Here is the bottom view which is revealed by opening the rear of the printer and removing the "poop" chute. You do not need to see the nuts to adjust platform height. I show them here to warn against loosening the screws fully. That would detach the nut.
 
