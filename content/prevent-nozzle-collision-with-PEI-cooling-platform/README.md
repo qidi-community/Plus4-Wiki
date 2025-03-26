@@ -4,7 +4,7 @@ The Qidi Plus 4 Printer must clean its nozzle to properly sense nozzle touch aga
 
 Fortunately, I had not yet suffered a fractured ceramic heat break.
 
-We can prevent hard nozzle strikes by adjusting height of the PEI platform. Left and right edges of the PEI platform can be independently adjusted via two screws. The two screws are hidden underneath the small PEI plate. Goal is to make the nozzle tip smoothly get onto the left edge of PEI plate, but still rub against center of PEI plate.
+We can prevent hard nozzle strikes by adjusting height and slope of the PEI platform. Left and right edges of the PEI platform can be independently adjusted via two screws. The two screws are hidden underneath the small PEI plate. Goal is to make the nozzle tip smoothly get onto the left edge of PEI plate, but still rub against center of PEI plate.
 
 Turn off printer power so you can manually move the toolhead. 
 
