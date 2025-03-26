@@ -9,7 +9,7 @@ We can prevent hard nozzle strikes by adjusting height of the PEI platform. Left
 Turn off printer power so you can manually move the toolhead. 
 
 
-<img src="./pry%20off$20PEI$20cooling$20plate.jpg">
+<img src="./pry%20off%20PEI%20cooling%20plate.jpg">
 Pry off the PEI cooling plate with a thin pry tool. Plate is only held in place by adhesive. 
 
 
