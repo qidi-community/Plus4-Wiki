@@ -182,13 +182,16 @@ The two USB 2.0 ports and one USB 3.0 ports all can support cameras.
 
 I have not successfully gotten a camera to work on the USB C port.
 
-If you need more USB ports, you can run three cameras off one USB port via a USB hub. 
-I have successfully done so even using just a USB 2.0 port. Did not have to use up the faster USB 3.0 port. 
+If you need more USB ports, you can run three cameras off one USB 2.0 port using a USB hub. 
+<img src="./three_cams_usb_hub.jpg">
 
-This USB 3.0 hub worked https://www.amazon.com/dp/B0CD1BHXPZ for three cameras. Got success using path_by_hardware filepaths.
+This can free up severa USB ports for other use.
+
+I have this model USB 3.0 hub working with three cameras (two Nebulas and one stock camera)
+https://www.amazon.com/dp/B0CD1BHXPZ for three cameras. Just be mindful of the camera paths. They must be unique to each camera and you may need to use path_by_hardware filepaths.
 
 
-
+=============================================
 
 This completes addition of cameras to the Qidi Plus 4 Printer
 
