@@ -1,8 +1,11 @@
 # Qidi Plus 4 Modular Toolhead
 
-This page is intended to display the flexibility and options that the [custom front tool-head carrier plate](https://www.printables.com/model/1221132-custom-front-tool-head-carrier-plate-for-qidi-plus) modular design offers
+This page is intended to display the flexibility and options that the [Custom Front Tool Head Carrier Plate](https://www.printables.com/model/1221132-custom-front-tool-head-carrier-plate-for-qidi-plus) modular design offers
 
 The custom tool-head plate has a variety of attachments that can be used to construct a number of configurations for customising your Qidi Plus 4.
+
+Combined with the [Front 5015 Blower Part Cooling Fan Mod](https://www.printables.com/model/1232611-modular-front-mounted-5015-blower-modification-for),
+there is now a wide range of options to suit almost everyone's circumstances.
 
 These include:
 
@@ -45,13 +48,53 @@ remixes it for the modular tool-head
 
 [<img src="./small/Classic-Beacon-Mount-Items.jpg">](./images/Classic-Beacon-Mount-Items.jpg)
 
-### Aseembly Photos
+### Assembly Photos
 
 [<img src="./small/Classic-Beacon-Mount-Assembly-1.jpg">](./images/Classic-Beacon-Mount-Assembly-1.jpg)
 [<img src="./small/Classic-Beacon-Mount-Assembly-2.jpg">](./images/Classic-Beacon-Mount-Assembly-2.jpg)
 [<img src="./small/Classic-Beacon-Mount-Assembly-3.jpg">](./images/Classic-Beacon-Mount-Assembly-3.jpg)
 
-## Clear-View Beacon Mount Option
+---
+
+## Clear-View Beacon Mount
+
+This is an option that arises from mixing the Ducted Heatsink Fan Model from the Tool Head Carrier Plate project
+with the Beacon mount model from the Front 5015 Blower Fan Project
+
+### Assembly Photos
+
+[<img src="./small/Clear-View-Beacon-Assembly-1.jpg">](./images/Clear-View-Beacon-Assembly-1.jpg)
+[<img src="./small/Clear-View-Beacon-Assembly-2.jpg">](./images/Clear-View-Beacon-Assembly-2.jpg)
+[<img src="./small/Clear-View-Beacon-Assembly-3.jpg">](./images/Clear-View-Beacon-Assembly-3.jpg)
+
+---
+
+## Front 5015 Part-Cooling Blower with Beacon Probe
+
+### Parts Required
+
+[<img src="./small/Front-Blower-Beacon-Items.jpg">](./images/Front-Blower-Beacon-Items.jpg)
+
+### Assembly Photos
+
+[<img src="./small/Front-Blower-Beacon-Assembly-1.jpg">](./images/Front-Blower-Beacon-Assembly-1.jpg)
+[<img src="./small/Front-Blower-Beacon-Assembly-2.jpg">](./images/Front-Blower-Beacon-Assembly-2.jpg)
+[<img src="./small/Front-Blower-Beacon-Assembly-3.jpg">](./images/Front-Blower-Beacon-Assembly-3.jpg)
+[<img src="./small/Front-Blower-Beacon-Assembly-4.jpg">](./images/Front-Blower-Beacon-Assembly-4.jpg)
+
+---
+
+## Front 5015 Part-Cooling Blower with Stock Inductive Probe
+
+### Parts Required
+
+[<img src="./small/Front-Blower-Stock-Probe-Items.jpg">](./images/Front-Blower-Stock-Probe-Items.jpg)
+
+### Assembly Photos
+
+[<img src="./small/Front-Blower-Stock-Probe-Assembly-1.jpg">](./images/Front-Blower-Stock-Probe-Assembly-1.jpg)
+[<img src="./small/Front-Blower-Stock-Probe-Assembly-2.jpg">](./images/Front-Blower-Stock-Probe-Assembly-2.jpg)
+[<img src="./small/Front-Blower-Stock-Probe-Assembly-3.jpg">](./images/Front-Blower-Stock-Probe-Assembly-3.jpg)
 
 ---
 
