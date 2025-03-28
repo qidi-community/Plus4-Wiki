@@ -13,4 +13,52 @@ These include:
 - Adding a front-mounting 5015 Blower fan for part-cooling which frees up the rear-left exclusion zone
 - Front-Blower Mode can use either the Stock Inductive Probe, or be used with a Beacon Eddy Current Probe
 
-![Ducted Fan Path](./images/Ducted-Heatsink-Fan-Path.jpg)
+**Note:** All images may be clicked on for a larger version of the image
+
+# Assembly Options
+
+---
+
+## Inductive Probe Adaptor
+
+The following shows the simplest option of re-mounting the stock heatsink fan with the ducted fan mount,
+and using the inductive probe mount adaptor to re-use the stock inductive probe
+
+### Parts Required
+
+[<img src="./small/Stock-Fan-Probe-Items.jpg">](./images/Stock-Fan-Probe-Items.jpg)
+
+### Assembly Photos
+
+[<img src="./small/Stock-Fan-Probe-Assembly-1.jpg">](./images/Stock-Fan-Probe-Assembly-1.jpg)
+[<img src="./small/Stock-Fan-Probe-Assembly-2.jpg">](./images/Stock-Fan-Probe-Assembly-2.jpg)
+[<img src="./small/Stock-Fan-Probe-Assembly-3.jpg">](./images/Stock-Fan-Probe-Assembly-3.jpg)
+
+---
+
+## Classic Beacon Mount
+
+These are the items and assembly photos that uses lightly modified version of my original Beacon mount and
+remixes it for the modular tool-head
+
+### Parts Required
+
+[<img src="./small/Classic-Beacon-Mount-Items.jpg">](./images/Classic-Beacon-Mount-Items.jpg)
+
+### Aseembly Photos
+
+[<img src="./small/Classic-Beacon-Mount-Assembly-1.jpg">](./images/Classic-Beacon-Mount-Assembly-1.jpg)
+[<img src="./small/Classic-Beacon-Mount-Assembly-2.jpg">](./images/Classic-Beacon-Mount-Assembly-2.jpg)
+[<img src="./small/Classic-Beacon-Mount-Assembly-3.jpg">](./images/Classic-Beacon-Mount-Assembly-3.jpg)
+
+## Clear-View Beacon Mount Option
+
+---
+
+## Ducted Heatsink Fan Path
+
+The following image displays the "jigsaw" nature of the fit of the ducted heatsink fan mount to
+provide a fairly focused path into just the hotend heatsink.  When tested with PLA with the
+original stainless steel heat-break nozzle, this is sufficient to prevent heat creeping.
+
+[<img src="./small/Ducted-Heatsink-Fan-Path.jpg">](./images/Ducted-Heatsink-Fan-Path.jpg)
