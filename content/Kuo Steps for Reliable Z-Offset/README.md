@@ -155,7 +155,7 @@ My testing at multiple bed temperatures, probing speeds, and distances demonstra
 
 
 My settings for [smart_effector] and [bed_mesh] are below. Comments are at my changes.
-Be mindful of spaces. There must be a spaces after the number and before ;comment
+Be mindful of spaces. There must be a space after the number and before ;comment
 
 ````
 [smart_effector]
