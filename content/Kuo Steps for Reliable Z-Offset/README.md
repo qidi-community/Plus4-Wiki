@@ -169,13 +169,13 @@ lift_speed:18 ;faster drop away from probe
 probe_accel:50
 samples: 1 ;leave this at two until you verify probe is reliable
 samples_result: submaxmin
-sample_retract_dist: 7 ;probing distance
+sample_retract_dist: 8 ;probing distance
 samples_tolerance: 0.025 ;no greater than this for tolerance
 samples_tolerance_retries:5
 
 [bed_mesh]
 speed: 600 ;faster xy move between sample locations
-horizontal_move_z: 7 ;probing distance
+horizontal_move_z: 8 ;probing distance
 mesh_min:25,10
 mesh_max:295,295
 probe_count:9,9
@@ -183,6 +183,10 @@ algorithm:bicubic
 bicubic_tension:0.4
 mesh_pps: 2,2
 ````
+
+
+Before dropping samples down to 1, verify that your speed and distance settings achieve at least four full bed meshes without any out of tolerance repeats seen in console log. Most conservative would be to leave sample count at 2, but I am having good success rate printing with just 1 sample per location with my speed and distance settings. 
+
 
 
 # 5. Leveling Blocks
@@ -277,10 +281,10 @@ gcode:
     QIDI_PROBE_PIN_1
     m204 S50
     G4 P500
-    probe probe_speed=6 lift_speed=18 samples=5 sample_retract_dist=10
+    probe probe_speed=6 lift_speed=18 samples=5 sample_retract_dist=10 ; Most critical measurement here. So we leave at 5 samples.
     move_subzoffset
     M114
-    {% set p=(-0.15 + printer.gcode_move.homing_origin.z)|float %} ;typically -0.12 to -0.15 works well for my printers
+    {% set p=(-0.15 + printer.gcode_move.homing_origin.z)|float %} ; typically constants of -0.12 for PLA,  -0.15 for PETG, -0.20 for PC  work well on my printers. 
     SET_KINEMATIC_POSITION Z={p}
     G1 Z30 F600
     QIDI_PROBE_PIN_2
