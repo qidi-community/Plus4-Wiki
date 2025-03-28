@@ -18,11 +18,24 @@ These include:
 
 **Note:** All images may be clicked on for a larger version of the image
 
+---
+
+# Quick Link Index
+
+- [Ducted Heatsink with Stock Inductive Probe Adaptor](./README.md#ducted-heatsink-with-stock-inductive-probe-adaptor)
+- [Classic Beacon Mount](./README.md#classic-beacon-mount)
+- [Clear-View Beacon Mount](./README.md#clear-view-beacon-mount)
+- [Front 5015 Part-Cooling Blower with Beacon Probe](./README.md#front-5015-part-cooling-blower-with-beacon-probe)
+- [Front 5015 Part-Cooling Blower with Stock Inductive Probe](./README.md#front-5015-part-cooling-blower-with-stock-inductive-probe)
+- [Ducted Heatsink Fan Path](./README.md#ducted-heatsink-fan-path)
+
+---
+
 # Assembly Options
 
 ---
 
-## Inductive Probe Adaptor
+## Ducted Heatsink with Stock Inductive Probe Adaptor
 
 The following shows the simplest option of re-mounting the stock heatsink fan with the ducted fan mount,
 and using the inductive probe mount adaptor to re-use the stock inductive probe
@@ -71,9 +84,13 @@ with the Beacon mount model from the Front 5015 Blower Fan Project
 
 ## Front 5015 Part-Cooling Blower with Beacon Probe
 
+The following shows the parts and assembly of the Front 5015 Part-Cooling Blower Mod coupled with a Beacon Probe
+
+This is basically the full-featured implemention of both projects together.
+
 ### Parts Required
 
-[<img src="./small/Front-Blower-Beacon-Items.jpg">](./images/Front-Blower-Beacon-Items.jpg)
+[<img src="./small/Front-Blower-Stock-Probe-Items.jpg">](./images/Front-Blower-Stock-Probe-Items.jpg)
 
 ### Assembly Photos
 
@@ -86,9 +103,11 @@ with the Beacon mount model from the Front 5015 Blower Fan Project
 
 ## Front 5015 Part-Cooling Blower with Stock Inductive Probe
 
+The following shows the parts and assembly of the Front 5015 Part-Cooling Blower Mod while re-using the stock inductive probe
+
 ### Parts Required
 
-[<img src="./small/Front-Blower-Stock-Probe-Items.jpg">](./images/Front-Blower-Stock-Probe-Items.jpg)
+[<img src="./small/Front-Blower-Beacon-Items.jpg">](./images/Front-Blower-Beacon-Items.jpg)
 
 ### Assembly Photos
 
