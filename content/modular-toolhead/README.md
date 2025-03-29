@@ -12,7 +12,6 @@ These include:
 - Mounting the stock heatsink fan with a fully ducted path to the hotend heatsink to minimise heat creep
 - Providing a stock inductive probe mounting adaptor
 - Mounting a Beacon Eddy Current Probe using the classic Beacon mount model
-- Mounting a Beacon in a Clear-View orientation which provides much better visibility of the nozzle and print
 - Adding a front-mounting 5015 Blower fan for part-cooling which frees up the rear-left exclusion zone
 - Front-Blower Mode can use either the Stock Inductive Probe, or be used with a Beacon Eddy Current Probe
 
@@ -24,7 +23,6 @@ These include:
 
 - [Ducted Heatsink with Stock Inductive Probe Adaptor](./README.md#ducted-heatsink-with-stock-inductive-probe-adaptor)
 - [Classic Beacon Mount](./README.md#classic-beacon-mount)
-- [Clear-View Beacon Mount](./README.md#clear-view-beacon-mount)
 - [Front 5015 Part-Cooling Blower with Beacon Probe](./README.md#front-5015-part-cooling-blower-with-beacon-probe)
 - [Front 5015 Part-Cooling Blower with Stock Inductive Probe](./README.md#front-5015-part-cooling-blower-with-stock-inductive-probe)
 - [Ducted Heatsink Fan Path](./README.md#ducted-heatsink-fan-path)
@@ -66,19 +64,6 @@ remixes it for the modular tool-head
 [<img src="./small/Classic-Beacon-Mount-Assembly-1.jpg">](./images/Classic-Beacon-Mount-Assembly-1.jpg)
 [<img src="./small/Classic-Beacon-Mount-Assembly-2.jpg">](./images/Classic-Beacon-Mount-Assembly-2.jpg)
 [<img src="./small/Classic-Beacon-Mount-Assembly-3.jpg">](./images/Classic-Beacon-Mount-Assembly-3.jpg)
-
----
-
-## Clear-View Beacon Mount
-
-This is an option that arises from mixing the Ducted Heatsink Fan Model from the Tool Head Carrier Plate project
-with the Beacon mount model from the Front 5015 Blower Fan Project
-
-### Assembly Photos
-
-[<img src="./small/Clear-View-Beacon-Assembly-1.jpg">](./images/Clear-View-Beacon-Assembly-1.jpg)
-[<img src="./small/Clear-View-Beacon-Assembly-2.jpg">](./images/Clear-View-Beacon-Assembly-2.jpg)
-[<img src="./small/Clear-View-Beacon-Assembly-3.jpg">](./images/Clear-View-Beacon-Assembly-3.jpg)
 
 ---
 
