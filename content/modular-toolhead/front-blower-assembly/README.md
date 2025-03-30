@@ -11,12 +11,46 @@ Push the Stepper Motor Back into place against the rear tool head slider
 
 ![Stepper Motor In Place](./002.jpg)
 
+## Affixing the stepper motor
 
-![003](./003.jpg)
-![003](./004.jpg)
-![003](./005.jpg)
-![003](./006.jpg)
-![003](./007.jpg)
+Push the front plate onto the bearings so that they fit into the bearing holding cavities
+When everything is aligned, push the plates together carefully, ensuring that the 3 small
+alignment pins on the rear of the front plate properly insert into their place holders
+on the rear plate.
+
+![Align Front Plate](./003.jpg)
+
+Using M3 x 20mm SHCS (Socket Head Cap Screw) bolts, gently bolt the two plates together
+with the screws placed in the holes circled in red in the following photo.
+
+Do not tighten the screws all the way just yet.  Just tighten them enough such that the
+front plate isn't wanting to fall off.
+
+![Lightly screw the front and rear plates together](./004.jpg)
+
+While holding the stepper motor by the gear, wiggle it up until you're able to get the
+left mounting screw into the mounting thread on the motor.  This is probably the
+trickiest part in the whole assembly sequence.  Once you get the screw in, tighten it,
+but not all the way, and do the same for the right-side mounting screw.  Usually once
+you get one in, the other is fairly easy to get it aligned.
+
+When both are aligned and in place, then tighten them both firmly.
+
+![Tricky little screws](./006.jpg)
+
+## Run the front daughterboard and fan cables through their respective slots in the front
+tool-head carrier plate, and push the cable securement bracket into place.
+
+## Cable routing and securing
+
+![Daughter-board cable routing](./005.jpg)
+
+Run both the heatsink and front blower fan cables, and the filament detection cable through
+the left side channel, and then Slide on the cable clamp bracket on.
+
+![Cables and Bracket](./007.jpg)
+
+
 ![003](./008.jpg)
 ![003](./009.jpg)
 ![003](./010.jpg)
