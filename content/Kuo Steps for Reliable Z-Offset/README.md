@@ -204,7 +204,22 @@ Now that we have the Piezo and induction probes optimized with our [smart_effect
 
 Do the steps in https://github.com/qidi-community/Plus4-Wiki/tree/main/content/Screws-Tilt-Adjust to enable Screws_Tilt_Calculate. It is faster than working with paper or feeler gauges. 
 
-I perform Screws_Tilt_Calculate (and bedmeshes) with print bed at 90C because that is my most common print bed temp. If you typically print hotter, consider doing screw tilt adjust and bedmesh at the elevated bed temp. Doing this at room temp gives a different result than when performed at printing temperature.
+Tim Carroll suggests adding some extra parameters to improve probing in the printer.cfg SCREWS_TILT_CALCULATE macro. He addes probing speed, distance, and increases number of sampling and reports more repeatable probing during screw adjustment. Following his example and using my probing speeds and distances you would change the macro to...
+
+
+```
+[gcode_macro SCREWS_TILT_CALCULATE]
+rename_existing: _SCREWS_TILT_CALCULATE_BASE
+gcode:
+    { action_respond_info("starting screw rotation calculation...") }
+    M141 S0 # disable chamber heater (see https://github.com/qidi-community/Plus4-Wiki/tree/main/content/chamber-heater-issue)
+    M4031
+    G28
+    _SCREWS_TILT_CALCULATE_BASE horizontal_move_z=6 sample_retract_dist=8 samples=3
+```
+
+
+I perform Screws_Tilt_Calculate (and bedmeshes) with print bed at 90C because that is my most common print bed temp. Carroll further suggests also setting nozzle at 140C to emulate printer conditions during bedmesh probing. If you typically print hotter, consider doing screw tilt adjust and bedmesh at your elevated bed temp. Doing this at room temp gives a different result than when performed at printing temperature.
 
 NOTE: We already set left front screw to known good piezo pre-tension. LEAVE THAT LEFT FRONT SCREW ALONE and you will tend end up with other three also at reasonable pretension for piezos. Be leary of big adjustments tightening the adjustment knobs more than one full rotation.
 
