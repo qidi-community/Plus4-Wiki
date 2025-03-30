@@ -3,6 +3,9 @@
 These assembly instructions start from a state of disassembly, and moving to a fully assembled state
 If you're looking to disassemble your tool-head, just follow these instructions in reverse order
 
+**VERY IMPORTANT:** Ensure that the printer is powered off and unplugged throughout the tool head
+assembly procedure.
+
 ## Initial State
 
 Push the Stepper Motor Back into place against the rear tool head slider
@@ -17,6 +20,8 @@ Push the front plate onto the bearings so that they fit into the bearing holding
 When everything is aligned, push the plates together carefully, ensuring that the 3 small
 alignment pins on the rear of the front plate properly insert into their place holders
 on the rear plate.
+
+P.S. Ignore the front daughter-board in this photo, as it photo-bombed the shot :)
 
 ![Align Front Plate](./003.jpg)
 
@@ -38,37 +43,100 @@ When both are aligned and in place, then tighten them both firmly.
 
 ![Tricky little screws](./006.jpg)
 
-## Run the front daughterboard and fan cables through their respective slots in the front
-tool-head carrier plate, and push the cable securement bracket into place.
 
 ## Cable routing and securing
 
+Run the front daughterboard cables through its slow in the front tool-head carrier plate.
+
 ![Daughter-board cable routing](./005.jpg)
 
-Run both the heatsink and front blower fan cables, and the filament detection cable through
+Now run both the heatsink and front blower fan cables, and the filament detection cable through
 the left side channel, and then Slide on the cable clamp bracket on.
 
 ![Cables and Bracket](./007.jpg)
 
 
-![003](./008.jpg)
+## Tightening the plates together
+
+Now fully tighten the front and back plates together.  You will already have the top 2
+screws in place.  There's two more screws at the bottom.  Push the M3x20mm screws into
+place.  Hold the plates together, once again ensuring that the alighment pins are in
+place, and that the bearings are sitting in their slots properly, and then tighten all
+four screws down firmly.
+
+Afterwards, move the print head side to side by a few centimeters to test that the bearing
+are moving freely.
+
+![Tighten the Plates Together Now](./008.jpg)
+
+
+## Affix the front PCB daughterboard
+
+Using the smaller self-tapping screws, attach the daughterboard to the mounting holes and
+guide pin to the front of the tool-head as shown.  Make sure not to overly tighten the
+self-tapping screws as these can damage or split the screw holes.  Tighten them just enough
+that the PCB board doesn't want to wiggle about.
+
 ![003](./009.jpg)
+
 ![003](./010.jpg)
+
 ![003](./011.jpg)
+
+
+## Affix the rear toolhead cover
+
+Use the 4 self-tapping screws to affix the rear tool-head cover to the back plate.  The cover
+shown here is my super-light cover, but the stock rear cover also attaches with the same 4
+screws.
+
 ![003](./012.jpg)
+
+## Align the filament detection sensor cabling into the cable guide
+
+On the extruder assembly, the filament detection sensor cables should be placed into the small
+cable guide as shown.  It's easiest to push them into place, and then gently pull the cables from
+the rear tool-head to tighten them into position.
+
 ![003](./013.jpg)
+
+## Attach the extruder unit with 2 of M3x12mm screws
+
+(See photo)
+
 ![003](./014.jpg)
+
+## Attach the hotend
+
+![003](./018.jpg)
+![003](./019.jpg)
+
+## Route hotend cables and plug into front PCB board
+
+![003](./020.jpg)
+
+
+## Attach the heatsink fan to the fan mount
+
 ![003](./015.jpg)
 ![003](./016.jpg)
 ![003](./017.jpg)
-![003](./018.jpg)
-![003](./019.jpg)
-![003](./020.jpg)
+
+## Bolt heatsink fan mount to the tool-head carrier plate
+
 ![003](./021.jpg)
-![003](./022.jpg)
+
+## Attach Beacon Probe to bottom of the probe mount
+
 ![003](./023.jpg)
 
+## Attach beacon probe mount to toolhead
+
+![003](./022.jpg)
+
 ## Attach Part Cooling Fan Duct
+
+Secure the fan duct with the two M3 screws as shown
 
 ![003](./024.jpg)
 ![003](./025.jpg)
