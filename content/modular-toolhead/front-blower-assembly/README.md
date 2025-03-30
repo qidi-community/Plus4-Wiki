@@ -108,21 +108,32 @@ the rear tool-head to tighten them into position.
 
 ## Attach the hotend
 
+Push the hotend into place on the front cover.  Make sure that it is seated properly before
+tightening the mounting bolts down.  It should not be tilting as you're tighting the bolts.
+If it does so, then stop and re-align the hotend until it's properly lined up.
+
 ![003](./018.jpg)
 ![003](./019.jpg)
 
 ## Route hotend cables and plug into front PCB board
+
+Route the hotend cables through the holding bracket, and plug it into the PCB board
+The clip on the plug points downwards.
 
 ![003](./020.jpg)
 
 
 ## Attach the heatsink fan to the fan mount
 
+Slide the heatsink fan into place on the mount, and bolts it into the securing holes.
+
 ![003](./015.jpg)
 ![003](./016.jpg)
 ![003](./017.jpg)
 
 ## Bolt heatsink fan mount to the tool-head carrier plate
+
+(See photo)
 
 ![003](./021.jpg)
 
@@ -150,7 +161,9 @@ Gently push the outlet of the 5015 Blower into the inlet opening of the part coo
 
 ## Fan Check
 
-Turn on the hotend to 60C, and the part cooling fan to 100% speed.
+Turn the printer on now.
+
+Now turn on the hotend to 60C, and the part cooling fan to 100% speed.
 
 Verify that the hotend heatsink fan is spinning freely, and that the front blower is working too.
 
