@@ -27,8 +27,7 @@ Following the pattern shown in the photo below:
 
 ### 4 - Retighten the belt clamping bolts 
 
-Rew-tighten the belt clamping bolts, and re-run the Input Shaper Calibration procedure
-
+Now tighten the belt clamping bolts, and re-run the Input Shaper Calibration procedure
 
 
 ## How to increase/balance the belt tension on the Plus 4
