@@ -187,7 +187,8 @@ If you need more USB ports, you can run three cameras off one USB 2.0 port using
 
 This can free up several USB ports for other use.
 
-I have a UGREEN USB 3.0 Hub (https://www.amazon.com/dp/B0CD1BHXPZ)working with three cameras (two Creality Nebula Cameras and one stock camera)
+I have a UGREEN USB 3.0 Hub (https://www.amazon.com/dp/B0CD1BHXPZ) working with three cameras (two Creality Nebula Cameras and one stock camera). My hub is affixed within printer with 3M VHB adhesive tape.
+
 If you use a USB hub, be mindful of the camera paths. They must be unique to each camera, and you may need to use path_by_hardware filepaths.
 
 
