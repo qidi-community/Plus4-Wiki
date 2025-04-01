@@ -37,7 +37,7 @@ Gently move nozzle tip across the left edge of the platform to feel and see how 
 
 4. Replace PEI Plate and Verify Fit
 
-Once you have screws adjusted, put the PEI plate back on and verify how nozzle tip interacts with PEI plate. The nozzle should cleanly and effortless glide onto left edge of PEI plate. As you move the nozzle further right, it should engage the PEI plate just before reaching center of plate. Verify it is actually touching by moving the toolhead forwards and backwards slightly. If the nozzle is in actual contact, that will shift the PEI plate and its platform. Should heights need further adjustment, remove PEI plate and fine tune the heights.
+Once you have screws initially adjusted, put PEI cooling plate back on to verify how nozzle tip interacts with PEI plate and mounting platform. The nozzle tip should cleanly and effortless glide over left edges of mount and PEI plate. As you move the nozzle further right, it should engage the PEI plate about 1/3 width of plate, certainly by center of plate. I suggest using a piece of printing paper between nozzle tip and platform/PEI plate to feel for nozzle tip contact. Verify that your nozzle does not touch left edges but achieves contact when it travels rightward to 1/3 width of PEI plate. Should heights need further adjustment, remove PEI cooling plate and fine tune your heights.
 
 
 
