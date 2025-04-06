@@ -14,15 +14,30 @@ All of the below steps should be done from a laptop or computer that you use to 
 
 The only step that requires the VPN IP address or [magicdns](https://tailscale.com/kb/1081/magicdns) name is the last step and that is only for the mobile klipper client you installed to be configured.
 
+**Alternative Option To This Guide - Subnet Router**
+
+While out of scope for this specific documented procedure, it's worth calling out that one can configure a [subnet router](https://tailscale.com/kb/1019/subnets) to avoid having to install the tailscale client on your printer. It allows for more flexibility but comes at the cost of complexity; ie dedicated device acting as the subnet router. This notice is to draw awareness to the end user that alernative installations exist, without having to mess with your printer's firmware. 
+
 ## 1. Setup Tailscale VPN Account
 Follow the onboarding guidelines from Tailscale to create and register your first device, preferably your phone since you are replacing Qidi Link! Instructions are [here](https://tailscale.com/kb/1017/install). Once you see your phone listed in the devices, move on to the next step!
 
-## 2. Optional - Disable qidi link
-Since we don't need this service running anymore, let's scavenge back those resources! From the Qidi Plus 4 screen, enable lan-only mode.
+## 2. Optional - Disable qidi link (reversible)
+Since we don't need this service running anymore, let's scavenge back those resources! [SSH](./content/ssh-access/README.md) into the printer, and execute:
+```
+sudo systemctl disable --now QIDILink-client.service
+sudo mv /etc/systemd/system/QIDILink-client.service /etc/systemd/system/QIDILink-client.service.bak
+```
+### 2.5. sidenote
+if you ever want to get qidi link back, use ssh to execute functional opposite of above:
+```
+sudo mv /etc/systemd/system/QIDILink-client.service.bak /etc/systemd/system/QIDILink-client.service
+sudo systemctl enable --now QIDILink-client.service
+```
+
 
 ## 3. Install Tailscale
  
-To install tailscale on your printer, first connect via ssh and run this single command:
+To install tailscale on your printer, connect via [SSH](./content/ssh-access/README.md) and run this single command:
 
 ```
 curl -fsSL https://tailscale.com/install.sh | sh
@@ -31,11 +46,6 @@ curl -fsSL https://tailscale.com/install.sh | sh
 Follow the onscreen instructions to complete the installation process.
 
 Once you complete the installation and receive confirmation of installation, head over to your tailscale.com account to confirm it! Click the admin console link in the top right of the tailscale site and look for your printer in the list of machines. 
-
-**Alternative Option - Subnet Router**
-
-While out of scope for this specific documented procedure, it's worth calling out that one can configure a [subnet router](https://tailscale.com/kb/1019/subnets) to avoid having to install the tailscale client on your printer. It allows for more flexibility but comes at the cost of complexity; ie dedicated device acting as the subnet router and configuring it as a gateway on devices that you want access to. This notice is to draw awareness to the end user that alernative installations exist. 
-
 
 ## 4. Configure Moonraker 
 Since you are connecting to the printer from a different IP subnet, we need to configure moonraker to allow this connection. For most people, the easiest way to add this to the moonraker configuration is through the fluidd web interface on your printer. To do that, punch in the IP address of your printer in a browser, press the `x` key to open configurations, select the `moonraker.conf` file. 
