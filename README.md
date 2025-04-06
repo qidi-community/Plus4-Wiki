@@ -104,7 +104,7 @@ of the Qidi Plus4 3D printer.
 
 ### [WIP - A better chamber thermal sensor mounting position](https://www.thingiverse.com/thing:6802256)
 
-### [Articulating No Hands Door Seal](https://cults3d.com/en/3d-model/tool/plus4-articulating-no-hands-door-hinge-seal)
+### [Articulating No Hands Door Seal (paid)](https://cults3d.com/en/3d-model/tool/plus4-articulating-no-hands-door-hinge-seal)
 ---
 
 ## Additional Software
