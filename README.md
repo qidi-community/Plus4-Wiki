@@ -54,7 +54,7 @@ of the Qidi Plus4 3D printer.
 
 ### [Enabling KAMP Purge Line](./content/kamp-purging)
 
-### [Enabling Screws_Tilt_Adjust](./content/Screws-Tilt-Adjust/)
+### [Enabling SCREWS_TILT_CALCULATE](./content/Screws-Tilt-Adjust/)
 
 ### [Better Bed Meshing](./content/more-accurate-bed-meshing/README.md)
 
