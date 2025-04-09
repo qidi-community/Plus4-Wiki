@@ -165,7 +165,7 @@ x_offset: 25
 y_offset: 1.3
 z_offset: 0.000001
 speed: 5 ; probing speed
-lift_speed:20 ;faster drop away from probe
+lift_speed:18 ;faster drop away from probe
 probe_accel:50
 samples: 1 ;leave this at two until you verify probe is reliable
 samples_result: submaxmin
@@ -296,7 +296,7 @@ gcode:
     QIDI_PROBE_PIN_1
     m204 S50
     G4 P500
-    probe probe_speed=5 lift_speed=20 samples=5 sample_retract_dist=10 ; Most critical measurement here. So we leave at 5 samples.
+    probe probe_speed=5 lift_speed=18 samples=5 sample_retract_dist=10 ; Most critical measurement here. So we leave at 5 samples.
     move_subzoffset
     M114
     {% set p=(-0.15 + printer.gcode_move.homing_origin.z)|float %} ; typically constants of -0.12 for PLA,  -0.15 for PETG, -0.20 for PC  work well on my printers. 
