@@ -173,7 +173,16 @@ move_check_distance: 4
 
 - Add the following `[beacon]` section:
 
-Using the serial number you had captured before, put that in the serial section here:
+Using the serial number you had captured before, put that in the serial section here.
+
+It's been reported that there appears to be a bug in some versions of the Beacon
+firmware that causes `contact_activate_gcode` and `contact_deactivate_gcode` to
+fail.  As such, I have commented out those lines in the config here.
+
+Once your install is complete and if everything is verified to be working, then
+you may try uncommenting those lines to see if everything still works.  The
+deactivate macro performs a movement to move the print head away from the print
+bed as an additional safety measure, but it is not essential for normal operation.
 
 ```
 [beacon]
@@ -196,8 +205,8 @@ home_gcode_pre_x: _BEACON_HOME_PRE_X
 home_gcode_post_x: _BEACON_HOME_POST_X
 home_gcode_pre_y: _BEACON_HOME_PRE_Y
 home_gcode_post_y: _BEACON_HOME_POST_Y
-contact_activate_gcode: _BEACON_CONTACT_PRE_Z
-contact_deactivate_gcode: _BEACON_CONTACT_POST_Z
+#contact_activate_gcode: _BEACON_CONTACT_PRE_Z         
+#contact_deactivate_gcode: _BEACON_CONTACT_POST_Z
 contact_sensitivity: 1          # You can try the default of 0, but if your
                                 # automatic Z is too high, then put back to 1
 contact_latency_min: 2          # You can try the default of 0, but if your
