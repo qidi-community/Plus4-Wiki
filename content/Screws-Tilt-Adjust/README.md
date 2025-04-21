@@ -10,6 +10,9 @@ This also allows klipper to tell you exactly how much each screw will need to be
 
 Copy the contents of the file [here](https://github.com/qidi-community/config-xplus4/blob/main/screws-tilt-calculate.cfg) into your printer.cfg (somewhere in the middle will do). Restart the printer.
 
+> [!TIP]
+> In firmware 1.6 there already is a commented entry `[screws_tilt_adjust]`, just search and replace that.
+
 ## How to use the Macro
 
 Home your printer then run 
