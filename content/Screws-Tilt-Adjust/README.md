@@ -30,7 +30,11 @@ The most important values are on the left side and in green or red. The numbers 
 > [!NOTE]
 > This means turning the bed screw left and right while being at the side of the door, looking down.
 
-The numbers are in the hour:minute format, where 1 hour is 360 degrees, a full turn. For example 00:15 means you would need to turn the screw one quarter turn. 
+The numbers are in the `hour:minute` format, where 1 hour is 360 degrees, a full turn. For example 00:15 means you would need to turn the screw one quarter turn. 
+
+The same values will also be show in the Console:
+
+![image](https://github.com/user-attachments/assets/51dfdad4-9741-4a43-a016-bf6b502eda8a)
 
 Adjust all the values in red and press `Retry` until all the values are in green. 
 
