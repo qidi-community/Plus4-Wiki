@@ -151,7 +151,8 @@ and there are reports that this can take up to 1 hour for the chamber to reach 6
 
 ## Firmware v1.6.0 - Required Steps
 
-> **⚠️ Caution:** Do not follow these steps if on firmware earlier than v1.6.0
+> [!CAUTION]
+> Do not follow these steps if on firmware earlier than v1.6.0
 
 ### Modifying heaters.py
 
