@@ -25,10 +25,10 @@ The printer will probe each corner of the bed and then display a popup like this
 
 ![image](https://github.com/user-attachments/assets/27722936-8ce3-4062-b7e4-33463361283e)
 
-The most important values are on the left side and in green or red. The numbers are the amount of difference between that bed screw and the `base` bed screw. Note the icon infront of each number is either an arrow point clockwise or counter-clockwise. This is the direction you must turn the bed screw to adjust it.
+The most important values are on the left side and in green or red. The numbers are the amount of difference between that bed screw and the `base` bed screw. Note the icon infront of each number is either an arrow point Clockwise or Counter-Clockwise. This is the direction you must turn the bed screw to adjust it.
 
 > [!NOTE]
-> This means turning the bed screw left and right while being at the side of the door, looking down.
+> This means turning the bed screw Counter-Clockwise (CCW) or Clockwise (CW) while being at the front side of the printer, at the door, looking down.
 
 The numbers are in the `hour:minute` format, where 1 hour is 360 degrees, a full turn. For example 00:15 means you would need to turn the screw one quarter turn. 
 
