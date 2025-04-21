@@ -2,9 +2,10 @@
 
 ## Introduction
 
-> **⚠️ Caution:** *For firmware v1.6.0 or later, you have two choices:*
-> 1. *Don't use this warmup sequence at all.*
-> 2. *Use the [Improved PRINT_START macro](#Improved-PRINT_START-macro) in addition to the steps detailed in [Firmware v1.6.0 - Required Steps](#firmware-v160---required-steps).*
+> [!CAUTION]
+> For firmware v1.6.0 or later, you have two choices:*
+> 1. Don't use this warmup sequence at all.
+> 2. Use the [Improved PRINT_START macro](#Improved-PRINT_START-macro) in addition to the steps detailed in [Firmware v1.6.0 - Required Steps](#firmware-v160---required-steps).
 
 ***
 
