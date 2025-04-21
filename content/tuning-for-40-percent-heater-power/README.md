@@ -153,7 +153,7 @@ and there are reports that this can take up to 1 hour for the chamber to reach 6
 ### Modifying heaters.py
 
 1. SSH into the printer
-2. Write a new file named ```heaters.patch``` with these contents:
+2. Write a new file named `heaters.patch` with these contents:
 <details open>
 <summary>Patch for heaters.py</summary>
 
@@ -177,15 +177,21 @@ and there are reports that this can take up to 1 hour for the chamber to reach 6
 
 </details>
 
-3. Apply the patch ```patch /home/mks/klipper/klippy/extras/heaters.py < /path/to/heaters.patch```
+3. Apply the patch 
+```
+patch /home/mks/klipper/klippy/extras/heaters.py < /path/to/heaters.patch
+```
 
-4. If that was succesfull you will see something like ```patching file heaters.py```
+4. If that was succesfull you will see something like `patching file heaters.py` without any further output and an exitcode of `0` (execute `echo $?`, which is the exitcode of the last executed command).
+
+![image](https://github.com/user-attachments/assets/1ad7766f-907d-47b0-a58f-577d708bb5b0)
 
 ### Explanation
 
-We have modified the code in heaters.py to add a ```DISABLE_BED_CHECK = True``` flag. 
+We have modified the code in heaters.py to add a `DISABLE_BED_CHECK = True` flag. 
 Where normally the chamber heater does not turn on unless the bed is within 2 degrees of the target bed temp, we ignore this using our new flag.
-Set ```DISABLE_BED_CHECK = False``` if you want to revert to the default behavior.
+
+Set `DISABLE_BED_CHECK = False` if you want to revert to the default behavior.
 
 ```python
         # We add this DISABLE_BED_CHECK flag so that the chamber heater can be controlled independently of the bed heater
