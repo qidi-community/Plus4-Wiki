@@ -3,7 +3,7 @@
 ## Introduction
 
 > [!CAUTION]
-> For firmware v1.6.0 or later, you have two choices:*
+> For firmware v1.6.0 or later, you have two choices:
 > 1. Don't use this warmup sequence at all.
 > 2. Use the [Improved PRINT_START macro](#Improved-PRINT_START-macro) in addition to the steps detailed in [Firmware v1.6.0 - Required Steps](#firmware-v160---required-steps).
 
@@ -15,7 +15,6 @@ This now made chamber warmup times considerably slower as a result, however we c
 
 Now keep in mind that the primary point of slowness during a print start warmup was actually the print bed, and not the chamber heater warmup,
 and we can use this to our advantage to improve the overall situation.
-
 
 ## Test Baseline
 
@@ -40,16 +39,13 @@ and the time when the bed meshing starts for the print.  This really is the only
 It was observed that while the chamber temperature would reach the target within 10 minutes,
 the print bed would only reach 100C after 16 minutes and 30 seconds before the bed mesh started.
 
-
 ## Test 2 - Warmup times at 40% heater power, stock configuration
 
 It was observed that it took 25 minutes to the time that the bed meshing started
 
-
 ## Test 3 - Warmup times at 40% heater power with tuned `PRINT_START` and `M191` macros
 
 A time of 19m30s was observed to the time that the bed meshing started.
-
 
 ## Improved PRINT_START macro
 
