@@ -15,7 +15,7 @@ Copy the contents of the file [here](https://github.com/qidi-community/config-xp
 
 ## How to use the Macro
 
-Home your printer then run 
+Home your printer, using Fluidd or the display on the printer, then run this command in the Console section:
 
 `SCREWS_TILT_CALCULATE`
 
