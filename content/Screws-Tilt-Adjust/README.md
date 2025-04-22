@@ -21,6 +21,10 @@ Home your printer, using Fluidd or the display on the printer, then run this com
 
 ![image](https://github.com/user-attachments/assets/6993554b-383b-4855-9847-291efb51f954)
 
+Or click the button in Macro section
+
+![image](https://github.com/user-attachments/assets/5e2bb150-9166-4243-bb34-398daafba3f2)
+
 The printer will probe each corner of the bed and then display a popup like this: 
 
 ![image](https://github.com/user-attachments/assets/27722936-8ce3-4062-b7e4-33463361283e)
@@ -35,6 +39,9 @@ The numbers are in the `hour:minute` format, where 1 hour is 360 degrees, a full
 The same values will also be show in the Console:
 
 ![image](https://github.com/user-attachments/assets/51dfdad4-9741-4a43-a016-bf6b502eda8a)
+
+> [!NOTE]
+> If you have a desktop app or browser running at same time as you are using a phone app or a different browser, be sure to keep the browser or app active from which you want to see the output screen. (For example, if you use a phone and let the app go idle, the results will only display on the desktop app or maybe even not at all).
 
 Adjust all the values in red and press `Retry` until all the values are in green. 
 
