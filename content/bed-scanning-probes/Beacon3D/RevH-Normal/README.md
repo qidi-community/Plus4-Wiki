@@ -881,3 +881,8 @@ gcode:
 You can reach out to me, `stew675` on the [Qidi Official Discord](https://discord.gg/B6jDttWUE6) in the Plus 4 channel
 
 Alternately you can reach out to the [Official Beacon Discord Channel](https://discord.gg/MzTR3zE) and ask for help there
+
+
+## Supporting the creator
+
+Enjoying my guide and work?  [How about buying me a coffee!](https://ko-fi.com/stew675)
