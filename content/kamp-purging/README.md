@@ -18,7 +18,7 @@ First we must edit the `KAMP_Setting.cfg` file, which lives in the same director
 
 ![Where to find KAMP_Settings file](./Finding_Kamp_Settings_Cfg_File.png)
 
-or go to directory `/home/mks/printer_data/config` is your using [SSH](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/ssh-access).
+or go to directory `/home/mks/printer_data/config` if you're using [SSH](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/ssh-access).
 
 Uncomment the line `[include ./KAMP/Line_Purge.cfg]`.
 
