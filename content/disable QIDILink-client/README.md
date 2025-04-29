@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Qidi Plus 4 install has got a similar feature as Bambu Handy, called the [Qidi Link](https://wiki.qidi3d.com/en/app) client, setting it up through the cloud but it's just a compiled binary in the home-directory of root, being called by a bash script at boot. No service integration, no packaging, just base image... 
+The Qidi Plus 4 install has got a similar feature as Bambu Handy, called the [Qidi Link](https://wiki.qidi3d.com/en/app) client, setting it up through the cloud but it's just a compiled binary in the home-directory of root, being called by a bash script at boot. No packaging, just base image... 
 On an OS, using nginx, which is deemed "End of Life" (EOL) since 2022.
 
 The security implications are severe, but potentially unfounded. [This comment](https://www.reddit.com/r/3Dprinting/comments/1g91nq9/comment/ltxrq06) on reddit states:
@@ -31,12 +31,12 @@ To turn this off fully, and erradicate it at the root, follow these steps:
     - run the command `sed -i 's!^\/root\/QIDILink\-client\/udp_server!\#\/root\/QIDILink\-client\/udp_server!' /root/xindi/build/start.sh`
       
       ![image](https://github.com/user-attachments/assets/b09a4d9d-19f7-44df-9789-5024ed48cae8)
-1. Go to the systemd service directory
+1. Disable the systemd service
     - run the command `cd /etc/systemd/system`
     - run the command `mv -v QIDILink-client.service{,.masked}`
     - run the command `systemctl mask QIDILink-client`
 
-      You should now have 2 files in that location, where the "right" one `QIDILink-client.service` is actually pointing towards the big black hole called `/dev/null`.
+      You should now have 2 files in that location, where the "right" one (in the eyes of the OS, called `QIDILink-client.service`) is actually pointing towards the big black hole called `/dev/null`.
       ![image](https://github.com/user-attachments/assets/49fff9cd-b761-41e0-bf94-2653b8074d5a)
 
 ## Restart the Printer
