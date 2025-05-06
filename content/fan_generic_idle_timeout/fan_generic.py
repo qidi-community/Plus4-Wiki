@@ -38,6 +38,8 @@ class PrinterFanGeneric:
         speed = gcmd.get_float('SPEED', 0.)
         self.last_speed = self.target_speed
         self.target_speed = speed
+        if speed > 0:
+            self.fan.set_speed_from_command(speed)
     def callback(self, eventtime):
         set_speed = self.target_speed
         if set_speed > 0:
