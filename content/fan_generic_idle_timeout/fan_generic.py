@@ -30,27 +30,28 @@ class PrinterFanGeneric:
         self.last_speed = 0.0
         self.target_speed = 0.0
     def handle_ready(self):
-        reactor = self.printer.get_reactor()
-        reactor.register_timer(self.callback, reactor.monotonic()+PIN_MIN_TIME)
+        if self.idle_timeout > 0:
+            reactor = self.printer.get_reactor()
+            reactor.register_timer(self.callback, reactor.monotonic()+PIN_MIN_TIME)
     def get_status(self, eventtime):
         return self.fan.get_status(eventtime)
     def cmd_SET_FAN_SPEED(self, gcmd):
         speed = gcmd.get_float('SPEED', 0.)
         self.last_speed = self.target_speed
         self.target_speed = speed
-        if speed > 0:
+        if speed > 0.0 or self.idle_timeout < 1:
             self.fan.set_speed_from_command(speed)
     def callback(self, eventtime):
         set_speed = self.target_speed
-        if set_speed > 0:
+        if set_speed > 0.0:
             self.last_speed = set_speed
             self.last_on = 0
-        elif self.last_speed > 0:
+        elif self.last_speed > 0.0:
             if self.last_on < self.idle_timeout:
                 set_speed = self.last_speed
                 self.last_on += 1
             else:
-                self.last_speed = 0
+                self.last_speed = 0.0
                 self.last_on = self.idle_timeout
 
         curtime = self.printer.get_reactor().monotonic()
