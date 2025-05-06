@@ -16,19 +16,15 @@ class PrinterFanGeneric:
         self.fan_name = config.get_name().split()[-1]
         self.fan_speed = config.getfloat('fan_speed', default=1.,
                                          minval=0., maxval=1.)
-        self.idle_speed = config.getfloat(
-            'idle_speed', default=self.fan_speed, minval=0., maxval=1.)
         self.idle_timeout = config.getint("idle_timeout", default=0, minval=0)
-
+        self.last_on = self.idle_timeout
+        self.last_speed = 0.0
+        self.target_speed = 0.0
         gcode = self.printer.lookup_object("gcode")
         gcode.register_mux_command("SET_FAN_SPEED", "FAN",
                                    self.fan_name,
                                    self.cmd_SET_FAN_SPEED,
                                    desc=self.cmd_SET_FAN_SPEED_help)
-        self.fan_on = True
-        self.last_on = self.idle_timeout
-        self.last_speed = 0.0
-        self.target_speed = 0.0
     def handle_ready(self):
         if self.idle_timeout > 0:
             reactor = self.printer.get_reactor()
@@ -53,7 +49,6 @@ class PrinterFanGeneric:
             else:
                 self.last_speed = 0.0
                 self.last_on = self.idle_timeout
-
         curtime = self.printer.get_reactor().monotonic()
         print_time = self.fan.get_mcu().estimated_print_time(curtime)
         self.fan.set_speed(print_time + PIN_MIN_TIME, set_speed)
