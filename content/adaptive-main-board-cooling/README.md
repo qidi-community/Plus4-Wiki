@@ -32,18 +32,17 @@ For each of the mentioned configuration sections within your `printer.cfg` file,
 First find the `[controller_fan board_fan]` section and comment it out like so:
 
 ```
-#[controller_fan board_fan]
-#pin:U_1:PC4
-#max_power:1.0
-#shutdown_speed:1.0
-#cycle_time:0.01
-#fan_speed: 1.0
-#stepper:stepper_x,stepper_y
+# [controller_fan board_fan]
+# pin:U_1:PC4
+# max_power:1.0
+# shutdown_speed:1.0
+# cycle_time:0.01
+# fan_speed: 1.0
+# heater:chamber
+# stepper:stepper_x,stepper_y
 ```
-There have been reports of later firmware versions having additional lines to the above `[controller_fan board_fan]` example.
-These should also be commented out if they appear in your configuration.  ie. the entire `[controller_fan board_fan]` section
-should be commented out.
-
+> [!WARNING]  
+> There have been reports of later firmware versions having additional or less lines to the above `[controller_fan board_fan]` example. Those should also be commented out if they appear in your configuration (ie. the entire `[controller_fan board_fan]` section should be commented out).
 
 Now add the following configuration below the commented out section:
 

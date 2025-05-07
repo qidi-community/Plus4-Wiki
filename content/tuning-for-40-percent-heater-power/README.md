@@ -2,9 +2,10 @@
 
 ## Introduction
 
-> **⚠️ Caution:** *For firmware v1.6.0 or later, you have two choices:*
-> 1. *Don't use this warmup sequence at all.*
-> 2. *Use the [Improved PRINT_START macro](#Improved-PRINT_START-macro) in addition to the steps detailed in [Firmware v1.6.0 - Required Steps](#firmware-v160---required-steps).*
+> [!CAUTION]
+> For firmware v1.6.0 or later, you have two choices:
+> 1. Don't use this warmup sequence at all.
+> 2. Use the [Improved PRINT_START macro](#Improved-PRINT_START-macro) in addition to the steps detailed in [Firmware v1.6.0 - Required Steps](#firmware-v160---required-steps).
 
 ***
 
@@ -14,7 +15,6 @@ This now made chamber warmup times considerably slower as a result, however we c
 
 Now keep in mind that the primary point of slowness during a print start warmup was actually the print bed, and not the chamber heater warmup,
 and we can use this to our advantage to improve the overall situation.
-
 
 ## Test Baseline
 
@@ -39,16 +39,13 @@ and the time when the bed meshing starts for the print.  This really is the only
 It was observed that while the chamber temperature would reach the target within 10 minutes,
 the print bed would only reach 100C after 16 minutes and 30 seconds before the bed mesh started.
 
-
 ## Test 2 - Warmup times at 40% heater power, stock configuration
 
 It was observed that it took 25 minutes to the time that the bed meshing started
 
-
 ## Test 3 - Warmup times at 40% heater power with tuned `PRINT_START` and `M191` macros
 
 A time of 19m30s was observed to the time that the bed meshing started.
-
 
 ## Improved PRINT_START macro
 
@@ -150,12 +147,13 @@ and there are reports that this can take up to 1 hour for the chamber to reach 6
 
 ## Firmware v1.6.0 - Required Steps
 
-> **⚠️ Caution:** Do not follow these steps if on firmware earlier than v1.6.0
+> [!CAUTION]
+> Do not follow these steps if on firmware earlier than v1.6.0 !!
 
 ### Modifying heaters.py
 
 1. SSH into the printer
-2. Write a new file named ```heaters.patch``` with these contents:
+2. Write a new file named `heaters.patch` with these contents:
 <details open>
 <summary>Patch for heaters.py</summary>
 
@@ -179,15 +177,21 @@ and there are reports that this can take up to 1 hour for the chamber to reach 6
 
 </details>
 
-3. Apply the patch ```patch /home/mks/klipper/klippy/extras/heaters.py < /path/to/heaters.patch```
+3. Apply the patch 
+```
+patch /home/mks/klipper/klippy/extras/heaters.py < /path/to/heaters.patch
+```
 
-4. If that was succesfull you will see something like ```patching file heaters.py```
+4. If that was succesfull you will see something like `patching file heaters.py` without any further output and an exitcode of `0` (execute `echo $?`, which is the exitcode of the last executed command).
+
+![image](https://github.com/user-attachments/assets/1ad7766f-907d-47b0-a58f-577d708bb5b0)
 
 ### Explanation
 
-We have modified the code in heaters.py to add a ```DISABLE_BED_CHECK = True``` flag. 
+We have modified the code in heaters.py to add a `DISABLE_BED_CHECK = True` flag. 
 Where normally the chamber heater does not turn on unless the bed is within 2 degrees of the target bed temp, we ignore this using our new flag.
-Set ```DISABLE_BED_CHECK = False``` if you want to revert to the default behavior.
+
+Set `DISABLE_BED_CHECK = False` if you want to revert to the default behavior.
 
 ```python
         # We add this DISABLE_BED_CHECK flag so that the chamber heater can be controlled independently of the bed heater
@@ -211,3 +215,12 @@ Set ```DISABLE_BED_CHECK = False``` if you want to revert to the default behavio
             else:
                 heater_bed.heater_bed_state = 2
 ```
+## Restart the Printer
+
+> [!NOTE]
+> If you've edited the files through Fluidd, Use the orange "Save & Restart" button up top
+
+The files we've just edited are not necessarily written to disk yet. 
+To force this to happen, run the command `sync`. If that comes back with no further remarks and an exitcode of `0`, you can powercycle the printer.
+
+![image](https://github.com/user-attachments/assets/fde60fab-cb96-482a-aad2-c40e5a41a9f3)
