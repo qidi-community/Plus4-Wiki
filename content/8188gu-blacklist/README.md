@@ -26,14 +26,27 @@ CPU cycles.
 
 ## Option 2: Blacklist the Driver Module
 If you'd rather NOT remove the dongle, you can simply blacklist the module from loading
-in the first place. To do so, execute this simple one liner to create the this file:
+in the first place. To do so, run the following commands:
 
-`sudo bash -c "echo 'blacklist 8188*' > /etc/modprobe.d/blacklist-8188gu.conf"`
+`ssh mks@`[3D_PRINTER_IP_ADDRESS]
+enter password `makerbase`
+`sudo bash`
+enter password `makerbase`
+`cd /etc/modprobe.d`
+`ls`
+`echo "blacklist 8188gu" > blacklist-8188gu.conf`
+`echo "blacklist cfg80211" > blacklist-cfg80211.conf`
+`echo "blacklist rfkill" > blacklist-rfkill.conf`
+`ls`
+verify 3 new blacklist-*.conf files exist
+`update-initramfs -u`
 
 Once complete, restart your Plus4.
 
 ## Validate The Fix
-Once you have restarted your Plus4, connect via `ssh` to your printer and run the following command:
+Once you have restarted your Plus4, connect via `ssh` to your printer again and run the following command:
 
-`ps aux|grep -i rtw_cmd_thread && echo 'Module still loaded' || echo 'Module not loaded'`
+`MODULE="8188gu"; lsmod | grep -qw "$MODULE" && echo "Module '$MODULE' is loaded." || echo "Module '$MODULE' is NOT loaded."`
+`MODULE="cfg80211"; lsmod | grep -qw "$MODULE" && echo "Module '$MODULE' is loaded." || echo "Module '$MODULE' is NOT loaded."`
+`MODULE="rfkill"; lsmod | grep -qw "$MODULE" && echo "Module '$MODULE' is loaded." || echo "Module '$MODULE' is NOT loaded."`
 
