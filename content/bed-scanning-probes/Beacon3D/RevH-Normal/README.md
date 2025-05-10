@@ -635,8 +635,8 @@ Each of the macros above will position the probe above the knobs so you can adju
 
 To use these macros, first heat your print bed to your typical printing temperature.
 When the print bed's temperature has stabilised, call `SCREW_ADJUST_START` from the console.
-This re-homes the axes and re-confirms where the nozzle touches the build plate, and leaves the hotend
-on at the contact probing temperature.
+This re-homes the axes and re-confirms where the nozzle touches the build plate, and then turns the
+hotend off.  From here on the Beacon will probe the bed distance using its proximity mode.
 
 Now call the `SFL`, `SFR`, `SBL`, and `SBR` macro listed above and look at the last line of the output
 
