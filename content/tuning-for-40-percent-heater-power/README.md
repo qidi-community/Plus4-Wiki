@@ -72,7 +72,7 @@ gcode:
     M400                                # Wait for all prior G-code commands to be processed by MCU
     M104 S0                             # Make sure hotend is off
     M106 P3 S0                          # Turn off chamber circulation/exhaust fan
-    M106 S255                           # Turn on part cooling fan to full speed
+    M106 S0                             # Turn off part cooling fan
 
     {% if chambertemp > 0 %}
         M106 P2 S255                    # Set AUX to full to help mix chamber air fully
