@@ -28,10 +28,8 @@ CPU cycles.
 If you'd rather NOT remove the dongle, you can simply blacklist the module from loading
 in the first place. To do so, run the following commands:
 
-`ssh mks@`[3D_PRINTER_IP_ADDRESS]
-enter password `makerbase`
-`sudo bash`
-enter password `makerbase`
+ssh into your 3D Printer's Linux command shell (see [ssh-access](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/ssh-access) for details)
+sudo -i
 `cd /etc/modprobe.d`
 `ls`
 `echo "blacklist 8188gu" > blacklist-8188gu.conf`
