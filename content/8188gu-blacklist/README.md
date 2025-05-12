@@ -39,7 +39,15 @@ sudo -i
 verify 3 new blacklist-*.conf files exist
 `update-initramfs -u`
 
-Once complete, restart your Plus4.
+## Restart the Printer
+
+> [!NOTE]
+> If you've edited the files through Fluidd, Use the orange "Save & Restart" button up top
+
+The files we've just edited are not necessarily written to disk yet. 
+To force this to happen, run the command `sync`. If that comes back with no further remarks and an exitcode of `0`, you can powercycle the printer.
+
+![image](https://github.com/user-attachments/assets/fde60fab-cb96-482a-aad2-c40e5a41a9f3)
 
 ## Validate The Fix
 Once you have restarted your Plus4, connect via `ssh` to your printer again and run the following command:
