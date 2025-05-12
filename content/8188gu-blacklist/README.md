@@ -52,7 +52,5 @@ To force this to happen, run the command `sync`. If that comes back with no furt
 ## Validate The Fix
 Once you have restarted your Plus4, connect via `ssh` to your printer again and run the following command:
 
-`MODULE="8188gu"; lsmod | grep -qw "$MODULE" && echo "Module '$MODULE' is loaded." || echo "Module '$MODULE' is NOT loaded."`
-`MODULE="cfg80211"; lsmod | grep -qw "$MODULE" && echo "Module '$MODULE' is loaded." || echo "Module '$MODULE' is NOT loaded."`
-`MODULE="rfkill"; lsmod | grep -qw "$MODULE" && echo "Module '$MODULE' is loaded." || echo "Module '$MODULE' is NOT loaded."`
+`for MODULE in 8188gu cfg80211 rfkill ; do lsmod | grep -qw "${MODULE}" && echo "Module '${MODULE}' is loaded." || echo "Module '${MODULE}' is NOT loaded." ; done`
 
