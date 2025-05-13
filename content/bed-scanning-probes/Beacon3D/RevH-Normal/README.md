@@ -108,6 +108,11 @@ Then save the file and exit the editor.
 
 After either option is complete, then power-cycle your printer.
 
+**VERY IMPORTANT NOTE** - Power-cycle means to turn your printer off at the power switch, wait 10s, and then turn it back on.
+
+It does **NOT** mean just save and restart.  That will not perform the necessary Klipper firmware rebuilding that
+happens with a power cycle.
+
 
 ***
 
