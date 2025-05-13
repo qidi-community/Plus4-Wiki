@@ -1,9 +1,9 @@
 
-# Scrubaxy: Automated Z-Axis Lead Screw Cleaner for Qidi Plus 4
+# Scrubaxi: Automated Z-Axis Lead Screw Cleaner for Qidi Plus 4
 
 [External Link to Makerworld files](https://makerworld.com/en/models/1414290-scrubaxi-qidi-p4-z-lead-screw-cleaner-t10)
 
-**TLDR:** Scrubaxy is a 2-part 3D-printed tool for cleaning your Qidi Plus 4's Z-axis lead screws. It clamps onto the screw, uses IPA and a cloth to remove grime, and has relief cuts to keep buildup in the tool and not to spread it around. A custom G-code automates the cleaning process with a "bounce" method and audible notifications.
+**TLDR:** Scrubaxi is a 2-part 3D-printed tool for cleaning your Qidi Plus 4's Z-axis lead screws. It clamps onto the screw, uses IPA and a cloth to remove grime, and has relief cuts to keep buildup in the tool and not to spread it around. A custom G-code automates the cleaning process with a "bounce" method and audible notifications.
 
 ## Introduction
 
@@ -22,7 +22,7 @@ This project introduces 'Scrubaxi' a tool inspired by the 'Rod Sloth' for effici
 
 ## Cleaning Process
 
-The cleaning process is analogous to deburring a hole with a tap and die, using a 'bounce' method where the printer bed moves 10mm upwards to clean, then retracts 5mm downwards, repeating this 50 times. This ensures thorough removal of accumulated grease and debris, even heavily contaminated grease as observed after only 40 hours of printing. The tool is designed for ease of use, with a complete cleaning cycle, including three full passes of the lead screw, taking place within a single G-code sequence. This project aims to simplify 3D printer maintenance and improve the longevity of lead screw components. 'Scrubaxy' has been lengthened to provide better stability and its handle is designed to fit flush against the vertical guide rails, minimizing unwanted movement.
+The cleaning process is analogous to deburring a hole with a tap and die, using a 'bounce' method where the printer bed moves 10mm upwards to clean, then retracts 5mm downwards, repeating this 50 times. This ensures thorough removal of accumulated grease and debris, even heavily contaminated grease as observed after only 40 hours of printing. The tool is designed for ease of use, with a complete cleaning cycle, including three full passes of the lead screw, taking place within a single G-code sequence. This project aims to simplify 3D printer maintenance and improve the longevity of lead screw components. 'Scrubaxi' has been lengthened to provide better stability and its handle is designed to fit flush against the vertical guide rails, minimizing unwanted movement.
 
 ![Alt Text](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGl6c3plYWJ1NDR4MHAzZG9hMHF3bGhuZHl4NXJ0NDJwbncwbWRiZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/S3fcZiYTDOJOLyaxJb/giphy.gif)
 
