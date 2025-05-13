@@ -1,149 +1,197 @@
-# Qidi Community Plus4 Wiki
 
-This is a summary collection of various config tweaks, print profiles, the discussion of, and
-links to various printable models that have been developed for improving the user experience
-of the Qidi Plus4 3D printer.
-
-## Official Qidi Wiki
-
-### [Qidi Plus 4 Wiki/Support Page](https://wiki.qidi3d.com/en/X-Plus4)
-
----
-
-## Issues and Possible Fixes
-
-### [SSH Access](./content/ssh-access/README.md)
-
-### [Adding Beacon3D](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/bed-scanning-probes/Beacon3D/RevH-Normal)
-
-### [Adding Cartographer](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/bed-scanning-probes/cartographer3d)
-
-### [Modular Tool-Head Mod](./content/modular-toolhead/README.md)
-
-### [Conditional purging and pei wiping to address the cracking of nozzles with ceramic heat-breaks](content/conditional_purging_and_wiping/README.md)
-
-### [Warming the Chamber Faster!](./content/tuning-for-40-percent-heater-power/README.md)
-
-### [More Accurate Chamber Temperature Measurements](./content/chamber-heater-investigation/README.md)
-
-### [Broken touchscreen firmware](./content/display-firmware-repair/README.md)
-
----
-
-## (Mostly) Defunct fixes that have been fixed with newer shipping Plus4 models
-
-### [PLA/PETG Heat-creep clogging](./content/nozzle-clogging-tips/README.md) - Fixed by using nozzles with ceramic heatbreaks
-
-### [Chamber Heater Issue](./content/chamber-heater-issue/README.md) - Largely addressed by the v1.6.0 and later firmware
-
-### [SSR Upgrade Mod](./content/heater-ssr-upgrade/README.md) - All Plus4's manufactured after Dec 2024 should already have the fixed SSR's
-
----
-
-## Printer Configuration Tweaks
-
-### [Dynamic Chamber Temperature Manager](./content/chamber-temperature-manager/README.md)
-
-### [Enhanced Stepper Motor Configuration](./content/stepper-motor-tweaks/README.md)
-
-### [Tweak to Square Corner Velocity](./content/square-corner-velocity/README.md)
-
-### [Adaptive Main Board Cooling configuration](./content/adaptive-main-board-cooling)
-
-### [Making Z-Offset Permanent](./content/making-z-offset-permanent)
-
-### [Enabling KAMP Purge Line](./content/kamp-purging)
-
-### [Enabling SCREWS_TILT_CALCULATE](./content/Screws-Tilt-Adjust/)
-
-### [Better Bed Meshing](./content/more-accurate-bed-meshing/README.md)
-
-### [Plus4 System Performance Tuning](./content/system-tuning/README.md)
-
-### [Disable Wifi Adapter](./content/8188gu-blacklist/README.md)
-
-### [Temperature Change Chimes](./content/temp-chime/README.md)
-
-### [Secure Remote Access](./content/secure-remote-access/README.md)
-
-## Orca Slicer Configuration
-
-### [Orca Slicer Settings](./content/orca-slicer-settings)
-
----
-
-## Printable Models
-
-### [Ejecta Chute and Catch Bucket](https://www.thingiverse.com/thing:6789666)
-
-### [Ejecta Chute and Catch Bucket - No heatset inserts remix](https://www.thingiverse.com/thing:6794632)
-
-### [Fan duct for the hotend heatsink](https://www.thingiverse.com/thing:6782612)
-
-### [Mainboard Rear cover that allows use of an 80mm fan](https://www.thingiverse.com/thing:6787302)
-
-### [Lid Hangers](https://www.printables.com/model/1025183-qidi-plus-4-lid-hanger)
-
-### [Filter Exhaust Blocker](https://www.printables.com/model/1037302-qidi-plus-4-filter-exhaust-blocker)
-
-### [Rear Chamber Seal](https://www.printables.com/model/1040774-qidi-plus-4-rear-chamber-cover)
-
-### [HEPA/Activated Carbon filtration system](https://www.printables.com/model/1022271-qidi-plus-4-filtration-system)
-
-### [Exhaust adapter attachment (with CAD)](https://www.printables.com/model/1040218-qidi-plus-4-exhaust-adapter)
-
-### [Lid prop](https://www.printables.com/model/1039528-qidi-plus4-lid-prop)
-
-### [4 inch Duct extraction adapter](https://www.printables.com/model/1036212-qidi-plus-4-4-inch-duct)
-
-### [Hole blocking plate](https://www.printables.com/model/1039152-qidi-4-plus-ports-cover)
-
-### [Push In Place Door Sealing Strip](https://www.thingiverse.com/thing:6801577)
-
-### [Belt Tensioners](https://www.printables.com/model/1044712-qidi-plus4-belt-tensioners/files)
-
-### [WIP - A better chamber thermal sensor mounting position](https://www.thingiverse.com/thing:6802256)
-
-### [Articulating No Hands Door Seal (paid)](https://cults3d.com/en/3d-model/tool/plus4-articulating-no-hands-door-hinge-seal)
----
-
-## Additional Software
-
-### [Klippain Shake & Tune v5.1.1 - Qidi Plus 4 Compatible Version](https://github.com/qidi-community/klippain_v511_for_qidi_plus4)
-
-### [(Retired) Klippain Shake & Tune v4.1.0 - Qidi Plus 4 Compatible Version](https://github.com/qidi-community/ShakeTune-For-Plus4)
-
----
-
-## Aftermarket Parts
-
-### [Replacement hotend heatsink fan - GDSTime GDA30105F (US Store)](https://west3d.com/products/gdstime-dc-24v-30x30x10-axial-fan-24v-gda30105f-dual-ball-bearing-1200rpm-1w-06a-xh2-54)
-
-### [Replacement hotend heatsink fan - GDSTime GDA30105F (EU Store)](https://www.hotend.eu/p/gdstime-axial-fan-sleeve-3010-24v)
-
-### [Replacement hotend heatsink fan - GDSTime GDA30105F (CN Store)](https://www.aliexpress.com/item/1005002857100082.html)
-
-### [Replacement 80 mm mainboard fan - ANVISION (Amazon US)](https://www.amazon.com/ANVISION-2-Pack-Brushless-Cooling-Bearing/dp/B0C18G953Z)
-
----
-
-## Maintenance Tips
-
-### [Adjusting Belt Tension](./content/adjusting-belt-tension)
-
-### [Lubing Idler Bearings](https://drive.google.com/file/d/1_KHpMQJNxle0u21L5dIt-LYLbkvVnGiD/view)
-
-### [Lubing Rods and Screws](./content/lube-rods-screws)
-
----
-
-## Hardware Fixes
-
-Some of the first release batches of the Plus 4 have had the occasional hardware issue.
-Qidi assures that all customers who contact Qidi support will be looked after.
-In the meantime, here are a number of known fixes for the issues that some early adopters are experiencing.
-
-### [Official Qidi Toolhead Bearing Fix](https://drive.google.com/drive/folders/1O0PR0vbxy0Tv7vgcNma1JERQyz9Ir3xW)
-
-
-
+# Scrubaxi: Automated Z-Axis Lead Screw Cleaner for Qidi Plus 4
+
+[External Link to Makerworld files](https://makerworld.com/en/models/1414290-scrubaxi-qidi-p4-z-lead-screw-cleaner-t10)
+
+**TLDR:** Scrubaxi is a 2-part 3D-printed tool for cleaning your Qidi Plus 4's Z-axis lead screws. It clamps onto the screw, uses IPA and a cloth to remove grime, and has relief cuts to keep buildup in the tool and not to spread it around. A custom G-code automates the cleaning process with a "bounce" method and audible notifications.
+
+## Introduction
+
+This project introduces 'Scrubaxi' a tool inspired by the 'Rod Sloth' for efficient cleaning of Z-axis lead screws on 3D printers, specifically the trapezoidal left-hand thread T10 screw found on the Qidi Plus 4.
+
+![image](https://github.com/MrBean-Crom/Plus4-Wiki/blob/Z-Axis-Cleaning-(Maintenance-Tips)/scrubaxi_tool_front.jpg)
+
+
+## Tool Design
+
+'Scrubaxi' employs a clamp mechanism with an internal M10 thread, featuring relief cuts to accommodate debris without spreading the tool and compromising its clamping ability. It houses a user-replaceable cloth saturated with isopropyl alcohol. The included insert allows for slow drainage of IPA directly onto the lead screw, ensuring the cloth remains damp throughout the process.
+
+![image](https://github.com/MrBean-Crom/Plus4-Wiki/blob/Z-Axis-Cleaning-(Maintenance-Tips)/tool_closeup.jpg)
+
+![image](https://github.com/MrBean-Crom/Plus4-Wiki/blob/Z-Axis-Cleaning-(Maintenance-Tips)/tool_installed.jpg)
+
+## Cleaning Process
+
+The cleaning process is analogous to deburring a hole with a tap and die, using a 'bounce' method where the printer bed moves 10mm upwards to clean, then retracts 5mm downwards, repeating this 50 times. This ensures thorough removal of accumulated grease and debris, even heavily contaminated grease as observed after only 40 hours of printing. The tool is designed for ease of use, with a complete cleaning cycle, including three full passes of the lead screw, taking place within a single G-code sequence. This project aims to simplify 3D printer maintenance and improve the longevity of lead screw components. 'Scrubaxi' has been lengthened to provide better stability and its handle is designed to fit flush against the vertical guide rails, minimizing unwanted movement.
+
+![Alt Text](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGl6c3plYWJ1NDR4MHAzZG9hMHF3bGhuZHl4NXJ0NDJwbncwbWRiZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/S3fcZiYTDOJOLyaxJb/giphy.gif)
+
+## G-code and Automation
+
+A custom G-code has been created for the Qidi Plus 4 to automate the cleaning process. This G-code utilizes four macro modules: 'Z Rod Clean' for initial setup and instructions, 'Exit Z Clean' for final reports, and 'Z Proc' and 'Z Proc 2' to control the automated cleaning process. 'Z Proc 2' executes the 'bounce' cleaning method, running the bed through 50 controlled reciprocating movements, and repeats this cycle three times to ensure thorough cleaning. The macros include audible notifications to indicate when user input is required or when a process is complete. 'Exit Z Clean' plays a single long tone upon completion, 'Z Proc' plays a single short beep when waiting for tool installation and two short beeps when starting, and 'Z Proc 2' plays four short beeps upon completion.
+
+```
+#   MRBEAN.CROM'S ZCLEAN MACRO (QIDI P4): 
+#   YOU WILL NEED ALL 4 MACROS BELOW and insert into gcode_macro.cfg
+#   CALL THE MACRO WITH z_rod_clean
+#   z_rod_clean
+#   _exitzclean
+#   _zproc
+#   _zproc2
+
+[gcode_macro z_rod_clean]
+gcode:
+#   Generates pop-up to verify z cleaning tools are not already fitted
+    RESPOND TYPE=command MSG="action:prompt_begin !!! CAUTION !!!"
+    RESPOND TYPE=command MSG="action:prompt_text MACHINE IS ABOUT TO HOME"
+    RESPOND TYPE=command MSG="action:prompt_text ENSURE Z-AXIS TOOLS ARE NOT IN THE MACHINE"
+    RESPOND TYPE=command MSG="action:prompt_text !!! MACHINE DAMAGE MAY OCCUR IF TOOLS ARE CURRENTLY INSTALLED !!!"
+    RESPOND TYPE=command MSG="action:prompt_footer_button NO TOOLS INSTALLED - OK TO PROCEED|_zproc|warning|RESPOND TYPE=command MSG=action:prompt_end"
+    RESPOND TYPE=command MSG="action:prompt_footer_button EXIT|_exitzclean|error|RESPOND TYPE=command MSG=action:prompt_end"
+    RESPOND TYPE=command MSG="action:prompt_show"
+
+[gcode_macro _exitzclean]
+gcode:
+#   Generates pop-up to verify process has been aborted with long audible tone
+    RESPOND TYPE=command MSG="action:prompt_begin CONFIRM"
+    RESPOND TYPE=command MSG="action:prompt_text CLEAN CYCLE REPORT:"
+    RESPOND TYPE=command MSG="action:prompt_text "
+    #{% if (printer.gcode_move.position.z ) < 35 %}
+    {% if (printer['fan_generic cooling_fan'].speed) > 0.005 %}
+    RESPOND TYPE=command MSG="action:prompt_text {printer['fan_generic cooling_fan'].speed * 255} CYCLES COMPLETED OF 3 EXPECTED WITH A TOTAL OF"
+    RESPOND TYPE=command MSG="action:prompt_text "
+    RESPOND TYPE=command MSG="action:prompt_text {printer['fan_generic cooling_fan'].speed * 26520} Z MOVEMENTS COMPLETED AND {printer['fan_generic cooling_fan'].speed * 2403715}MM OF THREAD ENGAGEMENT CLEANED"
+    {% else %}
+    RESPOND TYPE=command MSG="action:prompt_text NO REPORT TO PROVIDE AS"
+    RESPOND TYPE=command MSG="action:prompt_text {printer['fan_generic cooling_fan'].speed * 255} CYCLES COMPLETED OF 3 EXPECTED"
+    {% endif %}
+    RESPOND TYPE=command MSG="action:prompt_text "
+    RESPOND TYPE=command MSG="action:prompt_text ONCE FINAL HOMING HAS COMPLETED"
+    RESPOND TYPE=command MSG="action:prompt_text YOU CAN CLOSE THIS BOX"
+    RESPOND TYPE=command MSG="action:prompt_show" 
+    SET_PIN PIN=beeper VALUE=1
+    G4 P2500
+    SET_PIN PIN=beeper VALUE=0
+    G4 P2500
+    M106 S0
+    CLEAR_LAST_FILE
+    # cLOSE OUT WITH HOME
+    G28
+
+[gcode_macro _zproc]
+gcode:
+#   Stops the Chamber Circulation Fan
+    M106 S0
+#   Generates ETA pop-up
+    G91
+    RESPOND TYPE=command MSG="action:prompt_begin NOTICE!"
+    RESPOND TYPE=command MSG="action:prompt_text ETA TO COMPLETE PROCESS"
+    RESPOND TYPE=command MSG="action:prompt_text 6M 30S"
+    RESPOND TYPE=command MSG="action:prompt_show"
+    G4 P5000
+    RESPOND TYPE=command MSG=action:prompt_end""
+#   Generates pop-up to verify homing to commence
+    RESPOND TYPE=command MSG="action:prompt_begin NOTICE!"
+    RESPOND TYPE=command MSG="action:prompt_text HOMING"
+    RESPOND TYPE=command MSG="action:prompt_show"
+    G4 P2000
+    RESPOND TYPE=command MSG=action:prompt_end""
+    G28
+#   Generates pop-up of movement top Z lower limit (less 5mm margin as 280 is hard limit and if machine halts at this stage, a home command drives down into the machine base causing a fatal error, starting at 270 avoids this)
+    RESPOND TYPE=command MSG="Home Complete Moving To_Z270_"
+    G0 Z270 F1200
+    G4 P100
+#   AUDIBLE WAIT NOTIFICATION
+    SET_PIN PIN=beeper VALUE=1
+    G4 P1000
+    SET_PIN PIN=beeper VALUE=0
+    G4 P1
+#   Generates pop-up to verify process has paused while cleaning tools are fitted
+    RESPOND TYPE=command MSG="action:prompt_begin WAITING"
+    RESPOND TYPE=command MSG="action:prompt_text INSTALL BOTH ScrubAxi TOOLS NOW"
+#   Command button to resume process
+    RESPOND TYPE=command MSG="action:prompt_footer_button CLICK TO PROCEED|_zproc2"
+    RESPOND TYPE=command MSG="action:prompt_show"    
+   
+[gcode_macro _zproc2]
+gcode:
+#   AUDIBLE START CYCLE NOTIFICATION
+    SET_PIN PIN=beeper VALUE=1
+    G4 P200
+    SET_PIN PIN=beeper VALUE=0
+    G4 P200
+    SET_PIN PIN=beeper VALUE=1
+    G4 P200
+    SET_PIN PIN=beeper VALUE=0
+    G4 P200
+#   Generates pop-up to notify clean cycle starting
+    RESPOND TYPE=command MSG="action:prompt_begin STARTING"
+    RESPOND TYPE=command MSG="action:prompt_text Z CLEAN STARTED"
+    RESPOND TYPE=command MSG="action:prompt_show"
+    G4 P2500
+    RESPOND TYPE=command MSG=action:prompt_end""
+    SET_PIN PIN=beeper VALUE=1
+    G4 P1500
+    SET_PIN PIN=beeper VALUE=0
+    G4 P1
+    M204 S400
+    RESPOND TYPE=command MSG="action:prompt_begin NOTICE!"
+    RESPOND TYPE=command MSG="action:prompt_text Z BED WILL CYCLE 3 TIMES WITH PULSES 50 EACH"
+    RESPOND TYPE=command MSG="action:prompt_show"
+    G4 P5000
+#   Cleaning cycle loop instructions start
+    {% for j in range(3) %}
+    RESPOND TYPE=command MSG="RETURN BED TO Z265"
+    G0 Z265
+    RESPOND TYPE=command MSG="action:prompt_begin NOTICE!"
+    RESPOND TYPE=command MSG="action:prompt_text BED IS LOWERING FOR NEXT CYCLE"
+    RESPOND TYPE=command MSG="action:prompt_text CLEAN CYCLE: {j+0} of 3 COMPLETE"
+    RESPOND TYPE=command MSG="action:prompt_text "
+    RESPOND TYPE=command MSG="action:prompt_text THIS MESSAGE WILL CLOSE AUTOMATICALLY"
+    RESPOND TYPE=command MSG="action:prompt_show"
+    M106 S{j+1}
+    G4 P1
+    RESPOND TYPE=command MSG=action:prompt_end""
+    {% for i in range(50) %}
+    G91
+    G1 Z5 F800 #move bed down 5mm @ 800mm/min
+    G1 Z-10 F800 #move bed up 10mm @800mm/min
+    RESPOND TYPE=command MSG="BED PULSE:{i+1} of 50: CYCLE:{j+1} of 3"
+    {% endfor %}
+    G90
+    RESPOND TYPE=command MSG="CYCLE COMPLETE"
+    G0 Z270 F800
+      {% endfor %}
+#   Cleaning cycle loop instructions end
+    G0 Z140 F1600
+#   PROMPT TO REMOVE TOOLS PRIOR TO HOME
+    RESPOND TYPE=command MSG="action:prompt_begin !!! CAUTION !!!"
+    RESPOND TYPE=command MSG="action:prompt_text ! WAIT FOR BED TO STOP MOVING !"
+    RESPOND TYPE=command MSG="action:prompt_text WHEN MACHINE BEEPS - REMOVE BOTH ScrubAxi TOOLS"
+    RESPOND TYPE=command MSG="action:prompt_text "
+    RESPOND TYPE=command MSG="action:prompt_text "
+    RESPOND TYPE=command MSG="action:prompt_text !!!  MACHINE DAMAGE MAY OCCUR   !!!"
+    RESPOND TYPE=command MSG="action:prompt_text !!! IF TOOLS ARE LEFT INSTALLED !!!"
+    RESPOND TYPE=command MSG="action:prompt_footer_button REMOVE TOOLS AND CLICK TO PROCEED|_exitzclean"
+    RESPOND TYPE=command MSG="action:prompt_show"
+#   AUDIBLE END NOTIFICATION 
+    SET_PIN PIN=beeper VALUE=1
+    G4 P1000
+    SET_PIN PIN=beeper VALUE=0
+    G4 P100
+    SET_PIN PIN=beeper VALUE=1
+    G4 P200
+    SET_PIN PIN=beeper VALUE=0
+    G4 P100
+    SET_PIN PIN=beeper VALUE=1
+    G4 P200
+    SET_PIN PIN=beeper VALUE=0
+    G4 P100
+    SET_PIN PIN=beeper VALUE=1
+    G4 P200
+    SET_PIN PIN=beeper VALUE=0
+    G4 P1
+#   MRBEAN.CROM'S ZCLEAN MACRO (QIDI P4):
+```
+
+![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
