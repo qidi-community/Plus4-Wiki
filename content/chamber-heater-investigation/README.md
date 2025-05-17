@@ -202,6 +202,10 @@ pid_Ki=1.342
 pid_Kd=749.125
 min_temp:-100
 max_temp:70
+target_min_temp:45                 # PRESENT FROM STOCK v1.6.0 printer.cfg FILE PULLED BEFORE ANY MODIFICATIONS
+target_max_temp:65                 # PRESENT FROM STOCK v1.6.0 printer.cfg FILE PULLED BEFORE ANY MODIFICATIONS
+heat_with_heater_bed:True          # PRESENT FROM STOCK v1.6.0 printer.cfg FILE PULLED BEFORE ANY MODIFICATIONS
+heat_with_heater_bed_tem_add:25    # PRESENT FROM STOCK v1.6.0 printer.cfg FILE PULLED BEFORE ANY MODIFICATIONS
 ```
 
 Now, that sensor mentioned there is precisely the problem we've been talking about this whole time.  In order to do something about it, we need to
@@ -297,24 +301,33 @@ Edit `printer.cfg` in Fluidd UI
 Find the [heater_generic_chamber] section, and comment that existing section out, and add all of the following after it:
 
 ```
-[temperature_sensor chamber_probe]
-sensor_type:NTC 100K MGB18-104F39050L32
-sensor_pin:U_1:PA1
-
+## https://github.com/qidi-community/Plus4-Wiki/tree/main/content/chamber-heater-investigation#dont-bore-me-with-the-details-just-tell-me-what-to-do
 [heater_generic chamber]
 heater_pin:U_1:PC8
-max_power:0.4
+#max_power:0.4                                  # STOCK
+max_power:0.6                                   # MODDED - SHOULD BE SAFE UP TO 0.7 WITH QIDI v2 SSR on 120VAC
+#sensor_type:NTC 100K MGB18-104F39050L32        # STOCK
+#sensor_pin:U_1:PA1                             # STOCK
+
+#pwm_cycle_time: 0.02227    # 44.9Hz            # MODDED - OPTION 1 FOR 60Hz MAINS TO REDUCE LIGHT FLICKERING ON PRINTER CIRCUIT
+pwm_cycle_time: 0.02088     # 47.9Hz            # MODDED - OPTION 2 FOR 60Hz MAINS TO REDUCE LIGHT FLICKERING ON PRINTER CIRCUIT
 control = pid
-pid_Kp=63.418 
-pid_Ki=1.342 
+pid_Kp=63.418
+pid_Ki=1.342
 pid_Kd=749.125
+
 min_temp:-100
-max_temp:80
-#target_min_temp: 10                  # Uncomment this line for Firmware versions v1.6.0 and later
-sensor_type: temperature_combined
-sensor_list: temperature_sensor GD32, temperature_sensor chamber_probe, temperature_sensor GD32, temperature_sensor GD32
-combination_method: mean
-maximum_deviation: 70
+#max_temp:70                                    # STOCK
+max_temp:80                                     # MODDED
+#target_min_temp:45                             # STOCK - UNCOMMENT THIS LINE FOR FIRMWARE VERSIONS v1.6.0 AND LATER
+target_min_temp:10                              # MODDED - UNCOMMENT THIS LINE FOR FIRMWARE VERSIONS v1.6.0 AND LATER
+#target_max_temp:65                             # STOCK - ASK stew675 IF THIS SHOULD REMAIN IN MOD
+#heat_with_heater_bed:True                      # STOCK - ASK stew675 IF THIS SHOULD REMAIN IN MOD
+#heat_with_heater_bed_tem_add:25                # STOCK - ASK stew675 IF THIS SHOULD REMAIN IN MOD
+sensor_type: temperature_combined               # MODDED
+sensor_list: temperature_sensor GD32, temperature_sensor chamber_probe, temperature_sensor GD32, temperature_sensor GD32    # MODDED
+combination_method: mean                        # MODDED
+maximum_deviation: 70                           # MODDED
 ```
 
 ...and that's it!
