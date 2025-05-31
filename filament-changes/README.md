@@ -12,3 +12,6 @@ M0
 ```
 
 This automatically puts a print pause command at layer changes, regardless of whether it's at a particular layer height or not, allowing you to manually change filaments using the screen.
+
+>[!NOTE]
+>Make sure to also check the `Manual Filament Change` box under the `MultiMaterial / Single Extruder multi-material setup` or your print will pause at the start after making the purge lines
