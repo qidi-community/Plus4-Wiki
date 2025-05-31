@@ -11,6 +11,30 @@ To make it work, just use the following as your "Change Filament G-code" for the
 M0
 ```
 
+Alternatively, if you would like to get some beeps (beep-beep-beep-beeeeeeeeep) to let you know it's filament change time
+
+```ngc
+; Thanks to lortsie wiki page for the beep commands
+SET_PIN PIN=beeper VALUE=1
+G4 P200  ; Short beep
+SET_PIN PIN=beeper VALUE=0
+G4 P100  ; Pause
+SET_PIN PIN=beeper VALUE=1
+G4 P200  ; Short beep
+SET_PIN PIN=beeper VALUE=0
+G4 P100  ; Pause
+SET_PIN PIN=beeper VALUE=1
+G4 P200  ; Short beep
+SET_PIN PIN=beeper VALUE=0
+G4 P100  ; Pause
+SET_PIN PIN=beeper VALUE=1
+G4 P1000  ; Short beep
+SET_PIN PIN=beeper VALUE=0
+G4 P100  ; Pause
+
+M0
+```
+
 This automatically puts a print pause command at layer changes, regardless of whether it's at a particular layer height or not, allowing you to manually change filaments using the screen.
 
 >[!NOTE]
