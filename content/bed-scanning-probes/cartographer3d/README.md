@@ -101,7 +101,9 @@ First stop klipper: `sudo service klipper stop`
 
 Run this command, which will download a patched copy of `probe.py`. 
 
-```wget -O /home/mks/klipper/klippy/extras/probe.py https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/bed-scanning-probes/Beacon3D/RevH-Normal/probe.py```
+```
+wget -O /home/mks/klipper/klippy/extras/probe.py https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/bed-scanning-probes/Beacon3D/RevH-Normal/probe.py
+```
 
 Once this is done, start klipper: `sudo service klipper start`. Or power cycle the printer.
 
