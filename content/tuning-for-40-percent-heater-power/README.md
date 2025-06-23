@@ -152,8 +152,30 @@ and there are reports that this can take up to 1 hour for the chamber to reach 6
 
 ### Modifying heaters.py
 
-1. SSH into the printer
-2. Write a new file named `heaters.patch` with these contents:
+### SSH into the printer
+
+SSH into your printer as specified [here](https://github.com/qidi-community/Plus4-Wiki/blob/main/content/ssh-access/README.md).
+
+#### 2. Automatic patching
+You may use our automatic patching script. You can download it on your printer as such:
+```bash
+wget https://github.com/qidi-community/Plus4-Wiki/raw/refs/heads/main/content/tuning-for-40-percent-heater-power/auto-heaters-patch.sh -O /tmp/auto-heaters-patch.sh
+```
+and then execute it as such:
+```bash
+bash /tmp/auto-heaters-patch.sh
+```
+
+If everything worked correctly, you should see the script outputting `Patch applied successfully!`.
+
+If so, you can skip Step 2bis.
+Else, you can try manual patching.
+
+#### 2bis. Manual patching
+This is step should be done, if the previous automatic patching failed.
+If the automatic patch failed, you may instead patch your heaters.py manually as such:
+
+1. Write a new file named `heaters.patch` with these contents:
 <details open>
 <summary>Patch for heaters.py</summary>
 
@@ -177,12 +199,12 @@ and there are reports that this can take up to 1 hour for the chamber to reach 6
 
 </details>
 
-3. Apply the patch 
+2. Apply the patch 
 ```
 patch /home/mks/klipper/klippy/extras/heaters.py < /path/to/heaters.patch
 ```
 
-4. If that was succesfull you will see something like `patching file heaters.py` without any further output and an exitcode of `0` (execute `echo $?`, which is the exitcode of the last executed command).
+3. If that was successful you will see something like `patching file heaters.py` without any further output and an exitcode of `0` (execute `echo $?`, which is the exitcode of the last executed command).
 
 ![image](https://github.com/user-attachments/assets/1ad7766f-907d-47b0-a58f-577d708bb5b0)
 
@@ -220,7 +242,7 @@ Set `DISABLE_BED_CHECK = False` if you want to revert to the default behavior.
 > [!NOTE]
 > If you've edited the files through Fluidd, Use the orange "Save & Restart" button up top
 
-The files we've just edited are not necessarily written to disk yet. 
-To force this to happen, run the command `sync`. If that comes back with no further remarks and an exitcode of `0`, you can powercycle the printer.
+The files we've just edited are not necessarily written to disk yet. To force this to happen, run the command `sync`.   
+If `sync` comes back with no further remarks and patching was successful, you can powercycle the printer.   
 
 ![image](https://github.com/user-attachments/assets/fde60fab-cb96-482a-aad2-c40e5a41a9f3)
