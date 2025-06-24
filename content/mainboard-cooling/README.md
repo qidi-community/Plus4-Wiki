@@ -33,12 +33,12 @@ This continuous airflow loop helps maintain low temperatures even during long pr
 
 ## Temperature Results (Chamber Heating Disabled)
 
-| Component | Before Cooling                         | After Cooling                        | Difference | 
-|-----------|----------------------------------------|--------------------------------------|------------|
-| GD32      | 58°C                                   | 53°C                                 | -5°C       |
-| X Driver  | 90°C                                   | 63°C                                 | -27°C      |
-| Y Driver  | 82°C                                   | 58°C                                 | -24°C      |
-| Screen    | [Screenshot Before](./img/before.JPEG) | [Screenshot After](./img/after.JPEG) |            |
+| Component         | Before Cooling                         | After Cooling                        | Difference | 
+|-------------------|----------------------------------------|--------------------------------------|------------|
+| temperature_host  | 58°C                                   | 44°C                                 | -14°C      |
+| X Driver          | 90°C                                   | 63°C                                 | -27°C      |
+| Y Driver          | 82°C                                   | 58°C                                 | -24°C      |
+| Screen            | [Screenshot Before](./img/before.JPEG) | [Screenshot After](./img/after.JPEG) |            |
 
 ## Model
 
