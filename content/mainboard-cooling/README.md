@@ -21,6 +21,16 @@ There are at least two important reasons to improve mainboard cooling in your QI
 
 ---
 
+## Airflow Matters Both Ways
+Proper cooling isn’t just about pushing fresh air in — it's equally important to remove the hot air from the enclosure.
+
+If you only blow air into the mainboard chamber without an effective way to exhaust it, warm air will accumulate, reducing the efficiency of the cooling system.  
+This is why this design uses **a push–pull fan setup**: one fan brings in fresh air, while the other actively pulls hot air out.
+
+This continuous airflow loop helps maintain low temperatures even during long prints or high CPU load.
+
+---
+
 ## Temperature Results (Chamber Heating Disabled)
 
 | Component | Before Cooling                         | After Cooling                        | Difference | 
