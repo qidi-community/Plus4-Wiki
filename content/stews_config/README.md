@@ -11,3 +11,11 @@ They are merely intended as a point of reference.
 Included is my modified version of `/home/mks/klipper/klippy/extras/heaters.py`
 
 This modified version uses the smoothed temperature value to feed into the PID algorithm when a heater's smooth time is >1.0s
+
+## fan_generic.py
+
+Replaces:  `/home/mks/klipper/klippy/extras/fan_generic.py`
+
+Adds an `idle_timeout:` configuration line item that keep a fan running after turned off for the configured number of seconds
+
+This is intended to be used for providing a cool-down functionality after a fan is turned off, such as the chamber circulation fan.
