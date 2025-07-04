@@ -2,11 +2,26 @@
 
 # Better Chamber Temperature Readings
 
+_**Update 4th July 2025**_
+
+The original recommendations found throughout this guide are now superceded and summarised by the content here:
+
+https://www.printables.com/model/1339760-qidi-plus-4-chamber-temperature-probe-mount
+
+I'll leave the original article below largely unmodified, but be aware that the model page above is now my recommended
+way to approach addressing the issue.
+
+___
+
 ## Before we get started
 
 _**Even if you read nothing else in this page, go to this page and make the config recommendations that it recommends.**_
 
 [Chamber Heater Safety Recommendations](../chamber-heater-issue/README.md#additional-safety-configurations)
+
+
+___
+
 
 ### What!  You expect me to read?
 
@@ -290,32 +305,9 @@ ___
 
 ## Don't bore me with the details, just tell me what to do!
 
-If you'd read all the above, you've probably already done the following, but here it is in a compact format:
+The above has investigated further and improved upon.  The updated version that moves the mount, and changes the configuration, is now found here:
 
-Edit `printer.cfg` in Fluidd UI
-
-Find the [heater_generic_chamber] section, and comment that existing section out, and add all of the following after it:
-
-```
-[temperature_sensor chamber_probe]
-sensor_type:NTC 100K MGB18-104F39050L32
-sensor_pin:U_1:PA1
-
-[heater_generic chamber]
-heater_pin:U_1:PC8
-max_power:0.4
-control = pid
-pid_Kp=63.418 
-pid_Ki=1.342 
-pid_Kd=749.125
-min_temp:-100
-max_temp:80
-#target_min_temp: 10                  # Uncomment this line for Firmware versions v1.6.0 and later
-sensor_type: temperature_combined
-sensor_list: temperature_sensor GD32, temperature_sensor chamber_probe, temperature_sensor GD32, temperature_sensor GD32
-combination_method: mean
-maximum_deviation: 70
-```
+https://www.printables.com/model/1339760-qidi-plus-4-chamber-temperature-probe-mount
 
 ...and that's it!
 
