@@ -1,0 +1,30 @@
+*** /home/mks/mod/1.6.0/heaters.py	2025-07-05 08:06:44.891958006 +0000
+--- heaters.py	2025-07-05 08:19:50.039479076 +0000
+***************
+*** 84,94 ****
+              time_diff = read_time - self.last_temp_time
+              self.last_temp = temp
+              self.last_temp_time = read_time
+-             self.control.temperature_update(read_time, temp, self.target_temp)
+              temp_diff = temp - self.smoothed_temp
+              adj_time = min(time_diff * self.inv_smooth_time, 1.)
+              self.smoothed_temp += temp_diff * adj_time
+              self.can_extrude = (self.smoothed_temp >= self.min_extrude_temp)
+  
+          toolhead = self.printer.lookup_object("toolhead")
+          curtime = self.printer.get_reactor().monotonic()
+--- 84,97 ----
+              time_diff = read_time - self.last_temp_time
+              self.last_temp = temp
+              self.last_temp_time = read_time
+              temp_diff = temp - self.smoothed_temp
+              adj_time = min(time_diff * self.inv_smooth_time, 1.)
+              self.smoothed_temp += temp_diff * adj_time
+              self.can_extrude = (self.smoothed_temp >= self.min_extrude_temp)
++             # Use the smoothed temperature if smooth time is >1.0s, otherwise use
++             # the instantaneous temperature instead - stew675 - 2025/07/03
++             update_temp = (temp, self.smoothed_temp)[bool(self.smooth_time > 1.0)]
++             self.control.temperature_update(read_time, update_temp, self.target_temp)
+  
+          toolhead = self.printer.lookup_object("toolhead")
+          curtime = self.printer.get_reactor().monotonic()
