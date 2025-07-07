@@ -8,7 +8,7 @@ They are merely intended as a point of reference.
 
 ## heaters.py
 
-Included is my modified version of `/home/mks/klipper/klippy/extras/heaters.py`
+Included is my modified version of `/home/mks/klipper/klippy/extras/heaters.py` for 1.4.2, 1.4.3, and 1.6.0 firmware versions.
 
 This modified version uses the smoothed temperature value to feed into the PID algorithm when a heater's smooth time is >1.0s
 
