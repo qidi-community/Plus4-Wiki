@@ -42,7 +42,7 @@ This continuous airflow loop helps maintain low temperatures even during long pr
 
 ## Model
 
-![Airflow](./img/cooling2.PNG)
+![image](./img/cooling2.PNG)
 
 ## Required Parts
 
@@ -56,9 +56,9 @@ This continuous airflow loop helps maintain low temperatures even during long pr
 - 1× fan connector (2-pin)
 
 ### Photos
- * [Parts](./img/parts.JPEG)
- * [Assembled Front](./img/assembled_front.JPEG)
- * [Assembled Back](./img/assembled_back.JPEG)
+ ![image](./img/parts.JPEG)
+ ![image](./img/assembled_front.JPEG)
+ ![image](./img/assembled_back.JPEG)
 
 
 ## Cable Management
@@ -69,7 +69,7 @@ Poorly placed cables can obstruct airflow or block tiny heatsinks.
 
 Since the fan duct is designed to fit closely around the mainboard, poorly managed cables may get pinched or interfere with installation.
 
-[Cable Management](./img/cable_management.JPEG)
+![image](./img/cable_management.JPEG)
 
 
 ## Fan Orientation
@@ -81,7 +81,7 @@ It’s important to orient the fans correctly:
 
 When looking from the back of the printer, the mainboard is slightly to the left, so this setup ensures fresh air reaches the hottest parts efficiently.
 
-[Mounted](./img/mounted.JPEG)
+![image](./img/mounted.JPEG)
 
 ## Additional Tips
 
