@@ -80,6 +80,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Fan duct for the hotend heatsink](https://www.thingiverse.com/thing:6782612)
 
+### [Mainboard cooling](./content/mainboard-cooling/README.md)
+
 ### [Mainboard Rear cover that allows use of an 80mm fan](https://www.thingiverse.com/thing:6787302)
 
 ### [Lid Hangers](https://www.printables.com/model/1025183-qidi-plus-4-lid-hanger)
@@ -105,6 +107,7 @@ of the Qidi Plus4 3D printer.
 ### [WIP - A better chamber thermal sensor mounting position](https://www.thingiverse.com/thing:6802256)
 
 ### [Articulating No Hands Door Seal (paid)](https://cults3d.com/en/3d-model/tool/plus4-articulating-no-hands-door-hinge-seal)
+
 ---
 
 ## Additional Software
