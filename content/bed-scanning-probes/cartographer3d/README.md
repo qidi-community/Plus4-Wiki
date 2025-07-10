@@ -97,13 +97,22 @@ sudo service klipper start
 
 Qidi's version of Klipper has a modified version of `probe.py` and will not work with Cartographer for Klipper, we need to patch it so it will work.
 
-First stop klipper: `sudo service klipper stop`
+First stop klipper: 
+```bash
+sudo service klipper stop
+```
 
 Run this command, which will download a patched copy of `probe.py`. 
 
-`wget -O /home/mks/klipper/klippy/extras/probe.py https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/bed-scanning-probes/Beacon3D/RevH-Normal/probe.py`
+```bash
+wget -O /home/mks/klipper/klippy/extras/probe.py https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/bed-scanning-probes/Beacon3D/RevH-Normal/probe.py
+```
 
-Once this is done, start klipper: `sudo service klipper start`. Or power cycle the printer.
+Once this is done, start klipper: 
+```bash
+sudo service klipper start
+```
+Or power cycle the printer.
 
 > [!TIP]
 > Now is a good time to reinstall any Klipper Plugins you were using. If you wish to install Shake&Tune again, use the mainline version since Python is now at a newer version.
