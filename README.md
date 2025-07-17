@@ -108,6 +108,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Articulating No Hands Door Seal (paid)](https://cults3d.com/en/3d-model/tool/plus4-articulating-no-hands-door-hinge-seal)
 
+### [Articulating Control Panel Mount (paid)]([https://cults3d.com/en/3d-model/tool/qidi-x-plus4-articulating-control-panel-mount)
+
 ---
 
 ## Additional Software
