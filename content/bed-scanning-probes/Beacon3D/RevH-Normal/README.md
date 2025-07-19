@@ -1,19 +1,47 @@
 # Beacon3D RevH Normal Installation and Configuration Guide
 
-**Last Updated:** _3PM US CST 24th Feb 2025_
+This install guide should work for all other Beacon models, but it is untested on those.  The sample mounting
+model provided is also only tested for clearances using the RevH Normal Beacon module.
 
-**NOTE 1 :** *All these configurations relate ONLY to using the Beacon in Contact mode on the Qidi Plus4 Printer*
+**Last Updated:** _3PM US CST 19th July 2025_
 
-**NOTE 2:** *Power Loss Recovery does not work correctly yet when using the Beacon probe.  I am working on a solution
+***
+
+**NOTE 1 :**
+
+*All these configurations relate ONLY to using the Beacon in Contact mode on the Qidi Plus4 Printer*
+
+***
+
+**NOTE 2:**
+
+*Power Loss Recovery does not work correctly yet when using the Beacon probe.  I am working on a solution
 for this, but for now, do not expect to be able to safely resume prints after a power loss event.*
 
-**NOTE 3:** *This guide is primarly intended for use with the stock Qidi configs, or a lightly modified version of
+***
+
+**NOTE 3:**
+
+*This guide is primarly intended for use with the stock Qidi configs, or a lightly modified version of
 them, and also be actively using the `KAMP/Line_Purge.cfg` and `KAMP/Adapative_Meshing.cfg` macros.  If you are
 trying to call native Klipper `BED_MESH_CALIBRATE ADAPTIVE=1...` instead of using the `KAMP/Adapative_Meshing.cfg`
 macro then there is a chance where the wrong bed mesh will be loaded.*
 
-This install guide should work for all other Beacon models, but it is untested on those.  The sample mounting
-model provided is also only tested for clearances using the RevH Normal Beacon module.
+***
+
+**NOTE 4 (QIDIBOX):**
+
+I can confirm that the **QIDIBIX** 2.0 firmware update **DOES NOT**  break anything firmware wise for Beacon.  Beacon still works (and Klippain 5.1.1 also still works for those using that).
+
+The 2.0 firmware update for Qidibox WILL over-write your pre-existing `printer.cfg` and `gcode_macro.cfg` config files though, but it does make automatic backups of your old config files.
+
+What you need to do here is to just redo the following Beacon configuration guide and manually patch the config files.  Afterwards you should be up and running again.
+
+For those of you who just copy and pasted my original example configs, you will need to do that configuration manually until such time that I update those sample configs.
+
+*DO NOT copy and paste the sample configurations here if you have QIDIBOX installed until such time as I update them*
+
+***
 
 ## Quick Summary Guide
 
