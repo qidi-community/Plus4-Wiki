@@ -1,1 +1,3 @@
-Just a random collection of various print profiles I use.  No guarantees of quality are implied
+Just a random collection of various OrcaSlicer print profiles I use.
+
+Some are recent.  Some are quite possibly junk.  No guarantees of quality are implied
