@@ -31,9 +31,9 @@ macro then there is a chance where the wrong bed mesh will be loaded.*
 
 **NOTE 4 (QIDIBOX):**
 
-I can confirm that the **QIDIBOX** 2.0 firmware update **DOES NOT**  break anything firmware wise for Beacon.  Beacon still works (and Klippain 5.1.1 also still works for those using that).
+I can confirm that the **QIDIBOX** 1.7 firmware update **DOES NOT**  break anything firmware wise for Beacon.  Beacon still works (and Klippain 5.1.1 also still works for those using that).
 
-The 2.0 firmware update for Qidibox WILL over-write your pre-existing `printer.cfg` and `gcode_macro.cfg` config files though, but it does make automatic backups of your old config files.
+The 1.7 firmware update for Qidibox WILL over-write your pre-existing `printer.cfg` and `gcode_macro.cfg` config files though, but it does make automatic backups of your old config files.
 
 What you need to do here is to just redo the following Beacon configuration guide and manually patch the config files.  Afterwards you should be up and running again.
 
