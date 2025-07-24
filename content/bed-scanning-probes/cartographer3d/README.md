@@ -1,6 +1,9 @@
 # Cartographer3D for Qidi Plus 4 Installation and Configuration Guide
 
 > [!IMPORTANT]
+> Since the 1.7 update the Cartographer integration requires more intervention into Klipper. This guide has been tested on a single printer and should be considered a **Work in Progress**.
+
+> [!IMPORTANT]
 > This guide is not aimed towards novice users. It requires, SSH access, changing Klipper files and updating configs and macros. If you don't understand this, you risk damaging your printer. Performing this mod may limit your ability to update to latest firmware from Qidi. Do not update without checking as it may overwrite important configs.
 
 > [!WARNING]
@@ -16,7 +19,7 @@ You of course need a [Cartographer3D probe](https://cartographer3d.com/). USB ve
 
 This guide is not mount specific, only to say you need a mount for the probe. A list of tested mounts are:
 
-- [Beacon3D mount for Qidi Plus4 by stew675](https://www.printables.com/model/1170120-beacon3d-mount-for-qidi-plus4)
+- [Beacon3D mount for Qidi Plus4 by stew675](https://www.printables.com/model/1170120-beacon3d-mount-for-qidi-plus4) - recommended
 - [QIDI Plus4 beacon/cartographer mount by Vega D](https://www.printables.com/model/1191610-qidi-plus4-beaconcartographer-mount) 
 - [Cartographer3D Mount for Qidi Plus 4 by Spooknik](https://www.printables.com/model/1154767-cartographer3d-mount-for-qidi-plus-4)
     - This is not recommended because it is not rigid enough. Also requires soldering wires between the MCU and coil. 
@@ -27,7 +30,7 @@ You must be certain the coil is between 2.6 to 3.0 mm from the nozzle tip.
 
 You need to also pass the USB cable up from the mainboard to the toolhead, the involves taking the back of the printer off and routing the cable accordingly. 
 
-Ideally you want to use one of the USB 2.0 ports, which is either the middle or the bottom port. The top port that has the Wifi dongle is the USB 3.0 and has been known to randomly disconnect with Carto. 
+Ideally you want to use one of the USB 2.0 ports, which is either the middle or the bottom port. The top port that has the Wifi dongle is the USB 3.0 and has been known to randomly disconnect with Carto. You can use a USB hub to extend the number of USB ports available.
 
 ***
 
@@ -43,6 +46,32 @@ mkdir -p /home/mks/qidi-klipper-backup
 ```
 
 Now your klipper install has been backed up to `/home/mks/qidi-klipper-backup`. Just in case!
+
+## ⚠️ Emergency Restore Procedure ⚠️
+
+If the modding process fails and Klipper no longer starts, follow these steps to restore your system to its previous state.
+
+First, recreate the stock klippy-env using the printer's stock Python version (3.7).
+
+```bash
+sudo service klipper stop
+
+sudo rm -rf klippy-env
+
+python3 -m venv /home/mks/klippy-env
+
+source ~/klippy-env/bin/activate
+
+/home/mks/klippy-env/bin/python -m pip install -r /home/mks/klipper/scripts/klippy-requirements.txt
+
+deactivate
+```
+
+Then restore `klipper` and `printer_data/config` from your backup
+
+```bash
+sudo rsync -a --delete --force /home/mks/qidi-klipper-backup/klipper/ /home/mks/klipper/ && sudo rsync -a --delete --force /home/mks/qidi-klipper-backup/printer_data/config/ /home/mks/printer_data/config/
+```
 
 ## 2. Updating Python
 
@@ -72,7 +101,11 @@ cd ~/klippy-env
 
 sed -i 's/greenlet==2.0.2/greenlet==3.0.3/' ../klipper/scripts/klippy-requirements.txt # Need to upgrade this package for 3.12.
 
+source ~/klippy-env/bin/activate
+
 bin/pip install -r ../klipper/scripts/klippy-requirements.txt
+
+deactivate
 ```
 
 ## 3. Installing Cartographer for Klipper
@@ -87,17 +120,13 @@ git clone https://github.com/Cartographer3D/cartographer-klipper.git
 ./cartographer-klipper/install.sh
 ```
 
-The plugin is now installed. And we can start up Klipper again
-
-```bash
-sudo service klipper start
-```
+The plugin is now installed. 
 
 ## 4. Patching Klipper
 
 Qidi's version of Klipper has a modified version of `probe.py` and will not work with Cartographer for Klipper, we need to patch it so it will work.
 
-First stop klipper: 
+First, make sure klipper is stopped: 
 ```bash
 sudo service klipper stop
 ```
@@ -107,6 +136,25 @@ Run this command, which will download a patched copy of `probe.py`.
 ```bash
 wget -O /home/mks/klipper/klippy/extras/probe.py https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/bed-scanning-probes/Beacon3D/RevH-Normal/probe.py
 ```
+
+Next, we need to navigate to /klipper/klippy/extras/ and replace a couple of binaries with scripts from Qidi's Github. This is to avoid Python version compatibility issues - as of version 1.7 Qidi started adding compiled modules with the firmware. For now, this is limited to Qidi Box-related files. This locks these files to the Python version for which they were precompiled, causing issues for us, since we need to use a higher version. Fortunately, these modules are also opensourced as .py files on Qidi's Klipper repository on GitHub.
+
+```bash
+cd ~/klipper/klippy/extras/
+
+sudo rm -f aht20_f.so box_detect.so box_extras.so box_rfid.so box_stepper.so
+
+wget https://raw.githubusercontent.com/QIDITECH/klipper/1c4531a5c12c27d96ccd3cf5b3e1c7897c49234a/klippy/extras/aht20_f.py
+
+wget https://raw.githubusercontent.com/QIDITECH/klipper/1c4531a5c12c27d96ccd3cf5b3e1c7897c49234a/klippy/extras/box_detect.py
+
+wget https://raw.githubusercontent.com/QIDITECH/klipper/1c4531a5c12c27d96ccd3cf5b3e1c7897c49234a/klippy/extras/box_extras.py
+
+wget https://raw.githubusercontent.com/QIDITECH/klipper/1c4531a5c12c27d96ccd3cf5b3e1c7897c49234a/klippy/extras/box_rfid.py
+
+wget https://raw.githubusercontent.com/QIDITECH/klipper/1c4531a5c12c27d96ccd3cf5b3e1c7897c49234a/klippy/extras/box_stepper.py
+```
+After doing this, run `ls` command. The listed files should not contain any .so files - if that is not the case (e.g. a future update added a file not listed above) you need to remove it and download the .py from Qidi's Klipper repo.
 
 Once this is done, start klipper: 
 ```bash
@@ -154,93 +202,254 @@ homing_positive_dir_reverse:true
 
 Comment out (or delete) all the lines in the following sections, these will be added back later:
 
-```
-#[z_tilt]
-#z_positions:
-#    -17.5,138.5
-#    335.7,138.5
-#
-#points:
-#    0,138.5
-#
-#speed: 150
-#horizontal_move_z: 5
-#retries: 2
-#retry_tolerance: 0.05
+``` diff
+-[z_tilt]
+-z_positions:
+-    -17.5,138.5
+-    335.7,138.5
+-
+-points:
+-    0,138.5
+-
+-speed: 150
+-horizontal_move_z: 5
+-retries: 2
+-retry_tolerance: 0.05
 
-#[smart_effector]
-#pin:U_1:PC1
-#recovery_time:0
-#x_offset: 25
-#y_offset: 1.3
-#z_offset: 0.000001
-#speed:5
-#lift_speed:5
-#probe_accel:50
-#samples: 2
-#samples_result: submaxmin
-#sample_retract_dist: 5
-#samples_tolerance: 0.05
-#samples_tolerance_retries:5
+-[smart_effector]
+-pin:U_1:PC1
+-recovery_time:0
+-x_offset: 25
+-y_offset: 1.3
+-z_offset: 0.000001
+-speed:5
+-lift_speed:5
+-probe_accel:50
+-samples: 2
+-samples_result: submaxmin
+-sample_retract_dist: 5
+-samples_tolerance: 0.05
+-samples_tolerance_retries:5
 
-#[qdprobe]
-#pin:!PA10
-#z_offset:0.000001
+-[qdprobe]
+-pin:!PA10
+-z_offset:0.000001
 
-#[bed_mesh]
-#speed:150
-#horizontal_move_z:5
-#mesh_min:25,10
-#mesh_max:295,295
-#probe_count:9,9
-#algorithm:bicubic
-#bicubic_tension:0.4
-#mesh_pps: 2,2
+-[bed_mesh]
+-speed:150
+-horizontal_move_z:5
+-mesh_min:25,10
+-mesh_max:295,295
+-probe_count:9,9
+-algorithm:bicubic
+-bicubic_tension:0.4
+-mesh_pps: 2,2
 ```
 
 ## 5.2. Changes in gcode_macro.cfg
 
 We need to change what the printer does at the start of the print to not use the stock Qidi probes and use Carto instead.
 
+You can use the working [gcode_macro.cfg](TODO) that contains the changes below. Simply replace your existing gcode_macro.cfg with our file.
+If you want to apply the changes yourself (e.g. to keep your current gcode_macro.cfg mods), follow the steps below.
+
 Find and replace `[gcode_macro PRINT_START]` with this:
 
-```
+```diff
 [gcode_macro PRINT_START]
 gcode:
     AUTOTUNE_SHAPERS
+    TOOL_CHANGE_END
+    DISABLE_ALL_SENSOR
+    CLEAR_PAUSE
+
     {% set bedtemp = params.BED|int %}
     {% set hotendtemp = params.HOTEND|int %}
     {% set chambertemp = params.CHAMBER|default(0)|int %}
-    SET_GCODE_OFFSET Z=0 # Zero out z-offset
+    {% set extruder = params.EXTRUDER|default(0)|int %}
+-    set_zoffset
++    SET_GCODE_OFFSET Z=0 # Zero out z-offset 
     M104 S0
+
     M106 P2 S0
     M106 P3 S0
     M106 S255
+    {% if "xyz" in printer.toolhead.homed_axes %}
+        G0 X50 Y50 F6000
+    {% endif %}
     G28      
-    M141 S{chambertemp}    
+-    M141 S0
++    M141 S{chambertemp} # if you want to wait for the chamber to heat, change this to M191
     M140 S{bedtemp}    
     M106 S0
+    {% if printer.save_variables.variables.box_count >= 1 %} 
+        SAVE_VARIABLE VARIABLE=load_retry_num VALUE=0
+        SAVE_VARIABLE VARIABLE=retry_step VALUE=None
+        SAVE_VARIABLE VARIABLE=is_tool_change VALUE=0
+        {% for i in range(16) %}
+            SAVE_VARIABLE VARIABLE=runout_{i} VALUE=0
+            G4 P100
+        {% endfor %}
+        {% if printer.save_variables.variables.enable_box == 1 %}
+            {% set last_load_slot = printer.save_variables.variables.last_load_slot|default("slot-1") %}
+            {% set value_t = printer.save_variables.variables["value_t" ~ extruder]|default("slot" ~ extruder) %}
+            {% if printer['hall_filament_width_sensor'].Diameter > 0.5 %}
+                {% if last_load_slot != value_t and last_load_slot != "slot-1" %}
+                    CUT_FILAMENT
+                    MOVE_TO_TRASH
+                    M109 S{hotendtemp}
+                    EXTRUDER_UNLOAD SLOT={last_load_slot}
+                    M83
+                    G1 E18 F300
+                    T{extruder}
+                    G1 E1 F50
+                    G1 E28.13 F611
+                    G1 E0.97 F50
+                    G1 E8.73 F611
+                    G1 E0.97 F50
+                    G1 E8.73 F611
+                    G1 E0.97 F50
+                    G1 E-2 F1800
+                    {% for i in range(1,5) %}
+                        M106 S255
+                        M400
+                        G91
+                        G1 X-3 F60
+                        G1 X3 F60
+                        G90
+                        CLEAR_FLUSH
+                        M106 S60
+                        G1 E34.8 F611
+                        G1 E1.2 F50
+                        G1 E10.8 F611
+                        G1 E1.2 F50
+                        G1 E10.8 F611
+                        G1 E1.2 F50
+                        G1 E-2 F1800
+                    {% endfor %}
+                {% elif last_load_slot == value_t and printer.save_variables.variables.slot_sync == "slot-1" %}
+                    MOVE_TO_TRASH
+                    M109 S{hotendtemp}
+                    T{extruder}
+                    M83
+                    G1 E1 F50
+                    G1 E28.13 F611
+                    G1 E0.97 F50
+                    G1 E8.73 F611
+                    G1 E0.97 F50
+                    G1 E8.73 F611
+                    G1 E0.97 F50
+                    G1 E-2 F1800
+                    {% for i in range(1,5) %}
+                        M106 S255
+                        M400
+                        G91
+                        G1 X-3 F60
+                        G1 X3 F60
+                        G90
+                        CLEAR_FLUSH
+                        M106 S60
+                        G1 E34.8 F611
+                        G1 E1.2 F50
+                        G1 E10.8 F611
+                        G1 E1.2 F50
+                        G1 E10.8 F611
+                        G1 E1.2 F50
+                        G1 E-2 F1800
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+                {% if last_load_slot != "slot-1" %}
+                    MOVE_TO_TRASH
+                    M109 S{hotendtemp}
+                    M400
+                    EXTRUDER_UNLOAD SLOT={last_load_slot}
+                    T{extruder}
+                    M83
+                    G1 E1 F50
+                    G1 E28.13 F611
+                    G1 E0.97 F50
+                    G1 E8.73 F611
+                    G1 E0.97 F50
+                    G1 E8.73 F611
+                    G1 E0.97 F50
+                    G1 E-2 F1800
+                    {% for i in range(1,5) %}
+                        M106 S255
+                        M400
+                        G91
+                        G1 X-3 F60
+                        G1 X3 F60
+                        G90
+                        CLEAR_FLUSH
+                        M106 S60
+                        G1 E34.8 F611
+                        G1 E1.2 F50
+                        G1 E10.8 F611
+                        G1 E1.2 F50
+                        G1 E10.8 F611
+                        G1 E1.2 F50
+                        G1 E-2 F1800
+                    {% endfor %}
+                {% else %}
+                    MOVE_TO_TRASH
+                    M109 S{hotendtemp}
+                    T{extruder}
+                    M83
+                    G1 E1 F50
+                    G1 E28.13 F611
+                    G1 E0.97 F50
+                    G1 E8.73 F611
+                    G1 E0.97 F50
+                    G1 E8.73 F611
+                    G1 E0.97 F50
+                    G1 E-2 F1800
+                    {% for i in range(1,5) %}
+                        M106 S255
+                        M400
+                        G91
+                        G1 X-3 F60
+                        G1 X3 F60
+                        G90
+                        CLEAR_FLUSH
+                        M106 S60
+                        G1 E34.8 F611
+                        G1 E1.2 F50
+                        G1 E10.8 F611
+                        G1 E1.2 F50
+                        G1 E10.8 F611
+                        G1 E1.2 F50
+                        G1 E-2 F1800
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    M106 S0
     CLEAR_NOZZLE HOTEND={hotendtemp}
-    M191 S{chambertemp}   
-    M190 S{bedtemp}   
+    M190 S{bedtemp}     
+    M141 S{chambertemp}    
     M104 S140
+    Z_TILT_ADJUST
     G29
     G0 Z50 F600
     G0 X5 Y5  F6000
+    
     {% if chambertemp == 0 %}
         M106 P3 S255
     {% endif %}
     M109 S{hotendtemp}
-    M141 S{chambertemp}    
+-#  M141 S{chambertemp}  
++    M141 S{chambertemp} # if you want to wait for the chamber to heat, change this to M191    
     M204 S10000
     SET_PRINT_STATS_INFO CURRENT_LAYER=1
     ENABLE_ALL_SENSOR
     save_last_file
 ```
 
-Find and replace `[homing_override]` with this:
+Find and modify `[homing_override]` according to this:
 
-```
+```diff
 [homing_override]
 axes:xyz
 gcode: 
@@ -251,8 +460,8 @@ gcode:
     m204 S10000
     M220 S100
     {% if params.X is defined %}
-        SET_KINEMATIC_POSITION Z=1.9 # Set Z position
-        G1 Z4 F600 # Lower Z by 4 to prevent dragging the nozzle
++        SET_KINEMATIC_POSITION Z=1.9 # Set Z position
++        G1 Z4 F600 # Lower Z by 4 to prevent dragging the nozzle
         SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR * 0.7} 
         G28 X
         SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR}     
@@ -261,8 +470,8 @@ gcode:
     {% endif %}
 
     {% if params.Y is defined %}
-        SET_KINEMATIC_POSITION Z=1.9 # Set Z position
-        G1 Z4 F600 # Lower Z by 4 to prevent dragging the nozzle
++        SET_KINEMATIC_POSITION Z=1.9 # Set Z position
++        G1 Z4 F600 # Lower Z by 4 to prevent dragging the nozzle
         SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR * 0.9} 
         G28 Y
         SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR}  
@@ -275,8 +484,18 @@ gcode:
         G28 Y
         G28 X
         G1 X150 Y150 F7800
+
         SET_KINEMATIC_POSITION Z={printer.toolhead.axis_maximum.z-30}
-        probe
+-        QIDI_PROBE_PIN_2
+-        probe samples=2
+-        SET_KINEMATIC_POSITION Z=1.9
+-        G1 Z10 F600
+-        Z_VIBRATE
+-        QIDI_PROBE_PIN_1
+-        probe probe_speed=10
++        probe
+        SET_KINEMATIC_POSITION Z=-0.1
+        G1 Z30 F480
         SET_KINEMATIC_POSITION Z=-0.1
         G1 Z30 F480
     {% endif %}
@@ -316,6 +535,7 @@ gcode:
         G90
         G1 X150 Y150 F7800
         G91
+-        QIDI_PROBE_PIN_2
         G28 Z
         G1 Z30  F600
     {% endif %}
@@ -325,6 +545,7 @@ gcode:
     SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CUR} 
     M204 S10000
     G90
+-    QIDI_PROBE_PIN_2
 
 ```
 
@@ -413,8 +634,8 @@ The values below are correct if you are using Stew's mount and just an example.
 
 ```
 points:
-    50, 170.8   # Based on Stew's mount, adjust accordingly
-    255, 170.8  # Based on Stew's mount, adjust accordingly
+    50, 171.3   # Based on Stew's mount, adjust accordingly
+    255, 171.3  # Based on Stew's mount, adjust accordingly
 ```
 
 #### [bed_mesh]
@@ -438,11 +659,11 @@ That was a lot of configs! But you made it through 🎊
 
 Now you should have everything set up and you are now ready to follow Cartographer's guide for [calibration](https://docs.cartographer3d.com/cartographer-probe/installation-and-setup/installation/calibration).
 
+Since the Plus4 features a high-temp bed and heated chamber, it is also recommended to perform the [temperature compensation](https://docs.cartographer3d.com/cartographer-probe/fine-tuning/temperature-differential-calibration-beta). The DATA_SAMPLE macro is already implemented in the provided [gcode_macro.cfg](TODO), adapted to the temperatures in the printer. When testing, it was found that the Cartographer Coil temperature does not exceed 80 degC during work in the Plus4.
 
 # FAQ
 
 Q. When I run `CARTOGRAPHER_CALIBRATE METHOD=manual` I get: ![image](https://github.com/user-attachments/assets/32145c6d-391e-4c85-b868-4bc09d176e29)
-
 
 A. Your bed is lower and it goes beyond the max movement range Klipper will allow for the Z axis. Simply use `SET_KINEMATIC_POSITION Z=250` and then run `CARTOGRAPHER_CALIBRATE METHOD=manual`
 
@@ -467,24 +688,28 @@ description: Get zoffset at front-left bed adjustment screw position
 gcode:
     G1 X{25 - printer.configfile.settings.scanner.x_offset} Y{21 - printer.configfile.settings.scanner.y_offset} F6000
     PROBE
+    G1 Z5 F600
 
 [gcode_macro SFR]
 description: Get zoffset at front-right bed adjustment screw position
 gcode:
     G1 X{285 - printer.configfile.settings.scanner.x_offset} Y{21 - printer.configfile.settings.scanner.y_offset} F6000
     PROBE
+    G1 Z5 F600
 
 [gcode_macro SBL]
 description: Get zoffset at back-left bed adjustment screw position
 gcode:
     G1 X{25 - printer.configfile.settings.scanner.x_offset} Y{281 - printer.configfile.settings.scanner.y_offset} F6000
     PROBE
+    G1 Z5 F600
 
 [gcode_macro SBR]
 description: Get zoffset at back-right bed adjustment screw position
 gcode:
     G1 X{285 - printer.configfile.settings.scanner.x_offset} Y{281 - printer.configfile.settings.scanner.y_offset} F6000
     PROBE
+    G1 Z5 F600
 ```
 
 Each of the macros above will position the probe above the knobs so you can adjust and re-measure quickly
