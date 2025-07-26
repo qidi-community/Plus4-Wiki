@@ -1,7 +1,7 @@
 # Cartographer3D for Qidi Plus 4 Installation and Configuration Guide
 
 > [!IMPORTANT]
-> Since the 1.7 update the Cartographer integration requires more intervention into Klipper. This guide has been tested on a single printer and should be considered a **Work in Progress**.
+> Since the 1.7 update the Cartographer integration requires more intervention into Klipper. This guide has been tested on a single printer and should be considered a **Work in Progress**. If you have issues or manage to install successfully, we would welcome feedback on the [Official Qidi Discord](https://discord.gg/8WG44NNy) - tag @spooknik and @wazzup77 in the #plus4 channel.
 
 > [!IMPORTANT]
 > This guide is not aimed towards novice users. It requires, SSH access, changing Klipper files and updating configs and macros. If you don't understand this, you risk damaging your printer. Performing this mod may limit your ability to update to latest firmware from Qidi. Do not update without checking as it may overwrite important configs.
@@ -18,11 +18,11 @@ This guide covers installing Cartographer3D on your Qidi Plus 4.
 You of course need a [Cartographer3D probe](https://cartographer3d.com/). USB version. Flat pack will be the most compatible version, since you can assemble it into any configuration, however this requires soldering. Normal is likely what most mounts will use. 
 
 This guide is not mount specific, only to say you need a mount for the probe. A list of tested mounts are:
-
 - [Beacon3D mount for Qidi Plus4 by stew675](https://www.printables.com/model/1170120-beacon3d-mount-for-qidi-plus4) - recommended
 - [QIDI Plus4 beacon/cartographer mount by Vega D](https://www.printables.com/model/1191610-qidi-plus4-beaconcartographer-mount) 
 - [Cartographer3D Mount for Qidi Plus 4 by Spooknik](https://www.printables.com/model/1154767-cartographer3d-mount-for-qidi-plus-4)
     - This is not recommended because it is not rigid enough. Also requires soldering wires between the MCU and coil. 
+This should be printed with a high-temperature, stable filament - PA or PC reinforced with GF or CF is highly recommended.
 
 You should note the X and Y offset of the center of the coil to the center of the nozzle. That will be needed later.
 
@@ -175,6 +175,8 @@ Don't worry, we just need to update some configs.
 
 ## 5.1. Changes in printer.cfg
 
+You can reference my [printer.cfg](./printer.cfg) that contains the changes below. However, I highly recommend against simply replacing your own file with mine.
+
 We need to modify `[Z_stepper]` with the following:
 
 ```diff
@@ -250,7 +252,7 @@ Comment out (or delete) all the lines in the following sections, these will be a
 
 We need to change what the printer does at the start of the print to not use the stock Qidi probes and use Carto instead.
 
-You can use the working [gcode_macro.cfg](TODO) that contains the changes below. Simply replace your existing gcode_macro.cfg with our file.
+You can reference my [gcode_macro.cfg](./gcode_macro.cfg) that contains the changes below. However, I highly recommend against simply replacing your own file with mine.
 If you want to apply the changes yourself (e.g. to keep your current gcode_macro.cfg mods), follow the steps below.
 
 Find and replace `[gcode_macro PRINT_START]` with this:
@@ -556,27 +558,37 @@ Find and replace `[gcode_macro G29]` with this:
 variable_k:1
 gcode:
     M141 S0
+    M109 S150 # Set nozzle to 150 so any remaining filament stuck to nozzle is softened
     BED_MESH_CLEAR
     SET_GCODE_OFFSET Z=0
+
     {% if "xy" not in printer.toolhead.homed_axes %}
-        G28 Y                               # Home Y axis
-        G0 Y20 F1200                        # Move Y axis away from Y end-stop
-        G28 X                               # Home X axis
+        G28
+    {% else %}
+        G28 Z
     {% endif %}
-    M109 S145                               # Set nozzle to 145 so any remaining filament stuck to nozzle is softened
-    G28 Z                                   # Home Z
+
+    RESPOND TYPE=command MSG='Recalibrating Cartographer probe'
     CARTOGRAPHER_CALIBRATE SPEED=2          # Re-Calibrate incase build plate changes
-    Z_TILT_ADJUST                           # Ensure bed is level
-    G28 Z                                   # Re-home Z again now that the bed is level
-    M109 S0                                 # Turn off hotend
+    
+    RESPOND TYPE=command MSG='Leveling Z screws'
+    Z_TILT_ADJUST
+    G28 Z
+
     {% if k|int==1 %}
+        RESPOND TYPE=command MSG='Creating KAMP bed mesh'
+        STATUS_MESHING
         BED_MESH_CALIBRATE RUNS=2 PROFILE=kamp
         BED_MESH_PROFILE LOAD=kamp
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"kamp"'
+        
     {% else %}
+        RESPOND TYPE=command MSG='Creating bed mesh'
+        STATUS_MESHING
         BED_MESH_CALIBRATE RUNS=2 PROFILE=default
         BED_MESH_PROFILE LOAD=default
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"default"'
+
     {% endif %}
     CARTOGRAPHER_TOUCH SPEED=2 FUZZY=10 
 ```
@@ -655,15 +667,39 @@ That was a lot of configs! But you made it through 🎊
 
 ***
 
+## 6. (optional) Enabling filement-based Z offset 
+
+This is yoinked from the Beacon guide by Stew675. Kudos!
+
+The idea behind APPLY_FILAMENT_OFFSET is to do away with the fiddling about with the global Z offset when changing to filaments that prefer a different Z offset to the replaced filament. By and large the automated filament nozzle temperature management system should set the correct offset for almost all filaments, however there may still be a handful of standout filaments that need tweaking.
+
+With the original method, if the first layer wasn't going down properly, we would have to adjust the global Z offset, and save it, and then that could cause issues later when changing filaments.
+
+APPLY_FILAMENT_OFFSET is designed to be used within the filament material settings within your slicer.
+
+By default, the filament offset is set to 0 whenever a new print starts. If the first layer offset needs to be adjusted, then that can be done the usual way on the printer's screen UI by adjusting the Z offset up/down as required. This is best done with a 1 layer sheet of 100x100mm, and using the screen to apply Z offset adjustments until the first layer sheet is printing well.
+
+When you are happy with the Z offset adjustment, take note of the offset that is displayed, and we can apply that to our filament settings.
+
+For example, let's say that we were printing our test sheet and saw best results with an offset of 0.02mm
+
+We edit the filament start G-code and end G-codes like so:
+
+![image](./adjust_filament_offset_setting.png)
+
+and save the filament settings. Note that we are reversing the sign of the filament offset in the Filament end G-code section. This allows for filaments with different preferred offsets to be swapped mid-print. This should be especially useful when the QidiBox is released.
+
+The next time that we print with this filament, the filament specific Z offset will be applied and we should get perfect first layers with it moving forwards.
+
 ## Finishing up
 
-Now you should have everything set up and you are now ready to follow Cartographer's guide for [calibration](https://docs.cartographer3d.com/cartographer-probe/installation-and-setup/installation/calibration).
-
-Since the Plus4 features a high-temp bed and heated chamber, it is also recommended to perform the [temperature compensation](https://docs.cartographer3d.com/cartographer-probe/fine-tuning/temperature-differential-calibration-beta). The DATA_SAMPLE macro is already implemented in the provided [gcode_macro.cfg](TODO), adapted to the temperatures in the printer. When testing, it was found that the Cartographer Coil temperature does not exceed 80 degC during work in the Plus4.
+Now you should have everything set up and you are now ready to follow Cartographer's guide for [calibration](https://docs.cartographer3d.com/cartographer-probe/installation-and-setup/installation/calibration) and [first print](https://docs.cartographer3d.com/cartographer-probe/installation-and-setup/installation/first-print).
+You will want to use the Touch mode to allow you for automatic Z offset - keep that in mind when following the Cartographer instructions.
 
 # FAQ
 
-Q. When I run `CARTOGRAPHER_CALIBRATE METHOD=manual` I get: ![image](https://github.com/user-attachments/assets/32145c6d-391e-4c85-b868-4bc09d176e29)
+Q. When I run `CARTOGRAPHER_CALIBRATE METHOD=manual` I get: 
+![image](https://github.com/user-attachments/assets/32145c6d-391e-4c85-b868-4bc09d176e29)
 
 A. Your bed is lower and it goes beyond the max movement range Klipper will allow for the Z axis. Simply use `SET_KINEMATIC_POSITION Z=250` and then run `CARTOGRAPHER_CALIBRATE METHOD=manual`
 
@@ -677,39 +713,68 @@ A. Likely a Klipper plugin needs to be reinstalled. Either disable or reinstall 
 
 This is courtesy of the Beacon guide and stew675. It has just been adapted for Cartographer.
 
-With the Beacon Probe now providing for accurate bed offset measurements, the probe can be used to make the
+With the Cartographer Probe now providing for accurate bed offset measurements, the probe can be used to make the
 task tramming the bed using the 4 knobs under the print bed a lot easier.
 
 Add the following macros to the end of your `gcode_macro.cfg` file:
 
 ```
+[gcode_macro SCREW_ADJUST_START]
+gcode:
+    M84
+    BED_MESH_CLEAR
+    SET_GCODE_OFFSET Z=0
+    G28
+    Z_TILT_ADJUST
+    G28
+
 [gcode_macro SFL]
 description: Get zoffset at front-left bed adjustment screw position
 gcode:
-    G1 X{25 - printer.configfile.settings.scanner.x_offset} Y{21 - printer.configfile.settings.scanner.y_offset} F6000
+    {% set screw_pos_x = printer.configfile.settings.bed_screws.screw1[0] %}
+    {% set screw_pos_y = printer.configfile.settings.bed_screws.screw1[1] %}
+    {% set carto_off_x = printer.configfile.settings.scanner.x_offset %}
+    {% set carto_off_y = printer.configfile.settings.carto.y_offset %}
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
+    G1 X{screw_pos_x - carto_off_x + 20} Y{screw_pos_y - carto_off_y + 20} F6000
     PROBE
-    G1 Z5 F600
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
 
 [gcode_macro SFR]
 description: Get zoffset at front-right bed adjustment screw position
 gcode:
-    G1 X{285 - printer.configfile.settings.scanner.x_offset} Y{21 - printer.configfile.settings.scanner.y_offset} F6000
+    {% set screw_pos_x = printer.configfile.settings.bed_screws.screw2[0] %}
+    {% set screw_pos_y = printer.configfile.settings.bed_screws.screw2[1] %}
+    {% set carto_off_x = printer.configfile.settings.scanner.x_offset %}
+    {% set carto_off_y = printer.configfile.settings.scanner.y_offset %}
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
+    G1 X{screw_pos_x - carto_off_x - 20} Y{screw_pos_y - carto_off_y + 20} F6000
     PROBE
-    G1 Z5 F600
-
-[gcode_macro SBL]
-description: Get zoffset at back-left bed adjustment screw position
-gcode:
-    G1 X{25 - printer.configfile.settings.scanner.x_offset} Y{281 - printer.configfile.settings.scanner.y_offset} F6000
-    PROBE
-    G1 Z5 F600
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
 
 [gcode_macro SBR]
 description: Get zoffset at back-right bed adjustment screw position
 gcode:
-    G1 X{285 - printer.configfile.settings.scanner.x_offset} Y{281 - printer.configfile.settings.scanner.y_offset} F6000
+    {% set screw_pos_x = printer.configfile.settings.bed_screws.screw3[0] %}
+    {% set screw_pos_y = printer.configfile.settings.bed_screws.screw3[1] %}
+    {% set carto_off_x = printer.configfile.settings.scanner.x_offset %}
+    {% set carto_off_y = printer.configfile.settings.scanner.y_offset %}
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
+    G1 X{screw_pos_x - carto_off_x - 20} Y{screw_pos_y - carto_off_y - 20} F6000
     PROBE
-    G1 Z5 F600
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
+
+[gcode_macro SBL]
+description: Get zoffset at back-left bed adjustment screw position
+gcode:
+    {% set screw_pos_x = printer.configfile.settings.bed_screws.screw4[0] %}
+    {% set screw_pos_y = printer.configfile.settings.bed_screws.screw4[1] %}
+    {% set carto_off_x = printer.configfile.settings.scanner.x_offset %}
+    {% set carto_off_y = printer.configfile.settings.scanner.y_offset %}
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
+    G1 X{screw_pos_x - carto_off_x + 20} Y{screw_pos_y - carto_off_y - 20} F6000
+    PROBE
+    G1 Z3 F600      # Ensure the bed is moved away from the nozzle
 ```
 
 Each of the macros above will position the probe above the knobs so you can adjust and re-measure quickly
@@ -729,6 +794,8 @@ then call the macros listed above and look at the last line (eg. `// Result is z
 `).  This informs you of how far away
 the print bed is from the probe.  You can adjust the knob under the bed and call the same macro again to obtain
 the new offset.  This can be repeated for each of the 4 screw points until all are equal within ~0.02mm.  It will
-be difficult to obtain better accuracy than that.  By default, the Beacon probe sets itself to 2.00mm from the center
+be difficult to obtain better accuracy than that.  By default, the Carto probe sets itself to 2.00mm from the center
 of the print bed after the call to `G28` is made, so therefore we are aiming for all 4 screw positions to report
 something greater than `z=1.98` and less than `z=2.02`
+
+In addition to these, the [SCREWS_TILT_ADJUST](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/Screws-Tilt-Adjust) macro is highly recommended.
