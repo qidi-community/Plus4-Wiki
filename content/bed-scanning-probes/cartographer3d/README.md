@@ -1,7 +1,7 @@
 # Cartographer3D for Qidi Plus 4 Installation and Configuration Guide
 
 > [!IMPORTANT]
-> Since the 1.7 update the Cartographer integration requires more intervention into Klipper. This guide has been tested on a single printer and should be considered a **Work in Progress**. If you have issues or manage to install successfully, we would welcome feedback on the [Official Qidi Discord](https://discord.gg/8WG44NNy) - tag @spooknik and @wazzup77 in the #plus4 channel.
+> Since the 1.7 update the Cartographer integration requires more intervention into Klipper. This guide has been tested on a single printer and should be considered a **Work in Progress**. Whether you have issues or manage to install successfully, we would welcome feedback on the [Official Qidi Discord](https://discord.gg/8WG44NNy) - tag @spooknik and @wazzup77 in the #plus4 channel.
 
 > [!IMPORTANT]
 > This guide is not aimed towards novice users. It requires, SSH access, changing Klipper files and updating configs and macros. If you don't understand this, you risk damaging your printer. Performing this mod may limit your ability to update to latest firmware from Qidi. Do not update without checking as it may overwrite important configs.
@@ -10,6 +10,7 @@
 >  Do not contact Qidi support about issues with bed leveling, first layer issues, klipper, etc after making this mod. It's now your responsibility. ⚠️
 
 This guide covers installing Cartographer3D on your Qidi Plus 4.
+It is written for 1.7 firmware version, though by following this guide you should be able to adjust it to earlier versions.
 
 ***
 
@@ -138,6 +139,7 @@ wget -O /home/mks/klipper/klippy/extras/probe.py https://raw.githubusercontent.c
 ```
 
 Next, we need to navigate to /klipper/klippy/extras/ and replace a couple of binaries with scripts from Qidi's Github. This is to avoid Python version compatibility issues - as of version 1.7 Qidi started adding compiled modules with the firmware. For now, this is limited to Qidi Box-related files. This locks these files to the Python version for which they were precompiled, causing issues for us, since we need to use a higher version. Fortunately, these modules are also opensourced as .py files on Qidi's Klipper repository on GitHub.
+If you are doing this guide on 1.6 or earlier, this step may be skipped.
 
 ```bash
 cd ~/klipper/klippy/extras/
@@ -449,6 +451,7 @@ gcode:
     save_last_file
 ```
 
+In the next step, we change the homing macro to make sure Cartographer is not damaged during homing. We also add provisions for power loss recovery and remove sections related to the stock Qidi probe.
 Find and modify `[homing_override]` according to this:
 
 ```diff
@@ -459,10 +462,12 @@ gcode:
     {% set driver_config = printer.configfile.settings['tmc2240 stepper_x'] %}
     {% set RUN_CUR = driver_config.run_current %}
     {% set HOLD_CUR = driver_config.hold_current %}
+
     m204 S10000
     M220 S100
     {% if params.X is defined %}
-+        SET_KINEMATIC_POSITION Z=1.9 # Set Z position
++        SET_KINEMATIC_POSITION Z={printer.gcode_move.position.z} # Set Z position
++        G91
 +        G1 Z4 F600 # Lower Z by 4 to prevent dragging the nozzle
         SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR * 0.7} 
         G28 X
@@ -472,19 +477,51 @@ gcode:
     {% endif %}
 
     {% if params.Y is defined %}
-+        SET_KINEMATIC_POSITION Z=1.9 # Set Z position
-+        G1 Z4 F600 # Lower Z by 4 to prevent dragging the nozzle
++        {% if params.X is undefined %} # To avoid double lowering if G28 X Y is called
++            SET_KINEMATIC_POSITION Z={printer.gcode_move.position.z}
++            G91
++            G1 Z4 F600 # Lower Z by 4 to prevent dragging the nozzle
++        {% endif %}
         SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR * 0.9} 
         G28 Y
         SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR}  
         BEEP I=1 DUR=100          
-       G1 Y10 F1200
+        G1 Y10 F1200
     {% endif %}
 
     {% if params.Z is defined %}
-        G28 x
-        G28 Y
-        G28 X
+-        G28 x
+-        G28 Y
+-        G28 X
++        {% if "xy" not in printer.toolhead.homed_axes %}
++            SET_KINEMATIC_POSITION X={printer.gcode_move.position.x}
++            SET_KINEMATIC_POSITION Y={printer.gcode_move.position.y}
++            SET_KINEMATIC_POSITION Z={printer.toolhead.axis_maximum.z-30}
++            G91
++            G1 Z7 F600	
++            G1 X5 F2400
++            G1 Y5 F2400
++            G4 P2000
++        
++            SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR * 0.8} 
++            G28 X
++            SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR} 
++            BEEP I=1 DUR=100  
++            G1 X45 F1200
++        
++            SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR * 0.9} 
++            G28 Y
++            SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR} 
++            BEEP I=1 DUR=100        
++            G1 Y10 F1200
++
++            SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR * 0.8} 
++            G28 X
++            SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR} 
++            BEEP I=1 DUR=100  
++            G1 X10 F1200
++        {% endif %}
+
         G1 X150 Y150 F7800
 
         SET_KINEMATIC_POSITION Z={printer.toolhead.axis_maximum.z-30}
@@ -496,8 +533,6 @@ gcode:
 -        QIDI_PROBE_PIN_1
 -        probe probe_speed=10
 +        probe
-        SET_KINEMATIC_POSITION Z=-0.1
-        G1 Z30 F480
         SET_KINEMATIC_POSITION Z=-0.1
         G1 Z30 F480
     {% endif %}
@@ -558,6 +593,7 @@ Find and replace `[gcode_macro G29]` with this:
 variable_k:1
 gcode:
     M141 S0
+    RESPOND TYPE=command MSG='Heating nozzle to 150 for accurate Z offset'
     M109 S150 # Set nozzle to 150 so any remaining filament stuck to nozzle is softened
     BED_MESH_CLEAR
     SET_GCODE_OFFSET Z=0
@@ -671,6 +707,17 @@ That was a lot of configs! But you made it through 🎊
 
 This is yoinked from the Beacon guide by Stew675. Kudos!
 
+If you want to use this feature, add this to your gcode_macros.cfg file.
+
+```bash
+[gcode_macro APPLY_FILAMENT_OFFSET]
+description: Apply a Z offset adjustment for a specific filament
+gcode:
+    {% set filament_z = params.Z|default(0)|float %}
+    { action_respond_info("Setting Filament Offset to %.3fmm" % (filament_z)) }
+    SET_GCODE_OFFSET Z_ADJUST={filament_z}
+```
+
 The idea behind APPLY_FILAMENT_OFFSET is to do away with the fiddling about with the global Z offset when changing to filaments that prefer a different Z offset to the replaced filament. By and large the automated filament nozzle temperature management system should set the correct offset for almost all filaments, however there may still be a handful of standout filaments that need tweaking.
 
 With the original method, if the first layer wasn't going down properly, we would have to adjust the global Z offset, and save it, and then that could cause issues later when changing filaments.
@@ -734,7 +781,7 @@ gcode:
     {% set screw_pos_x = printer.configfile.settings.bed_screws.screw1[0] %}
     {% set screw_pos_y = printer.configfile.settings.bed_screws.screw1[1] %}
     {% set carto_off_x = printer.configfile.settings.scanner.x_offset %}
-    {% set carto_off_y = printer.configfile.settings.carto.y_offset %}
+    {% set carto_off_y = printer.configfile.settings.scanner.y_offset %}
     G1 Z3 F600      # Ensure the bed is moved away from the nozzle
     G1 X{screw_pos_x - carto_off_x + 20} Y{screw_pos_y - carto_off_y + 20} F6000
     PROBE
