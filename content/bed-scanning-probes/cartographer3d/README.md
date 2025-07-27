@@ -434,7 +434,7 @@ gcode:
     M190 S{bedtemp}     
     M141 S{chambertemp}    
     M104 S140
-    Z_TILT_ADJUST
+-    Z_TILT_ADJUST
     G29
     G0 Z50 F600
     G0 X5 Y5  F6000
