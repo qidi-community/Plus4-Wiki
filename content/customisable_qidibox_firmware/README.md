@@ -1,20 +1,22 @@
 # A modified replacement set of firmware files and customisable QidiBox macros for the Qidi Plus 4
 
+The following moves a significant portion of the QidiBox filament changing, purging, and cleaning out of the obfuscated `*.so` files that the QidiBox firmware ships with, and into a single gcode macro config file that can be easily edited to modify the behaviour of the g-code macros.  Additionally more generic filament change macros are added that allows for the QidiBox to be used with OrcaSlicer (tested), QidiStudio (tested), BambuStido (untested) and PrusaSlicer (maybe?)
+
 ## Patching Qidi Plus 4 firmware
 
 The following files may be used to replace their `*.so` equivalents in the `/home/mks/klipper/klippy/extras/` directory
 
-- /home/mks/klipper/klippy/extras/aht20_f.py
-- /home/mks/klipper/klippy/extras/box_detect.py
-- /home/mks/klipper/klippy/extras/box_extras.py
-- /home/mks/klipper/klippy/extras/box_rfid.py
-- /home/mks/klipper/klippy/extras/box_stepper.py
+- [/home/mks/klipper/klippy/extras/aht20_f.py](./aht20_f.py)
+- [/home/mks/klipper/klippy/extras/box_detect.py](./box_detect.py)
+- [/home/mks/klipper/klippy/extras/box_extras.py](./box_extras.py)
+- [/home/mks/klipper/klippy/extras/box_rfid.py](./box_rfid.py)
+- [/home/mks/klipper/klippy/extras/box_stepper.py](./box_stepper.py)
 
 ## Adding the new customisable macros 
 
-Add in the following `box_macros.cfg` file into the same directory as your `printer.cfg` file
+Add in the following [box_macros.cfg](./box_macros.cfg) file into the same directory as your `printer.cfg` file
 
-Edit your printer.cfg and add in the following line
+Then edit your printer.cfg and add in the following line
 
 ```
 [include box_macros.cfg]
