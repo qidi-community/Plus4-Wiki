@@ -4,6 +4,8 @@ The following moves a significant portion of the QidiBox filament changing, purg
 
 ## Patching Qidi Plus 4 firmware
 
+Using an SSH shell to the printer, perform the following changes:
+
 The following files may be used to replace their `*.so` equivalents in the `/home/mks/klipper/klippy/extras/` directory
 
 - [/home/mks/klipper/klippy/extras/aht20_f.py](./aht20_f.py)
@@ -12,15 +14,20 @@ The following files may be used to replace their `*.so` equivalents in the `/hom
 - [/home/mks/klipper/klippy/extras/box_rfid.py](./box_rfid.py)
 - [/home/mks/klipper/klippy/extras/box_stepper.py](./box_stepper.py)
 
+Now move/backup the corresponding `*.so` files out of the same directory to somewhere safe where they won't be picked up by the Klipper firmware.
+
+
 ## Adding the new customisable macros 
 
-Add in the following [box_macros.cfg](./box_macros.cfg) file into the same directory as your `printer.cfg` file
+Using the FLUIDD Web UI, add in the following [box_macros.cfg](./box_macros.cfg) file into the same directory as your `printer.cfg` file
 
-Then edit your printer.cfg and add in the following line
+Then edit your printer.cfg and add in the following line below the existing `[include box.cfg]` line:
 
 ```
 [include box_macros.cfg]
 ```
+
+Now click `SAVE & RESTART`
 
 ## Update your slicer's Plus 4 macros
 
