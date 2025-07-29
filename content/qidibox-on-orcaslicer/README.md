@@ -18,3 +18,6 @@ PRINT_START BED=[bed_temperature_initial_layer_single] HOTEND=[nozzle_temperatur
 Within `Change filament G-code`:
 
 replace all contents there with [the contents from this file](./change-filament-g-code)
+
+eg. <img width="1911" height="564" alt="image" src="https://github.com/user-attachments/assets/0c22d4d6-8c8f-438b-a009-08accee8f010" />
+
