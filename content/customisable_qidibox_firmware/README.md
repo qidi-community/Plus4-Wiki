@@ -29,6 +29,8 @@ Then edit your printer.cfg and add in the following line below the existing `[in
 
 Now click `SAVE & RESTART`
 
+After the printer has restarted (hopefully no errors show up - if they do, address them), then you will need to power-cycle the printer to activate the new firmware changes.
+
 ## Update your slicer's Plus 4 macros
 
 Within the `Machine start G-code` section ensure that the `PRINT_START` line has `EXTRUDER=[initial_no_support_extruder]` appended to it, such that it appears like so:
