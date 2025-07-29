@@ -1,0 +1,144 @@
+{ if current_extruder != next_extruder }
+G1 Z{max_layer_z + 3.0} F1200
+TOOL_CHANGE_START F=[current_extruder] T=[next_extruder]
+DISABLE_ALL_SENSOR
+MOVE_TO_TRASH
+G1 E-5 F{old_filament_e_feedrate}
+M400
+CUT_FILAMENT T=[current_extruder]
+MOVE_TO_TRASH
+{if nozzle_temperature_range_high[current_extruder] >= nozzle_temperature_range_high[next_extruder]}
+M104 S{nozzle_temperature_range_high[current_extruder]}
+{else}
+M104 S{nozzle_temperature_range_high[next_extruder]}
+{endif}
+M106 S0
+M106 P2 S0
+UNLOAD_T[current_extruder]
+G92 E0
+M83
+; FLUSH_START
+G1 E1 F50
+G1 E17 F{old_filament_e_feedrate}
+; FLUSH_END
+T[next_extruder]
+G1 E1 F50
+{if nozzle_temperature_range_high[current_extruder] >= nozzle_temperature_range_high[next_extruder]}
+{if filament_type[current_extruder] == "PETG"}
+SET_HEATER_TEMPERATURE HEATER=extruder TARGET=260 WAIT=1
+{else}
+SET_HEATER_TEMPERATURE HEATER=extruder TARGET={nozzle_temperature_range_high[current_extruder]} WAIT=1
+{endif}
+{else}
+{if filament_type[next_extruder] == "PETG"}
+SET_HEATER_TEMPERATURE HEATER=extruder TARGET=260 WAIT=1
+{else}
+SET_HEATER_TEMPERATURE HEATER=extruder TARGET={nozzle_temperature_range_high[next_extruder]} WAIT=1
+{endif}
+{endif}
+; FLUSH_START
+G1 E{48.5 * 0.58} F{old_filament_e_feedrate}
+G1 E{48.5 * 0.02} F50
+G1 E{48.5 * 0.18} F{old_filament_e_feedrate}
+G1 E{48.5 * 0.02} F50
+G1 E{48.5 * 0.18} F{old_filament_e_feedrate}
+G1 E{48.5 * 0.02} F50
+G1 E-[old_retract_length_toolchange] F1800
+; FLUSH_END
+{if flush_length_1 > 1}
+M106 S255
+M400
+G91
+G1 X-5 F60
+G1 X5 F60
+G90
+CLEAR_FLUSH
+M106 S60
+; FLUSH_START
+G1 E[old_retract_length_toolchange] F300
+G1 E{flush_length_1 * 0.58} F{new_filament_e_feedrate}
+G1 E{flush_length_1 * 0.02} F50
+G1 E{flush_length_1 * 0.18} F{new_filament_e_feedrate}
+G1 E{flush_length_1 * 0.02} F50
+G1 E{flush_length_1 * 0.18} F{new_filament_e_feedrate}
+G1 E{flush_length_1 * 0.02} F50
+G1 E-[old_retract_length_toolchange] F1800
+; FLUSH_END
+{endif}
+{if flush_length_2 > 1}
+M106 S255
+M400
+G91
+G1 X-5 F60
+G1 X5 F60
+G90
+CLEAR_FLUSH
+M106 S60
+; FLUSH_START
+G1 E[old_retract_length_toolchange] F300
+G1 E{flush_length_2 * 0.58} F{new_filament_e_feedrate}
+G1 E{flush_length_2 * 0.02} F50
+G1 E{flush_length_2 * 0.18} F{new_filament_e_feedrate}
+G1 E{flush_length_2 * 0.02} F50
+G1 E{flush_length_2 * 0.18} F{new_filament_e_feedrate}
+G1 E{flush_length_2 * 0.02} F50
+G1 E-[new_retract_length_toolchange] F1800
+; FLUSH_END
+{endif}
+{if flush_length_3 > 1}
+M106 S255
+M400
+G91
+G1 X-5 F60
+G1 X5 F60
+G90
+CLEAR_FLUSH
+M106 S60
+; FLUSH_START
+G1 E[new_retract_length_toolchange] F300
+G1 E{flush_length_3 * 0.58} F{new_filament_e_feedrate}
+G1 E{flush_length_3 * 0.02} F50
+G1 E{flush_length_3 * 0.18} F{new_filament_e_feedrate}
+G1 E{flush_length_3 * 0.02} F50
+G1 E{flush_length_3 * 0.18} F{new_filament_e_feedrate}
+G1 E{flush_length_3 * 0.02} F50
+G1 E-[new_retract_length_toolchange] F1800
+; FLUSH_END
+{endif}
+{if flush_length_4 > 1}
+M106 S255
+M400
+G91
+G1 X-5 F60
+G1 X5 F60
+G90
+CLEAR_FLUSH
+M106 S60
+; FLUSH_START
+G1 E[new_retract_length_toolchange] F300
+G1 E{flush_length_4 * 0.58} F{new_filament_e_feedrate}
+G1 E{flush_length_4 * 0.02} F50
+G1 E{flush_length_4 * 0.18} F{new_filament_e_feedrate}
+G1 E{flush_length_4 * 0.02} F50
+G1 E{flush_length_4 * 0.18} F{new_filament_e_feedrate}
+G1 E{flush_length_4 * 0.02} F50
+G1 E-[new_retract_length_toolchange] F1800
+; FLUSH_END
+{endif}
+M104 S[new_filament_temp]
+M106 S255
+M400
+G91
+G1 X-5 F60
+G1 X5 F60
+G90
+M109 S[new_filament_temp]
+G92 E0
+M400
+CLEAR_FLUSH
+CLEAR_OOZE
+M106 S0
+G1 Y300 F9000
+TOOL_CHANGE_END
+ENABLE_ALL_SENSOR
+{endif}
