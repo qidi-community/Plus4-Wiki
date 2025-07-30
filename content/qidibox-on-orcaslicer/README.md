@@ -10,7 +10,7 @@ PRINT_START BED=[bed_temperature_initial_layer_single] HOTEND=[nozzle_temperatur
 ```
 To:
 ```
-PRINT_START BED=[bed_temperature_initial_layer_single] HOTEND=[nozzle_temperature_initial_layer] CHAMBER=[chamber_temperatures] EXTRUDER=[initial_no_support_extruder]
+PRINT_START BED=[bed_temperature_initial_layer_single] HOTEND=[nozzle_temperature_initial_layer] CHAMBER=[chamber_temperature] EXTRUDER=[initial_no_support_extruder]
 ```
 
 ---
