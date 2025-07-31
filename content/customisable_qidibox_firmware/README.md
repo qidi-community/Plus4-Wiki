@@ -1,5 +1,11 @@
 # A modified replacement set of firmware files and customisable QidiBox macros for the Qidi Plus 4
 
+## Disclaimer
+
+All of the work here is very strongly a Work In Progress.  If you wish to use it, please accept that this is provided with no guarantees.
+
+#  What is this?
+
 The following moves a significant portion of the QidiBox filament changing, purging, and cleaning out of the obfuscated `*.so` files that the QidiBox firmware ships with, and into a single gcode macro config file that can be easily edited to modify the behaviour of the g-code macros.  Additionally more generic filament change macros are added that allows for the QidiBox to be used with OrcaSlicer (tested), QidiStudio (tested), BambuStido (untested) and PrusaSlicer (maybe?)
 
 ## Patching Qidi Plus 4 firmware
