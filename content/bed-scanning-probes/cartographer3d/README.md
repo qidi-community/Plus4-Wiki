@@ -102,6 +102,8 @@ cd ~/klippy-env
 
 sed -i 's/greenlet==2.0.2/greenlet==3.0.3/' ../klipper/scripts/klippy-requirements.txt # Need to upgrade this package for 3.12.
 
+sed -i '$a pyinotify==0.9.6\npyudev==0.24.3' ../klipper/scripts/klippy-requirements. # Need to add these packages, since Qidi forgot to update the req file
+
 source ~/klippy-env/bin/activate
 
 bin/pip install -r ../klipper/scripts/klippy-requirements.txt
@@ -141,20 +143,23 @@ wget -O /home/mks/klipper/klippy/extras/probe.py https://raw.githubusercontent.c
 Next, we need to navigate to /klipper/klippy/extras/ and replace a couple of binaries with scripts from Qidi's Github. This is to avoid Python version compatibility issues - as of version 1.7 Qidi started adding compiled modules with the firmware. For now, this is limited to Qidi Box-related files. This locks these files to the Python version for which they were precompiled, causing issues for us, since we need to use a higher version. Fortunately, these modules are also opensourced as .py files on Qidi's Klipper repository on GitHub.
 If you are doing this guide on 1.6 or earlier, this step may be skipped.
 
+> [!IMPORTANT]
+> These files work as of version 1.7 on 2025.08.03. Qidi deleted them, meaning we no longer have access to the source files - the ones below are last available versions archived by the community. This may cause the guide to stop working in the future.
+
 ```bash
 cd ~/klipper/klippy/extras/
 
 sudo rm -f aht20_f.so box_detect.so box_extras.so box_rfid.so box_stepper.so
 
-wget https://raw.githubusercontent.com/QIDITECH/klipper/1c4531a5c12c27d96ccd3cf5b3e1c7897c49234a/klippy/extras/aht20_f.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/aht20_f.py
 
-wget https://raw.githubusercontent.com/QIDITECH/klipper/1c4531a5c12c27d96ccd3cf5b3e1c7897c49234a/klippy/extras/box_detect.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/box_detect.py
 
-wget https://raw.githubusercontent.com/QIDITECH/klipper/1c4531a5c12c27d96ccd3cf5b3e1c7897c49234a/klippy/extras/box_extras.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/box_extras.py
 
-wget https://raw.githubusercontent.com/QIDITECH/klipper/1c4531a5c12c27d96ccd3cf5b3e1c7897c49234a/klippy/extras/box_rfid.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/box_rfid.py
 
-wget https://raw.githubusercontent.com/QIDITECH/klipper/1c4531a5c12c27d96ccd3cf5b3e1c7897c49234a/klippy/extras/box_stepper.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/box_stepper.py
 ```
 After doing this, run `ls` command. The listed files should not contain any .so files - if that is not the case (e.g. a future update added a file not listed above) you need to remove it and download the .py from Qidi's Klipper repo.
 
