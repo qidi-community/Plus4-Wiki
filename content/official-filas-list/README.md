@@ -31,4 +31,7 @@ Want to just use a good filament list, without making one yourself?
 
 Use our community-curated [officiall_filas_list.cfg](./officiall_filas_list.cfg)!
 
-Just replace the current list on your printer with the one us, and you're good to
+Just replace the current list on your printer with the one us, and you're good to go. The following changes are included in the list:
+ - box_max_temp is increased to 45 to PLA and 65 for other filaments
+ - box_min_temp for fiber reinforced filaments is set to 45 degC. This is recommended by Qidi, it softens rigid filaments reducing wear of components and preventing cracking of filament
+ - fixed typo in PETG Tough name

@@ -66,6 +66,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Secure Remote Access](./content/secure-remote-access/README.md)
 
+### [Better Qidi Box filament list](./content/official-filas-list/README.md)
+
 ## Orca Slicer Configuration
 
 ### [Orca Slicer Settings](./content/orca-slicer-settings)
