@@ -471,7 +471,9 @@ gcode:
 variable_k:1
 description: Prepare print bed, generate a bed mesh, and apply global Z nozzle offset
 gcode:
+    {% set accel = printer.toolhead.max_accel|int %}               # Take not of current acceleration value
     _FIND_Z_EQUALS_ZERO                                            # The user must make sure that nothing else homes Z after this call
+    M204 S1000
     {% if k|int==1 %}
         BED_MESH_CALIBRATE RUNS=2 PROFILE=kamp
         BED_MESH_PROFILE LOAD=kamp
@@ -482,6 +484,7 @@ gcode:
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"default"'
         SET_GCODE_VARIABLE MACRO=G29 VARIABLE=k VALUE=1            # Reactivate KAMP/Adaptive mode for next time
     {% endif %}
+    M204 S{accel}
 ```
 
 - Add these 6 macros to the end of your file:
@@ -877,6 +880,7 @@ variable_bed_meshing_offset: -0.4           # Generate bed with this amount appl
                                             # Acceptable range is [-1.0, 1.0]
 description: Prepare print bed, generate a bed mesh, and apply global Z nozzle offset
 gcode:
+    {% set accel = printer.toolhead.max_accel|int %}         # Take note of current acceleration value
     {% set z_home_x = printer.configfile.settings.beacon.home_xy_position[0] %}
     {% set z_home_y = printer.configfile.settings.beacon.home_xy_position[1] %}
     # Read bed meshing offset value.  Cap value to within the [-1.0, 1.0] range
@@ -892,6 +896,7 @@ gcode:
     G1 Z{mesh_closer} F600
     SET_KINEMATIC_POSITION Z=2.0
 
+    M204 S1000            # Set acceleration to a less aggressive value for smoother bed meshing
     {% if k|int==1 %}
         BED_MESH_CALIBRATE RUNS=2 PROFILE=kamp
         BED_MESH_PROFILE LOAD=kamp
@@ -902,6 +907,7 @@ gcode:
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"default"'
         SET_GCODE_VARIABLE MACRO=G29 VARIABLE=k VALUE=1
     {% endif %}
+    M204 S{accel}        # Restore old acceleration value
 
     G1 X{z_home_x} Y{z_home_y} F7200
     G1 Z{mesh_return} F600
