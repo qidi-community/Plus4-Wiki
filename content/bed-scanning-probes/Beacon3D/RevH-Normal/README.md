@@ -533,14 +533,21 @@ calibrated with the following typed into the Gcode Console:
 
 ```
 G32
+G28 XY
+G1 X150 Y150
+BEACON_AUTO_CALIBRATE
 G29
 G31
 SAVE_CONFIG
 ```
 
-This will set the Plus4 to generate a `default` bed mesh (`G32`), then do a full calibration home
-and bed mesh (`G29`), and then finally put the Plus4 back into Kamp mode meshing ready for the
-next print (`G31`).  The whole lot gets saved afterwards (`SAVE_CONFIG`)
+This will:
+- instruct to generate a `default` bed mesh of the whole bed when doing a scan (`G32`)
+- home XY axis only (`G28 XY`)
+- collect the beacon calibration model (`BEACON_AUTO_CALIBRATE`)
+- do a full calibration home and bed mesh (`G29`)
+- put the Plus4 back into Kamp mode meshing ready for the next print (`G31`)
+- The whole lot gets saved to internal memory afterwards to persist across printer restarts (`SAVE_CONFIG`)
 
 ***
 
