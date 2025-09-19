@@ -70,6 +70,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Orca Slicer Settings](./content/orca-slicer-settings)
 
+### [QIDI Box on Orca Slicer](./content/qidibox-on-orcaslicer)
+
 ---
 
 ## Printable Models
