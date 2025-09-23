@@ -231,7 +231,7 @@ home_xy_position: 152.5, 152.5      # update with your safe Z home position
 home_z_hop: 5
 home_z_hop_speed: 30
 home_xy_move_speed: 300
-home_y_before_x: False
+home_y_before_x: True
 home_method: proximity
 home_method_when_homed: proximity
 home_autocalibrate: never
