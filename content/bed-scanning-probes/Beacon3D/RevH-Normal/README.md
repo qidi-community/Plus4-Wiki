@@ -40,7 +40,7 @@ What you need to do here is to just redo the following Beacon configuration guid
 
 For those of you who just copy and pasted my original example configs, you will need to do that configuration manually until such time that I update those sample configs.
 
-*DO NOT copy and paste the sample configurations here if you have QIDIBOX installed until such time as I update them*
+*DO NOT copy and paste the my sample configuration files if you have QIDIBOX installed until such time as I update them.   In the meantime, use the examples from the guide only*
 
 ***
 
