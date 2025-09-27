@@ -24,7 +24,7 @@
 6. Sensor repeatability vs. time and Z-offset vs. chamber temp charts are shown below.  
 7. Beacon/Cartographer users can probably benefit too—just swap in the appropriate probe command.
 
-<img src="./Sensors%20Standard%20Deviations%20.png">
+<img src="./Sensors%20Standard%20Deviations.png">
 <img src="./Z-offset%20vs%20Time.png">
 
 
