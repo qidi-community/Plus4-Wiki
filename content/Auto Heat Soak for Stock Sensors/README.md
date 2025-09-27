@@ -24,8 +24,9 @@
 6. Sensor repeatability vs. time and Z-offset vs. chamber temp charts are shown below.  
 7. Beacon/Cartographer users can probably benefit too—just swap in the appropriate probe command.
 
-![Sensors Standard Deviations](./Sensors Standard Deviations.png).
-![Z-offset vs Time](./Z-offset vs Time.png)
+<img src="./Sensors%20Standard%20Deviations%20.png">
+<img src="./Z-offset%20vs%20Time.png">
+
 
 ## Disclaimers:
 1. Even with a machine that has been heat-soaked for 1–2 hours, my code will still force a 3-minute check to see if the Z-offset has shifted. There’s no way around this.  
