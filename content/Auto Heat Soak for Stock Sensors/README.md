@@ -22,9 +22,10 @@
 5. Stock firmware turns off the chamber heater during piezo probing and bed mesh, which causes Z-offset drift.  
    My code keeps the chamber heater on whenever a target value is defined.  
 6. Sensor repeatability vs. time and Z-offset vs. chamber temp charts are shown below.  
-7. Beacon/Cartographer users can probably benefit too—just swap in the appropriate probe command.  
-![Sensors Standard Deviations](Sensors Standard Deviations.png)
-![Z-offset vs Time](Z-offset vs Time.png)
+7. Beacon/Cartographer users can probably benefit too—just swap in the appropriate probe command.
+
+![Sensors Standard Deviations](./Sensors Standard Deviations.png).
+![Z-offset vs Time](./Z-offset vs Time.png)
 
 ## Disclaimers:
 1. Even with a machine that has been heat-soaked for 1–2 hours, my code will still force a 3-minute check to see if the Z-offset has shifted. There’s no way around this.  
