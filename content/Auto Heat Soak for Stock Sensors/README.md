@@ -1,7 +1,6 @@
 # Auto Heat Soak for Stock Sensor (Piezos & Induction)
 
 ## Reasons of this code is created:
-```
 
 1. My stock piezo and induction sensors have good repeatability and low standard deviation.  
 2. A Beacon is just too expensive for me.  
@@ -11,10 +10,8 @@
 6. Laziness.  
 7. Laziness. Yes, this is so important it deserves to be repeated three times.  
 
-```
 
 ## Finding:
-```
 
 1. Assumption: machine always starts cold (bed 20 °C, chamber 20 °C).  
 2. PLA on 30 °C cool plate bed, chamber off → needs 10–12 minutes after the bed reaches 30 °C to stabilize.  
@@ -27,10 +24,8 @@
 6. Sensor repeatability vs. time and Z-offset vs. chamber temp charts are shown below.  
 7. Beacon/Cartographer users can probably benefit too—just swap in the appropriate probe command.  
 
-```
 
 ## Disclaimers:
-```
 1. Even with a machine that has been heat-soaked for 1–2 hours, my code will still force a 3-minute check to see if the Z-offset has shifted. There’s no way around this.  
 2. Sampling every 3 minutes is necessary. Any shorter, and the changes are too small—well within sensor tolerance.  
 3. Stability check runs for up to 10 cycles (≈30 minutes). If it’s still not stable after that, the print will start automatically.  
@@ -38,14 +33,13 @@
 5. new_z = current Z-offset  
 6. diff = last_z – new_z  
 
-```
 
 ## Changes:
 
-#### Step 1. Backup your gcode_macro.cfg
-#### Step 2. Reset your z-offset=0 in saved_variable.cfg
-#### Step 3. Update your `[print_start]` macro in gcode_macro.cfg
-##### This ensures the chamber heater stays on (if a value is set) throughout the entire process.
+### Step 1. Backup your gcode_macro.cfg
+### Step 2. Reset your z-offset=0 in saved_variable.cfg
+### Step 3. Update your `[print_start]` macro in gcode_macro.cfg
+#### This ensures the chamber heater stays on (if a value is set) throughout the entire process.
 ***
 
 ```
@@ -90,10 +84,10 @@ gcode:
     save_last_file
 ```
 
-#### Step 4. Changes in `[get_zoffset]` macro.
-##### Comment out TOGGLE_CHAMBER_FAN because once the fan is off, the chamber heater shuts off too.
-##### Z-offset can still be set manually on the touchscreen (and will auto-save).
-##### If you want to lock in a permanent Z-offset, reset z_offset value in save_savriable.cfg to zero and change the p value below.
+### Step 4. Changes in `[get_zoffset]` macro.
+#### Comment out TOGGLE_CHAMBER_FAN because once the fan is off, the chamber heater shuts off too.
+#### Z-offset can still be set manually on the touchscreen (and will auto-save).
+#### If you want to lock in a permanent Z-offset, reset z_offset value in save_savriable.cfg to zero and change the p value below.
 ***
 
 ```
@@ -120,8 +114,8 @@ gcode:
     #TOGGLE_CHAMBER_FAN #comment out 12/05/2525
 ```
 
-#### Step 5. Changes in `[G29]` bed mesh macro.
-##### Makes sure chamber heater is always ON if value is set.
+### Step 5. Changes in `[G29]` bed mesh macro.
+#### Makes sure chamber heater is always ON if value is set.
 ***
 
 ```
@@ -175,10 +169,10 @@ gcode:
     {% endif %}
 ```
 
-#### Step 6. Add new `[stability]` related macros to gcode_macro.cfg.
-#####zRangeTarget defaults to 0.015 mm (adjust if you want shorter/looser cycles).
-#####G4 P180000 = 180,000 ms wait (3 mins). You can experiment with shorter waits, but too short and the drift hides in sensor tolerance.
-#####PROBE samples=5 can be reduced if your probe is consistent (delete samples=5 to probe once).
+### Step 6. Add new `[stability]` related macros to gcode_macro.cfg.
+#### zRangeTarget defaults to 0.015 mm (adjust if you want shorter/looser cycles).
+#### G4 P180000 = 180,000 ms wait (3 mins). You can experiment with shorter waits, but too short and the drift hides in sensor tolerance.
+#### PROBE samples=5 can be reduced if your probe is consistent (delete samples=5 to probe once).
 ***
 ```
 #--------           STABILITY Check Gcode             --------------#
