@@ -23,8 +23,9 @@
    My code keeps the chamber heater on whenever a target value is defined.  
 6. Sensor repeatability vs. time and Z-offset vs. chamber temp charts are shown below.  
 7. Beacon/Cartographer users can probably benefit too—just swap in the appropriate probe command.
-
+8. Standard deviation reading below taken after 60 mins of heat soak chamber at 60C.
 <img src="./Sensors%20Standard%20Deviations.png">
+9. Z-offset below plot when bed reach target 90C and upon chamber heater starts heating.
 <img src="./Z-offset%20vs%20Time.png">
 
 
