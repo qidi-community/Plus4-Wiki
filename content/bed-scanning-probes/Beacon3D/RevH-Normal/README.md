@@ -533,7 +533,7 @@ calibrated with the following typed into the Gcode Console:
 
 ```
 G32
-G28 XY
+G28 X Y
 G1 X150 Y150
 BEACON_AUTO_CALIBRATE
 G29
