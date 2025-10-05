@@ -16,6 +16,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Adding Beacon3D](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/bed-scanning-probes/Beacon3D/RevH-Normal)
 
+> [!TIP]
+> Qidi's 1.7.0 and later updates introduced breaking changes that crash klipper if you have cartographer probe installed. Read the updated cartographer guide below to learn more.
 ### [Adding Cartographer](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/bed-scanning-probes/cartographer3d)
 
 ### [Modular Tool-Head Mod](./content/modular-toolhead/README.md)
