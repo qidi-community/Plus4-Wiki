@@ -14,13 +14,13 @@ of the Qidi Plus4 3D printer.
 
 ### [SSH Access](./content/ssh-access/README.md)
 
-### [Adding Beacon3D](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/bed-scanning-probes/Beacon3D/RevH-Normal)
+### [Adding Beacon3D](./content/bed-scanning-probes/Beacon3D/RevH-Normal)
 
-### [Adding Cartographer](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/bed-scanning-probes/cartographer3d)
+### [Adding Cartographer](./content/bed-scanning-probes/cartographer3d)
 
 ### [Modular Tool-Head Mod](./content/modular-toolhead/README.md)
 
-### [Conditional purging and pei wiping to address the cracking of nozzles with ceramic heat-breaks](content/conditional_purging_and_wiping/README.md)
+### [Conditional purging and pei wiping to address the cracking of nozzles with ceramic heat-breaks](./content/conditional_purging_and_wiping/README.md)
 
 ### [Warming the Chamber Faster!](./content/tuning-for-40-percent-heater-power/README.md)
 
@@ -41,6 +41,8 @@ of the Qidi Plus4 3D printer.
 ---
 
 ## Printer Configuration Tweaks
+
+### [Adaptive Chamber Heater Fan](./content/adaptive-chamber-heater-fan/README.md)
 
 ### [Dynamic Chamber Temperature Manager](./content/chamber-temperature-manager/README.md)
 
