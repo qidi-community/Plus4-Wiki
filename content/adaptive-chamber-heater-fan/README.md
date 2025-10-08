@@ -73,5 +73,5 @@ reduce `target_temp:` from 70 to 60 or 50.
 #### Problem:
 I would like to PID calibrate the fan automatically, how do I?
 
-### "Solution":
+#### "Solution":
 Klipper does not implement such functionality. I wish it did. Bad luck, sorry.
