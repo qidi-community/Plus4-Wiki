@@ -1,7 +1,9 @@
 # Cartographer3D for Qidi Plus 4 Installation and Configuration Guide
 
-> [!IMPORTANT]
-> Since the 1.7 update the Cartographer integration requires more intervention into Klipper. This guide has been tested on a single printer and should be considered a **Work in Progress**. Whether you have issues or manage to install successfully, we would welcome feedback on the [Official Qidi Discord](https://discord.gg/8WG44NNy) - tag @spooknik and @wazzup77 in the #plus4 channel.
+> [!CAUTION]
+> Since the 1.7 update the Cartographer integration requires more intervention into Klipper. 1.7.1 and 1.7.2 both introduced new issues that require tinkering to resolve. Cartographer integration thus is now complex and cannot be guaranteed. **If you're just checking out the possible options, probably but Beacon instead.**
+> This is caused by Qidi not releasing open source files for some Qidi Box related software. Qidi has since committed to releasing the code before the end of 2025, but this remains to be seen.
+> Whether you have issues or manage to install successfully, we would welcome feedback on the [Official Qidi Discord](https://discord.gg/8WG44NNy) - tag @spooknik and @wazzup77 in the #plus4 channel.
 
 > [!IMPORTANT]
 > This guide is not aimed towards novice users. It requires, SSH access, changing Klipper files and updating configs and macros. If you don't understand this, you risk damaging your printer. Performing this mod may limit your ability to update to latest firmware from Qidi. Do not update without checking as it may overwrite important configs.
@@ -38,7 +40,6 @@ Ideally you want to use one of the USB 2.0 ports, which is either the middle or 
 # Software
 
 ## 1. Backup Klipper
-
 Firstly, we need to make a backup of your klipper install. Via SSH run the following: 
 
 ```
@@ -161,6 +162,17 @@ wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main
 
 wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/box_stepper.py
 ```
+
+If you are on firmware version 1.7.2, also run the following commands to replace the buttons_irq.so file:
+
+```bash
+cd ~/klipper/klippy/extras/
+
+sudo rm -f buttons_irq.so
+
+wget https://raw.githubusercontent.com/QIDITECH/klipper/4bb7c6337936ef273e621d1f55bc0ef92114785d/klippy/extras/buttons_irq.py
+```
+
 After doing this, run `ls` command. The listed files should not contain any .so files - if that is not the case (e.g. a future update added a file not listed above) you need to remove it and download the .py from Qidi's Klipper repo.
 
 Once this is done, start klipper: 
@@ -611,9 +623,6 @@ gcode:
     {% else %}
         G28 Z
     {% endif %}
-
-    RESPOND TYPE=command MSG='Recalibrating Cartographer probe'
-    CARTOGRAPHER_CALIBRATE SPEED=2          # Re-Calibrate incase build plate changes
     
     RESPOND TYPE=command MSG='Leveling Z screws'
     Z_TILT_ADJUST
@@ -634,7 +643,8 @@ gcode:
         SAVE_VARIABLE VARIABLE=profile_name VALUE='"default"'
 
     {% endif %}
-    CARTOGRAPHER_TOUCH SPEED=2 FUZZY=10 
+    CARTOGRAPHER_TOUCH
+
 ```
 
 
@@ -746,23 +756,6 @@ and save the filament settings. Note that we are reversing the sign of the filam
 
 The next time that we print with this filament, the filament specific Z offset will be applied and we should get perfect first layers with it moving forwards.
 
-## Finishing up
-
-Now you should have everything set up and you are now ready to follow Cartographer's guide for [calibration](https://docs.cartographer3d.com/cartographer-probe/installation-and-setup/installation/calibration) and [first print](https://docs.cartographer3d.com/cartographer-probe/installation-and-setup/installation/first-print).
-You will want to use the Touch mode to allow you for automatic Z offset - keep that in mind when following the Cartographer instructions.
-
-# FAQ
-
-Q. When I run `CARTOGRAPHER_CALIBRATE METHOD=manual` I get: 
-![image](https://github.com/user-attachments/assets/32145c6d-391e-4c85-b868-4bc09d176e29)
-
-A. Your bed is lower and it goes beyond the max movement range Klipper will allow for the Z axis. Simply use `SET_KINEMATIC_POSITION Z=250` and then run `CARTOGRAPHER_CALIBRATE METHOD=manual`
-
-Q. I follwed the guide but I get this error in Klipper 
-![image](https://github.com/user-attachments/assets/6ecc2d2a-c9b5-4b6b-9fae-bccec204833e)
-
-A. Likely a Klipper plugin needs to be reinstalled. Either disable or reinstall it. If you are reinstalling from Shake&Tune, use this [version](https://github.com/qidi-community/klippain_v511_for_qidi_plus4). Remember to delete the old install. 
-
 
 ## Optional QoL Bed Tramming Macros
 
@@ -854,3 +847,52 @@ of the print bed after the call to `G28` is made, so therefore we are aiming for
 something greater than `z=1.98` and less than `z=2.02`
 
 In addition to these, the [SCREWS_TILT_ADJUST](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/Screws-Tilt-Adjust) macro is highly recommended.
+
+## Finishing up
+
+Now you should have everything set up and you are now ready to follow Cartographer's guide for [calibration](https://docs.cartographer3d.com/cartographer-probe/installation-and-setup/installation/calibration) and [first print](https://docs.cartographer3d.com/cartographer-probe/installation-and-setup/installation/first-print).
+You will want to use the Touch mode to allow you for automatic Z offset - keep that in mind when following the Cartographer instructions.
+In a high-level overview, you should perform the following steps during initial calibration:
+ - manual scanner Z offset test (paper test)
+ - backlash estimation
+ - threshold scan
+ - touch mode first print Z offset
+ - (optional) filament-based Z offset adjustment
+
+> [!IMPORTANT]
+> Make sure to read the calibration instructions carefully, especially for threshold calibration. It is recommended to perform the calibration at SPEED=1, i.e. `CARTOGRAPHER_THRESHOLD_SCAN SPEED=1` and `CARTOGRAPHER_CALIBRATE SPEED=1`.
+
+If your bed plate or Cartographer mount changes, it's a good idea to recalibrate. Automatic calibration via the `CARTOGRAPHER_CALIBRATE` command may be sufficient for small changes, but it is never a bad idea to go through full calibration again if you have doubt. It is recommended to run the command with ` SPEED=1` parameter.
+
+# FAQ
+
+### Q. When I run `CARTOGRAPHER_CALIBRATE METHOD=manual` I get: 
+
+![image](https://github.com/user-attachments/assets/32145c6d-391e-4c85-b868-4bc09d176e29)
+
+A. Your bed is lower and it goes beyond the max movement range Klipper will allow for the Z axis. Simply use `SET_KINEMATIC_POSITION Z=250` and then run `CARTOGRAPHER_CALIBRATE METHOD=manual`
+
+
+### Q. I follwed the guide but I get this error in Klipper:
+
+![image](https://github.com/user-attachments/assets/6ecc2d2a-c9b5-4b6b-9fae-bccec204833e)
+
+A. Likely a Klipper plugin needs to be reinstalled. Either disable or reinstall it. If you are reinstalling from Shake&Tune, use this [version](https://github.com/qidi-community/klippain_v511_for_qidi_plus4). Remember to delete the old install. 
+
+
+### Q. I am getting an MCU Protocol Error:
+
+![image](./MCU_Protocol_Error.png)
+
+A. Likely your Cartographer probe has old firmware installed. You can update this easily, the process is described in the [Cartographer Wiki article](https://docs.cartographer3d.com/cartographer-probe/firmware/firmware-updating/via-katapult/usb-flash). Firmware 5.0 is recommended, since 5.1 has reported issues on the Qidi Plus4.
+
+
+### Q. My `CARTOGRAPHER_THRESHOLD_SCAN`, `CARTOGRAPHER_CALIBRATE` or `CARTOGRAPHER_TOUCH` keep failing!
+
+A. This can be a couple of issues:
+- check if your Carto mount and hotend are rigid, printed well and made from the right materials (PA6-GF works well, most PA with fibers will be OK, PC with fibers is OK if it prints well)
+- try going at a lower speed. Adding SPEED=2 (or even 1) after the command helps achieve more reliable probing
+- make sure your threshold calibration is done well. The nozzle should be lightly tapping the bed during threshold calibration, make sure it's not hovering or slamming too hard. From user experiences a threshold around 750-2250 is expected, but this may vary from printer to printer
+- make sure your motion system is well maintained! Unlubricated, dirty or bent Z lead screws may introduce noise which can throw off Carto readings. [Clean these lead screws and reapply grease at least once every 3 months.](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/lube-rods-screws)
+
+To diagose the issues, try running `PROBE_ACCURACY` (scanner accuracy test) and `CARTOGRAPHER_TOUCH SAMPLES=10 DEBUG=1` (touch accuracy test). Both of these commands will read the bed 10 times and report a number of parameters describing the accuracy - most importantly the precision (e.g. difference between min and max readings), which can be used to judge quality of calibration and installation. If the scanner has a low deviation then Cartographer is working properly and your calibration or mounting is likely at fault. Touch accuracy is impacted not only by the scanner performance, but also by touch speed, motion system and build surface state.
