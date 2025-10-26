@@ -1,6 +1,7 @@
 # Adaptive Main Board Cooling Configuration
 
-**Reader Beware!** If you have previously imported the cofiguration files from [config-xplus4 repo](https://github.com/qidi-community/config-xplus4), then you already have a variation of this configuration installed and active! Verify by accessing the fluidd UI in your web browser and pressing the `x` key on your keyboard and look for a folder called `config-xplus4`. If you do not have it already, you can implement this page as documented. Additionally, installing the `config-xplus4` mods actively conflicts with this guide, so before installing the set of config mods you will have to undo what you did here.
+> [!IMPORTANT]
+> If you have previously imported the cofiguration files from [config-xplus4 repo](https://github.com/qidi-community/config-xplus4), then you already have a variation of this configuration installed and active! Verify by accessing the fluidd UI in your web browser and pressing the `x` key on your keyboard and look for a folder called `config-xplus4`. If you do not have it already, you can implement this page as documented. Additionally, installing the `config-xplus4` mods actively conflicts with this guide, so before installing the set of config mods you will have to undo what you did here.
 
 By default, the main board cooling fan is only active/on when the X/Y stepper motors are active (ie. during printing).
 While this ensures that the printer makes less noise during idle times when not printing, it does allow for the main
@@ -11,9 +12,10 @@ at a very low speed during idle times to ensure that the mainboard and CPU don't
 above a certain set temperature (45C) then the main-board cooling fan speed will be ramped up to try to keep temperatures
 stable.
 
-**Note:**  While the below configuration change works well with the stock 40mm fan, it is highly recommended to swap out
+> [!TIP]
+>   While the below configuration change works well with the stock 40mm fan, it is highly recommended to swap out
 the stock main-board fan and its mainboard cover with an 80mm fan, and a 3D printed mainboard cover that allows for the
-use of the 80mm fan.  Alternatively, a [good 4020 fan](https://www.amazon.com/dp/B0CHYF6S2N) can move significantly more air while using the stock mainboard cover.
+use of the 80mm fan.  Alternatively, a [good 4020 fan](https://www.amazon.com/dp/B0CHYF6S2N) or the 80mm fan mod can move significantly more air while using the stock mainboard cover.
 This ensures that the mainboard, CPU, and steppers drivers are kept cool during both idle times, and when in operation,
 while keeping fan noise to a minimum.
 
