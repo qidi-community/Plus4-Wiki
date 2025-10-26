@@ -887,11 +887,12 @@ A. Likely a Klipper plugin needs to be reinstalled. Either disable or reinstall 
 A. Likely your Cartographer probe has old firmware installed. You can update this easily, the process is described in the [Cartographer Wiki article](https://docs.cartographer3d.com/cartographer-probe/firmware/firmware-updating/via-katapult/usb-flash). Firmware 5.0 is recommended, since 5.1 has reported issues on the Qidi Plus4.
 
 
-### Q. My `CARTOGRAPHER_THRESHOLD_SCAN` or 'CARTOGRAPHER_CALIBRATE' keep failing!
+### Q. My `CARTOGRAPHER_THRESHOLD_SCAN`, `CARTOGRAPHER_CALIBRATE` or `CARTOGRAPHER_TOUCH` keep failing!
 
 A. This can be a couple of issues:
 - check if your Carto mount and hotend are rigid, printed well and made from the right materials (PA6-GF works well, most PA with fibers will be OK, PC with fibers is OK if it prints well)
 - try going at a lower speed. Adding SPEED=2 (or even 1) after the command helps achieve more reliable probing
-- make sure your threshold calibration is done well. The nozzle should be lightly tapping the bed during threshold calibration, make sure it's not hovering or slamming too hard. From user experiences a threshold around 750-2250 is expected, but this may vary from printer to printer.
+- make sure your threshold calibration is done well. The nozzle should be lightly tapping the bed during threshold calibration, make sure it's not hovering or slamming too hard. From user experiences a threshold around 750-2250 is expected, but this may vary from printer to printer
+- make sure your motion system is well maintained! Unlubricated, dirty or bent Z lead screws may introduce noise which can throw off Carto readings. [Clean these lead screws and reapply grease at least once every 3 months.](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/lube-rods-screws)
 
-To diagose the issues, try running `PROBE_ACCURACY` (scanner accuracy test) and `CARTOGRAPHER_TOUCH SAMPLES=10 DEBUG=1` (touch accuracy test). Both of these commands will read the bed 10 times and report a number of parameters describing the accuracy - most importantly the precision (e.g. difference between min and max readings), which can be used to judge quality of calibration and installation. If the scanner has a low deviation then Cartographer is working properly and your calibration or mounting is likely at fault.
+To diagose the issues, try running `PROBE_ACCURACY` (scanner accuracy test) and `CARTOGRAPHER_TOUCH SAMPLES=10 DEBUG=1` (touch accuracy test). Both of these commands will read the bed 10 times and report a number of parameters describing the accuracy - most importantly the precision (e.g. difference between min and max readings), which can be used to judge quality of calibration and installation. If the scanner has a low deviation then Cartographer is working properly and your calibration or mounting is likely at fault. Touch accuracy is impacted not only by the scanner performance, but also by touch speed, motion system and build surface state.
