@@ -53,10 +53,6 @@ A way to fix this issue is to add the following macros to your `gcode_macro.cfg`
 > [!WARNING]
 >  It is possible that `EXTRUSION_AND_FLUSH` is already defined in your `gcode_macro.cfg` file. Double check that you aren't creating duplicate gcode_macro definitions!
 
-```
-
-```
-
 
 ## Adding the new customisable macros 
 
