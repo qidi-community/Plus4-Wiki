@@ -756,11 +756,13 @@ and save the filament settings. Note that we are reversing the sign of the filam
 
 The next time that we print with this filament, the filament specific Z offset will be applied and we should get perfect first layers with it moving forwards.
 
-## 7. (optional) Add Missing Macros for Qidi Box support
+## 7. (optional) Add missing macros for Qidi Box support
 
-If you're planning to use the Qidi Box, you may experience some unexpected behaviour if you're using a `gcode_macro.cfg` file from versions 1.7.1 or above. This happens because some of the gcode macros used during some of the box operations (i.e: during print start, or when resuming a paused print) were moved from the `gcode_macro.cfg` to macros inside the `.so` files that were replaced previously.
+If you're planning to use the Qidi Box, you may experience some unexpected behaviour when using a `gcode_macro.cfg` file from versions 1.7.1 or above. This happens because some of the gcode macros used in certain box operations (for example, during print start or when resuming a paused print) were moved from `gcode_macro.cfg` to macros inside the `.so` files that were replaced in a previous step.
 
-This means that now you have some macros being called that aren't defined anywhere. So far, the current macros affected by this are `BOX_PRINT_START`, `EXTRUSION_AND_FLUSH` and `TRY_RESUME_PRINT`. A way to fix this issue is to add the following macros to your `gcode_macro.cfg`, which are just [ports of the code from 1.7.0](https://github.com/QIDITECH/QIDI_PLUS4/commit/ec595fc903540564be757bcafa745cd5c4a52cd0#diff-a9e221ad0df9e5f2e8b8496842d5618351303699fc7c51c6849e6db26ab7d3d2) that was removed by the macros.
+As a result, you may have some macros being called that aren't defined anywhere. Currently, the affected macros are `BOX_PRINT_START`, `EXTRUSION_AND_FLUSH` and `TRY_RESUME_PRINT`.
+
+A way to fix this issue is to add the following macros to your `gcode_macro.cfg`. These are [ports of the code from 1.7.0](https://github.com/QIDITECH/QIDI_PLUS4/commit/ec595fc903540564be757bcafa745cd5c4a52cd0#diff-a9e221ad0df9e5f2e8b8496842d5618351303699fc7c51c6849e6db26ab7d3d2) that was removed by the `.so` macros.
 
 > [!WARNING]
 >  It is possible that `EXTRUSION_AND_FLUSH` is already defined in your `gcode_macro.cfg` file. Double check that you aren't creating duplicate gcode_macro definitions!
@@ -969,8 +971,6 @@ gcode:
         {% endif %}
     {% endif %}
 ```
-
-
 
 ## Optional QoL Bed Tramming Macros
 
