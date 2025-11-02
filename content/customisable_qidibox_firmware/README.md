@@ -21,10 +21,9 @@ The following files may be used to replace their `*.so` equivalents in the `/hom
 - [/home/mks/klipper/klippy/extras/box_stepper.py](./box_stepper.py)
 - [/home/mks/klipper/klippy/extras/buttons_irq.py](./buttons_irq.py)
 
-Now move/backup the corresponding `*.so` files out of the same directory to somewhere safe where they won't be picked up by the Klipper firmware. To do so, you can use the following commands:
+Now move/backup the corresponding `*.so` files out of the same directory to somewhere safe where they won't be picked up by the Klipper firmware. After this, you can use the following commands to overwrite them:
 
 ```
-cd /klipper/klippy/extras
 cd ~/klipper/klippy/extras/
 
 sudo rm -f aht20_f.so box_detect.so box_extras.so box_rfid.so box_stepper.so buttons_irq.so
