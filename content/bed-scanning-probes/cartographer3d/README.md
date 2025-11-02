@@ -148,7 +148,7 @@ If you are doing this guide on 1.6 or earlier, this step may be skipped.
 > These files work as of version 1.7 on 2025.08.03. Qidi deleted them, meaning we no longer have access to the source files - the ones below are last available versions archived by the community. This may cause the guide to stop working in the future.
 
 > [!WARNING]
-> The following changes will remove some of the macros that the printer uses during print start and resume, causing some inconsistent behaviour. [You can read more here](../../customisable_qidibox_firmware/README.md#restore-missing-macros) on how to add the missing macros back to restore the functionality.
+> The following changes will remove some of the macros that the printer uses during print start and resume, causing some inconsistent behaviour. [You can read more here](../../customisable_qidibox_firmware/README.md#adding-the-new-customisable-macros) on how to add the missing macros back to restore the functionality.
 
 ```bash
 cd ~/klipper/klippy/extras/

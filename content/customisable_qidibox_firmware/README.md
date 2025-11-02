@@ -43,7 +43,7 @@ wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main
 
 ```
 
-## Restore missing macros
+##  Restore missing macros
 
 If you're planning to use the Qidi Box, you may experience some unexpected behaviour when using a `gcode_macro.cfg` file from versions 1.7.1 or above. This happens because some of the gcode macros used in certain box operations (for example, during print start or when resuming a paused print) were moved from `gcode_macro.cfg` to macros inside the `.so` files that were replaced in a previous step.
 
@@ -55,208 +55,7 @@ A way to fix this issue is to add the following macros to your `gcode_macro.cfg`
 >  It is possible that `EXTRUSION_AND_FLUSH` is already defined in your `gcode_macro.cfg` file. Double check that you aren't creating duplicate gcode_macro definitions!
 
 ```
-[gcode_macro TRY_RESUME_PRINT]
-gcode:
-    {% set retry_val = printer.save_variables.variables.retry_step %}
-    {% if retry_val == None %}
-        {% if printer['hall_filament_width_sensor'].Diameter > 0.5 %}
-            RESUME_PRINT
-        {% else %}
-            {% if printer.save_variables.variables.is_tool_change == 1 %} 
-                RESUME_PRINT
-            {% endif %}
-        {% endif %}
-    {% else %}
-        {% if (retry_val.startswith('QDE_004_002')
-            or retry_val.startswith('QDE_004_003')
-            or retry_val.startswith('QDE_004_004')
-            or retry_val.startswith('QDE_004_005')
-            or retry_val.startswith('QDE_004_006')
-            or retry_val.startswith('QDE_004_009')) %}
-            TRY_MOVE_AGAIN
-        {% else %}
-            {% if printer['hall_filament_width_sensor'].Diameter > 0.5 %}
-                RESUME_PRINT
-            {% else %}
-                {% if printer.save_variables.variables.is_tool_change == 1 %} 
-                    RESUME_PRINT
-                {% endif %}
-            {% endif %}
-        {% endif %}
-    {% endif %}
 
-
-[gcode_macro EXTRUSION_AND_FLUSH]
-gcode:
-    {% set hotendtemp = params.HOTEND|int %}
-    MOVE_TO_TRASH
-    M109 S{hotendtemp}
-    M83
-    G1 E1 F50
-    G1 E28.13 F611
-    G1 E0.97 F50
-    G1 E8.73 F611
-    G1 E0.97 F50
-    G1 E8.73 F611
-    G1 E0.97 F50
-    G1 E-2 F1800
-    {% for i in range(1,5) %}
-        M106 S255
-        M400
-        G4 P6000
-        CLEAR_FLUSH
-        M106 S60
-        G1 E34.8 F611
-        G1 E1.2 F50
-        G1 E10.8 F611
-        G1 E1.2 F50
-        G1 E10.8 F611
-        G1 E1.2 F50
-        G1 E-2 F1800
-    {% endfor %}
-    M106 S255
-    M400
-    G4 P6000
-    CLEAR_FLUSH
-    M106 S60
-
-
-[gcode_macro BOX_PRINT_START]
-gcode:
-    {% set last_load_slot = printer.save_variables.variables.last_load_slot|default("slot-1") %}
-    {% set hotendtemp = params.HOTENDTEMP|int %}
-    {% set extruder = params.EXTRUDER|default(0)|int %}
-    {% set value_t = printer.save_variables.variables["value_t" ~ extruder]|default("slot" ~ extruder) %}
-    {% if printer['hall_filament_width_sensor'].Diameter > 0.5 %}
-        {% if last_load_slot != value_t and last_load_slot != "slot-1" %}
-            CUT_FILAMENT
-            MOVE_TO_TRASH
-            M109 S{hotendtemp}
-            EXTRUDER_UNLOAD SLOT={last_load_slot}
-            M83
-            G1 E18 F300
-            T{extruder}
-            G1 E1 F50
-            G1 E28.13 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E-2 F1800
-            {% for i in range(1,5) %}
-                M106 S255
-                M400
-                G91
-                G1 X-3 F60
-                G1 X3 F60
-                G90
-                CLEAR_FLUSH
-                M106 S60
-                G1 E34.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E-2 F1800
-            {% endfor %}
-        {% elif last_load_slot == value_t and printer.save_variables.variables.slot_sync == "slot-1" %}
-            MOVE_TO_TRASH
-            M109 S{hotendtemp} 
-            T{extruder}
-            M83
-            G1 E1 F50
-            G1 E28.13 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E-2 F1800
-            {% for i in range(1,5) %}
-                M106 S255
-                M400
-                G91
-                G1 X-3 F60
-                G1 X3 F60
-                G90
-                CLEAR_FLUSH
-                M106 S60
-                G1 E34.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E-2 F1800
-            {% endfor %}
-        {% endif %}
-    {% else %}
-        {% if last_load_slot != "slot-1" %}
-            MOVE_TO_TRASH
-            M109 S{hotendtemp}
-            M400
-            EXTRUDER_UNLOAD SLOT={last_load_slot}
-            T{extruder}
-            M83
-            G1 E1 F50
-            G1 E28.13 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E-2 F1800
-            {% for i in range(1,5) %}
-                M106 S255
-                M400
-                G91
-                G1 X-3 F60
-                G1 X3 F60
-                G90
-                CLEAR_FLUSH
-                M106 S60
-                G1 E34.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E-2 F1800
-            {% endfor %}
-        {% else %}
-            MOVE_TO_TRASH
-            M109 S{hotendtemp}
-            T{extruder}
-            M83
-            G1 E1 F50
-            G1 E28.13 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E-2 F1800
-            {% for i in range(1,5) %}
-                M106 S255
-                M400
-                G91
-                G1 X-3 F60
-                G1 X3 F60
-                G90
-                CLEAR_FLUSH
-                M106 S60
-                G1 E34.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E-2 F1800
-            {% endfor %}
-        {% endif %}
-    {% endif %}
 ```
 
 
@@ -271,6 +70,9 @@ Then edit your printer.cfg and add in the following line below the existing `[in
 ```
 
 Now click `SAVE & RESTART`
+
+> [!WARNING]
+>  It is possible that some macros (for example, `EXTRUSION_AND_FLUSH`) are already defined in your `gcode_macro.cfg` file. Double check that you aren't creating duplicate gcode_macro definitions!
 
 After the printer has restarted (hopefully no errors show up - if they do, address them), then you will need to power-cycle the printer to activate the new firmware changes.
 
