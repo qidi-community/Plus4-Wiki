@@ -147,6 +147,9 @@ If you are doing this guide on 1.6 or earlier, this step may be skipped.
 > [!IMPORTANT]
 > These files work as of version 1.7 on 2025.08.03. Qidi deleted them, meaning we no longer have access to the source files - the ones below are last available versions archived by the community. This may cause the guide to stop working in the future.
 
+> [!WARNING]
+> The following changes will remove some of the macros that the printer uses during print start and resume, causing some inconsistent behaviour. [You can read more here](../../customisable_qidibox_firmware/README.md#restore-missing-macros) on how to add the missing macros back to restore the functionality.
+
 ```bash
 cd ~/klipper/klippy/extras/
 
@@ -172,6 +175,8 @@ sudo rm -f buttons_irq.so
 
 wget https://raw.githubusercontent.com/QIDITECH/klipper/4bb7c6337936ef273e621d1f55bc0ef92114785d/klippy/extras/buttons_irq.py
 ```
+
+
 
 After doing this, run `ls` command. The listed files should not contain any .so files - if that is not the case (e.g. a future update added a file not listed above) you need to remove it and download the .py from Qidi's Klipper repo.
 
@@ -756,221 +761,6 @@ and save the filament settings. Note that we are reversing the sign of the filam
 
 The next time that we print with this filament, the filament specific Z offset will be applied and we should get perfect first layers with it moving forwards.
 
-## 7. (optional) Add missing macros for Qidi Box support
-
-If you're planning to use the Qidi Box, you may experience some unexpected behaviour when using a `gcode_macro.cfg` file from versions 1.7.1 or above. This happens because some of the gcode macros used in certain box operations (for example, during print start or when resuming a paused print) were moved from `gcode_macro.cfg` to macros inside the `.so` files that were replaced in a previous step.
-
-As a result, you may have some macros being called that aren't defined anywhere. Currently, the affected macros are `BOX_PRINT_START`, `EXTRUSION_AND_FLUSH` and `TRY_RESUME_PRINT`.
-
-A way to fix this issue is to add the following macros to your `gcode_macro.cfg`. These are [ports of the code from 1.7.0](https://github.com/QIDITECH/QIDI_PLUS4/commit/ec595fc903540564be757bcafa745cd5c4a52cd0#diff-a9e221ad0df9e5f2e8b8496842d5618351303699fc7c51c6849e6db26ab7d3d2) that was removed by the `.so` macros.
-
-> [!WARNING]
->  It is possible that `EXTRUSION_AND_FLUSH` is already defined in your `gcode_macro.cfg` file. Double check that you aren't creating duplicate gcode_macro definitions!
-
-```
-[gcode_macro TRY_RESUME_PRINT]
-gcode:
-    {% set retry_val = printer.save_variables.variables.retry_step %}
-    {% if retry_val == None %}
-        {% if printer['hall_filament_width_sensor'].Diameter > 0.5 %}
-            RESUME_PRINT
-        {% else %}
-            {% if printer.save_variables.variables.is_tool_change == 1 %} 
-                RESUME_PRINT
-            {% endif %}
-        {% endif %}
-    {% else %}
-        {% if (retry_val.startswith('QDE_004_002')
-            or retry_val.startswith('QDE_004_003')
-            or retry_val.startswith('QDE_004_004')
-            or retry_val.startswith('QDE_004_005')
-            or retry_val.startswith('QDE_004_006')
-            or retry_val.startswith('QDE_004_009')) %}
-            TRY_MOVE_AGAIN
-        {% else %}
-            {% if printer['hall_filament_width_sensor'].Diameter > 0.5 %}
-                RESUME_PRINT
-            {% else %}
-                {% if printer.save_variables.variables.is_tool_change == 1 %} 
-                    RESUME_PRINT
-                {% endif %}
-            {% endif %}
-        {% endif %}
-    {% endif %}
-
-
-[gcode_macro EXTRUSION_AND_FLUSH]
-gcode:
-    {% set hotendtemp = params.HOTEND|int %}
-    MOVE_TO_TRASH
-    M109 S{hotendtemp}
-    M83
-    G1 E1 F50
-    G1 E28.13 F611
-    G1 E0.97 F50
-    G1 E8.73 F611
-    G1 E0.97 F50
-    G1 E8.73 F611
-    G1 E0.97 F50
-    G1 E-2 F1800
-    {% for i in range(1,5) %}
-        M106 S255
-        M400
-        G4 P6000
-        CLEAR_FLUSH
-        M106 S60
-        G1 E34.8 F611
-        G1 E1.2 F50
-        G1 E10.8 F611
-        G1 E1.2 F50
-        G1 E10.8 F611
-        G1 E1.2 F50
-        G1 E-2 F1800
-    {% endfor %}
-    M106 S255
-    M400
-    G4 P6000
-    CLEAR_FLUSH
-    M106 S60
-
-
-[gcode_macro BOX_PRINT_START]
-gcode:
-    {% set last_load_slot = printer.save_variables.variables.last_load_slot|default("slot-1") %}
-    {% set hotendtemp = params.HOTENDTEMP|int %}
-    {% set extruder = params.EXTRUDER|default(0)|int %}
-    {% set value_t = printer.save_variables.variables["value_t" ~ extruder]|default("slot" ~ extruder) %}
-    {% if printer['hall_filament_width_sensor'].Diameter > 0.5 %}
-        {% if last_load_slot != value_t and last_load_slot != "slot-1" %}
-            CUT_FILAMENT
-            MOVE_TO_TRASH
-            M109 S{hotendtemp}
-            EXTRUDER_UNLOAD SLOT={last_load_slot}
-            M83
-            G1 E18 F300
-            T{extruder}
-            G1 E1 F50
-            G1 E28.13 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E-2 F1800
-            {% for i in range(1,5) %}
-                M106 S255
-                M400
-                G91
-                G1 X-3 F60
-                G1 X3 F60
-                G90
-                CLEAR_FLUSH
-                M106 S60
-                G1 E34.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E-2 F1800
-            {% endfor %}
-        {% elif last_load_slot == value_t and printer.save_variables.variables.slot_sync == "slot-1" %}
-            MOVE_TO_TRASH
-            M109 S{hotendtemp} 
-            T{extruder}
-            M83
-            G1 E1 F50
-            G1 E28.13 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E-2 F1800
-            {% for i in range(1,5) %}
-                M106 S255
-                M400
-                G91
-                G1 X-3 F60
-                G1 X3 F60
-                G90
-                CLEAR_FLUSH
-                M106 S60
-                G1 E34.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E-2 F1800
-            {% endfor %}
-        {% endif %}
-    {% else %}
-        {% if last_load_slot != "slot-1" %}
-            MOVE_TO_TRASH
-            M109 S{hotendtemp}
-            M400
-            EXTRUDER_UNLOAD SLOT={last_load_slot}
-            T{extruder}
-            M83
-            G1 E1 F50
-            G1 E28.13 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E-2 F1800
-            {% for i in range(1,5) %}
-                M106 S255
-                M400
-                G91
-                G1 X-3 F60
-                G1 X3 F60
-                G90
-                CLEAR_FLUSH
-                M106 S60
-                G1 E34.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E-2 F1800
-            {% endfor %}
-        {% else %}
-            MOVE_TO_TRASH
-            M109 S{hotendtemp}
-            T{extruder}
-            M83
-            G1 E1 F50
-            G1 E28.13 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E8.73 F611
-            G1 E0.97 F50
-            G1 E-2 F1800
-            {% for i in range(1,5) %}
-                M106 S255
-                M400
-                G91
-                G1 X-3 F60
-                G1 X3 F60
-                G90
-                CLEAR_FLUSH
-                M106 S60
-                G1 E34.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E10.8 F611
-                G1 E1.2 F50
-                G1 E-2 F1800
-            {% endfor %}
-        {% endif %}
-    {% endif %}
-```
 
 ## Optional QoL Bed Tramming Macros
 
