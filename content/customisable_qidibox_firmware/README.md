@@ -29,17 +29,17 @@ cd ~/klipper/klippy/extras/
 
 sudo rm -f aht20_f.so box_detect.so box_extras.so box_rfid.so box_stepper.so buttons_irq.so
 
-wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/aht20_f.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/customisable_qidibox_firmware/aht20_f.py
 
-wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/box_detect.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/customisable_qidibox_firmware/box_detect.py
 
-wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/box_extras.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/customisable_qidibox_firmware/box_extras.py
 
-wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/box_rfid.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/customisable_qidibox_firmware/box_rfid.py
 
-wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/box_stepper.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/customisable_qidibox_firmware/box_stepper.py
 
-wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/buttons_irq.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/customisable_qidibox_firmware/buttons_irq.py
 
 ```
 
