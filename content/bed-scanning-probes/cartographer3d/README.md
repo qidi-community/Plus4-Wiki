@@ -176,8 +176,6 @@ sudo rm -f buttons_irq.so
 wget https://raw.githubusercontent.com/QIDITECH/klipper/4bb7c6337936ef273e621d1f55bc0ef92114785d/klippy/extras/buttons_irq.py
 ```
 
-
-
 After doing this, run `ls` command. The listed files should not contain any .so files - if that is not the case (e.g. a future update added a file not listed above) you need to remove it and download the .py from Qidi's Klipper repo.
 
 Once this is done, start klipper: 

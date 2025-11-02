@@ -42,18 +42,6 @@ wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main
 
 ```
 
-##  Restore missing macros
-
-If you're planning to use the Qidi Box, you may experience some unexpected behaviour when using a `gcode_macro.cfg` file from versions 1.7.1 or above. This happens because some of the gcode macros used in certain box operations (for example, during print start or when resuming a paused print) were moved from `gcode_macro.cfg` to macros inside the `.so` files that were replaced in a previous step.
-
-As a result, you may have some macros being called that aren't defined anywhere. Currently, the affected macros are `BOX_PRINT_START`, `EXTRUSION_AND_FLUSH` and `TRY_RESUME_PRINT`.
-
-A way to fix this issue is to add the following macros to your `gcode_macro.cfg`. These are [ports of the code from 1.7.0](https://github.com/QIDITECH/QIDI_PLUS4/commit/ec595fc903540564be757bcafa745cd5c4a52cd0#diff-a9e221ad0df9e5f2e8b8496842d5618351303699fc7c51c6849e6db26ab7d3d2) that was removed by the `.so` macros.
-
-> [!WARNING]
->  It is possible that `EXTRUSION_AND_FLUSH` is already defined in your `gcode_macro.cfg` file. Double check that you aren't creating duplicate gcode_macro definitions!
-
-
 ## Adding the new customisable macros 
 
 Using the FLUIDD Web UI, add in the following [box_macros.cfg](./box_macros.cfg) file into the same directory as your `printer.cfg` file
