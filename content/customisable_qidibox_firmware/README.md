@@ -21,28 +21,26 @@ The following files may be used to replace their `*.so` equivalents in the `/hom
 - [/home/mks/klipper/klippy/extras/box_stepper.py](./box_stepper.py)
 - [/home/mks/klipper/klippy/extras/buttons_irq.py](./buttons_irq.py)
 
-Now move/backup the corresponding `*.so` files out of the same directory to somewhere safe where they won't be picked up by the Klipper firmware. To do so, you can use the following commands:
+Now move/backup the corresponding `*.so` files out of the same directory to somewhere safe where they won't be picked up by the Klipper firmware. After this, you can use the following commands to overwrite them:
 
 ```
-cd /klipper/klippy/extras
 cd ~/klipper/klippy/extras/
 
 sudo rm -f aht20_f.so box_detect.so box_extras.so box_rfid.so box_stepper.so buttons_irq.so
 
-wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/aht20_f.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/customisable_qidibox_firmware/aht20_f.py
 
-wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/box_detect.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/customisable_qidibox_firmware/box_detect.py
 
-wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/box_extras.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/customisable_qidibox_firmware/box_extras.py
 
-wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/box_rfid.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/customisable_qidibox_firmware/box_rfid.py
 
-wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/box_stepper.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/customisable_qidibox_firmware/box_stepper.py
 
-wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/qidibox-on-orcaslicer/original_source/buttons_irq.py
+wget https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/customisable_qidibox_firmware/buttons_irq.py
 
 ```
-
 
 ## Adding the new customisable macros 
 
@@ -55,6 +53,9 @@ Then edit your printer.cfg and add in the following line below the existing `[in
 ```
 
 Now click `SAVE & RESTART`
+
+> [!WARNING]
+>  It is possible that some macros (for example, `EXTRUSION_AND_FLUSH`) are already defined in your `gcode_macro.cfg` file. Double check that you aren't creating duplicate gcode_macro definitions!
 
 After the printer has restarted (hopefully no errors show up - if they do, address them), then you will need to power-cycle the printer to activate the new firmware changes.
 
