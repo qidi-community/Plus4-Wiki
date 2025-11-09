@@ -14,6 +14,8 @@ of the Qidi Plus4 3D printer.
 
 ### [SSH Access](./content/ssh-access/README.md)
 
+### [SSH Security](./content/ssh-security/README.md)
+
 ### [Adding Beacon3D](./content/bed-scanning-probes/Beacon3D/RevH-Normal)
 
 > [!TIP]
