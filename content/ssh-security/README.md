@@ -1,7 +1,9 @@
 # Securing SSH Access
 
 > [!CAUTION]
-> ** FOLLOWING THESE INSTRUCTIONS HAVE THE POTENTIAL TO PERMANENTLY LOCK YOU OUT OF `ssh` ACCESS. PLEASE FOLLOW ALL INSTRUCTIONS CAREFULLY, NOTE DOWN ALL PASSWORDS, AND BACKUP ANY PRIVATE/PUBLIC KEYS AS APPLICABLE.** If you become locked out due to losing access to your password or public/private key-pairs, the only way to restore access would be to perform a factory result with fresh firmware from QIDI and there is no known way to regain access. Only proceed if you can understand and can bear or mitigate the potential risks involved.
+> FOLLOWING THESE INSTRUCTIONS HAVE THE POTENTIAL TO PERMANENTLY LOCK YOU OUT OF `ssh` ACCESS. PLEASE FOLLOW ALL INSTRUCTIONS CAREFULLY, NOTE DOWN ALL PASSWORDS, AND BACKUP ANY PRIVATE/PUBLIC KEYS AS APPLICABLE.
+>
+> If you become locked out due to losing access to your password or public/private key-pairs, the only way to restore access would be to perform a factory result with fresh firmware from QIDI and there is no known way to regain access. Only proceed if you can understand and can bear or mitigate the potential risks involved.
 
 By default, the QIDI Plus4 ships with an insecure SSH configuration, allowing simple password access to both the `root` and `mks` accounts. More details on gaining SSH access can be found [here](../ssh-access/README.md).
 
@@ -166,5 +168,6 @@ Save and exit. Restart the `ssh` daemon with:
 ```
 sudo systemctl restart ssh
 ```
+
 
 Password login should now be disabled for the printer, and you must login with one of the existing private / public key pairs.
