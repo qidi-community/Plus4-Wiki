@@ -1,5 +1,8 @@
 # Securing SSH Access
 
+> [!CAUTION]
+> *** FOLLOWING THESE INSTRUCTIONS HAVE THE POTENTIAL TO PERMANENTLY LOCK YOU OUT OF `ssh` ACCESS. PLEASE FOLLOW ALL INSTRUCTIONS CAREFULLY, NOTE DOWN ALL PASSWORDS, AND BACKUP ANY PRIVATE/PUBLIC KEYS AS APPLICABLE.*** If you become locked out due to losing access to your password or public/private key-pairs, the only way to restore access would be to perform a factory result with fresh firmware from QIDI and there is no known way to regain access. Only proceed if you can understand and can bear or mitigate the potential risks involved.
+
 By default, the QIDI Plus4 ships with an insecure SSH configuration, allowing simple password access to both the `root` and `mks` accounts. More details on gaining SSH access can be found [here](../ssh-access/README.md).
 
 As such, any bad actor on your local network or with access to the printer's SSH port is able to gain trivial access with full control, allowing for remote code execution, installation of malware, modifying Klipper configs, etc. As such, it's important to secure SSH access to the printer through:
