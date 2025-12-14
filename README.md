@@ -12,7 +12,9 @@ of the Qidi Plus4 3D printer.
 
 ## Issues and Possible Fixes
 
-### [SSH Access](./content/ssh-access/README.md)
+### [Plus4 System Performance Tuning](./content/system-tuning/README.md) or [Alternative version](./content/system-tuning-alt/README.md)
+
+### [Adaptive Main Board Cooling configuration](./content/adaptive-main-board-cooling)
 
 ### [SSH Security](./content/ssh-security/README.md)
 
@@ -23,6 +25,8 @@ of the Qidi Plus4 3D printer.
 ### [Adding Cartographer](./content/bed-scanning-probes/cartographer3d)
 
 ### [Modular Tool-Head Mod](./content/modular-toolhead/README.md)
+
+### [Making Z-Offset Permanent](./content/making-z-offset-permanent)
 
 ### [Conditional purging and pei wiping to address the cracking of nozzles with ceramic heat-breaks](./content/conditional_purging_and_wiping/README.md)
 
@@ -46,6 +50,8 @@ of the Qidi Plus4 3D printer.
 
 ## Printer Configuration Tweaks
 
+### [SSH Access](./content/ssh-access/README.md)
+
 ### [Adaptive Chamber Heater Fan](./content/adaptive-chamber-heater-fan/README.md)
 
 ### [Dynamic Chamber Temperature Manager](./content/chamber-temperature-manager/README.md)
@@ -54,17 +60,11 @@ of the Qidi Plus4 3D printer.
 
 ### [Tweak to Square Corner Velocity](./content/square-corner-velocity/README.md)
 
-### [Adaptive Main Board Cooling configuration](./content/adaptive-main-board-cooling)
-
-### [Making Z-Offset Permanent](./content/making-z-offset-permanent)
-
 ### [Enabling KAMP Purge Line](./content/kamp-purging)
 
 ### [Enabling SCREWS_TILT_CALCULATE](./content/Screws-Tilt-Adjust/)
 
 ### [Better Bed Meshing](./content/more-accurate-bed-meshing/README.md)
-
-### [Plus4 System Performance Tuning](./content/system-tuning/README.md)
 
 ### [Disable Wifi Adapter](./content/8188gu-blacklist/README.md)
 
@@ -75,8 +75,6 @@ of the Qidi Plus4 3D printer.
 ## Orca Slicer Configuration
 
 ### [Orca Slicer Settings](./content/orca-slicer-settings)
-
-### [QIDI Box on Orca Slicer](./content/qidibox-on-orcaslicer)
 
 ---
 
@@ -115,6 +113,8 @@ of the Qidi Plus4 3D printer.
 ### [WIP - A better chamber thermal sensor mounting position](https://www.thingiverse.com/thing:6802256)
 
 ### [Articulating No Hands Door Seal (paid)](https://cults3d.com/en/3d-model/tool/plus4-articulating-no-hands-door-hinge-seal)
+
+### [Articulating No Hands Door Seal (free)](https://www.printables.com/model/1271100)
 
 ---
 
