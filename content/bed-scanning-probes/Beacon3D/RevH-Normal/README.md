@@ -59,11 +59,20 @@ Don't worry, these can all be resolved fairly easily by carefully reading the er
 
 On a command shell (`ssh`) to the printer, run the following
 
-```
-mkdir -p /home/mks/qidi-klipper-backup
-(cd /home/mks; tar cvf - klipper printer_data/config) | (cd /home/mks/qidi-klipper-backup; tar xf -)
+> [!CAUTION]
+> Be sure to update the value for `reason`, or else you might be overwriting a previous backup.
 
 ```
+date=$(date +'%Y%m%d')
+reason='examplefordiscord'
+mkdir -p /home/mks/qidi-klipper-backup-${date}-${reason}
+(cd /home/mks; tar cvf - klipper printer_data/config) | (cd /home/mks/qidi-klipper-backup-${date}-${reason}; tar xf -)
+```
+
+> [!NOTE]
+> As an example, this is what multiple backups would look like
+> 
+> ![multiple backups with dates](../../../images/backup-date-reason_001.png)
 
 This will backup your klipper installation and all of your printer configuration files to the `/home/mks/qidi-klipper-backup` directory for easy recovery
 
@@ -79,15 +88,12 @@ You have two choices:
 cd /home/mks
 git clone https://github.com/beacon3d/beacon_klipper.git
 ./beacon_klipper/install.sh
-
 ```
-
 -OR-
 
 2. Follow Beacon3D's own guide here: https://docs.beacon3d.com/quickstart/#3-install-beacon-module
 
    _**Please ensure that you have actually run the install script as the guide suggests**_
-
 
 **Note:** If you run into inssues with git when installing the Beacon software, it may be because your
 printer's system time is too far out of sync.  Follow [this guide](https://wiki.qidi3d.com/en/Memo/System-Time-Modification)
@@ -123,9 +129,7 @@ There are two options for how this can be done.
 
 ```
 wget -O /home/mks/klipper/klippy/extras/probe.py https://raw.githubusercontent.com/qidi-community/Plus4-Wiki/refs/heads/main/content/bed-scanning-probes/Beacon3D/RevH-Normal/probe.py
-
 ```
-
 -OR-  (if you wish to do it manually for more personal control)
 
 2. On your printer, edit the `/home/mks/klipper/klippy/extras/probe.py` file, then find and comment out the lines as highlighted here:
@@ -134,14 +138,12 @@ wget -O /home/mks/klipper/klippy/extras/probe.py https://raw.githubusercontent.c
 
 Then save the file and exit the editor.
 
-
 After either option is complete, then power-cycle your printer.
 
 **VERY IMPORTANT NOTE** - Power-cycle means to turn your printer off at the power switch, wait 10s, and then turn it back on.
 
 It does **NOT** mean just save and restart.  That will not perform the necessary Klipper firmware rebuilding that
 happens with a power cycle.
-
 
 ***
 
