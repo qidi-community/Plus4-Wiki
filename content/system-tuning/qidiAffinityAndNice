@@ -1,23 +1,15 @@
 #!/bin/sh
 
-### BEGIN INIT INFO
-# Provides:       tuning
-# Required-Start:    $local_fs $remote_fs $network $syslog $named
-# Required-Stop:     $local_fs $remote_fs $network $syslog $named
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: tunes CPU performance and process affinity
-# Description:       tunes CPU performance and process affinity
-### END INIT INFO
-
+## Declare overarching variables
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 TASKSET=/usr/bin/taskset
 RENICE=/usr/bin/renice
 CPUFREQSET=/usr/bin/cpufreq-set
 CPUFREQINFO=/usr/bin/cpufreq-info
 
-test -x $TASKSET || exit 0
-test -x $RENICE || exit 0
+## Test availability of executables
+test -x ${TASKSET} || exit 1
+test -x ${RENICE} || exit 1
 
 set_irq_affinity() {
         TTYS0=`grep ttyS0 < /proc/interrupts | awk -F: '{print $1}' | tr -d '[:blank:]'`
@@ -35,33 +27,37 @@ set_irq_affinity() {
 }
 
 set_affinity() {
-        AFFINITY_CPUS=$1
-        COMMAND_NAME=$2
+        AFFINITY_CPUS=${1}
+        COMMAND_NAME=${2}
 
-        echo "Setting CPU affinity for all $COMMAND_NAME threads to CPU $AFFINITY_CPUS"
-        for p in `ps -eLf | grep -i $COMMAND_NAME | grep -v grep | awk '{print $4}'`
+        echo "Setting CPU affinity for all ${COMMAND_NAME} threads to CPU ${AFFINITY_CPUS}"
+        for p in `ps -eLf | grep -i ${COMMAND_NAME} | grep -v grep | awk '{print $4}'`
         do
-                $TASKSET -cp $AFFINITY_CPUS $p
+                ${TASKSET} -cp ${AFFINITY_CPUS} ${p}
         done
+        ## unset because used in multiple places
+        unset p
 }
 
 make_nice() {
-        NICE_LEVEL=$1
-        COMMAND_NAME=$2
+        NICE_LEVEL=${1}
+        COMMAND_NAME=${2}
 
-        echo "Setting all $COMMAND_NAME threads to niceness level $NICE_LEVEL"
-        for p in `ps -eLf | grep $COMMAND_NAME | grep -v grep | awk '{print $4}'`
+        echo "Setting all ${COMMAND_NAME} threads to niceness level ${NICE_LEVEL}"
+        for p in `ps -eLf | grep ${COMMAND_NAME} | grep -v grep | awk '{print $4}'`
         do
-                $RENICE $NICE_LEVEL $p
+                ${RENICE} ${NICE_LEVEL} ${p}
         done
+        ## unset because used in multiple places
+        unset p
 }
 
 tune_up() {
         # Put CPU into Performance Mode
         echo "Placing Printer CPU into Performance mode with fixed frequency"
-        $CPUFREQSET -g performance
-        $CPUFREQSET -d 1200Mhz
-        $CPUFREQINFO
+        ${CPUFREQSET} -g performance
+        ${CPUFREQSET} -d 1200Mhz
+        ${CPUFREQINFO}
 
         # Isolate Klipper from xindi and mjpg-streamer
         echo "\nIsolating klipper from xindi, mjpg_streamer, moonraker, and nginx\n"
@@ -101,9 +97,21 @@ tune_down() {
         make_nice 0 nginx
 }
 
+tune_status() {
+        echo "Showing Process CPU affinity:"
+        for process in ${@} ; do
+                echo "processing ${process}"
+                for pid in $(ps -eLf | grep -i ${process} | grep -v grep | awk '{print $4}'); do
+                        taskset -cp ${pid}
+                done
+        done
+        echo "Showing unique Process Niceness levels:"
+        ps axl | egrep "mjpg|xindi|nginx" | egrep -v "bash|grep" | awk '{print $6 " " $13}' | sort -u
+}
+
 case "$1" in
         start)
-                sleep 60        # Wait for all the main printer processes to start up
+                sleep 30        # Wait for all the main printer processes to start up
                 tune_up
                 ;;
 
@@ -113,8 +121,11 @@ case "$1" in
         stop)
                 tune_down
                 ;;
-        *)
-                exit 0
+        status)
+                tune_status klippy mjpg_streamer /root/xindi/build/xindi nginx moonraker
+                ;;
+        *)      echo "Invalid parameter given, try again."
+                exit 4
                 ;;
 esac
 
