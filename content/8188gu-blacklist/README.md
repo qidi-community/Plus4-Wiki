@@ -29,15 +29,20 @@ If you'd rather NOT remove the dongle, you can simply blacklist the module from 
 in the first place. To do so, run the following commands:
 
 ssh into your 3D Printer's Linux command shell (see [ssh-access](https://github.com/qidi-community/Plus4-Wiki/tree/main/content/ssh-access) for details)
+
+```
 sudo -i
-`cd /etc/modprobe.d`
-`ls`
-`echo "blacklist 8188gu" > blacklist-8188gu.conf`
-`echo "blacklist cfg80211" > blacklist-cfg80211.conf`
-`echo "blacklist rfkill" > blacklist-rfkill.conf`
-`ls`
-verify 3 new blacklist-*.conf files exist
-`update-initramfs -u`
+cd /etc/modprobe.d
+ls -l
+echo "blacklist 8188gu" > blacklist-8188gu.conf
+echo "blacklist cfg80211" > blacklist-cfg80211.conf
+echo "blacklist rfkill" > blacklist-rfkill.conf
+ls -l
+```
+Verify that 3 new blacklist-*.conf files exist. If that's that case execute this command:
+```
+update-initramfs -u
+```
 
 ## Restart the Printer
 
@@ -52,5 +57,21 @@ To force this to happen, run the command `sync`. If that comes back with no furt
 ## Validate The Fix
 Once you have restarted your Plus4, connect via `ssh` to your printer again and run the following command:
 
-`for MODULE in 8188gu cfg80211 rfkill ; do lsmod | grep -qw "${MODULE}" && echo "Module '${MODULE}' is loaded." || echo "Module '${MODULE}' is NOT loaded." ; done`
+```
+for MODULE in 8188gu cfg80211 rfkill ; do lsmod | grep -qw "${MODULE}" && echo "Module '${MODULE}' is loaded." || echo "Module '${MODULE}' is NOT loaded." ; done
+```
 
+## Uninstall 
+
+Remove the 3 files 
+
+```
+sudo -i
+cd /etc/modprobe.d
+rm -f blacklist*.conf
+```
+update the bootloader
+```
+update-initramfs -u
+```
+and `sync` and power cycle.
