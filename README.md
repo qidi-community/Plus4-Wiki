@@ -76,6 +76,10 @@ of the Qidi Plus4 3D printer.
 
 ### [Orca Slicer Settings](./content/orca-slicer-settings)
 
+## Qidi Box
+
+### [Bunny Box - open source Qidi Box using Happy Hare](https://github.com/Wazzup77/Bunny-Box)
+
 ---
 
 ## Printable Models
