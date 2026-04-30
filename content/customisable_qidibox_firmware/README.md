@@ -86,6 +86,6 @@ SET_GCODE_VARIABLE MACRO=BOX_CHANGE_FILAMENT VARIABLE=next_filament_temp VALUE={
 SET_GCODE_VARIABLE MACRO=BOX_CHANGE_FILAMENT VARIABLE=next_filament_high_temp VALUE={nozzle_temperature_range_high[next_extruder]}
 SET_GCODE_VARIABLE MACRO=BOX_CHANGE_FILAMENT VARIABLE=next_filament_retract_length VALUE={new_retract_length_toolchange}
 SET_GCODE_VARIABLE MACRO=BOX_CHANGE_FILAMENT VARIABLE=retraction_distance_when_cut VALUE=0
-BOX_CHANGE_FILAMENT C_FILA_TYPE={filament_type[current_extruder]} N_FILA_TYPE={filament_type[next_extruder]}
+BOX_CHANGE_FILAMENT C_FILA_TYPE='{filament_type[current_extruder]}' N_FILA_TYPE='{filament_type[next_extruder]}'
 {endif}
 ```
