@@ -205,6 +205,24 @@ split_delta_z: 0.01
 move_check_distance: 4
 ```
 
+- Update the `[screws_tilt_adjust]` section if you use that suite of tools, so that beacon mount is once again over the bolts/knobs when you run `SCREWS_TILT_CALCULATE` for instance:
+
+```
+[screws_tilt_adjust]
+screw1: 25,21
+screw1_name: Front left
+screw2: 25,21
+screw2_name: Front right
+screw3: 285,281
+screw3_name: Back right
+screw4: 25,281
+screw4_name: Back left
+screw_thread: CW-M4
+```
+> [!CAUTION]
+> Not doing this will not cause immediate concern, but will lead to errors down the road.
+> For example `!! No trigger on probe after full movement` as your beacon will be scanning outside of the dimensions of the bed and therefore not detect anything.
+
 - Add the following `[beacon]` section:
 
 Using the serial number you had captured before, put that in the serial section here.
