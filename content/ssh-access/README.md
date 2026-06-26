@@ -11,3 +11,7 @@ Then open a shell (or Terminal on Windows) and type:
 Where x.x.x.x is the IP address.
 
 The password is **makerbase**
+
+Common config files are in /home/mks/printer_data/config
+
+You can also use popular FTP client filezilla, with Host sftp://IP_ADDRESS (user and pass as above) , then right click a file, choose View/Edit, when you save, go back to filezilla and it will ask if you want to re-upload changes.
