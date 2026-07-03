@@ -10,6 +10,8 @@ The main complaint about the stock Qidi purge pattern is that it can be difficul
 
 The KAMP purge line, being thicker and shorter, makes it easy to flick off the build surface with a fingernail, resulting in less contact with the build plate.
 
+** While these are valid advantages, you can also try using a 5-10 loop skirt, as this lets you check/test your 1st layer z-height across the whole build area perimeter and is easier to remove than the default single line. - hayden.
+
 ## How to Enable
 
 TL;DR Doing the following will enable the `LINE_PURGE` macro in Klipper, which we will use later.
