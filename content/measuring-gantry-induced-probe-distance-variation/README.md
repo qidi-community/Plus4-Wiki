@@ -123,3 +123,18 @@ and the plus 4 nozzle offset is
 ```
 x_offset=25.0  y_offset=1.3
 ```
+
+### Here is some results from me running it 3 times
+(there definately seems to be some consistent variation worth investigation further)
+
+| X | Y | Run1 delta | Run2 delta | Run3 delta | Avg delta |
+|---|---|---|---|---|---|
+| 60 | 60 | 1.535 | 1.528 | 1.518 | **1.527** |
+| 166 | 60 | 1.530 | 1.517 | 1.521 | **1.523** |
+| 270 | 60 | 1.543 | 1.540 | 1.501 | **1.528** |
+| 60 | 162 | 1.487 | 1.485 | 1.486 | **1.486** |
+| 166 | 162 | 1.514 | 1.515 | 1.513 | **1.514** |
+| 270 | 162 | 1.479 | 1.479 | 1.492 | **1.484** |
+| 60 | 265 | 1.499 | 1.503 | 1.509 | **1.504** |
+| 166 | 265 | 1.472 | 1.462 | 1.465 | **1.466** |
+| 270 | 265 | 1.507 | 1.501 | 1.469 | **1.492** |
