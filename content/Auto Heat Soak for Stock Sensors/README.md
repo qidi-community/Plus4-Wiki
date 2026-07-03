@@ -1,5 +1,24 @@
 # Auto Heat Soak for Stock Sensor (Piezos & Induction)
 
+## A simpler option to consider:
+I too suspected effects from heat soak during the initial layer printing, as the chamber heater warms everything compared with the build plate that doesnt really heat much beyond its immediate surface. The chamber heater is changing during a critical stage of the build (first layer), after the mesh, while the bed is up to temp before the mesh. So alternatively instead of wating for the chamber to heat and soak (below method), I believe there is no reason not to just delay the chamber startup until after the first layer. As chamber temp is insignificant compared to bed temp, and during teh first few layers nothing is being effected by or needed the chamber heater as the bed is providing more than enough direct heat. The chamber heater really only comes into need as the build progresses higher and the effects of the bed become less and less. I found great results by doing this. 
+
+Firstly you need this in the start of your slicer "Layer change G-code"
+```
+{if layer_num == 1}
+    M118 Starting chamber heater
+    M141 S[chamber_temperature]
+{endif}
+```
+Then comment out chamber start in "Machine start G-code"
+```
+;M141 S[chamber_temperature]
+```
+And in the printer gcode_macro.cfg PRINT_START macro
+```
+; M141 S{chambertemp}
+```
+
 ## Reasons of this code is created:
 
 1. My stock piezo and induction sensors have good repeatability and low standard deviation.  
