@@ -74,6 +74,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Notes on Heat Soak](./content/Auto Heat Soak for Stock Sensors/README.md)
 
+### [Warp free ASA / ABS prints](./content/warp-free-asa-abs-prints/README.md)
+
 ## Orca Slicer Configuration
 
 ### [Orca Slicer Settings](./content/orca-slicer-settings)
@@ -121,6 +123,8 @@ of the Qidi Plus4 3D printer.
 ### [Articulating No Hands Door Seal (paid)](https://cults3d.com/en/3d-model/tool/plus4-articulating-no-hands-door-hinge-seal)
 
 ### [Articulating No Hands Door Seal (free)](https://www.printables.com/model/1271100)
+
+### [Filament Tangle Sensor Disabler Clip](https://www.printables.com/model/1767439-qidi-plus-4-filament-tangle-blocker-clip)
 
 ---
 
