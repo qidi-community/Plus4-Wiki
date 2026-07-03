@@ -1,6 +1,6 @@
 ****Connecting to an Open WIFI (with no password)****
 
-QIDI lcd software was not built with the thought of connection to a open (no password lcd).
+QIDI lcd software was not built with the thought of connection to a open (no password).
 
 Even open networks are shown with a lock icon, and it does not let you submit an empty password when joining.
 
