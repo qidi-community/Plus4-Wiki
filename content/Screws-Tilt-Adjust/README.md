@@ -3,8 +3,10 @@
 The `SCREWS_TILT_CALCULATE` macro allows you to use the accuracy of your printer's inductive probe to adjust each corner of the bed during the tramming process. 
 Similar to the built in calibration, which places the nozzle directly above each corner's bed leveling screw, this macro will place the inductive probe over each screw instead.
 
-Using your inductive probe's precision will allow a more accurate bed tramming to the gantry and subsequently a flatter printing surface.
+Using your inductive probe's precision will allow a more accurate** bed tramming to the gantry and subsequently a flatter printing surface.
 This also allows klipper to tell you exactly how much each screw will need to be turned, and in which direction to achieve this. 
+
+** This may not always be the case, as if you have probe to nozzle distance drift over the movement of your gantry, the nozzle may be more accurate as it is the ultimate truth of location. The built in lcd "Bed Reset" tools macro is called "BED_SCREWS_ADJUST" and is in the webui tool>tools section and I would recommend using/trying this first. - Hayden.
 
 ## Installation
 
