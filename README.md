@@ -120,7 +120,7 @@ of the Qidi Plus4 3D printer.
 
 ### [Articulating No Hands Door Seal (free)](https://www.printables.com/model/1271100)
 
-### [Filament Tangle Blocker Clip](https://www.printables.com/model/1767439-qidi-plus-4-filament-tangle-blocker-clip)
+### [Filament Tangle Sensor Disabler Clip](https://www.printables.com/model/1767439-qidi-plus-4-filament-tangle-blocker-clip)
 
 ---
 
