@@ -72,7 +72,9 @@ of the Qidi Plus4 3D printer.
 
 ### [Secure Remote Access](./content/secure-remote-access/README.md)
 
-### [Warp free ASA / ABS prints(./content/warp-free-asa-abs-prints/README.md)
+### [Notes on Heat Soak](./content/Auto Heat Soak for Stock Sensors/README.md)
+
+### [Warp free ASA / ABS prints](./content/warp-free-asa-abs-prints/README.md)
 
 ## Orca Slicer Configuration
 
