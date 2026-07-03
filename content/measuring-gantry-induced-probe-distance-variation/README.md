@@ -24,6 +24,8 @@ The first step is to find out if this even happens and if its repeatable and con
 So with the help of AI, Im working on this gcode macro to map and measure variation if present:
 (This is put at the bottom of gcode_macro.cfg, klipper restarted, and then GRID_PROBE_COMPARE selected from the marco menu, the result being printed to console at the end)
 
+This code will measure the Z with the nozzle and then the probe for each given point, you can look for differences between points, as ideally there should be no difference.
+
 ```
 [gcode_macro GRID_PROBE_COMPARE]
 variable_z_nozzle: 0
