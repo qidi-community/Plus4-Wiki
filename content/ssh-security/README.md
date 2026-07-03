@@ -62,10 +62,10 @@ Edit the file found at `/etc/ssh/sshd_config` with `sudo` privileges:
 sudo nano /etc/ssh/sshd_config
 ```
 
-Find the line beginning with `PermitRootLogin` and change "on" to "off". Your end result should look like the below. Mine was found on line 32.
+Find the line beginning with `PermitRootLogin` and change "yes" to "no". Your end result should look like the below. Mine was found on line 32.
 
 ```
-PermitRootLogin off
+PermitRootLogin no
 ```
 
 Save and exit. Restart the `ssh` daemon with:
