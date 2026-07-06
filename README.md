@@ -76,6 +76,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Warp free ASA / ABS prints](./content/warp-free-asa-abs-prints/README.md)
 
+### [Add additional cameras](./content/add-cameras-to-qidi-plus4/README.md)
+
 ## Orca Slicer Configuration
 
 ### [Orca Slicer Settings](./content/orca-slicer-settings)
