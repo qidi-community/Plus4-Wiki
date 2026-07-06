@@ -126,6 +126,8 @@ of the Qidi Plus4 3D printer.
 
 ### [Filament Tangle Sensor Disabler Clip](https://www.printables.com/model/1767439-qidi-plus-4-filament-tangle-blocker-clip)
 
+### [Nozzle Camera Mount](https://www.printables.com/model/1235572-qidi-plus-4-nozzle-camera-using-creality-nebula)
+
 ---
 
 ## Additional Software
