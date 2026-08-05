@@ -1,0 +1,5 @@
+--- a/box.cfg
++++ b/box.cfg
+@@ -1,1 +1,1 @@
+-        G1 E25 F300
++        G1 E-25 F300  # [QIDI-BOX-FIX] retract, not extrude (stock extrudes 25mm during unload)

@@ -1,0 +1,47 @@
+--- a/aht20_f.py
++++ b/aht20_f.py
+@@ -101,7 +101,7 @@
+ 
+                 # Read data
+                 read = self.i2c.i2c_read([], 7)
+-                if read is None:
++                if read is None or 'response' not in read:
+                     logging.warning("aht20_f: received data from" +
+                                     " i2c_read is None")
+                     continue
+@@ -125,7 +125,10 @@
+         except Exception as e:
+             logging.exception("aht20_f: exception encountered" +
+                               " reading data: %s"%str(e))
+-            self._reset_device()
++            try:
++                self._reset_device()
++            except Exception:
++                logging.exception("aht20_f: reset_device failed")
+             return False
+         
+ 
+@@ -156,7 +159,10 @@
+         self.i2c.i2c_write(AHT20_F_COMMANDS['OTP_CCP']) 
+         self.reactor.pause(self.reactor.monotonic() + .10)
+ 
+-        read = self.i2c.i2c_read([], 3) 
++        read = self.i2c.i2c_read([], 3)
++        if read is None or 'response' not in read:
++            logging.warning("aht20_f: reset read#1 returned no data - skipping CCP calibration")
++            return
+         data = bytearray(read['response'])
+ 
+         AHT20_F_COMMANDS['CCP_CCN'][1] = data[1]
+@@ -167,7 +173,10 @@
+         self.i2c.i2c_write(AHT20_F_COMMANDS['OTP_AFE']) 
+         self.reactor.pause(self.reactor.monotonic() + .10)
+ 
+-        read = self.i2c.i2c_read([], 3) 
++        read = self.i2c.i2c_read([], 3)
++        if read is None or 'response' not in read:
++            logging.warning("aht20_f: reset read#2 returned no data - skipping AFE calibration")
++            return
+         data = bytearray(read['response'])
+ 
+         AHT20_F_COMMANDS['AFE_CFG'][1] = data[1]

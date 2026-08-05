@@ -8,6 +8,13 @@ All of the work here is very strongly a Work In Progress.  If you wish to use it
 
 The following moves a significant portion of the QidiBox filament changing, purging, and cleaning out of the obfuscated `*.so` files that the QidiBox firmware ships with, and into a single gcode macro config file that can be easily edited to modify the behaviour of the g-code macros.  Additionally more generic filament change macros are added that allows for the QidiBox to be used with OrcaSlicer (tested), QidiStudio (tested), BambuStido (untested) and PrusaSlicer (maybe?)
 
+## Sandbox-verified fix bundle (2026-08-05)
+
+A patch set on top of this module collection — **9 fixes** (6 fork-independent + 3 mainline-drift),
+verified in a Klipper software sandbox (**NOT yet tested on a physical printer** — use with care):
+
+- [sandbox-fixes-2026-08-05/](./sandbox-fixes-2026-08-05/) — patches, required config files, install checklist, and verification evidence.
+
 ## Patching Qidi Plus 4 firmware
 
 Using an SSH shell to the printer, perform the following changes:

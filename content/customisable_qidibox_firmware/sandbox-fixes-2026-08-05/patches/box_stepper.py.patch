@@ -1,0 +1,13 @@
+--- a/box_stepper.py
++++ b/box_stepper.py
+@@ -113,7 +113,9 @@
+         self.next_cmd_time = self.next_cmd_time + accel_t + cruise_t + accel_t
+         self.stepper.set_position((0., 0., 0.))
+         toolhead = self.printer.lookup_object('toolhead')
+-        toolhead.note_kinematic_activity(self.next_cmd_time)
++        # Sandbox Fix #4: mainline Klipper removed toolhead.note_kinematic_activity();
++        # get_last_move_time() is the modern clock-sync equivalent (flushes step gen).
++        toolhead.get_last_move_time()
+     def dwell(self, delay):
+         self.next_cmd_time += max(0., delay)
+     def drip_move(self, newpos, speed, accel, drip_completion):

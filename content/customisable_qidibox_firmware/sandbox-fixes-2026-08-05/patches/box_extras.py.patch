@@ -1,0 +1,171 @@
+--- a/box_extras.py
++++ b/box_extras.py
+@@ -179,7 +179,9 @@
+             self.next_transform = self.gcode_move.set_move_transform(self, force=True)
+             self.last_position = self.next_transform.get_position()
+             toolhead = self.printer.lookup_object('toolhead')
+-            toolhead.get_extruder().get_heater().set_can_wait(False)
++            heater = toolhead.get_extruder().get_heater()
++            if hasattr(heater, 'set_can_wait'):  # QIDI-fork only; mainline lacks it
++                heater.set_can_wait(False)
+     def cmd_TOOL_CHANGE_END(self, gcmd):
+         box_extras = self.printer.lookup_object('box_extras')
+         box_extras.save_variable("is_tool_change", 0)
+@@ -189,7 +191,9 @@
+             self.next_transform = None
+             self.gcode_move.reset_last_position()
+             toolhead = self.printer.lookup_object('toolhead')
+-            toolhead.get_extruder().get_heater().set_can_wait(True)
++            heater = toolhead.get_extruder().get_heater()
++            if hasattr(heater, 'set_can_wait'):  # QIDI-fork only; mainline lacks it
++                heater.set_can_wait(True)
+ 
+     def get_position(self):
+         return list(self.last_position)
+@@ -203,6 +207,11 @@
+         reactor = self.printer.get_reactor()
+         b_button_pin = config.get('b_button_pin')
+         self.b_button = BoxButton(config, b_button_pin, self.b_button_callback)
++        # Sandbox Fix #9: filament temp list path must be configurable — the
++        # hardcoded /home/mks path only exists on QIDI printers (breaks the
++        # community .py swap on FreeDi/mainline/other hosts).
++        self.filament_list_path = config.get('filament_list_path',
++            '/home/mks/printer_data/config/officiall_filas_list.cfg')
+         self.b_endstop_state = 0
+         b_endstop_pin = config.get('b_endstop_pin')
+         self.b_endstop = BoxEndstop(config, 'b_endstop', b_endstop_pin)
+@@ -213,6 +222,9 @@
+         self.e_endstop = BoxEndstop(config, 'e_endstop', e_endstop_pin)
+         self.e_output = BoxOutput(config, e_endstop_pin)
+         self.e_endstop_timer = reactor.register_timer(self.update_e_endstop)
++        # Sandbox Fix #2: accept buffer_pin from the auto-generated box.cfg
++        # (stock .so consumes it; without this the .py swap fails config validation)
++        self.buffer_pin = config.get('buffer_pin', None)
+ 
+         self.tool_change = ToolChange(config)
+         self.can_load_slot = True
+@@ -394,8 +406,11 @@
+             stepper_number = match.group(2) 
+         else:
+             self.gcode.respond_info("Invalid retry_step format")
++            return
+         self.save_variable('retry_step', None)
+-        retry_stpper = self.printer.lookup_object('box_stepper slot' + stepper_number)
++        # Sandbox Fix #7: saved retry_steps use '_00' suffix; int() normalizes to slot0.
++        # Previously 'box_stepper slot00' lookup crashed klippy (real-printer retry button).
++        retry_stpper = self.printer.lookup_object('box_stepper slot' + str(int(stepper_number)))
+         self.gcode.run_script_from_command("DISABLE_ALL_SENSOR")
+ 
+         if step_name == 'QDE_004_001':
+@@ -419,7 +434,8 @@
+                     self.gcode.run_script_from_command("M109 S%s" %(str(print_temp)))
+                     retry_stpper.cmd_EXTRUDER_LOAD(gcmd)
+             else:
+-                print_temp = self.get_temp_by_slot(retry_stpper.stepper_name)['max_temp']
++                temp_info = self.get_temp_by_slot(retry_stpper.stepper_name)
++                print_temp = temp_info['max_temp'] if temp_info is not None else 250
+                 self.gcode.run_script_from_command("M109 S%s" %(str(print_temp)))
+                 retry_stpper.cmd_EXTRUDER_LOAD(gcmd)
+                 self.gcode.run_script_from_command("M104 S0")
+@@ -430,7 +446,8 @@
+                     self.gcode.run_script_from_command("M109 S%s" %(str(print_temp)))
+                     retry_stpper.cmd_EXTRUDER_LOAD(gcmd)
+             else:
+-                print_temp = self.get_temp_by_slot(retry_stpper.stepper_name)['max_temp']
++                temp_info = self.get_temp_by_slot(retry_stpper.stepper_name)
++                print_temp = temp_info['max_temp'] if temp_info is not None else 250
+                 self.gcode.run_script_from_command("M109 S%s" %(str(print_temp)))
+                 retry_stpper.cmd_EXTRUDER_LOAD(gcmd)
+                 self.gcode.run_script_from_command("M104 S0")
+@@ -443,7 +460,8 @@
+                     self.gcode.run_script_from_command("M109 S%s" %(str(print_temp)))
+                     retry_stpper.cmd_EXTRUDER_UNLOAD(gcmd)
+             else:
+-                print_temp = self.get_temp_by_slot(retry_stpper.stepper_name)['max_temp']
++                temp_info = self.get_temp_by_slot(retry_stpper.stepper_name)
++                print_temp = temp_info['max_temp'] if temp_info is not None else 250  # Fix #9 None-guard
+                 self.gcode.run_script_from_command("M109 S%s" %(str(print_temp)))
+                 retry_stpper.cmd_EXTRUDER_UNLOAD(gcmd)
+                 self.gcode.run_script_from_command("M104 S0")
+@@ -475,13 +493,15 @@
+                 return
+ 
+             # Unload the old filament and purge what we can.  Use minimum temperatures to minimise oozing
+-            old_filament_extrude_temp = self.get_temp_by_slot(loaded_extruder)['min_temp']
++            temp_info = self.get_temp_by_slot(loaded_extruder)
++            old_filament_extrude_temp = temp_info['min_temp'] if temp_info is not None else 190  # Fix #9 None-guard
+             self.gcode.run_script_from_command("BOX_MOVE_HEATING HOTEND=%s" %(str(old_filament_extrude_temp)))
+             self.printer.lookup_object('box_stepper ' + str(loaded_extruder)).cmd_EXTRUDER_UNLOAD(gcmd)
+             self.gcode.run_script_from_command("M400\nM83\nG1 E20 F300\nM400")
+ 
+         # Load in the new filament.  Use the higher of the new filament and any old filament temperatures
+-        new_filament_extrude_temp = self.get_temp_by_num(selected_slot)['min_temp']
++        temp_info = self.get_temp_by_num(selected_slot)
++        new_filament_extrude_temp = temp_info['min_temp'] if temp_info is not None else 190  # Fix #9 None-guard
+         extrude_temp = max(new_filament_extrude_temp, old_filament_extrude_temp)
+         self.gcode.run_script_from_command("BOX_MOVE_HEATING HOTEND=%s" %(str(extrude_temp)))
+         stepper.cmd_EXTRUDER_LOAD(gcmd)
+@@ -503,7 +523,10 @@
+             self.box_button_state = 0
+             return False
+ 
+-        extrude_temp = self.get_temp_by_num(selected_slot)['min_temp']
++        # Sandbox Fix #3: get_temp_by_num() returns None for unconfigured slots;
++        # subscripts crash klippy (front-panel E_UNLOAD = brick-scare path).
++        temp_info = self.get_temp_by_num(selected_slot)
++        extrude_temp = temp_info['min_temp'] if temp_info is not None else 190
+         self.gcode.run_script_from_command("BOX_MOVE_HEATING HOTEND=%s" %(str(extrude_temp)))
+         self.gcode.run_script_from_command("M400\nCUT_FILAMENT\nMOVE_TO_TRASH\nM83")
+         stepper.cmd_EXTRUDER_UNLOAD(gcmd,False)
+@@ -574,7 +597,10 @@
+                 stepper = self.printer.lookup_object('box_stepper slot' + str(j + 4 * i))
+                 if not stepper.r_endstop_state:##had load filament
+                     #filament = self.get_value_by_key(f'filament_slot' + str(j + 4 * i))
+-                    box_max_temp = self.get_box_temp_by_slot(slot)['max_temp']
++                    temp_info = self.get_box_temp_by_slot(slot)
++                    if temp_info is None:
++                        continue
++                    box_max_temp = temp_info['max_temp']
+                     if current_box_max_temp == -1:
+                         current_box_max_temp = box_max_temp
+                     else:
+@@ -592,7 +618,11 @@
+             stepper = self.printer.lookup_object('box_stepper ' + str(slot))
+             slot_num = stepper.stepper_num
+ 
+-            box_num = slot_num // 4 
++            box_num = slot_num // 4
++            # Sandbox Fix #6: box_max_temps only covers detected boxes (box_count);
++            # a stale/zero box_count previously crashed with KeyError on any VTx set.
++            if box_num not in box_max_temps:
++                continue
+             if box_max_temps[f'box_{box_num}']['set'] == -1:
+                 if value >= box_max_temps[f'box_{box_num}']['max_temp']:
+                     box_max_temps[f'box_{box_num}']['set'] = box_max_temps[f'box_{box_num}']['max_temp']
+@@ -867,7 +897,7 @@
+         return -1
+     
+     def get_temp_by_num(self, num):
+-        list_path="/home/mks/printer_data/config/officiall_filas_list.cfg"
++        list_path = self.filament_list_path
+         filament_id = self.get_value_by_key(f"filament_slot{num}",1)
+         section = f"fila{filament_id}"
+         config = configparser.ConfigParser()
+@@ -887,7 +917,7 @@
+             return None  
+         
+     def get_temp_by_slot(self, slot):
+-        list_path="/home/mks/printer_data/config/officiall_filas_list.cfg"
++        list_path = self.filament_list_path
+         filament_id = self.get_value_by_key(f"filament_{slot}",1)
+         section = f"fila{filament_id}"
+         config = configparser.ConfigParser()
+@@ -907,7 +937,7 @@
+             return None
+         
+     def get_box_temp_by_slot(self, slot):
+-        list_path="/home/mks/printer_data/config/officiall_filas_list.cfg"
++        list_path = self.filament_list_path
+         filament_id = self.get_value_by_key(f"filament_{slot}",1)
+         section = f"fila{filament_id}"
+         config = configparser.ConfigParser()
