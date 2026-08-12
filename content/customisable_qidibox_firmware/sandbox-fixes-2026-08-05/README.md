@@ -15,6 +15,13 @@
 
 ---
 
+## Authorship & testing status
+
+- **Coded by:** Hermes, an AI coding assistant, with human review (2026-08-05).
+- **Tested on real hardware:** **NO** — sandbox verification only (see disclaimer above).
+- **Audience:** the QIDI Plus 4 community. Contributions, corrections and real-hardware
+  testing reports are very welcome.
+
 ## What this is
 
 A verified patch set on top of the community `.so → .py` swap
